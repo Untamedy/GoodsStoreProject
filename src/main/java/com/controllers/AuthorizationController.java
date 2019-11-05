@@ -22,7 +22,7 @@ public class AuthorizationController {
     @Autowired
     RegistrationService registrationService;
     
- @RequestMapping(method = RequestMethod.POST, value = "/singup")
+ @RequestMapping(method = RequestMethod.POST, value = "/signup")
  public ResponseEntity<RegistrationResponse> singUp(@RequestBody RegistrationRequest request){     
      return new ResponseEntity<>(registrationService.register(request), HttpStatus.OK);
  }

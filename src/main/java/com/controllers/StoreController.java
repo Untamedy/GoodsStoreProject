@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author YBolshakova
  */
 @RestController
-@RequestMapping("/store")
+@RequestMapping("/admin/store")
 public class StoreController {
     @Autowired
     StoreService storeServiсe;

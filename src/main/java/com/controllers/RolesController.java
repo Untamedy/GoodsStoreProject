@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
  *
  * @author YBolshakova
  */
-@RestController
+@RestController("/admin/roles")
 public class RolesController {
     
     @Autowired
