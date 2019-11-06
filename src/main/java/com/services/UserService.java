@@ -16,6 +16,11 @@ import com.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -23,7 +28,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author YBolshakova
  */
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     UserRepository repositary;   
@@ -99,6 +104,23 @@ public class UserService {
         userDto.setState(state); 
         userDto.setOrganization(user.getOrgatisation());
         return userDto;        
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Users user = repositary.existsByUserEmail(email);
+        Set<GrantedAuthority> roles = new HashSet<>();
+        if(user.getRoles().contains("admin")){
+            roles.add(new SimpleGrantedAuthority("admin"));
+            roles.add(new SimpleGrantedAuthority("user"));
+        }else{
+           roles.add(new SimpleGrantedAuthority("user"));
+        }
+        
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUserEmail(), user.getPassword(), roles);
+        
+        return userDetails;
+       
     }
 
 }
