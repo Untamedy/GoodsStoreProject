@@ -13,9 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class DataSourceConfig {
     @Bean
    public DataSource getDataSource(){
-       DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-       dataSourceBuilder.username("julia");
-       dataSourceBuilder.password("123");
+       DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();       
        return (DataSource) dataSourceBuilder.build();
    }
     
