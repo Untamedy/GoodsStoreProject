@@ -2,6 +2,7 @@ package com.store.goodsstore.repository;
 
 
 import com.store.goodsstore.entities.Goods;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,10 +24,11 @@ public interface GoodsRepository extends JpaRepository<Goods, Integer>{
     public Goods updateGoodsName(String name, String code);   
         
     @Query("update Goods set unit = ?1 where code = ?2")
-    public Goods updateGoodsQuantity(String unit, String code);
-    
-    public Page<Goods> findByStoreId(Integer storeId, Pageable page);
+    public Goods updateGoodsQuantity(String unit, String code); 
     
     @Query("select count(id) from Goods where storeId = ?1")
     public int goodsCount(Integer storeId);
+    
+    @Query("select g from Goods g join GoodsCounter gc on g.id=gc.id where store_code = ?1")
+    public List<Goods> findByStoreCode(String code, Page page);
 }

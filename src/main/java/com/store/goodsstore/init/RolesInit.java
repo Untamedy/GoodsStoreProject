@@ -1,4 +1,4 @@
-package com.store.goodsstore.config;
+package com.store.goodsstore.init;
 
 import com.store.goodsstore.entities.Previlages;
 import com.store.goodsstore.entities.Role;
@@ -35,7 +35,7 @@ public class RolesInit {
 
         }
     }
-    public Set<Role> addRolesToList() {
+ /*   public Set<Role> addRolesToList() {
         Set<Role> roles = new HashSet<>();
         roles.add(createRole(ROLE_ADMIN));
         roles.add(createRole(ROLE_USER));
@@ -47,10 +47,10 @@ public class RolesInit {
                 
         return role;
 
-    }
+    }*/
     
 
- /*   public Set<Role> addRolesToList() {
+  public Set<Role> addRolesToList() {
         Set<Role> roles = new HashSet<>();
         roles.add(createRole(ROLE_ADMIN, PrevilagesInit.admin));
         roles.add(createRole(ROLE_USER, PrevilagesInit.user));
@@ -64,6 +64,6 @@ public class RolesInit {
         role.setPrevilagesName(previlageses);
         return role;
 
-    }*/
+    }
 
 }

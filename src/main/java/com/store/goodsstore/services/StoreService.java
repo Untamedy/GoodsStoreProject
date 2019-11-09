@@ -47,7 +47,7 @@ public class StoreService {
 
     public StoreResponse editStore(StoreRequest storeRequest) {
         if(storeRepositary.existsByStoreCode(storeRequest.getCode())){
-           Store store = storeRepositary.updateStore(storeRequest.getCode());
+           Store store = storeRepositary.save(createStore(storeRequest));
            return createStoreResponse(store);                   
         }     
         throw new RuntimeException("Store with code " + storeRequest.getCode() + " isn't exist");
@@ -56,7 +56,7 @@ public class StoreService {
     public Store createStore(StoreRequest storeRequest) {
         Store store = new Store();
         store.setName(storeRequest.getName());
-        store.setDescription(storeRequest.getDescription());
+        store.setDescription(storeRequest.getDescription());        
         return store;
     }
     
@@ -65,6 +65,7 @@ public class StoreService {
         storeRequest.setCode(request.getStoreCode());
         storeRequest.setName(request.getStoreName());
         storeRequest.setDescription(request.getStoreDiscription());
+        storeRequest.setOrganization(organization);
         return storeRequest;
         
     }

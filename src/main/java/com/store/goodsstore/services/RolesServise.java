@@ -1,6 +1,6 @@
 package com.store.goodsstore.services;
 
-import com.store.goodsstore.config.RolesInit;
+import com.store.goodsstore.init.RolesInit;
 import com.store.goodsstore.entities.Role;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;

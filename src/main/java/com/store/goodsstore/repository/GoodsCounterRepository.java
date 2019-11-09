@@ -13,11 +13,11 @@ public interface GoodsCounterRepository extends JpaRepository<GoodsCounter, Inte
     @Query("select quantity from GoodsCounter where goodsCode = '?1' and storeCode = '?2'")
     public int getCount(String goodsId, String storeId);
     
-    @Query("select sum quentity from GoodsCounter where goodsCode = '?1'")
+    @Query("select sum(quantity) from GoodsCounter where goodsCode = '?1'")
     public int getGoodsSum(String goodsCode);
     
-    @Query("select * from GoodsCounter where storeCode = '?1' and goodsCode = '?2'")
-    public GoodsCounter findByStoreCode(String storeCode, String goodsCode);
+   // @Query("select * from GoodsCounter where store_id = '?1' and goods_id = '?2'")
+    public GoodsCounter findByStoreIdAndGoodsId(int storeCode, int goodsCode);
     
     
     

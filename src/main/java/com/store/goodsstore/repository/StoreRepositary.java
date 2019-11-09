@@ -19,8 +19,7 @@ public interface StoreRepositary extends JpaRepository<Store, Integer> {
     
     public boolean existsByStoreCode(String code);
     
-    public Page<Store> findByOrgId(Integer id, Pageable page);
-    
-    public Store updateStore(String code);
+    public Page<Store> findByOrgId(Integer id, Pageable page);    
+  
 
 }

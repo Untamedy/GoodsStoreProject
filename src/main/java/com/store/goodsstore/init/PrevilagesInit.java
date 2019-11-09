@@ -1,4 +1,4 @@
-package com.store.goodsstore.config;
+package com.store.goodsstore.init;
 
 import com.store.goodsstore.entities.Previlages;
 import java.util.HashSet;
@@ -13,10 +13,10 @@ import com.store.goodsstore.repository.PrevilagesRepository;
  *
  * @author YBolshakova
  */
-//@Component
+@Component
 public class PrevilagesInit {
 
-   /* @Autowired
+    @Autowired
     private PrevilagesRepository repositary;
 
     public static final String ADD_GOODS = "add";
@@ -68,5 +68,5 @@ public class PrevilagesInit {
                 repositary.save(p);
             }
         }
-    }*/
+    }
 }

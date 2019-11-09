@@ -73,13 +73,13 @@ public class GoodsService {
         return response;
     }
 
-    public Page<GoodsResponse> findByStoreId(Integer id, GoodsPageRequest request) {
+  /*  public Page<GoodsResponse> findByStoreIdAndGoodsId(Integer id, GoodsPageRequest request) {
         Pageable page = PageRequest.of(request.getPage(), request.getSize());
-        Page<GoodsResponse> goodsByStore = repository.findByStoreId(request.getStoreId(), page).map(((goods) -> {
+        Page<GoodsResponse> goodsByStore = repository.findByStoreCode(request.getStoreCode(), page).map(((goods) -> {
             return createGoodsResponse(goods);
         }));
         return goodsByStore;
-    }
+    }*/
 
     public int goodsCount(Integer storeId) {
         return repository.goodsCount(storeId);

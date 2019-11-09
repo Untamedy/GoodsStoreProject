@@ -5,16 +5,17 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author YBolshakova
  */
+@Component
 public class AccessDeniedHandlerImpl implements AccessDeniedHandler{
     private static final Logger logger = Logger.getLogger(AccessDeniedHandlerImpl.class.getName());
 

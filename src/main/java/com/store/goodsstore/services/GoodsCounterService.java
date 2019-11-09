@@ -39,9 +39,9 @@ public class GoodsCounterService {
         return null;
         
     }
-    
+    //необходимо дописать логику для получения store_id /goods_id для метода findBy...либо написать join запрос
     public GoodsCounter increaseGoodsQuantity(GoodsCounterDto goodsCounterDto){           
-        GoodsCounter counter = repository.findByStoreCode(goodsCounterDto.getStoreCode(), goodsCounterDto.getGoodsCode());
+        GoodsCounter counter = repository.findByStoreIdAndGoodsId(Integer.valueOf(goodsCounterDto.getStoreCode()),Integer.valueOf(goodsCounterDto.getGoodsCode()));
         if(null!=counter){
             int quantity = counter.getQuantity();
             quantity+=goodsCounterDto.getQuantity();
@@ -53,7 +53,7 @@ public class GoodsCounterService {
         
              
     public GoodsCounter decreaseGoodsQuantity(GoodsCounterDto goodsCounterDto){
-         GoodsCounter counter = repository.findByStoreCode(goodsCounterDto.getStoreCode(), goodsCounterDto.getGoodsCode());
+         GoodsCounter counter = repository.findByStoreIdAndGoodsId(Integer.valueOf(goodsCounterDto.getStoreCode()),Integer.valueOf(goodsCounterDto.getGoodsCode()));
         if(null!=counter){
             int quantity = counter.getQuantity();
             if(quantity>=goodsCounterDto.getQuantity()){
@@ -66,7 +66,7 @@ public class GoodsCounterService {
     }
     
     public GoodsCounter createGoodsCounter(GoodsCounterDto goodsCounterDto){            
-        return repository.findByStoreCode(goodsCounterDto.getStoreCode(), goodsCounterDto.getGoodsCode());
+        return repository.findByStoreIdAndGoodsId(Integer.valueOf(goodsCounterDto.getStoreCode()),Integer.valueOf(goodsCounterDto.getGoodsCode()));
         
     }
     
