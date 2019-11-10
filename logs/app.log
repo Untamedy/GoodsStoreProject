@@ -782,3 +782,19 @@ Caused by: java.lang.IllegalArgumentException: 'loginPage?error' is not a valid 
 2019-11-09 20:11:51,710 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
 2019-11-09 20:11:51,710 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
 2019-11-09 20:11:58,915 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 7.583 seconds (JVM running for 8.977)
+2019-11-10 21:39:23,713 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on Lenovo-PC with PID 9628 (started by Lenovo in C:\Users\Lenovo\Documents\GoodsStoreProject)
+2019-11-10 21:39:23,716 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-11-10 21:39:23,716 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-11-10 21:39:33,392 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 10.123 seconds (JVM running for 11.811)
+2019-11-10 21:52:53,238 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on Lenovo-PC with PID 10504 (started by Lenovo in C:\Users\Lenovo\Documents\GoodsStoreProject)
+2019-11-10 21:52:53,242 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-11-10 21:52:53,295 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-11-10 21:53:01,118 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.254 seconds (JVM running for 9.782)
+2019-11-10 22:00:29,663 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on Lenovo-PC with PID 7820 (started by Lenovo in C:\Users\Lenovo\Documents\GoodsStoreProject)
+2019-11-10 22:00:29,666 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-11-10 22:00:29,666 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-11-10 22:00:38,056 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.777 seconds (JVM running for 10.184)
+2019-11-10 22:07:53,159 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on Lenovo-PC with PID 6604 (started by Lenovo in C:\Users\Lenovo\Documents\GoodsStoreProject)
+2019-11-10 22:07:53,163 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-11-10 22:07:53,164 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-11-10 22:08:00,838 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.141 seconds (JVM running for 9.744)
