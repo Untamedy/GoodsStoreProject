@@ -3,7 +3,14 @@ package com.store.goodsstore.controllers;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.RegistrationResponse;
 import com.store.goodsstore.services.RegistrationService;
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,22 +40,17 @@ public class AuthorizationController {
     }
     
     @PostMapping("/registration")
-    public ResponseEntity registration(){
-        return null;
-        
-        
-        
-    }
-}
+    public ResponseEntity registration(@RequestBody RegistrationRequest registrationRequest){
+        RegistrationResponse response = registrationService.register(registrationRequest);
+        if(null!=response){        
+                HttpHeaders headers = new HttpHeaders();
+                headers.add("Location", "/login");
+                return new ResponseEntity<>(registrationService.register(registrationRequest),headers, HttpStatus.OK);           
+        }   
+        return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }         
             
-            
-    
-    
-    
- @RequestMapping(method = RequestMethod.POST, value = "/signup")
- public ResponseEntity<RegistrationResponse> singUp(@RequestBody RegistrationRequest request){     
-     return new ResponseEntity<>(registrationService.register(request), HttpStatus.OK);
- }
+ 
  
  
     
