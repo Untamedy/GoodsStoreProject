@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author YBolshakova
  */
 
-@Controller
+@RestController
 public class AuthorizationController {
     
     @Autowired
