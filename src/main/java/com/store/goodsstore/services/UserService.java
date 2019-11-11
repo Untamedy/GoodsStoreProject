@@ -16,8 +16,6 @@ import com.store.goodsstore.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -74,11 +72,11 @@ public class UserService implements UserDetailsService {
     public Users createUser(UserRequest userRequestDto) {
         Users user = new Users();
         Set<Role> roles = new HashSet<>();
-        user.setUserName(userRequestDto.getUserName());
+        user.setUsername(userRequestDto.getUserName());
         user.setPassword(userRequestDto.getPassword());
         user.setUserEmail(userRequestDto.getUserEmail());
         roles.add(rolesServise.findRoleByName("admin"));
-        user.setRoles(roles);        
+        user.setAuthorities(roles);        
         return user;
     }
 
@@ -108,19 +106,12 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Users user = repositary.findByUserEmail(email);
-        Set<GrantedAuthority> roles = new HashSet<>();
-        if(user.getRoles().contains("admin")){
-            roles.add(new SimpleGrantedAuthority("admin"));
-            roles.add(new SimpleGrantedAuthority("user"));
-        }else{
-           roles.add(new SimpleGrantedAuthority("user"));
+        Users user = repositary.findByUserEmail(email);  
+        if(null!=user){
+            return user;
         }
-        
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUserEmail(), user.getPassword(), roles);
-        
-        return userDetails;
-       
+        throw new UsernameNotFoundException("user " + email + " not found");
+               
     }
 
 }

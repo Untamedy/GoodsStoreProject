@@ -9,11 +9,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  *
@@ -23,8 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @SequenceGenerator(name="my_seq", initialValue=1, allocationSize=1)
-public class Role {   
-   
+public class Role implements GrantedAuthority{     
    
     @Id   
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
@@ -37,6 +36,11 @@ public class Role {
     
      public Role(String name){
         this.roleName=name;
+    }
+
+    @Override
+    public String getAuthority() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
