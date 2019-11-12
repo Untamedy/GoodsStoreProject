@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 
 /**
  *
@@ -112,6 +113,16 @@ public class UserService implements UserDetailsService {
         }
         throw new UsernameNotFoundException("user " + email + " not found");
                
+    }
+
+        public boolean changePassword(String pass, String email) {
+        Users user = repositary.findByUserEmail(email);
+        if(null!=user){
+            user.setPassword(pass);
+            repositary.save(user);
+            return true;
+        }
+        return  false;
     }
 
 }
