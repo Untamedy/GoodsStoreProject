@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author YBolshakova
  */
-public interface StoreRepositary extends JpaRepository<Store, Integer> {
+public interface StoreRepository extends JpaRepository<Store, Integer> {
 
     public boolean existsByName(String name);
 

@@ -6,12 +6,12 @@ import com.store.goodsstore.dto.StoreRequest;
 import com.store.goodsstore.dto.StoreResponse;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
-import com.store.goodsstore.repository.StoreRepositary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import com.store.goodsstore.repository.StoreRepository;
 
 /**
  *
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 public class StoreService {
 
     @Autowired
-    private StoreRepositary storeRepositary;
+    private StoreRepository storeRepositary;
     @Autowired
     GoodsService goodsService;
 
