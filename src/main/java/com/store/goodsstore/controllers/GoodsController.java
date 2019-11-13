@@ -1,16 +1,26 @@
 package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.GoodsDto;
+import com.store.goodsstore.dto.GoodsPageRequest;
 import com.store.goodsstore.dto.GoodsResponse;
+import com.store.goodsstore.entities.GoodsGroup;
+import com.store.goodsstore.repository.GroupRepository;
+import com.store.goodsstore.services.GoodsGroupService;
 import com.store.goodsstore.services.GoodsService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 
 /**
  *
@@ -20,31 +30,51 @@ import org.springframework.web.bind.annotation.RestController;
 public class GoodsController {
     
     @Autowired
-    GoodsService goodsService;
+   private GoodsService goodsService;
+    @Autowired
+    private GoodsGroupService groupService;
     
- /*   @RequestMapping(method = RequestMethod.POST, value = "/list")
+    @GetMapping("/listGroups")
+    public ModelAndView getAllGroup(){
+        List<GoodsGroup> allGroup = groupService.getAllgroup();
+        return new ModelAndView("storePage", "listOfGroups", allGroup);        
+    }
+    
+  @PostMapping("/list")
     public Page<GoodsResponse> getGoodsByStore(@RequestBody GoodsPageRequest request ){        
-        return goodsService.findByStoreId(request.getStoreId(), request);        
-    }*/
+        return goodsService.findByStoreIdAndGroupId(request.getStoreId(), request);        
+    }
     
-    @RequestMapping(method = RequestMethod.POST, value = "/saveGoods")
-    public ResponseEntity<GoodsResponse> saveGoods(@RequestBody GoodsDto request){
+    @PostMapping("/saveGoods")
+    public ModelAndView saveGoods(@RequestBody GoodsDto request){
         GoodsResponse response = goodsService.saveGoods(request);
-        return new ResponseEntity<>(response,HttpStatus.OK);
+       return new ModelAndView("storePage", HttpStatus.OK);
     }
     
-    @RequestMapping(method = RequestMethod.POST, value = "/remove")
-    public ResponseEntity<String> removeGoods(@RequestBody GoodsDto request){
+    @PostMapping("/remove")
+    public ModelAndView removeGoods(@RequestBody GoodsDto request){
         if(goodsService.deleteGoods(request)){
-         return new ResponseEntity<>("Goods " + request.getName() + " remove successful", HttpStatus.OK);   
+         return new ModelAndView("storePage", HttpStatus.OK);   
         }
-        return new ResponseEntity<>("Goods " + request.getName() + " didn't remove", HttpStatus.NOT_MODIFIED);
+        return new ModelAndView("storePage",  HttpStatus.NOT_MODIFIED);
     }
     
-  /*  @RequestMapping(method = RequestMethod.POST, value = "/goodsByStore{:id}")
-    public Page<GoodsResponse> getGoodsByStore(@PathVariable int id, @RequestBody GoodsPageRequest request){
-       return goodsService.findByStoreId(id, request);
-        
-    }*/
+    @PostMapping("/edit")
+    public ModelAndView editGoods(@RequestBody GoodsDto request){
+        GoodsResponse response = goodsService.updateGoodsName(request);
+        if(response!=null){
+             return new ModelAndView("groupPage",HttpStatus.OK);       
+        }
+        return new ModelAndView("groupPage",HttpStatus.NOT_MODIFIED);        
+    }
+    
+  @PostMapping("/sale")
+  public ModelAndView saleGoods(@ResponseBody List<GoodsResponse> goods){
+        return null;
+      
+  }
+          
 
+    
+    
 }

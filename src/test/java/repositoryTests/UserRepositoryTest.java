@@ -5,8 +5,13 @@
  */
 package repositoryTests;
 
-import com.store.entities.Organization;
-import com.store.entities.Users;
+import com.store.goodsstore.GoodsstoreApplication;
+import com.store.goodsstore.dto.UserRequest;
+import com.store.goodsstore.entities.Organization;
+import com.store.goodsstore.entities.Role;
+import com.store.goodsstore.entities.Store;
+import com.store.goodsstore.entities.Users;
+import com.store.goodsstore.init.PrevilagesInit;
 import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.repository.RolesRepository;
 import com.store.goodsstore.repository.UserRepository;
@@ -17,8 +22,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.store.goodsstore.repository.StoreRepository;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
@@ -28,72 +31,83 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.sql.DataSource;
 import org.junit.jupiter.api.BeforeAll;
 import static org.assertj.core.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.BootstrapWith;
+import org.springframework.test.context.ContextConfiguration;
+
 /**
  *
  * @author Lenovo
  */
-@ExtendWith(SpringExtension.class)
+//@ExtendWith(SpringExtension.class)
+/*@SpringBootTest
 @DataJpaTest
-public class UserRepositoryTest{
-    
+//@ContextConfiguration(classes = {GoodsstoreApplication.class})
+public class UserRepositoryTest {
+
+     @Autowired
+    public static UserRepository repository;
     @Autowired
-    public UserRepository repository;
+    private static RolesRepository rolesRepository;
     @Autowired
-    private RolesRepository rolesRepository;
+    private static OrganizationRepository orgrepository;
     @Autowired
-    private OrganizationRepository orgrepository;
-    @Autowired
-    private StoreRepository storeRepositary;    
+    private static StoreRepository storeRepositary;    
     @Autowired 
-    private EntityManager entityManager;
-    
-    private final String path ="/src/main/resources/path.sql";
-    private Organization organization;
-    private Store store;
-    private Set<Roles> roles;
+    private static EntityManager entityManager;
+    @Autowired
+    private DataSource dataSource;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private static EntityManager entityManager;
+    @Autowired
+    private static UserRepository userRepository;
+
+    private static final String path = "/src/main/resources/path.sql";
+    private static Organization organization;
+    private static Store store;
+    private static Set<Role> roles;
+    private static Query query;
 
     @BeforeAll
-    public void init(){
+    public static void init() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
             String line = "";
-            while(null!=line){
+            while (null != line) {
                 line = reader.readLine();
-                Query query = entityManager.createNativeQuery(line);
-                query.executeUpdate();
+                entityManager.createQuery(line).executeUpdate();                
             }
         } catch (IOException ex) {
             Logger.getLogger(UserRepositoryTest.class.getName()).log(Level.SEVERE, null, ex);
-        }     
-    }   
-    
-    @BeforeAll
-    public void createEntity(){
-        organization =  orgrepository.findById(1).get();
-        store = storeRepositary.findById("1").get();
-        List<Role> r = rolesRepository.findAll();
-        roles = new HashSet<>(r);        
+        }
     }
-     
-    
+
+    @BeforeEach
+    public void createEntity() {
+        organization = orgrepository.findById(1).get();
+        store = storeRepositary.findById(1).get();
+        List<Role> r = rolesRepository.findAll();
+        roles = new HashSet<>(r);
+    }
+
     @Test
-    public void saveUsertest(){
+    public void saveUsertest() {
         Users user = new Users();
         user.setOrgatisation(organization);
         user.setPassword("pass");
-        user.setRoles(roles);
+        user.setAuthorities(roles);
         user.setStore(store);
         user.setUserEmail("y.shemanska@gmail.com");
-        user.setUserName("admin");      
-        
-        assertThat(null!=repository.save(user));
-        
-         
-        
+        user.setUsername("admin");
+
+        assertThat(null != repository.save(user));
     }
-    
-    
-    
-}
+
+}*/
