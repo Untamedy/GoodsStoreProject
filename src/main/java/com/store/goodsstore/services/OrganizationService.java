@@ -1,6 +1,6 @@
 package com.store.goodsstore.services;
 
-import com.store.goodsstore.dto.OrganizationResponse;
+import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.entities.Organization;
@@ -18,7 +18,7 @@ public class OrganizationService {
     @Autowired
     OrganizationRepository repository;
 
-    public OrganizationResponse saveOrganisation(RegistrationRequest request) { 
+    public OrganizationDto saveOrganisation(RegistrationRequest request) { 
         if(repository.existsByOrganizationEmail(request.getOrganizationEmail())){
            throw new RuntimeException("Organisation is already exists"); 
         }
@@ -34,8 +34,8 @@ public class OrganizationService {
         return organization;
     }
     
-    public OrganizationResponse createOrganizationResponse(Organization organization){
-        OrganizationResponse organizationResponse = new OrganizationResponse();
+    public OrganizationDto createOrganizationResponse(Organization organization){
+        OrganizationDto organizationResponse = new OrganizationDto();
         organizationResponse.setOrganizationId(organization.getId());
         organizationResponse.setOrganizationName(organization.getName());
         organizationResponse.setOrganizationEmail(organization.getOrganizationEmail());

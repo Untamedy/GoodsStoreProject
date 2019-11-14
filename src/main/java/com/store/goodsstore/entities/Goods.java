@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import lombok.Data;
 
@@ -28,7 +27,7 @@ public class Goods {
     private String name;
     @Column(nullable = false, unique = true)
     private String code;
-    private String unit;
+    private String unit;   
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private GoodsGroup goodsGroupId;

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrganizationResponse {
+public class OrganizationDto {
     private int organizationId;
     private String organizationName;
     private String organizationEmail;

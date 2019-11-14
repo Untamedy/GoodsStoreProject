@@ -1,7 +1,7 @@
 package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.StoreRequest;
-import com.store.goodsstore.dto.StoreResponse;
+import com.store.goodsstore.dto.StoreDto;
 import com.store.goodsstore.services.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,7 +26,7 @@ public class StoreController {
     
     @RequestMapping(method = RequestMethod.POST, value = "/save")
     @ExceptionHandler({RuntimeException.class})
-    public ResponseEntity<StoreResponse> saveNewStore(@RequestBody StoreRequest request){
+    public ResponseEntity<StoreDto> saveNewStore(@RequestBody StoreRequest request){
       return new ResponseEntity<>(storeServiсe.saveStore(request),HttpStatus.OK);  
     }
     
@@ -39,7 +39,7 @@ public class StoreController {
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/allStores?pages={pages}&size={size}&id={id}")
-    public Page<StoreResponse> getAllStores(@PathVariable ("pages") int pages, @PathVariable ("size") int size, @PathVariable ("id") Integer id){
+    public Page<StoreDto> getAllStores(@PathVariable ("pages") int pages, @PathVariable ("size") int size, @PathVariable ("id") Integer id){
        return storeServiсe.getAllStore(pages, size, id);        
     }
     

@@ -11,8 +11,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class RegistrationResponse {
     
-    private UserResponse userRespons;
-    private OrganizationResponse organisationResponse; 
-    private StoreResponse storeResponse;
+    private UserDto userDto;
+    private OrganizationDto organisationDto; 
+    private StoreDto storeDto;
 
 }

@@ -3,7 +3,7 @@ package com.store.goodsstore.services;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.RegistrationResponse;
 import com.store.goodsstore.dto.StoreRequest;
-import com.store.goodsstore.dto.StoreResponse;
+import com.store.goodsstore.dto.StoreDto;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class StoreService {
     @Autowired
     GoodsService goodsService;
 
-    public StoreResponse saveStore(StoreRequest storeRequest) {
+    public StoreDto saveStore(StoreRequest storeRequest) {
         if (!storeRepositary.existsByName(storeRequest.getName())) {
             Store store = createStore(storeRequest);            
             storeRepositary.save(store);
@@ -45,7 +45,7 @@ public class StoreService {
         return true;
     }
 
-    public StoreResponse editStore(StoreRequest storeRequest) {
+    public StoreDto editStore(StoreRequest storeRequest) {
         if(storeRepositary.existsByStoreCode(storeRequest.getCode())){
            Store store = storeRepositary.save(createStore(storeRequest));
            return createStoreResponse(store);                   
@@ -70,15 +70,15 @@ public class StoreService {
         
     }
     
-    public StoreResponse createStoreResponse(Store store){
-        StoreResponse response = new StoreResponse();
+    public StoreDto createStoreResponse(Store store){
+        StoreDto response = new StoreDto();
         response.setName(store.getName());        
         return response;
     }
     
-    public Page<StoreResponse> getAllStore( int pages, int size, Integer orgId){
+    public Page<StoreDto> getAllStore( int pages, int size, Integer orgId){
         Pageable page = PageRequest.of(pages, size);
-        Page<StoreResponse> allStore = storeRepositary.findByOrgId(orgId, page).map((s) -> {
+        Page<StoreDto> allStore = storeRepositary.findByOrgId(orgId, page).map((s) -> {
             return createStoreResponse(s); 
         });
          return allStore;       

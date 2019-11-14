@@ -1,6 +1,6 @@
 package com.store.goodsstore.entities;
 
-import java.util.Collection;
+import com.store.goodsstore.persistent.State;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +16,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  *
@@ -28,7 +27,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NoArgsConstructor
 @AllArgsConstructor
 @SequenceGenerator(name="my_seq", initialValue=1, allocationSize=1)
-public class Users implements UserDetails{    
+public class Users {    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
     private Integer id;
@@ -38,17 +37,12 @@ public class Users implements UserDetails{
     @Column(nullable = false)
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> authorities;
-    @ManyToOne
-    @JoinColumn(name = "storeId")
-    private Store store;
+    private Set<Role> authorities;    
     @ManyToOne
     @JoinColumn(name = "orgId")
-    private Organization orgatisation;    
-    private boolean isAccountNonExpired;
-    private boolean isAccountNonLocked;
-    private boolean isCredentialsNonExpired;
-    private boolean isEnabled;
+    private Organization orgatisation; 
+    private State state;
+   
 
     
 

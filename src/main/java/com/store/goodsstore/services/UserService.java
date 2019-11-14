@@ -2,9 +2,9 @@ package com.store.goodsstore.services;
 
 
 import com.store.goodsstore.dto.RegistrationRequest;
+import com.store.goodsstore.dto.UserDto;
+import com.store.goodsstore.dto.UserRequestDto;
 import com.store.goodsstore.persistent.State;
-import com.store.goodsstore.dto.UserRequest;
-import com.store.goodsstore.dto.UserResponse;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Role;
 import com.store.goodsstore.entities.Users;
@@ -16,18 +16,15 @@ import com.store.goodsstore.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.ui.Model;
+
 
 /**
  *
  * @author YBolshakova
  */
 @Service
-public class UserService implements UserDetailsService {
+public class UserService{
 
     @Autowired
     UserRepository repositary;   
@@ -37,46 +34,44 @@ public class UserService implements UserDetailsService {
     PasswordEncoder encoder;
     
 
-    public UserResponse getUsersByEmail(String email) {
-        UserResponse userResponsDto = new UserResponse();
+    public UserDto getUsersByEmail(String email) {
+        UserDto userDto = new UserDto();
         Users user = repositary.findByUserEmail(email);
         if (null != user) {
-            userResponsDto = createUserRespons(user,State.EXISTING);
-            return userResponsDto;
+            return createUserRespons(user,State.EXISTING);            
         }else{
-            userResponsDto.setState(State.NOT_FOUND);
+            userDto.setState(State.NOT_FOUND);
         }               
         
-        return userResponsDto;
+        return userDto;
     }
 
-    public Page<UserResponse> getAllUsers(int pages, int size) {  
+    public Page<UserDto> getAllUsers(int pages, int size) {  
         Pageable page = PageRequest.of(pages, size);                
-        Page<UserResponse> userList = repositary.findAll(page).map((u) -> {
+        Page<UserDto> userList = repositary.findAll(page).map((u) -> {
             return createUserRespons(u, State.EXISTING); 
         });        
         return userList;
     }
 
-    public UserResponse saveUser(UserRequest userRequestDto) {        
+    public UserDto saveUser(UserRequestDto userRequestDto) {        
         if (!isUserExist(userRequestDto.getUserEmail())) {
             Users user = createUser(userRequestDto);
             repositary.save(user);
-            UserResponse userResponseDto = createUserRespons(user,State.SAVED);            
-            return userResponseDto;
+           return createUserRespons(user,State.SAVED);  
         }
         throw new RuntimeException("User is already exists");
     }
     
     
 
-    public Users createUser(UserRequest userRequestDto) {
+    public Users createUser(UserRequestDto userRequestDto) {
         Users user = new Users();
         Set<Role> roles = new HashSet<>();
-        user.setUsername(userRequestDto.getUserName());
+        user.setUsername(userRequestDto.getUsername());
         user.setPassword(userRequestDto.getPassword());
         user.setUserEmail(userRequestDto.getUserEmail());
-        roles.add(rolesServise.findRoleByName("admin"));
+        roles.add(rolesServise.findRoleByName("user"));
         user.setAuthorities(roles);        
         return user;
     }
@@ -85,35 +80,27 @@ public class UserService implements UserDetailsService {
         return repositary.findByUserEmail(email) != null;
     }
     
-     public UserRequest createUserRequest(RegistrationRequest request, Organization organization) {
-        UserRequest user = new UserRequest();
-        user.setUserName(request.getUserName());
+     public UserRequestDto createUserRequest(RegistrationRequest request, Organization organization) {
+        UserRequestDto user = new UserRequestDto();
+        user.setUsername(request.getUserName());
         user.setUserEmail(request.getUserEmail());
         user.setPassword(encoder.encode(request.getUserPass()));
-        user.setOrganization(organization);
+        user.setOrganization(organization);      
+        
         return user;
     }
      
-      public UserResponse createUserRespons(Users user, State state){
+      public UserDto createUserRespons(Users user, State state){
         int id = repositary.findByUserEmail(user.getUserEmail()).getId();
         String email = user.getUserEmail();
-        UserResponse userDto = new UserResponse(); 
+        UserDto userDto = new UserDto(); 
         userDto.setId(id);
         userDto.setUserEmail(email);
         userDto.setState(state); 
         userDto.setOrganization(user.getOrgatisation());
         return userDto;        
     }
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Users user = repositary.findByUserEmail(email);  
-        if(null!=user){
-            return user;
-        }
-        throw new UsernameNotFoundException("user " + email + " not found");
-               
-    }
+   
 
         public boolean changePassword(String pass, String email) {
         Users user = repositary.findByUserEmail(email);
