@@ -102,4 +102,8 @@ public class GoodsService {
     public Page<GoodsResponse> findByStoreIdAndGroupId(Integer storeId, GoodsPageRequest request) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public Page<GoodsResponse> findByGroupId(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

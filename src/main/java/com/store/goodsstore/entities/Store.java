@@ -24,19 +24,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @SequenceGenerator(name="my_seq", initialValue=1, allocationSize=1)
 public class Store implements Serializable {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
     private Integer id;
     
     @Column(unique = true)
     private String name;
+    
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "orgId")
-    private Organization orgId;
+    @JoinColumn(name = "orgId")    
+    private Organization organization;
+    
     @Column(length = 255)
-    private String description;
-    @Column(unique = true)
-    private String storeCode;
+    private String description;   
     
     
 

@@ -29,8 +29,7 @@ public class AcountInit {
         RegistrationRequest request = new RegistrationRequest();
         request.setOrganizationName("TestStore");
         request.setOrganizationEmail("y.shemanska@gmail.com");
-        request.setStoreCode("test01");
-        request.setStoreDiscription("first store foe test");
+        request.setStoreCode("test01");        
         request.setStoreName("FirstStore");
         request.setUserEmail("y.shemanska@gmail.com");
         request.setUserName("Me");

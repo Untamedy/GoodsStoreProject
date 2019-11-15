@@ -1,9 +1,8 @@
 package com.store.goodsstore.repository;
 
-import com.store.goodsstore.dto.StoreRequest;
+
 import com.store.goodsstore.entities.Store;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
@@ -15,11 +14,10 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
 
     public boolean existsByName(String name);
 
-    public Store findByName(String name);
+    public Store findByName(String name);   
+        
+    public List<Store> findByOrgId(Integer id);
     
-    public boolean existsByStoreCode(String code);
-    
-    public Page<Store> findByOrgId(Integer id, Pageable page);    
   
 
 }

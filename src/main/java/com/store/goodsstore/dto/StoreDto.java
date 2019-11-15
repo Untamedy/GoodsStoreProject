@@ -13,8 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StoreDto {
-    private String name;
-    private String code;
+    private String name;    
     private String description;
     private Organization organization;
       

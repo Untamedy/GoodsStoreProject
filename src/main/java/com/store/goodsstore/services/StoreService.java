@@ -1,17 +1,14 @@
 package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.RegistrationRequest;
-import com.store.goodsstore.dto.RegistrationResponse;
-import com.store.goodsstore.dto.StoreRequest;
 import com.store.goodsstore.dto.StoreDto;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.store.goodsstore.repository.StoreRepository;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -25,65 +22,53 @@ public class StoreService {
     @Autowired
     GoodsService goodsService;
 
-    public StoreDto saveStore(StoreRequest storeRequest) {
-        if (!storeRepositary.existsByName(storeRequest.getName())) {
-            Store store = createStore(storeRequest);            
-            storeRepositary.save(store);
-            return createStoreResponse(store);
+    public StoreDto saveStore(StoreDto storeDto) {
+        if (!storeRepositary.existsByName(storeDto.getName())) {
+            Store store = createStore(storeDto);
+            return createStoreDto(storeRepositary.save(store));
         }
         throw new RuntimeException("Store is not created");
     }
 
-    public boolean deleteStore(StoreRequest storeRequest) {       
-        if (storeRepositary.existsByName(storeRequest.getName())) {
-            Store store = storeRepositary.findByName(storeRequest.getName());
-            if(goodsService.goodsCount(store.getId())> 0){
-                return false;                
-            }                      
-            storeRepositary.delete(store);            
+    public boolean deleteStore(StoreDto storeDto) {
+        if (storeRepositary.existsByName(storeDto.getName())) {
+            Store store = storeRepositary.findByName(storeDto.getName());
+            if (goodsService.goodsCount(store.getId()) > 0) {
+                return false;
+            }
+            storeRepositary.delete(store);
         }
         return true;
-    }
+    }  
 
-    public StoreDto editStore(StoreRequest storeRequest) {
-        if(storeRepositary.existsByStoreCode(storeRequest.getCode())){
-           Store store = storeRepositary.save(createStore(storeRequest));
-           return createStoreResponse(store);                   
-        }     
-        throw new RuntimeException("Store with code " + storeRequest.getCode() + " isn't exist");
-    }
-
-    public Store createStore(StoreRequest storeRequest) {
+    public Store createStore(StoreDto storeDto) {
         Store store = new Store();
-        store.setName(storeRequest.getName());
-        store.setDescription(storeRequest.getDescription());        
+        store.setName(storeDto.getName());
+        store.setDescription(storeDto.getDescription());
         return store;
     }
-    
-    public StoreRequest createStoreRequest(RegistrationRequest request, Organization organization){
-        StoreRequest storeRequest = new StoreRequest();
-        storeRequest.setCode(request.getStoreCode());
-        storeRequest.setName(request.getStoreName());
-        storeRequest.setDescription(request.getStoreDiscription());
-        storeRequest.setOrganization(organization);
-        return storeRequest;
-        
+
+    public StoreDto createStoreRegistrRequest(RegistrationRequest request, Organization organization) {
+        StoreDto storeDto = new StoreDto();
+        storeDto.setName(request.getStoreName());
+        storeDto.setOrganization(organization);
+        return storeDto;
+
     }
-    
-    public StoreDto createStoreResponse(Store store){
+
+    public StoreDto createStoreDto(Store store) {
         StoreDto response = new StoreDto();
-        response.setName(store.getName());        
+        response.setName(store.getName());
+        response.setOrganization(store.getOrganization());
+        response.setDescription(store.getDescription());
         return response;
     }
-    
-    public Page<StoreDto> getAllStore( int pages, int size, Integer orgId){
-        Pageable page = PageRequest.of(pages, size);
-        Page<StoreDto> allStore = storeRepositary.findByOrgId(orgId, page).map((s) -> {
-            return createStoreResponse(s); 
-        });
-         return allStore;       
+
+    public List<StoreDto> getAllStore(Integer orgId) {
+        List<Store> allStore = storeRepositary.findByOrgId(orgId);
+        List<StoreDto> allStoreDto = allStore.stream().map(StoreService::createStoreDto).collect(Collectors.toList());
+        return allStoreDto;
     }
 
     
-
 }

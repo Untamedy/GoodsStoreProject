@@ -3,11 +3,9 @@ package com.store.goodsstore.services;
 import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.RegistrationResponse;
-import com.store.goodsstore.dto.StoreRequest;
 import com.store.goodsstore.dto.StoreDto;
-import com.store.goodsstore.dto.UserRequest;
-import com.store.goodsstore.dto.UserResponse;
-import com.store.goodsstore.entities.Role;
+import com.store.goodsstore.dto.UserDto;
+import com.store.goodsstore.dto.UserRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,10 +26,9 @@ public class RegistrationService {
 
     public RegistrationResponse register(RegistrationRequest request) { 
         OrganizationDto organization = organizationService.saveOrganisation(request); 
-        UserRequest userRequest = userService.createUserRequest(request, organizationService.createOrganization(request));
-        userRequest.getRoles().add(new Role("admin"));
-        UserResponse user = userService.saveUser(userRequest);  
-        StoreRequest storeRequest = storeService.createStoreRequest(request,organizationService.createOrganization(request));
+        UserRequestDto userRequest = userService.createUserRequest(request, organizationService.createOrganization(request));        
+        UserDto user = userService.saveUser(userRequest);  
+        StoreDto storeRequest = storeService.createStoreRegistrRequest(request,organizationService.createOrganization(request));
         StoreDto store = storeService.saveStore(storeRequest);
         RegistrationResponse registrationResponse = new RegistrationResponse(user, organization,store);
         return  registrationResponse;
