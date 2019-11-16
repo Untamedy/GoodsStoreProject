@@ -33,6 +33,8 @@ public class UserService{
     @Autowired
     PasswordEncoder encoder;
     
+    
+    
 
     public UserDto getUsersByEmail(String email) {
         UserDto userDto = new UserDto();
@@ -54,17 +56,14 @@ public class UserService{
         return userList;
     }
 
-    public UserDto saveUser(UserRequestDto userRequestDto) {        
-        if (!isUserExist(userRequestDto.getUserEmail())) {
-            Users user = createUser(userRequestDto);
-            repositary.save(user);
-           return createUserRespons(user,State.SAVED);  
+    public UserDto saveUser(UserRequestDto userRequestDto) { 
+        Users user = repositary.findByUserEmail(userRequestDto.getUserEmail());        
+        if(user==null){            
+           return createUserRespons(repositary.save(createUser(userRequestDto)),State.SAVED);
+        } 
+           return null;
         }
-        throw new RuntimeException("User is already exists");
-    }
-    
-    
-
+       
     public Users createUser(UserRequestDto userRequestDto) {
         Users user = new Users();
         Set<Role> roles = new HashSet<>();
@@ -72,6 +71,7 @@ public class UserService{
         user.setPassword(userRequestDto.getPassword());
         user.setUserEmail(userRequestDto.getUserEmail());
         roles.add(rolesServise.findRoleByName("user"));
+        roles.add(rolesServise.findRoleByName("admin"));
         user.setAuthorities(roles);        
         return user;
     }
@@ -80,7 +80,7 @@ public class UserService{
         return repositary.findByUserEmail(email) != null;
     }
     
-     public UserRequestDto createUserRequest(RegistrationRequest request, Organization organization) {
+     public UserRequestDto createUserRegRequest(RegistrationRequest request, Organization organization) {
         UserRequestDto user = new UserRequestDto();
         user.setUsername(request.getUserName());
         user.setUserEmail(request.getUserEmail());

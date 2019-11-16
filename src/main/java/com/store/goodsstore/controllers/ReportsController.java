@@ -6,6 +6,8 @@
 package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.GoodsPageRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller("/reports")
 public class ReportsController {
     
-    
+    private static final Logger logger = LoggerFactory.getLogger(RolesController.class);
     
     @PostMapping("/saleGoodsReport")
     public ModelAndView createSaleReport(){

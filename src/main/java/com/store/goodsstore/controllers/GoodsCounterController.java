@@ -6,6 +6,8 @@
 package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.GoodsCounterDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller("/goodsCount")
 public class GoodsCounterController {
+    private static final Logger logger = LoggerFactory.getLogger(GoodsCounterController.class);
     
     @PostMapping("/updateCount")
     public ModelAndView addGoodsCount(@RequestBody GoodsCounterDto godsCounterDto){  

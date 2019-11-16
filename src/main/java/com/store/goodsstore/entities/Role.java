@@ -29,9 +29,7 @@ public class Role implements GrantedAuthority{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
     private int id;
     @Column(unique = true)
-    private String roleName;
-    @OneToMany(fetch = FetchType.LAZY)
-    private Set<Previlages> previlagesName;
+    private String roleName;  
     
     
      public Role(String name){

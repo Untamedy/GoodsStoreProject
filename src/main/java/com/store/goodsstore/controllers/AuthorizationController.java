@@ -3,6 +3,8 @@ package com.store.goodsstore.controllers;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.RegistrationResponse;
 import com.store.goodsstore.services.RegistrationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AuthorizationController {
+    private static final Logger logger = LoggerFactory.getLogger(AuthorizationController.class);
     
     @Autowired
     RegistrationService registrationService;

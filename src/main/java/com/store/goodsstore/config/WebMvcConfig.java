@@ -15,12 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig  implements WebMvcConfigurer{
     
-  /*  @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("/startPage");
-        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-    }*/
-    
+      
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

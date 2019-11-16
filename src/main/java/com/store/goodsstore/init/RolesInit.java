@@ -1,6 +1,5 @@
 package com.store.goodsstore.init;
 
-import com.store.goodsstore.entities.Previlages;
 import com.store.goodsstore.entities.Role;
 import java.util.HashSet;
 import java.util.List;
@@ -28,40 +27,25 @@ public class RolesInit {
     public void saveRoles() {
         Set<Role> setOfRoles = addRolesToList();
         List<Role> existRoles = repositary.findAll();
-        for (Role r : setOfRoles) {
-            if (!existRoles.contains(r)) {
+        if (!existRoles.retainAll(setOfRoles)) {
+            setOfRoles.removeAll(existRoles);
+            setOfRoles.forEach((r) -> {
                 repositary.save(r);
-            }
-
+            });
         }
     }
- /*   public Set<Role> addRolesToList() {
+
+    public Set<Role> addRolesToList() {
         Set<Role> roles = new HashSet<>();
         roles.add(createRole(ROLE_ADMIN));
         roles.add(createRole(ROLE_USER));
         roles.add(createRole(ROLE_GUEST));
         return roles;
     }
+
     public Role createRole(String name) {
         Role role = new Role(name);
-                
-        return role;
 
-    }*/
-    
-
-  public Set<Role> addRolesToList() {
-        Set<Role> roles = new HashSet<>();
-        roles.add(createRole(ROLE_ADMIN, PrevilagesInit.admin));
-        roles.add(createRole(ROLE_USER, PrevilagesInit.user));
-        roles.add(createRole(ROLE_GUEST, PrevilagesInit.guest));
-        return roles;
-    }
-
-    public Role createRole(String name, Set<Previlages> previlageses) {
-        Role role = new Role();
-        role.setRoleName(name);
-        role.setPrevilagesName(previlageses);
         return role;
 
     }

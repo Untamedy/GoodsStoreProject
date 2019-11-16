@@ -1,5 +1,6 @@
 package com.store.goodsstore.config;
 
+import com.store.goodsstore.services.UserSecurityService;
 import com.store.goodsstore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
     @Autowired
-    private UserService userService;
+    private UserSecurityService userService;
     @Autowired
     private PasswordEncoder passwordEncoder;
     
@@ -31,8 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception{
         auth
                 .userDetailsService(userService)
-                .passwordEncoder(passwordEncoder);
-                
+                .passwordEncoder(passwordEncoder);                
     }
     
 
@@ -54,8 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll().logoutUrl("/logout").logoutSuccessUrl("/login").invalidateHttpSession(true)
                 .and()                
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
-       
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);      
 
     }
 

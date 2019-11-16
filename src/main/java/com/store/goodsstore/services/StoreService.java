@@ -22,12 +22,12 @@ public class StoreService {
     @Autowired
     GoodsService goodsService;
 
-    public StoreDto saveStore(StoreDto storeDto) {
+    public StoreDto saveStore(StoreDto storeDto) {        
         if (!storeRepositary.existsByName(storeDto.getName())) {
             Store store = createStore(storeDto);
             return createStoreDto(storeRepositary.save(store));
         }
-        throw new RuntimeException("Store is not created");
+        return null;
     }
 
     public boolean deleteStore(StoreDto storeDto) {
@@ -59,14 +59,15 @@ public class StoreService {
     public StoreDto createStoreDto(Store store) {
         StoreDto response = new StoreDto();
         response.setName(store.getName());
-        response.setOrganization(store.getOrganization());
+        response.setOrganization(store.getOrg());
         response.setDescription(store.getDescription());
         return response;
     }
 
     public List<StoreDto> getAllStore(Integer orgId) {
-        List<Store> allStore = storeRepositary.findByOrgId(orgId);
-        List<StoreDto> allStoreDto = allStore.stream().map(StoreService::createStoreDto).collect(Collectors.toList());
+        List<Store> allStore = storeRepositary.findByOrg(orgId);
+        List<StoreDto> allStoreDto;
+        allStoreDto = allStore.stream().map(this::createStoreDto).collect(Collectors.toList());
         return allStoreDto;
     }
 

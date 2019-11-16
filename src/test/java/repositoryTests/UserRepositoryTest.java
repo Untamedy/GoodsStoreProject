@@ -4,14 +4,11 @@
  * and open the template in the editor.
  */
 package repositoryTests;
-
 import com.store.goodsstore.GoodsstoreApplication;
-import com.store.goodsstore.dto.UserRequest;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Role;
 import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.entities.Users;
-import com.store.goodsstore.init.PrevilagesInit;
 import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.repository.RolesRepository;
 import com.store.goodsstore.repository.UserRepository;

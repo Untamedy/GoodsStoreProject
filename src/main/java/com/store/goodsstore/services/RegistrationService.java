@@ -25,12 +25,15 @@ public class RegistrationService {
         
 
     public RegistrationResponse register(RegistrationRequest request) { 
+        RegistrationResponse registrationResponse = null;
         OrganizationDto organization = organizationService.saveOrganisation(request); 
-        UserRequestDto userRequest = userService.createUserRequest(request, organizationService.createOrganization(request));        
+        UserRequestDto userRequest = userService.createUserRegRequest(request, organizationService.createOrganization(request));        
         UserDto user = userService.saveUser(userRequest);  
         StoreDto storeRequest = storeService.createStoreRegistrRequest(request,organizationService.createOrganization(request));
-        StoreDto store = storeService.saveStore(storeRequest);
-        RegistrationResponse registrationResponse = new RegistrationResponse(user, organization,store);
+        StoreDto store = storeService.saveStore(storeRequest);        
+        if(organization!=null&&user!=null&&store!=null){
+            registrationResponse = new RegistrationResponse(user,organization,store);                   
+        }
         return  registrationResponse;
     }
     

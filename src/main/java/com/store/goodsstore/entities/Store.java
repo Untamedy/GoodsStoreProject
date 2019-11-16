@@ -34,7 +34,7 @@ public class Store implements Serializable {
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "orgId")    
-    private Organization organization;
+    private Organization org;
     
     @Column(length = 255)
     private String description;   

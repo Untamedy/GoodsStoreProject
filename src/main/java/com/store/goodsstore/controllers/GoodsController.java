@@ -7,6 +7,8 @@ import com.store.goodsstore.repository.GoodsCounterRepository;
 import com.store.goodsstore.services.GoodsGroupService;
 import com.store.goodsstore.services.GoodsService;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller("/goods")
 public class GoodsController {
+    
+    private static final Logger logger = LoggerFactory.getLogger(RolesController.class);
     
     @Autowired
    private GoodsService goodsService;

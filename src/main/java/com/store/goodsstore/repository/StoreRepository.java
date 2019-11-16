@@ -16,7 +16,7 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
 
     public Store findByName(String name);   
         
-    public List<Store> findByOrgId(Integer id);
+    public List<Store> findByOrg(Integer id);
     
   
 
