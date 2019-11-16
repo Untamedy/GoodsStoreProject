@@ -1,6 +1,5 @@
 package com.store.goodsstore.services;
 
-
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.UserDto;
 import com.store.goodsstore.dto.UserRequestDto;
@@ -13,57 +12,68 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.store.goodsstore.repository.UserRepository;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 
 /**
  *
  * @author YBolshakova
  */
 @Service
-public class UserService{
+public class UserService {
 
     @Autowired
-    UserRepository repositary;   
+    UserRepository repositary;
     @Autowired
-    RolesServise rolesServise;    
+    RolesServise rolesServise;
     @Autowired
     PasswordEncoder encoder;
-    
-    
-    
 
     public UserDto getUsersByEmail(String email) {
         UserDto userDto = new UserDto();
         Users user = repositary.findByUserEmail(email);
         if (null != user) {
-            return createUserRespons(user,State.EXISTING);            
-        }else{
+            return createUserRespons(user, State.EXISTING);
+        } else {
             userDto.setState(State.NOT_FOUND);
-        }               
-        
+        }
+
         return userDto;
     }
 
-    public Page<UserDto> getAllUsers(int pages, int size) {  
-        Pageable page = PageRequest.of(pages, size);                
-        Page<UserDto> userList = repositary.findAll(page).map((u) -> {
-            return createUserRespons(u, State.EXISTING); 
-        });        
+    public List<UserDto> getAllUsers() {
+     List<UserDto> userList = repositary.findAll().stream().map(user->{
+        UserDto userDto = createUserRespons(user, State.SAVED);
+         return userDto;
+     }).collect(Collectors.toList());     
         return userList;
     }
 
-    public UserDto saveUser(UserRequestDto userRequestDto) { 
-        Users user = repositary.findByUserEmail(userRequestDto.getUserEmail());        
-        if(user==null){            
-           return createUserRespons(repositary.save(createUser(userRequestDto)),State.SAVED);
-        } 
-           return null;
+    public UserDto saveUser(UserRequestDto userRequestDto) {
+        Users user = repositary.findByUserEmail(userRequestDto.getUserEmail());
+        if (user == null) {
+            return createUserRespons(repositary.save(createUser(userRequestDto)), State.SAVED);
         }
-       
+        return null;
+    }
+
+    public UserDto editUser(UserDto userDto) {
+        if (repositary.existsByUserEmail(userDto.getUserEmail())) {
+            Users user = repositary.findByUserEmail(userDto.getUserEmail());
+            user.setUsername(userDto.getUsername());
+            user.setUserEmail(userDto.getUserEmail());
+            return createUserRespons(repositary.save(user),State.SAVED);
+        }
+        return null;
+
+    }
+
+   
+
     public Users createUser(UserRequestDto userRequestDto) {
         Users user = new Users();
         Set<Role> roles = new HashSet<>();
@@ -72,44 +82,42 @@ public class UserService{
         user.setUserEmail(userRequestDto.getUserEmail());
         roles.add(rolesServise.findRoleByName("user"));
         roles.add(rolesServise.findRoleByName("admin"));
-        user.setAuthorities(roles);        
+        user.setRoles(roles);
         return user;
     }
 
     public boolean isUserExist(String email) {
         return repositary.findByUserEmail(email) != null;
     }
-    
-     public UserRequestDto createUserRegRequest(RegistrationRequest request, Organization organization) {
+
+    public UserRequestDto createUserRegRequest(RegistrationRequest request, Organization organization) {
         UserRequestDto user = new UserRequestDto();
         user.setUsername(request.getUserName());
         user.setUserEmail(request.getUserEmail());
         user.setPassword(encoder.encode(request.getUserPass()));
-        user.setOrganization(organization);      
-        
+        user.setOrganization(organization);
+
         return user;
     }
-     
-      public UserDto createUserRespons(Users user, State state){
+
+    public UserDto createUserRespons(Users user, State state) {
         int id = repositary.findByUserEmail(user.getUserEmail()).getId();
         String email = user.getUserEmail();
-        UserDto userDto = new UserDto(); 
-        userDto.setId(id);
+        UserDto userDto = new UserDto();
         userDto.setUserEmail(email);
-        userDto.setState(state); 
+        userDto.setState(state);
         userDto.setOrganization(user.getOrgatisation());
-        return userDto;        
+        return userDto;
     }
-   
 
-        public boolean changePassword(String pass, String email) {
+    public boolean changePassword(String pass, String email) {
         Users user = repositary.findByUserEmail(email);
-        if(null!=user){
+        if (null != user) {
             user.setPassword(pass);
             repositary.save(user);
             return true;
         }
-        return  false;
+        return false;
     }
 
 }

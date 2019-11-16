@@ -26,8 +26,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SequenceGenerator(name="my_seq", initialValue=1, allocationSize=1)
-public class Users {    
+@SequenceGenerator(name = "my_seq", initialValue = 1, allocationSize = 1)
+public class Users {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
     private Integer id;
@@ -37,27 +38,10 @@ public class Users {
     @Column(nullable = false)
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> authorities;    
+    private Set<Role> roles;
     @ManyToOne
     @JoinColumn(name = "orgId")
-    private Organization orgatisation; 
+    private Organization orgatisation;
     private State state;
-   
-
-    
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-    
 
 }

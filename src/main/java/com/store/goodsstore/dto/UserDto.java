@@ -20,8 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
-    private int id;
+public class UserDto {   
     private String username;
     private String userEmail;     
     private Organization organization;    

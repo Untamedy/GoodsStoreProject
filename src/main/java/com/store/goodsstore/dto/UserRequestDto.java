@@ -14,9 +14,7 @@ import lombok.Data;
  * @author Lenovo
  */
 @Data
-public class UserRequestDto {
-
-    private int id;
+public class UserRequestDto {    
     private String username;
     private String userEmail;
     private String password;
