@@ -63,8 +63,11 @@ public class GoodsGroupService {
         return false;       
     }
 
-    public Object getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<GoodsGroupDto> getAll() {
+        return repository.findAll().stream().map(tmp->{
+            return createDto(tmp);
+        }).collect(Collectors.toList());
+                
     }
 
 }
