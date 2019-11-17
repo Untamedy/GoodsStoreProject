@@ -27,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller("/goods")
 public class GoodsController {
     
-    private static final Logger logger = LoggerFactory.getLogger(RolesController.class);
+    private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);
     
     @Autowired
    private GoodsService goodsService;
@@ -42,7 +42,7 @@ public class GoodsController {
         return new ModelAndView("storePage", "listOfGroups", allGroup);        
     }
     
-  @PostMapping("/list{:groupId}")
+  @GetMapping("/list?groupId=id")
     public Page<GoodsResponse> getGoodsByGroupId(@PathVariable("groupId") int id){        
         return goodsService.findByGroupId(id);        
     }
@@ -56,7 +56,7 @@ public class GoodsController {
        return new ModelAndView("addGoodsPage", HttpStatus.NOT_MODIFIED);
     }
     
-    @PostMapping("/remove")
+    @PostMapping("/removeGoods")
     public ModelAndView removeGoods(@RequestBody GoodsDto request){
         if(goodsService.deleteGoods(request)){
          return new ModelAndView("storePage", HttpStatus.OK);   
@@ -64,7 +64,7 @@ public class GoodsController {
         return new ModelAndView("storePage",  HttpStatus.NOT_MODIFIED);
     }
     
-    @PostMapping("/edit")
+    @PostMapping("/editGoods")
     public ModelAndView editGoods(@RequestBody GoodsDto request){
         GoodsResponse response = goodsService.updateGoodsName(request);
         if(response!=null){

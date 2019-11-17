@@ -12,12 +12,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -32,7 +34,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/edit")
+    @PostMapping("/editUser")
     public ModelAndView saveUser(@RequestBody UserDto userDto) {         
         return new ModelAndView("userPage", "editUser", userService.editUser(userDto));
     }
@@ -40,12 +42,13 @@ public class UserController {
     @GetMapping("/users")
     public ModelAndView getAllUser(Map<String,UserDto>model) { 
         List<UserDto> users = userService.getAllUsers();
-        model = users.stream().collect(Collectors.toMap(UserDto::getUsername,UserDto));
-        return new ModelAndView<>(userService.getAllUsers(pages, size), HttpStatus.OK);   
+        model = users.stream().collect(Collectors.toMap(UserDto::getUsername,u->u));
+        return new ModelAndView("userListPage",model, HttpStatus.OK);   
     }
     
-    @GetMapping("/thisUser/{email}")
-    public ModelAndView getUserByEmail(@PathVariable("email") String email){        
-        return new ModelAndView(userService.getUsersByEmail(email), HttpStatus.OK);        
+    @GetMapping("/thisUser?email=email")
+    public ModelAndView getUserByEmail(@RequestParam("email") String email){  
+        UserDto user = userService.getUsersByEmail(email);       
+        return new ModelAndView("userPage", "user", user);        
     }
 }

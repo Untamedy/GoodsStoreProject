@@ -72,4 +72,8 @@ public class StoreService {
     }
 
     
+    public Store getById(int id){
+        return storeRepositary.getOne(id);
+    }
+    
 }

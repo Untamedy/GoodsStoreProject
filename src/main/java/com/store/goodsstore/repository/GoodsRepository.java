@@ -31,4 +31,6 @@ public interface GoodsRepository extends JpaRepository<Goods, Integer>{
     
     @Query("select g from Goods g join GoodsCounter gc on g.id=gc.id where store_code = ?1")
     public List<Goods> findByStoreCode(String code, Page page);
+    
+    public List<Goods> findByGroupId(int groupId);
 }
