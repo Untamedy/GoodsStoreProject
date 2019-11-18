@@ -18,19 +18,15 @@ public interface GoodsRepository extends JpaRepository<Goods, Integer>{
 
     public Goods findByCode(String code);
     
-    public boolean existsByCode(String code);
+    public boolean existsByCode(String code);  
     
-    @Query("update Goods set name = ?1 where code = ?2")
-    public Goods updateGoodsName(String name, String code);   
+      
         
     @Query("update Goods set unit = ?1 where code = ?2")
-    public Goods updateGoodsQuantity(String unit, String code); 
-    
-    @Query("select count(id) from Goods where storeId = ?1")
-    public int goodsCount(Integer storeId);
+    public Goods updateGoodsUnit(String unit, String code);
     
     @Query("select g from Goods g join GoodsCounter gc on g.id=gc.id where store_code = ?1")
-    public List<Goods> findByStoreCode(String code, Page page);
+    public Page<Goods> findByStoreCode(String code, Page page);
     
-    public List<Goods> findByGroupId(int groupId);
+    public Page<Goods> findByGroupId(int groupId,Page page);
 }

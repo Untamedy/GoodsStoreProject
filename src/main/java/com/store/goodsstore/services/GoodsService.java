@@ -40,9 +40,7 @@ public class GoodsService {
             goods.setUnit(goodsDto.getUnit());           
             return createGoodsResponse(repository.save(goods));
         }
-
         throw new RuntimeException("Goods with code " + goodsDto.getCode() + " is not exist");
-
     }
 
     public boolean deleteGoods(GoodsDto goodsDto) {
