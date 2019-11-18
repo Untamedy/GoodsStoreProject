@@ -22,17 +22,23 @@ public class GoodsService {
     GoodsCounterRepository counterRepository;
 
     public GoodsDto saveGoods(GoodsDto goodsDto) {
+        GoodsDto newGoods = null;
         if (null == repository.findByCode(goodsDto.getCode())) {
             Goods goods = repository.save(convertToGoods(goodsDto));
-            return createGoodsResponse(goods);
+            newGoods = createGoodsResponse(goods);            
         }
-        throw new RuntimeException("This goods is already exists");
+        return newGoods;
     }
+    
+    
 
     public GoodsDto updateGoodsName(GoodsDto goodsDto) {
-        if (null != repository.findByCode(goodsDto.getCode())) {
-            Goods goods = repository.updateGoodsName(goodsDto.getName(), goodsDto.getCode());
-            return createGoodsResponse(goods);
+        Goods goods = repository.findByCode(goodsDto.getCode());
+        if (null !=goods) {
+            goods.setCode(goodsDto.getCode());
+            goods.setName(goodsDto.getName());
+            goods.setUnit(goodsDto.getUnit());           
+            return createGoodsResponse(repository.save(goods));
         }
 
         throw new RuntimeException("Goods with code " + goodsDto.getCode() + " is not exist");

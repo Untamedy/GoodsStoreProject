@@ -1,6 +1,8 @@
 package com.store.goodsstore.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,7 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,13 +35,21 @@ public class Store implements Serializable {
     
     @Column(unique = true)
     private String name;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "orgId")    
-    private Organization org;
+       
     
     @Column(length = 255)
     private String description;   
+    
+    @Column(unique = true, nullable = false)
+    public String code;
+    
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "store_groups")
+    private List<GoodsGroup> groups;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "orgId")    
+    private Organization org;  
     
     
 

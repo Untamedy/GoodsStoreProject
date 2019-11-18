@@ -1,6 +1,7 @@
 package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.GoodsGroupDto;
+import com.store.goodsstore.dto.StoreDto;
 import com.store.goodsstore.entities.GoodsGroup;
 import com.store.goodsstore.repository.GroupRepository;
 import java.util.List;
@@ -30,15 +31,13 @@ public class GoodsGroupService {
         }  
         return null;
     }
-
-    public List<GoodsGroupDto> getAllgroup() {
-        List<GoodsGroup> groups = repository.findAll();
-        List<GoodsGroupDto> groupsDto = groups.stream().map(tmp -> {
-          GoodsGroupDto dto = createDto(tmp);
-          return dto;
-        }).collect(Collectors.toList());        
-        return groupsDto;
+    
+    public GoodsGroupDto editGroup(String newName,String oldName){
+       GoodsGroup group= repository.findByName(oldName);
+       group.setName(newName);
+       return createDto(group);        
     }
+  
 
     public GoodsGroupDto getGroupByname(String groupName, int id) {
         return createDto(repository.findByNameAndStoreId(groupName, id));
@@ -52,8 +51,8 @@ public class GoodsGroupService {
         return new GoodsGroup(name);               
     }
     
-    public boolean removeGroup(GoodsGroupDto groupDto){
-        GoodsGroup group = repository.findByName(groupDto.getName());        
+    public boolean removeGroup(String name){
+        GoodsGroup group = repository.findByName(name);        
         if(group!=null){
             if(goodsService.findByGroupId(group.getId()).isEmpty()){
                 repository.delete(group);
@@ -63,7 +62,7 @@ public class GoodsGroupService {
         return false;       
     }
 
-    public List<GoodsGroupDto> getAll() {
+    public List<GoodsGroupDto> getAll() {      
         return repository.findAll().stream().map(tmp->{
             return createDto(tmp);
         }).collect(Collectors.toList());

@@ -21,6 +21,7 @@ public class GoodsGroupDto {
     }
     
     private String name;
+    private String storeCode;
   
     
 }

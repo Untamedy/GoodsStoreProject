@@ -36,11 +36,7 @@ public class GoodsController {
     @Autowired
     private GoodsCounterRepository goodsCounterRepository;
     
-    @GetMapping("/listGroups")
-    public ModelAndView getAllGroup(){
-        List<GoodsGroup> allGroup = groupService.getAllgroup();
-        return new ModelAndView("storePage", "listOfGroups", allGroup);        
-    }
+  
     
   @GetMapping("/list?groupId=id")
     public Page<GoodsResponse> getGoodsByGroupId(@PathVariable("groupId") int id){        

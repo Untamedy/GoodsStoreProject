@@ -16,6 +16,7 @@ public class StoreDto {
     private String name;    
     private String description;
     private Organization organization;
+    private String code;
       
 
 }

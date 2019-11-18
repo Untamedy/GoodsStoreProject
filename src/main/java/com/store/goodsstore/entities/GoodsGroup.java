@@ -31,6 +31,9 @@ public class GoodsGroup {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
     private Integer id;
     @Column(unique = true)
-    private String name;    
+    private String name;  
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
 
 }

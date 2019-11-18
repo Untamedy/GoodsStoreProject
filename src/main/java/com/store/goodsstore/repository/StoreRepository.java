@@ -12,9 +12,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface StoreRepository extends JpaRepository<Store, Integer> {
 
-    public boolean existsByName(String name);
+    public boolean existsByCode(String code);
 
-    public Store findByName(String name);   
+    public Store findByCode(String code);   
         
     public List<Store> findByOrg(Integer id);
     
