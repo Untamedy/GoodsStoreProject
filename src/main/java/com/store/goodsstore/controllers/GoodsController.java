@@ -1,7 +1,6 @@
 package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.GoodsDto;
-import com.store.goodsstore.dto.GoodsResponse;
 import com.store.goodsstore.entities.GoodsGroup;
 import com.store.goodsstore.repository.GoodsCounterRepository;
 import com.store.goodsstore.services.GoodsGroupService;
