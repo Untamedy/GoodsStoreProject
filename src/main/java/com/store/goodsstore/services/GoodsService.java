@@ -50,11 +50,10 @@ public class GoodsService {
     public boolean deleteGoods(GoodsDto goodsDto) {
         Goods goods = repository.findByCode(goodsDto.getCode());
         if (null != goods) {
-            if (counterRepository.countByGoodsCode(goodsDto.getCode()) > 0) {
+            if (goodsCounterSecvice.getGoodsCount(goodsDto.getCode()) > 0) {
                 return false;
             }
             goods.setVisible(false);
-
             return true;
         }
         return false;
@@ -83,7 +82,7 @@ public class GoodsService {
     }
 
     public int goodsCount(Integer storeId) {
-        return repository.goodsCount(storeId);
+        return goodsCounterSecvice.(storeId);
     }
 
     public Goods fingByCode(String code) {

@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.Data;
 
@@ -19,7 +21,7 @@ import lombok.Data;
  */
 @Data
 @Entity
-@SequenceGenerator(name = "my_seq",sequenceName = "my_seq", allocationSize = 1)
+@SequenceGenerator(name = "my_seq", initialValue = 1, allocationSize = 1)
 public class Customer {
     
     @Id
@@ -29,4 +31,8 @@ public class Customer {
     private String phoneNum;
     @Column(nullable = false)   
     private String name;
+    
+    @ManyToOne
+    @JoinColumn(name="ord_id")
+    private Organization org;
 }

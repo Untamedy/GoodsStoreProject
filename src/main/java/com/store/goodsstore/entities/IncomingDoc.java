@@ -26,7 +26,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-@SequenceGenerator(name = "my_sqe",sequenceName = "my_seq", allocationSize = 1)
+@SequenceGenerator(name = "my_seq", initialValue = 1, allocationSize = 1)
 public class IncomingDoc {
     
     @Id

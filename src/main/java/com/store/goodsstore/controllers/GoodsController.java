@@ -1,5 +1,6 @@
 package com.store.goodsstore.controllers;
 
+import com.store.goodsstore.dto.GoodsCounterDto;
 import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.repository.GoodsCounterRepository;
 import com.store.goodsstore.services.GoodsGroupService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -36,7 +38,7 @@ public class GoodsController {
   
     
   @GetMapping("/list?groupId=id")
-    public Page<GoodsDto> getGoodsByGroupId(@PathVariable("groupId") int id){        
+    public Page<GoodsDto> getGoodsByGroupId(@RequestParam("groupId") int id){        
         return goodsService.findByGroupId(id);        
     }
     
@@ -59,11 +61,19 @@ public class GoodsController {
     
     @PostMapping("/editGoods")
     public ModelAndView editGoods(@RequestBody GoodsDto request){
-        GoodsResponse response = goodsService.updateGoods(request);
+        GoodsDto response = goodsService.updateGoods(request);
         if(response!=null){
              return new ModelAndView("groupPage",HttpStatus.OK);       
         }
         return new ModelAndView("groupPage",HttpStatus.NOT_MODIFIED);        
+    }
+    
+     @PostMapping("/updateCount")
+    public ModelAndView addGoodsCount(@RequestBody GoodsCounterDto godsCounterDto){  
+        
+        
+        return new ModelAndView();
+        
     }
         
 }

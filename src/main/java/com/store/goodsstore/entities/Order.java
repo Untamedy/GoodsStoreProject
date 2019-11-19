@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -27,7 +26,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-@SequenceGenerator(name = "my_sqe",sequenceName = "my_seq", allocationSize = 1)
+@SequenceGenerator(name = "my_seq", initialValue = 1, allocationSize = 1)
 public class Order {
     
     @Id

@@ -22,22 +22,32 @@ public class StoreService {
     @Autowired
     GoodsService goodsService;
 
+    public StoreDto editStore(StoreDto requestDto) {
+        StoreDto dto = null;
+        Store store = storeRepositary.findByCode(requestDto.getCode());
+        if (store != null) {
+            store.setName(requestDto.getName());
+            store.setDescription(requestDto.getDescription());
+            dto = createStoreDto(storeRepositary.saveAndFlush(store));            
+        }
+       return dto;
+    }
+
     public boolean deleteStore(StoreDto storeDto) {
         if (storeRepositary.existsByCode(storeDto.getCode())) {
             Store store = storeRepositary.findByCode(storeDto.getName());
             if (goodsService.goodsCount(store.getId()) > 0) {
                 return false;
             }
-            storeRepositary.delete(store);       
+            storeRepositary.delete(store);
         }
         return true;
-    }  
-   
+    }
 
     public Store createStore(RegistrationRequest request) {
         Store store = new Store();
-        store.setName(request.getStoreName());        
-        store.setCode(createIdentifier());        
+        store.setName(request.getStoreName());
+        store.setCode(createIdentifier());
         return store;
 
     }
@@ -51,23 +61,20 @@ public class StoreService {
         return response;
     }
 
-    public List<StoreDto> getAllStore(Integer orgId) {        
+    public List<StoreDto> getAllStore(Integer orgId) {
         return storeRepositary.findByOrg(orgId).stream().map(this::createStoreDto).collect(Collectors.toList());
     }
 
-    
-    public Store getById(int id){
+    public Store getById(int id) {
         return storeRepositary.getOne(id);
     }
-    
-      public Store getByCode(String storeCode) {
+
+    public Store getByCode(String storeCode) {
         return storeRepositary.findByCode(storeCode);
     }
-    
-         public String createIdentifier() {
-         return UUID.randomUUID().toString();        
+
+    public String createIdentifier() {
+        return UUID.randomUUID().toString();
     }
 
-  
-    
 }

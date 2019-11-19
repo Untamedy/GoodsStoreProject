@@ -19,7 +19,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-@SequenceGenerator(name="my_seq", initialValue=1, allocationSize=1)
+@SequenceGenerator(name = "my_seq", initialValue = 1, allocationSize = 1)
 public class Goods {
 
     @Id
