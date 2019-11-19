@@ -1,11 +1,9 @@
 package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.GoodsDto;
-import com.store.goodsstore.entities.GoodsGroup;
 import com.store.goodsstore.repository.GoodsCounterRepository;
 import com.store.goodsstore.services.GoodsGroupService;
 import com.store.goodsstore.services.GoodsService;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +36,7 @@ public class GoodsController {
   
     
   @GetMapping("/list?groupId=id")
-    public Page<GoodsResponse> getGoodsByGroupId(@PathVariable("groupId") int id){        
+    public Page<GoodsDto> getGoodsByGroupId(@PathVariable("groupId") int id){        
         return goodsService.findByGroupId(id);        
     }
     
@@ -61,7 +59,7 @@ public class GoodsController {
     
     @PostMapping("/editGoods")
     public ModelAndView editGoods(@RequestBody GoodsDto request){
-        GoodsResponse response = goodsService.updateGoodsName(request);
+        GoodsResponse response = goodsService.updateGoods(request);
         if(response!=null){
              return new ModelAndView("groupPage",HttpStatus.OK);       
         }

@@ -6,6 +6,7 @@ import com.store.goodsstore.dto.RegistrationResponse;
 import com.store.goodsstore.dto.StoreDto;
 import com.store.goodsstore.dto.UserDto;
 import com.store.goodsstore.dto.UserRequestDto;
+import com.store.goodsstore.entities.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,11 @@ public class RegistrationService {
 
     public RegistrationResponse register(RegistrationRequest request) { 
         RegistrationResponse registrationResponse = null;
+        
+        
+       
+        
+        
         OrganizationDto organization = organizationService.saveOrganisation(request); 
         UserRequestDto userRequest = userService.createUserRegRequest(request, organizationService.createOrganization(request));        
         UserDto user = userService.saveUser(userRequest);  

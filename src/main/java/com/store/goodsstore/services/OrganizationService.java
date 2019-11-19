@@ -16,6 +16,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrganizationService {
+    
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private StoreService storeService;
 
     private static final Logger logger = Logger.getLogger(OrganizationService.class.getName());
 
@@ -35,6 +41,8 @@ public class OrganizationService {
         organization.setName(request.getOrganizationName());
         organization.setOrganizationEmail(request.getOrganizationEmail());
         organization.setIdentificationCode(createIdentifier());
+        organization.setUsers(userService.createUser(request));
+        organization.setStore(storeService.createStore(request));
         return organization;
     }
 

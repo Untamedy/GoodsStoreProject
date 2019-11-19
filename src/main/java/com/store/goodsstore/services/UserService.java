@@ -13,13 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.store.goodsstore.repository.UserRepository;
 import java.util.List;
-import java.util.stream.Collectors;;
+import java.util.stream.Collectors;
+;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
  * @author YBolshakova
  */
+
+
 @Service
 public class UserService {
 
@@ -31,79 +34,37 @@ public class UserService {
     PasswordEncoder encoder;
 
     public UserDto getUsersByEmail(String email) {
-        UserDto userDto = new UserDto();
+        UserDto userDto = null;
         Users user = repositary.findByUserEmail(email);
         if (null != user) {
-            return createUserRespons(user, State.EXISTING);
-        } else {
-            userDto.setState(State.NOT_FOUND);
+            return userDto = createUserRespons(user);
         }
-
         return userDto;
     }
 
     public List<UserDto> getAllUsers() {
-     List<UserDto> userList = repositary.findAll().stream().map(user->{
-        UserDto userDto = createUserRespons(user, State.SAVED);
-         return userDto;
-     }).collect(Collectors.toList());     
+        List<UserDto> userList = repositary.findAll().stream().map(user -> {
+            UserDto userDto = createUserRespons(user);
+            return userDto;
+        }).collect(Collectors.toList());
         return userList;
     }
 
-    public UserDto saveUser(UserRequestDto userRequestDto) {
-        Users user = repositary.findByUserEmail(userRequestDto.getUserEmail());
-        if (user == null) {
-            return createUserRespons(repositary.save(createUser(userRequestDto)), State.SAVED);
-        }
-        return null;
-    }
-
     public UserDto editUser(UserDto userDto) {
+        UserDto editUserDto = null;
         if (repositary.existsByUserEmail(userDto.getUserEmail())) {
             Users user = repositary.findByUserEmail(userDto.getUserEmail());
             user.setUsername(userDto.getUsername());
             user.setUserEmail(userDto.getUserEmail());
-            return createUserRespons(repositary.save(user),State.SAVED);
+            return editUserDto = createUserRespons(repositary.save(user));
         }
-        return null;
-
+        return editUserDto;
     }
 
-   
-
-    public Users createUser(UserRequestDto userRequestDto) {
-        Users user = new Users();
-        Set<Role> roles = new HashSet<>();
-        user.setUsername(userRequestDto.getUsername());
-        user.setPassword(userRequestDto.getPassword());
-        user.setUserEmail(userRequestDto.getUserEmail());
-        roles.add(rolesServise.findRoleByName("user"));
-        roles.add(rolesServise.findRoleByName("admin"));
-        user.setRoles(roles);
-        return user;
-    }
-
-    public boolean isUserExist(String email) {
-        return repositary.findByUserEmail(email) != null;
-    }
-
-    public UserRequestDto createUserRegRequest(RegistrationRequest request, Organization organization) {
-        UserRequestDto user = new UserRequestDto();
-        user.setUsername(request.getUserName());
-        user.setUserEmail(request.getUserEmail());
-        user.setPassword(encoder.encode(request.getUserPass()));
-        user.setOrganization(organization);
-
-        return user;
-    }
-
-    public UserDto createUserRespons(Users user, State state) {
-        int id = repositary.findByUserEmail(user.getUserEmail()).getId();
-        String email = user.getUserEmail();
+    public UserDto createUserRespons(Users user) {
         UserDto userDto = new UserDto();
-        userDto.setUserEmail(email);
-        userDto.setState(state);
-        userDto.setOrganization(user.getOrgatisation());
+        userDto.setUserEmail(user.getUsername());
+        userDto.setUserEmail(user.getUserEmail());
         return userDto;
     }
 
@@ -117,4 +78,16 @@ public class UserService {
         return false;
     }
 
+    public Users createUser(RegistrationRequest request) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(rolesServise.findRoleByName("user"));
+        roles.add(rolesServise.findRoleByName("admin"));
+        Users user = new Users();
+        user.setUsername(request.getUserName());
+        user.setUserEmail(request.getUserEmail());
+        user.setPassword(request.getUserPass());
+        user.setRoles(roles);
+        return user;
+
+    }
 }

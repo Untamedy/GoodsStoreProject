@@ -13,6 +13,5 @@ public class RegistrationRequest {
     private String userName;
     private String userEmail;
     private String userPass; 
-    private String storeCode;
     private String storeName;    
 }

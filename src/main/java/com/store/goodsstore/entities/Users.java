@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,9 +40,9 @@ public class Users {
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
-    @ManyToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "orgId")
-    private Organization orgatisation;
+    private Organization org;
     private State state;
 
 }

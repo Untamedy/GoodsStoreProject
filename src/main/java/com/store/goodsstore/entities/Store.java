@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,8 +35,7 @@ public class Store implements Serializable {
     private Integer id;
     
     @Column(unique = true)
-    private String name;
-       
+    private String name;       
     
     @Column(length = 255)
     private String description;   
@@ -43,11 +43,10 @@ public class Store implements Serializable {
     @Column(unique = true, nullable = false)
     public String code;
     
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "store_groups")
+    @OneToMany(mappedBy="store", fetch = FetchType.LAZY)    
     private List<GoodsGroup> groups;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "orgId")    
     private Organization org;  
     

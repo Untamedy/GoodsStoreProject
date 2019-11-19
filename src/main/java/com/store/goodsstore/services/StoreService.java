@@ -2,7 +2,6 @@ package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.StoreDto;
-import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,14 +22,6 @@ public class StoreService {
     @Autowired
     GoodsService goodsService;
 
-    public StoreDto saveStore(StoreDto storeDto) {        
-        if (!storeRepositary.existsByCode(storeDto.getCode())) {
-            Store store = createStore(storeDto);
-            return createStoreDto(storeRepositary.save(store));
-        }
-        return null;
-    }
-
     public boolean deleteStore(StoreDto storeDto) {
         if (storeRepositary.existsByCode(storeDto.getCode())) {
             Store store = storeRepositary.findByCode(storeDto.getName());
@@ -41,21 +32,13 @@ public class StoreService {
         }
         return true;
     }  
+   
 
-    public Store createStore(StoreDto storeDto) {
+    public Store createStoreRegistrRequest(RegistrationRequest request) {
         Store store = new Store();
-        store.setName(storeDto.getName());
-        store.setDescription(storeDto.getDescription());
-        store.setCode(storeDto.getCode());
+        store.setName(request.getStoreName());        
+        store.setCode(createIdentifier());        
         return store;
-    }
-
-    public StoreDto createStoreRegistrRequest(RegistrationRequest request, Organization organization) {
-        StoreDto storeDto = new StoreDto();
-        storeDto.setName(request.getStoreName());
-        storeDto.setOrganization(organization);
-        storeDto.setCode(createIdentifier());
-        return storeDto;
 
     }
 
@@ -77,12 +60,14 @@ public class StoreService {
         return storeRepositary.getOne(id);
     }
     
-     public String createIdentifier() {
+      public Store getByCode(String storeCode) {
+        return storeRepositary.findByCode(storeCode);
+    }
+    
+         public String createIdentifier() {
          return UUID.randomUUID().toString();        
     }
 
-    public Store getByCode(String storeCode) {
-        return storeRepositary.findByCode(storeCode);
-    }
+  
     
 }
