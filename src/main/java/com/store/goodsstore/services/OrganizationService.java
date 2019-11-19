@@ -4,7 +4,6 @@ import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.entities.Organization;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class OrganizationService {
         organization.setOrganizationEmail(request.getOrganizationEmail());
         organization.setIdentificationCode(createIdentifier());
         organization.setUsers(userService.createUser(request));
-        organization.setStore(storeService.createStore(request));
+        organization.setStores(storeService.createStore(request));
         return organization;
     }
 

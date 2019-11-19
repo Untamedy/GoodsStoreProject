@@ -11,10 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegistrationResponse {
-    
-    private UserDto userDto;
+public class RegistrationResponse {    
+   
     private OrganizationDto organisationDto; 
-    private StoreDto storeDto;
+    
 
 }

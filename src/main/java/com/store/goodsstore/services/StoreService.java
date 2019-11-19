@@ -34,7 +34,7 @@ public class StoreService {
     }  
    
 
-    public Store createStoreRegistrRequest(RegistrationRequest request) {
+    public Store createStore(RegistrationRequest request) {
         Store store = new Store();
         store.setName(request.getStoreName());        
         store.setCode(createIdentifier());        
