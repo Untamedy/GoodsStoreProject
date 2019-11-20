@@ -5,6 +5,7 @@
  */
 package com.store.goodsstore.services;
 
+import com.store.goodsstore.entities.Customer;
 import com.store.goodsstore.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,10 @@ public class CustomerService {
     
     @Autowired
     private CustomerRepository repository;
+
+    Customer getCustomerByName(String customer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
             
     
 }

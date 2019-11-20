@@ -28,7 +28,7 @@ public class OrganizationService {
     OrganizationRepository repository;
 
     public OrganizationDto saveOrganisation(RegistrationRequest request) {
-        Organization organization = repository.findByOrganizationEmail(request.getOrganizationEmail());
+        Organization organization = repository.findByEmail(request.getOrganizationEmail());
         if (null == organization) {
             return createOrganizationResponse(repository.save(createOrganization(request)));
         }
@@ -55,6 +55,15 @@ public class OrganizationService {
         organizationResponse.setStorename(organization.getStores().getName());
         organizationResponse.setDescription(organization.getStores().getDescription());
         return organizationResponse;
+    }
+    
+    public Organization getByEmail(String email){
+        return repository.findByEmail(email);
+    }
+    
+    public Organization getByName(String name){
+        return repository.findByName(name);
+        
     }
 
     public String createIdentifier() {

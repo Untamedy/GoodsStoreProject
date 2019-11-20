@@ -14,10 +14,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
+import javax.persistence.criteria.Fetch;
 import lombok.Data;
 
 /**
@@ -32,14 +34,17 @@ public class IncomingDoc {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    private int orderNum;
+    private int num;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date incomDate;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "org_id")
+    private Organization org;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="customer_id")
     private Customer customer;
     @OneToMany(fetch=FetchType.EAGER)
     @JoinTable(name="order_goods")
     private List<Goods> goods;
-    private int incomSum;
+    private double incomSum;
 }

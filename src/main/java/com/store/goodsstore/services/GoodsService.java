@@ -29,7 +29,7 @@ public class GoodsService {
     public GoodsDto saveGoods(GoodsDto goodsDto) {
         GoodsDto newGoods = null;
         if (null == repository.findByCode(goodsDto.getCode())) {
-            Goods goods = repository.save(convertToGoods(goodsDto));
+            Goods goods = repository.save(createNewGoods(goodsDto));
 
             newGoods = createGoodsResponse(goods);
         }
@@ -59,7 +59,7 @@ public class GoodsService {
         return false;
     }
 
-    public Goods convertToGoods(GoodsDto goodsDto) {
+    public Goods createNewGoods(GoodsDto goodsDto) {
         Goods goods = new Goods();
         GoodsCounter counter = goodsCounterSecvice.createGoodsCounter(goodsDto);
         GoodsPrice price = priceService.createGoodsPrice(goodsDto);
@@ -71,6 +71,10 @@ public class GoodsService {
         goods.setCounter(counter);
         goods.setPrice(price);
         return goods;
+    }
+    
+    public Goods convertToGoods(GoodsDto dto){
+       return repository.findByCode(dto.getCode());
     }
 
     public GoodsDto createGoodsResponse(Goods goods) {

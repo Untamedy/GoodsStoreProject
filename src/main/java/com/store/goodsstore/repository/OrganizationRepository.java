@@ -9,8 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface OrganizationRepository extends JpaRepository<Organization, Integer>{
     
-    public boolean existsByOrganizationEmail(String email);
-    public Organization findByOrganizationEmail(String email);
+    public boolean existsByEmail(String email);
+    public Organization findByEmail(String email);
+    public Organization findByName(String email);
     
 
 }
