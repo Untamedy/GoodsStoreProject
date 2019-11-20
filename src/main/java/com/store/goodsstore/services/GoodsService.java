@@ -3,6 +3,7 @@ package com.store.goodsstore.services;
 import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.GoodsCounter;
+import com.store.goodsstore.entities.GoodsGroup;
 import com.store.goodsstore.entities.GoodsPrice;
 import com.store.goodsstore.repository.GoodsCounterRepository;
 import com.store.goodsstore.repository.GoodsPriceRepository;
@@ -25,6 +26,8 @@ public class GoodsService {
     private GoodsCounterService goodsCounterSecvice;
     @Autowired
     private GoodsPriceService priceService;
+    @Autowired
+    private GoodsGroupService groupService;
 
     public GoodsDto saveGoods(GoodsDto goodsDto) {
         GoodsDto newGoods = null;
@@ -63,13 +66,14 @@ public class GoodsService {
         Goods goods = new Goods();
         GoodsCounter counter = goodsCounterSecvice.createGoodsCounter(goodsDto);
         GoodsPrice price = priceService.createGoodsPrice(goodsDto);
-         
+        GoodsGroup group = groupService.getGroupByname(goodsDto.getGroupName());
         goods.setName(goodsDto.getName());
         goods.setCode(goodsDto.getCode());
         goods.setUnit(goodsDto.getUnit());
         goods.setVisible(true);
         goods.setCounter(counter);
         goods.setPrice(price);
+        goods.setGroup(group);
         return goods;
     }
     

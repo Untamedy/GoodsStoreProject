@@ -17,33 +17,27 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author YBolshakova
  */
-
 @Controller
 public class AuthorizationController {
+
     private static final Logger logger = LoggerFactory.getLogger(AuthorizationController.class);
-    
+
     @Autowired
     RegistrationService registrationService;
-    
+
     @GetMapping("/signup")
-    public String forvardToSignupPage(){
+    public String forvardToSignupPage() {
         return "signUpPage";
-                
+
     }
-    
+
     @PostMapping("/registration")
-    public ModelAndView registration(@RequestParam RegistrationRequest request){ 
-        RegistrationResponse response = registrationService.register(request);
-        if(null!=response){   
-                return new ModelAndView("/loginPage", HttpStatus.CREATED);       
-        }   
-        return new ModelAndView("signUpPage", "request", request);
-                
-    }         
-            
- 
- 
- 
-    
+    public ModelAndView registration(@RequestParam RegistrationRequest request) {
+        String response = registrationService.register(request);
+        if (response.equalsIgnoreCase("seccuss")) {
+            return new ModelAndView("/loginPage", HttpStatus.CREATED);
+        }
+        return new ModelAndView("signUpPage", "response", response);
+    }
 
 }

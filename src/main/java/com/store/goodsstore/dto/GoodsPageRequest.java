@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class GoodsPageRequest {
     
-    private Integer storeId;
+    private Integer group;
     private int page;
     private int size;   
    

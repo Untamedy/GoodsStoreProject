@@ -12,6 +12,7 @@ public class GoodsDto {
     private String name;
     private String code;    
     private String unit;
+    private String groupName;
     private int quantity;
     private double price;  
 }

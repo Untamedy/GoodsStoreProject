@@ -9,8 +9,7 @@ import lombok.Data;
 @Data
 public class GoodsCounterDto {
     
-    private String goodsCode; 
-    private String storeCode;
+    private String goodsCode;     
     private int quantity;
     
 

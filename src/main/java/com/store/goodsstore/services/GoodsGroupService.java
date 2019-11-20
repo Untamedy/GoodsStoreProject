@@ -39,8 +39,8 @@ public class GoodsGroupService {
     }
   
 
-    public GoodsGroupDto getGroupByname(String groupName, int id) {
-        return createDto(repository.findByNameAndStoreId(groupName, id));
+    public GoodsGroup getGroupByname(String groupName) {
+        return repository.findByName(groupName);
     }
 
     public GoodsGroupDto createDto(GoodsGroup group) {

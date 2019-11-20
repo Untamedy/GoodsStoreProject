@@ -40,8 +40,6 @@ public class OrganizationService {
         organization.setName(request.getOrganizationName());
         organization.setOrganizationEmail(request.getOrganizationEmail());
         organization.setIdentificationCode(createIdentifier());
-        organization.setUsers(userService.createUser(request));
-        organization.setStores(storeService.createStore(request));
         return organization;
     }
 

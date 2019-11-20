@@ -4,6 +4,8 @@ import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.RegistrationResponse;
 import com.store.goodsstore.entities.Organization;
+import com.store.goodsstore.entities.Store;
+import com.store.goodsstore.entities.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,18 +22,30 @@ public class RegistrationService {
     OrganizationService organizationService;
     @Autowired
     StoreService storeService;
-        
 
-    public RegistrationResponse register(RegistrationRequest request) { 
-        RegistrationResponse registrationResponse = null;
-        OrganizationDto organizationDto=null;
+    public String register(RegistrationRequest request) {
+        String message = "";
+        
         Organization organization = organizationService.createOrganization(request);
-        if(organization!=null){
-             organizationDto = organizationService.saveOrganisation(request); 
-             registrationResponse =  new RegistrationResponse(organizationDto);
-        }          
-        return registrationResponse;
+        Users user = userService.createUser(request);
+        Store store = storeService.createStore(request);
+        if (organization != null && user != null && store != null) {
+            organization.setUsers(user);
+            organization.setStores(store);
+            organizationService.saveOrganisation(request);
+            message = "Success";
+           }else{
+            if(organization==null){
+                message = "Organisation already exists";
+            }
+            if(user==null){
+                message = "User is already exists";                
+            }
+            if(store==null){
+                message= "Store is already exists";
+            }
+        }
+        return message;
     }
-    
 
 }

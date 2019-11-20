@@ -32,7 +32,7 @@ public class UserService {
 
     public UserDto getUsersByEmail(String email) {
         UserDto userDto = null;
-        Users user = repositary.findByUserEmail(email);
+        Users user = repositary.findByEmail(email);
         if (null != user) {
             return userDto = createUserRespons(user);
         }
@@ -49,8 +49,8 @@ public class UserService {
 
     public UserDto editUser(UserDto userDto) {
         UserDto editUserDto = null;
-        if (repositary.existsByUserEmail(userDto.getUserEmail())) {
-            Users user = repositary.findByUserEmail(userDto.getUserEmail());
+        if (repositary.existsByEmail(userDto.getUserEmail())) {
+            Users user = repositary.findByEmail(userDto.getUserEmail());
             user.setUsername(userDto.getUsername());
             user.setUserEmail(userDto.getUserEmail());
             return editUserDto = createUserRespons(repositary.save(user));
@@ -66,7 +66,7 @@ public class UserService {
     }
 
     public boolean changePassword(String pass, String email) {
-        Users user = repositary.findByUserEmail(email);
+        Users user = repositary.findByEmail(email);
         if (null != user) {
             user.setPassword(pass);
             repositary.save(user);
@@ -80,7 +80,7 @@ public class UserService {
         roles.add(rolesServise.findRoleByName("user"));
         roles.add(rolesServise.findRoleByName("admin"));
 
-        Users user = repositary.findByUserEmail(request.getUserEmail());
+        Users user = repositary.findByEmail(request.getUserEmail());
         if (user != null) {
             user = new Users();
             user.setUsername(request.getUserName());
@@ -90,10 +90,8 @@ public class UserService {
         }
         return user;
     }
-    
-    public boolean existsByEmail(String email){
-        if()
-        return false;
-        
+
+    public boolean existsByEmail(String email) {
+        return repositary.existsByEmail(email);
     }
 }
