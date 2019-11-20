@@ -50,6 +50,10 @@ public class OrganizationService {
         organizationResponse.setOrganizationId(organization.getId());
         organizationResponse.setOrganizationName(organization.getName());
         organizationResponse.setOrganizationEmail(organization.getOrganizationEmail());
+        organizationResponse.setUserName(organization.getUsers().getUsername());
+        organizationResponse.setUserEmail(organization.getUsers().getUserEmail());
+        organizationResponse.setStorename(organization.getStores().getName());
+        organizationResponse.setDescription(organization.getStores().getDescription());
         return organizationResponse;
     }
 

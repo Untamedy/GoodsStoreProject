@@ -30,7 +30,7 @@ public class ForgotPassword {
     
      @PostMapping("/forgotPass{:userEmail}")
     public ModelAndView restorePass(@PathVariable("emai") String email){
-        if(userService.isUserExist(email)){
+        if(userService.(email)){
             return new ModelAndView("restorePassPage","email",email);
         }
         return new ModelAndView("errorPage", HttpStatus.BAD_REQUEST);

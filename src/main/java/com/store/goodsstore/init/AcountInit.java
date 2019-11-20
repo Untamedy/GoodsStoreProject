@@ -1,7 +1,6 @@
 package com.store.goodsstore.init;
 
 import com.store.goodsstore.dto.RegistrationRequest;
-import com.store.goodsstore.repository.UserRepository;
 import com.store.goodsstore.services.RegistrationService;
 import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -28,8 +27,7 @@ public class AcountInit {
     public RegistrationRequest createRequest() {
         RegistrationRequest request = new RegistrationRequest();
         request.setOrganizationName("TestStore");
-        request.setOrganizationEmail("y.shemanska@gmail.com");
-        request.setStoreCode("test01");        
+        request.setOrganizationEmail("y.shemanska@gmail.com");        
         request.setStoreName("FirstStore");
         request.setUserEmail("y.shemanska@gmail.com");
         request.setUserName("Me");

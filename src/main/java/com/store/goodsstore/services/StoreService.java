@@ -28,9 +28,9 @@ public class StoreService {
         if (store != null) {
             store.setName(requestDto.getName());
             store.setDescription(requestDto.getDescription());
-            dto = createStoreDto(storeRepositary.saveAndFlush(store));            
+            dto = createStoreDto(storeRepositary.saveAndFlush(store));
         }
-       return dto;
+        return dto;
     }
 
     public boolean deleteStore(StoreDto storeDto) {
@@ -45,11 +45,13 @@ public class StoreService {
     }
 
     public Store createStore(RegistrationRequest request) {
-        Store store = new Store();
-        store.setName(request.getStoreName());
-        store.setCode(createIdentifier());
+        Store store = storeRepositary.findByName(request.getStoreName());
+        if (null != store) {
+            store = new Store();
+            store.setName(request.getStoreName());
+            store.setCode(createIdentifier());
+        }
         return store;
-
     }
 
     public StoreDto createStoreDto(Store store) {

@@ -24,9 +24,13 @@ public class RegistrationService {
 
     public RegistrationResponse register(RegistrationRequest request) { 
         RegistrationResponse registrationResponse = null;
-        Organization organization = organizationService.createOrganization(request);    
-        OrganizationDto organizationDto = organizationService.saveOrganisation(request);    
-        return  new RegistrationResponse(organizationDto);
+        OrganizationDto organizationDto=null;
+        Organization organization = organizationService.createOrganization(request);
+        if(organization!=null){
+             organizationDto = organizationService.saveOrganisation(request); 
+             registrationResponse =  new RegistrationResponse(organizationDto);
+        }          
+        return registrationResponse;
     }
     
 

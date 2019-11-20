@@ -2,9 +2,6 @@ package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.UserDto;
-import com.store.goodsstore.dto.UserRequestDto;
-import com.store.goodsstore.persistent.State;
-import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Role;
 import com.store.goodsstore.entities.Users;
 import java.util.HashSet;
@@ -82,12 +79,21 @@ public class UserService {
         Set<Role> roles = new HashSet<>();
         roles.add(rolesServise.findRoleByName("user"));
         roles.add(rolesServise.findRoleByName("admin"));
-        Users user = new Users();
-        user.setUsername(request.getUserName());
-        user.setUserEmail(request.getUserEmail());
-        user.setPassword(request.getUserPass());
-        user.setRoles(roles);
-        return user;
 
+        Users user = repositary.findByUserEmail(request.getUserEmail());
+        if (user != null) {
+            user = new Users();
+            user.setUsername(request.getUserName());
+            user.setUserEmail(request.getUserEmail());
+            user.setPassword(request.getUserPass());
+            user.setRoles(roles);
+        }
+        return user;
+    }
+    
+    public boolean existsByEmail(String email){
+        if()
+        return false;
+        
     }
 }

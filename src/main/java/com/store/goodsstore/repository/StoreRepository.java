@@ -14,7 +14,9 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
 
     public boolean existsByCode(String code);
 
-    public Store findByCode(String code);   
+    public Store findByCode(String code); 
+    
+    public Store findByName(String name);
         
     public List<Store> findByOrg(Integer id);
     
