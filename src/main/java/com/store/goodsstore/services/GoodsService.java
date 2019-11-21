@@ -5,12 +5,13 @@ import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.GoodsCounter;
 import com.store.goodsstore.entities.GoodsGroup;
 import com.store.goodsstore.entities.GoodsPrice;
-import com.store.goodsstore.repository.GoodsCounterRepository;
-import com.store.goodsstore.repository.GoodsPriceRepository;
 import com.store.goodsstore.repository.GoodsRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,9 +32,8 @@ public class GoodsService {
 
     public GoodsDto saveGoods(GoodsDto goodsDto) {
         GoodsDto newGoods = null;
-        if (null == repository.findByCode(goodsDto.getCode())) {
+        if (!repository.existsByCode(goodsDto.getCode())) {
             Goods goods = repository.save(createNewGoods(goodsDto));
-
             newGoods = createGoodsResponse(goods);
         }
         return newGoods;
@@ -77,7 +77,7 @@ public class GoodsService {
         return goods;
     }
     
-    public Goods convertToGoods(GoodsDto dto){
+    public Goods getByCode(GoodsDto dto){
        return repository.findByCode(dto.getCode());
     }
 
@@ -89,8 +89,8 @@ public class GoodsService {
         return response;
     }
 
-    public int goodsCount(Integer storeId) {
-        return goodsCounterSecvice.(storeId);
+    public int goodsCount(String goodsCode) {
+        return goodsCounterSecvice.getGoodsCount(goodsCode);
     }
 
     public Goods fingByCode(String code) {
@@ -107,11 +107,12 @@ public class GoodsService {
 
     }
 
-    public List<GoodsDto> findByGroupId(int groupId) {
-        List<GoodsDto> goods = repository.findByGroupId(groupId).stream().map(tmp -> {
+    public Page<GoodsDto> findByGroupId(int groupId, Pageable pageable) {  
+        List<GoodsDto> dto = repository.findByGroupId(groupId).stream().map(tmp -> {
             return createGoodsResponse(tmp);
-        }).collect(Collectors.toList());
-        return goods;
+        }).collect(Collectors.toList());        
+        Page<GoodsDto> page = new PageImpl<>(dto,pageable,dto.size());        
+       return page;
     }
 
 }

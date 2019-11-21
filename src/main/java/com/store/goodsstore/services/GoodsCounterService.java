@@ -5,6 +5,9 @@ import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.entities.GoodsCounter;
 import com.store.goodsstore.repository.GoodsCounterRepository;
 import com.store.goodsstore.repository.GoodsRepository;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,19 +29,46 @@ public class GoodsCounterService {
   
     
    
-    //необходимо дописать логику 
-    public GoodsCounter increaseGoodsQuantity(GoodsCounterDto goodsCounterDto){           
-        return null;
-        
+    
+    public List<GoodsCounterDto> increaseGoodsQuantity(GoodsDto [] goodsDto){ 
+       List<GoodsCounterDto> dto = new ArrayList<>();
+        for(GoodsDto g: goodsDto){
+             GoodsCounter counter = createGoodsCounter(g);
+            int count = g.getQuantity(); 
+            if(counter.getQuantity()<count){
+                return 
+                
+            }
+            int newQuantity = counter.getQuantity()+count;
+            counter.setQuantity(newQuantity);
+           dto.add(createCounterDto(repository.save(counter)));
+        }
+        return dto;        
         }
         
              
-    public GoodsCounter decreaseGoodsQuantity(GoodsCounterDto goodsCounterDto){
-         return null;
+    public List<GoodsCounterDto> decreaseGoodsQuantity(GoodsDto [] goodsDto){
+       List<GoodsCounterDto> dto = new ArrayList<>();
+        for(GoodsDto g: goodsDto){
+             GoodsCounter counter = createGoodsCounter(g);
+            int count = g.getQuantity();            
+            int newQuantity = counter.getQuantity()-count;
+            counter.setQuantity(newQuantity);
+           dto.add(createCounterDto(repository.save(counter)));
+        }
+        return dto;
     }
     
     public GoodsCounter createGoodsCounter(GoodsDto goods){  
         return new GoodsCounter(goods.getQuantity());
+        
+    }
+    
+    public GoodsCounterDto createCounterDto(GoodsCounter counter){
+       GoodsCounterDto dto = new GoodsCounterDto();
+       dto.setGoodsCode(counter.getGoods().getCode());
+       dto.setQuantity(counter.getQuantity());
+       return new GoodsCounterDto(); 
         
     }
     

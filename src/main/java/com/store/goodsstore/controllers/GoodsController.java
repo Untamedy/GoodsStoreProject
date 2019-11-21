@@ -3,16 +3,17 @@ package com.store.goodsstore.controllers;
 import com.store.goodsstore.dto.GoodsCounterDto;
 import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.repository.GoodsCounterRepository;
+import com.store.goodsstore.services.GoodsCounterService;
 import com.store.goodsstore.services.GoodsGroupService;
 import com.store.goodsstore.services.GoodsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,18 +34,18 @@ public class GoodsController {
     @Autowired
     private GoodsGroupService groupService;
     @Autowired
-    private GoodsCounterRepository goodsCounterRepository;
+    private GoodsCounterService goodsCounterService;
     
   
     
-  @GetMapping("/list?groupId=id")
-    public Page<GoodsDto> getGoodsByGroupId(@RequestParam("groupId") int id){        
-        return goodsService.findByGroupId(id);        
+  @GetMapping("/list?groupId=?")
+    public Page<GoodsDto> getGoodsByGroupId(@RequestParam("groupId") int id,Pageable page){        
+        return goodsService.findByGroupId(id,page);        
     }
     
     @PostMapping("/saveGoods")
     public ModelAndView saveGoods(@RequestBody GoodsDto request){
-        GoodsResponse response = goodsService.saveGoods(request);
+        GoodsDto response = goodsService.saveGoods(request);
         if(response!=null){
          return new ModelAndView("storePage", HttpStatus.OK);   
         }
@@ -68,12 +69,21 @@ public class GoodsController {
         return new ModelAndView("groupPage",HttpStatus.NOT_MODIFIED);        
     }
     
-     @PostMapping("/updateCount")
-    public ModelAndView addGoodsCount(@RequestBody GoodsCounterDto godsCounterDto){  
+     @PostMapping("/input")
+    public ModelAndView addGoodsCount(@RequestBody GoodsCounterDto[] godsCounterDto){  
         
         
-        return new ModelAndView();
+        return new ModelAndView("groupPage",HttpStatus.OK);
         
     }
-        
+    
+    @PostMapping("/sale")
+    public ModelAndView saleGoods(@RequestBody GoodsDto[] goods){
+      goodsCounterService.decreaseGoodsQuantity(goods);
+     return new ModelAndView("groupPage",HttpStatus.OK);   
+    }
+    
+  
 }
+
+        

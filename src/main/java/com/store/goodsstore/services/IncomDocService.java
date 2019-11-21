@@ -61,7 +61,7 @@ public class IncomDocService {
 
     private List<Goods> convertToGoodsList(List<GoodsDto> dtoList) {
         return dtoList.stream().map(tmp -> {
-            Goods goods = goodsService.convertToGoods(tmp);
+            Goods goods = goodsService.getByCode(tmp);
             return goods;
         }).collect(Collectors.toList());
     }
