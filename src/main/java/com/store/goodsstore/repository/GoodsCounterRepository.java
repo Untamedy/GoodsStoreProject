@@ -9,5 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface GoodsCounterRepository extends JpaRepository<GoodsCounter, Integer> { 
     
-    public int countQantityByGoodsCode(String code);
+    public int countQantityByGoodsCode(String code);   
+
+    public GoodsCounter findByGoodsCode(String code);
 }

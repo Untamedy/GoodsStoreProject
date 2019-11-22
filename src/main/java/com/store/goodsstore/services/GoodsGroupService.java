@@ -53,7 +53,7 @@ public class GoodsGroupService {
     public boolean removeGroup(String name){
         GoodsGroup group = repository.findByName(name);        
         if(group!=null){            
-            if(goodsService.getGoodsByGroupId(group.getId()).isEmpty()){
+            if(group.getGoods().isEmpty()){
                 repository.delete(group);
                 return true;
             }
@@ -61,11 +61,14 @@ public class GoodsGroupService {
         return false;       
     }
 
-    public List<GoodsGroupDto> getAll() {      
+    public List<GoodsGroupDto> getAllGroupDto() {      
         return repository.findAll().stream().map(tmp->{
             return createDto(tmp);
         }).collect(Collectors.toList());
                 
+    }
+     List<GoodsGroup> getAllGroup() {
+        return repository.findAll();
     }
 
 }

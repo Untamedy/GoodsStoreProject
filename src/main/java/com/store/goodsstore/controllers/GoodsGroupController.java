@@ -32,7 +32,7 @@ public class GoodsGroupController {
 
     @GetMapping("/groups")
     public ModelAndView getAllGroups(Model model) {
-        return new ModelAndView("storePage", "grops", service.getAll());
+        return new ModelAndView("storePage", "grops", service.getAllGroupDto());
 
     }
 

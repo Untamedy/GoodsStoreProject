@@ -6,6 +6,7 @@ import com.store.goodsstore.entities.GoodsCounter;
 import com.store.goodsstore.repository.GoodsCounterRepository;
 import com.store.goodsstore.repository.GoodsRepository;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,18 +25,16 @@ public class GoodsCounterService {
     @Autowired
     GoodsRepository goodsRepository;
 
-    public List<GoodsCounterDto> increaseGoodsQuantity(GoodsDto[] goodsDto) {
-        List<GoodsCounterDto> dto = new ArrayList<>();
+    public List<GoodsDto> increaseGoodsQuantity(GoodsDto[] goodsDto) {        
         for (GoodsDto g : goodsDto) {
             GoodsCounter counter = createGoodsCounter(g);
             int count = g.getQuantity();
-
             int newQuantity = counter.getQuantity() + count;
             counter.setQuantity(newQuantity);
-            dto.add(createCounterDto(repository.save(counter)));
+            g.setQuantity(newQuantity);
+            goodsService.saveGoods(g);
         }
-
-        return dto;
+        return Arrays.asList(goodsDto);
     }
 
     public List<GoodsCounterDto> decreaseGoodsQuantity(GoodsDto[] goodsDto) {
@@ -54,8 +53,11 @@ public class GoodsCounterService {
     }
 
     public GoodsCounter createGoodsCounter(GoodsDto goods) {
-        return new GoodsCounter(goods.getQuantity());
-
+       GoodsCounter goodsCounter = repository.findByGoodsCode(goods.getCode());
+       if(goodsCounter==null){
+        return new GoodsCounter(goods.getQuantity());   
+       }
+       return goodsCounter;
     }
 
     public GoodsCounterDto createCounterDto(GoodsCounter counter) {

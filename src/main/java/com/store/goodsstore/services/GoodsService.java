@@ -10,6 +10,7 @@ import com.store.goodsstore.repository.GoodsRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DeferredImportSelector.Group;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -93,10 +94,7 @@ public class GoodsService {
         return repository.existsByCode(code);
     }
 
-    public List<Goods> getGoodsByGroupId(int id) {
-        return repository.findByGroupId(id);
-
-    }
+    
 
     public Page<GoodsDto> getPaginatedGoods(int groupId, Pageable pageable) {
         List<GoodsDto> dto = repository.findByGroupId(groupId).stream().map(tmp -> {
@@ -113,5 +111,7 @@ public class GoodsService {
     public GoodsIncomePrice createIncomePrice(GoodsDto goodsDto) {
         return new GoodsIncomePrice(goodsDto.getIncomePrice());
     }
+
+   
 
 }
