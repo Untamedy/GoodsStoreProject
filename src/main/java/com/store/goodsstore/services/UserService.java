@@ -29,13 +29,15 @@ public class UserService {
     RolesServise rolesServise;
     @Autowired
     PasswordEncoder encoder;
+    
+    
 
     public UserDto getUsersByEmail(String email) {
         UserDto userDto = null;
         Users user = repositary.findByEmail(email);
         if (null != user) {
             return userDto = createUserRespons(user);
-        }
+        }        
         return userDto;
     }
 
@@ -51,8 +53,8 @@ public class UserService {
         UserDto editUserDto = null;
         if (repositary.existsByEmail(userDto.getUserEmail())) {
             Users user = repositary.findByEmail(userDto.getUserEmail());
-            user.setUsername(userDto.getUsername());
-            user.setUserEmail(userDto.getUserEmail());
+            user.setName(userDto.getUsername());
+            user.setEmail(userDto.getUserEmail());
             return editUserDto = createUserRespons(repositary.save(user));
         }
         return editUserDto;
@@ -60,8 +62,8 @@ public class UserService {
 
     public UserDto createUserRespons(Users user) {
         UserDto userDto = new UserDto();
-        userDto.setUserEmail(user.getUsername());
-        userDto.setUserEmail(user.getUserEmail());
+        userDto.setUserEmail(user.getName());
+        userDto.setUserEmail(user.getEmail());
         return userDto;
     }
 
@@ -83,8 +85,8 @@ public class UserService {
         Users user = repositary.findByEmail(request.getUserEmail());
         if (user != null) {
             user = new Users();
-            user.setUsername(request.getUserName());
-            user.setUserEmail(request.getUserEmail());
+            user.setName(request.getUserName());
+            user.setEmail(request.getUserEmail());
             user.setPassword(request.getUserPass());
             user.setRoles(roles);
         }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IncomeRepository extends JpaRepository<IncomingDoc, Integer>{
     
-    public IncomingDoc finbByNum(int num);
+    public IncomingDoc findByNum(int num);
 
  
 

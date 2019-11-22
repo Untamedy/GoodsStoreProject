@@ -29,15 +29,15 @@ public class Organization {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
-    private String organizationEmail;
+    private String email;
     @Column(nullable = false)
-    private String identificationCode;
+    private String code;
     
     @OneToOne(mappedBy = "org",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Store stores;
+    private Store store;
     
     @OneToOne(mappedBy="org",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private Users users;
+    private Users user;
     
     @OneToMany(mappedBy="org",fetch= FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Customer> customers;

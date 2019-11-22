@@ -32,9 +32,9 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
     private Integer id;
-    private String username;
+    private String name;
     @Column(nullable = false, unique = true)
-    private String userEmail;
+    private String email;
     @Column(nullable = false)
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)

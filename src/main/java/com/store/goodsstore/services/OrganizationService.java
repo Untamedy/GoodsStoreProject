@@ -15,14 +15,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrganizationService {
+     private static final Logger logger = Logger.getLogger(OrganizationService.class.getName());
     
     @Autowired
     private UserService userService;
     
     @Autowired
     private StoreService storeService;
-
-    private static final Logger logger = Logger.getLogger(OrganizationService.class.getName());
+   
 
     @Autowired
     OrganizationRepository repository;
@@ -38,8 +38,8 @@ public class OrganizationService {
     public Organization createOrganization(RegistrationRequest request) {
         Organization organization = new Organization();
         organization.setName(request.getOrganizationName());
-        organization.setOrganizationEmail(request.getOrganizationEmail());
-        organization.setIdentificationCode(createIdentifier());
+        organization.setEmail(request.getOrganizationEmail());
+        organization.setCode(createIdentifier());
         return organization;
     }
 
@@ -47,11 +47,11 @@ public class OrganizationService {
         OrganizationDto organizationResponse = new OrganizationDto();
         organizationResponse.setOrganizationId(organization.getId());
         organizationResponse.setOrganizationName(organization.getName());
-        organizationResponse.setOrganizationEmail(organization.getOrganizationEmail());
-        organizationResponse.setUserName(organization.getUsers().getUsername());
-        organizationResponse.setUserEmail(organization.getUsers().getUserEmail());
-        organizationResponse.setStorename(organization.getStores().getName());
-        organizationResponse.setDescription(organization.getStores().getDescription());
+        organizationResponse.setOrganizationEmail(organization.getEmail());
+        organizationResponse.setUserName(organization.getUser().getName());
+        organizationResponse.setUserEmail(organization.getUser().getEmail());
+        organizationResponse.setStorename(organization.getStore().getName());
+        organizationResponse.setDescription(organization.getStore().getDescription());
         return organizationResponse;
     }
     

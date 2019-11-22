@@ -67,7 +67,7 @@ public class GoodsCounterService {
     }
 
     public int getGoodsCount(String goodsCode) {
-        return repository.countByGoodsCode(goodsCode);
+        return repository.countQantityByGoodsCode(goodsCode);
     }
 
 }

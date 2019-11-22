@@ -30,8 +30,8 @@ public class RegistrationService {
         Users user = userService.createUser(request);
         Store store = storeService.createStore(request);
         if (organization != null && user != null && store != null) {
-            organization.setUsers(user);
-            organization.setStores(store);
+            organization.setUser(user);
+            organization.setStore(store);
             organizationService.saveOrganisation(request);
             message = "Success";
            }else{

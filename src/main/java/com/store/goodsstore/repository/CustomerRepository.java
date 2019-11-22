@@ -20,7 +20,7 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     
     public Customer findByPhoneNum(String phoneNum);
     
-    public Customer fingByName(String name);
+    public Customer findByName(String name);
     
     
 }

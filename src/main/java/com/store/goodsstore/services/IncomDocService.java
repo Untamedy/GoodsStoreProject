@@ -35,7 +35,7 @@ public class IncomDocService {
     }
     
     public IncomeDocDto getByNum(int num){          
-        return creteIncomeDocDto(repository.finbByNum(num));
+        return creteIncomeDocDto(repository.findByNum(num));
     }
 
     public IncomingDoc createIncomeDoc(IncomeDocDto dto) {

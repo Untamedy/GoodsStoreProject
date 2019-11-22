@@ -28,7 +28,7 @@ public class UserSecurityService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
        Users dbUser = repository.findByEmail(email);  
         if(null!=dbUser){
-       UserDetails user = new User(dbUser.getUserEmail(), dbUser.getPassword(), dbUser.getRoles());       
+       UserDetails user = new User(dbUser.getEmail(), dbUser.getPassword(), dbUser.getRoles());       
             return user;
         }
         throw new UsernameNotFoundException("user " + email + " not found");

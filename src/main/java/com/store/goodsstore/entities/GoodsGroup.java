@@ -31,9 +31,8 @@ public class GoodsGroup {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
-    private Integer id;
+    private Integer id;   
     
-    @Column(unique = true)
     private String name;  
     
     @ManyToOne(fetch = FetchType.LAZY)

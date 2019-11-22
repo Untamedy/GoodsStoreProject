@@ -25,7 +25,7 @@ public class GoodsGroupService {
     private StoreService storeService;
     
     public GoodsGroupDto saveGroup(String name){
-        if(!repository.exsistsByName(name)){
+        if(!repository.existsByName(name)){
           return createDto(repository.save(createGroup(name)));
         }  
         return null;
