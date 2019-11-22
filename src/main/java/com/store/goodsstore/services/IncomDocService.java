@@ -56,12 +56,13 @@ public class IncomDocService {
         dto.setCustomer(incomingDoc.getCustomer().getName());
         dto.setOrgName(incomingDoc.getOrg().getName());
         dto.setGoods(convertListToGoodsDto(incomingDoc.getGoods()));
+        dto.setIncomSum(incomingDoc.getIncomSum());
         return dto;
     }
 
     private List<Goods> convertToGoodsList(List<GoodsDto> dtoList) {
         return dtoList.stream().map(tmp -> {
-            Goods goods = goodsService.getByCode(tmp);
+            Goods goods = goodsService.fingByCode(tmp.getCode());
             return goods;
         }).collect(Collectors.toList());
     }
@@ -76,7 +77,7 @@ public class IncomDocService {
 
     private double countSum(List<GoodsDto> goods) {
         double sum = 0;
-        sum = goods.stream().map((g) -> g.getPrice()).reduce(sum, (accumulator, _item) -> accumulator + _item);
+        sum = goods.stream().map((g) -> g.getIncomePrice()).reduce(sum, (accumulator, _item) -> accumulator + _item);
         return sum;
     }
 }

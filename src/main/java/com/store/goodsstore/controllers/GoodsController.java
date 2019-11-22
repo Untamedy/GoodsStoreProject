@@ -40,7 +40,7 @@ public class GoodsController {
     
   @GetMapping("/list?groupId=?")
     public Page<GoodsDto> getGoodsByGroupId(@RequestParam("groupId") int id,Pageable page){        
-        return goodsService.findByGroupId(id,page);        
+        return goodsService.getPaginatedGoods(id,page);        
     }
     
     @PostMapping("/saveGoods")

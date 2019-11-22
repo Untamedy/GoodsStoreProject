@@ -36,12 +36,12 @@ public class StoreService {
     public boolean deleteStore(StoreDto storeDto) {
         if (storeRepositary.existsByCode(storeDto.getCode())) {
             Store store = storeRepositary.findByCode(storeDto.getName());
-            if (goodsService.goodsCount(store.getId()) > 0) {
-                return false;
-            }
-            storeRepositary.delete(store);
+            if (store.getGroups().isEmpty()) {
+                 storeRepositary.delete(store);
+                return true;
+            }           
         }
-        return true;
+        return false;
     }
 
     public Store createStore(RegistrationRequest request) {

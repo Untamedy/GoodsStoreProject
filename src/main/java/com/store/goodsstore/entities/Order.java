@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -36,12 +37,18 @@ public class Order {
     private int orderNum;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date orderDate;
+    
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="customer_id")
     private Customer customer;
+    
     @OneToMany(fetch=FetchType.EAGER)
     @JoinTable(name="order_goods")
     private List<Goods> goods;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="org_id")
+    private Organization org;
     private int orderSum;
     
 }

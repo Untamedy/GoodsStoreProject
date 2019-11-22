@@ -4,6 +4,7 @@ import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.GoodsCounter;
 import com.store.goodsstore.entities.GoodsGroup;
+import com.store.goodsstore.entities.GoodsIncomePrice;
 import com.store.goodsstore.entities.GoodsPrice;
 import com.store.goodsstore.repository.GoodsRepository;
 import java.util.List;
@@ -26,29 +27,23 @@ public class GoodsService {
     @Autowired
     private GoodsCounterService goodsCounterSecvice;
     @Autowired
-    private GoodsPriceService priceService;
-    @Autowired
     private GoodsGroupService groupService;
 
     public GoodsDto saveGoods(GoodsDto goodsDto) {
-        GoodsDto newGoods = null;
+        GoodsDto newGoods = null;        
         if (!repository.existsByCode(goodsDto.getCode())) {
-            Goods goods = repository.save(createNewGoods(goodsDto));
-            newGoods = createGoodsResponse(goods);
+            Goods goods = new Goods();
+            newGoods = createGoodsResponse(repository.save(createGoods(goodsDto, goods)));
         }
         return newGoods;
     }
 
     public GoodsDto updateGoods(GoodsDto goodsDto) {
         Goods goods = repository.findByCode(goodsDto.getCode());
-        if (null != goods) {
-            goods.setCode(goodsDto.getCode());
-            goods.setName(goodsDto.getName());
-            goods.setUnit(goodsDto.getUnit());
-            return createGoodsResponse(repository.save(goods));
-        }
-        throw new RuntimeException("Goods with code " + goodsDto.getCode() + " is not exist");
+        return createGoodsResponse(repository.save(createGoods(goodsDto, goods)));
     }
+
+    
 
     public boolean deleteGoods(GoodsDto goodsDto) {
         Goods goods = repository.findByCode(goodsDto.getCode());
@@ -62,10 +57,11 @@ public class GoodsService {
         return false;
     }
 
-    public Goods createNewGoods(GoodsDto goodsDto) {
-        Goods goods = new Goods();
+    public Goods createGoods(GoodsDto goodsDto, Goods goods) {
+        //Goods goods = new Goods();
         GoodsCounter counter = goodsCounterSecvice.createGoodsCounter(goodsDto);
-        GoodsPrice price = priceService.createGoodsPrice(goodsDto);
+        GoodsPrice price = createGoodsPrice(goodsDto);
+        GoodsIncomePrice incomePrice = createIncomePrice(goodsDto);
         GoodsGroup group = groupService.getGroupByname(goodsDto.getGroupName());
         goods.setName(goodsDto.getName());
         goods.setCode(goodsDto.getCode());
@@ -75,10 +71,6 @@ public class GoodsService {
         goods.setPrice(price);
         goods.setGroup(group);
         return goods;
-    }
-    
-    public Goods getByCode(GoodsDto dto){
-       return repository.findByCode(dto.getCode());
     }
 
     public GoodsDto createGoodsResponse(Goods goods) {
@@ -94,25 +86,32 @@ public class GoodsService {
     }
 
     public Goods fingByCode(String code) {
-        if (repository.existsByCode(code)) {
-            return repository.findByCode(code);
-        }
-        throw new RuntimeException("Goods with " + code + " is not exist");
-
+        return repository.findByCode(code);
     }
 
     public boolean existByCode(String code) {
+        return repository.existsByCode(code);
+    }
 
-        return false;
+    public List<Goods> getGoodsByGroupId(int id) {
+        return repository.findByGroupId(id);
 
     }
 
-    public Page<GoodsDto> findByGroupId(int groupId, Pageable pageable) {  
+    public Page<GoodsDto> getPaginatedGoods(int groupId, Pageable pageable) {
         List<GoodsDto> dto = repository.findByGroupId(groupId).stream().map(tmp -> {
             return createGoodsResponse(tmp);
-        }).collect(Collectors.toList());        
-        Page<GoodsDto> page = new PageImpl<>(dto,pageable,dto.size());        
-       return page;
+        }).collect(Collectors.toList());
+        Page<GoodsDto> page = new PageImpl<>(dto, pageable, dto.size());
+        return page;
+    }
+
+    public GoodsPrice createGoodsPrice(GoodsDto goodsDto) {
+        return new GoodsPrice(goodsDto.getPrice());
+    }
+
+    public GoodsIncomePrice createIncomePrice(GoodsDto goodsDto) {
+        return new GoodsIncomePrice(goodsDto.getIncomePrice());
     }
 
 }

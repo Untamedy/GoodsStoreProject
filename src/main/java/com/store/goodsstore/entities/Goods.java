@@ -45,5 +45,9 @@ public class Goods {
     @JoinColumn(name="price_id")
     private GoodsPrice price;
     
+  @OneToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name="incomePrice_id")
+    private GoodsIncomePrice incomePrice;
+    
  
 }

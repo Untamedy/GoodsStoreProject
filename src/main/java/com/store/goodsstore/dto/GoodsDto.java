@@ -15,4 +15,5 @@ public class GoodsDto {
     private String groupName;
     private int quantity;
     private double price;  
+    private double incomePrice;
 }

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -19,18 +20,19 @@ import lombok.Data;
  */
 @Entity
 @Data
-@SequenceGenerator(name = "my_seq", initialValue = 1, allocationSize = 1)
-public class GoodsPrice {
-
-    @Id
+@NoArgsConstructor
+@SequenceGenerator(name="my_seq", initialValue=1, allocationSize=1)
+public class GoodsIncomePrice {
+    
+      @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
-    private Integer id;
-    @OneToOne(mappedBy = "price")
+    private Integer id; 
+    @OneToOne(mappedBy = "incomePrice")    
     private Goods goods;
-    private double price;
+    private double incomePrice;    
 
-    public GoodsPrice(double price) {
-        this.price = price;
+    public GoodsIncomePrice(double price) {
+       this.incomePrice=price;
     }
-
+    
 }

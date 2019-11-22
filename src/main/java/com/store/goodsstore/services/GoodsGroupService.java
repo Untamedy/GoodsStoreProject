@@ -1,7 +1,6 @@
 package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.GoodsGroupDto;
-import com.store.goodsstore.dto.StoreDto;
 import com.store.goodsstore.entities.GoodsGroup;
 import com.store.goodsstore.repository.GroupRepository;
 import java.util.List;
@@ -53,8 +52,8 @@ public class GoodsGroupService {
     
     public boolean removeGroup(String name){
         GoodsGroup group = repository.findByName(name);        
-        if(group!=null){
-            if(goodsService.findByGroupId(group.getId()).isEmpty()){
+        if(group!=null){            
+            if(goodsService.getGoodsByGroupId(group.getId()).isEmpty()){
                 repository.delete(group);
                 return true;
             }
