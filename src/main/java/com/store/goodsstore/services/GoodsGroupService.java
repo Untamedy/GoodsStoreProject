@@ -34,6 +34,7 @@ public class GoodsGroupService {
     public GoodsGroupDto editGroup(String newName,String oldName){
        GoodsGroup group= repository.findByName(oldName);
        group.setName(newName);
+       repository.save(group);
        return createDto(group);        
     }
   

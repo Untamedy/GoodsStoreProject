@@ -6,8 +6,12 @@
 package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.GoodsPageRequest;
+import com.store.goodsstore.services.IncomDocService;
+import com.store.goodsstore.services.OrderService;
+import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,24 +25,29 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller("/reports")
 public class ReportsController {
     
-    private static final Logger logger = LoggerFactory.getLogger(RolesController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ReportsController.class);
     
-    @PostMapping("/saleGoodsReport")
-    public ModelAndView createSaleReport(){
+   @Autowired
+   private OrderService orderService;
+   
+   @Autowired
+   private IncomDocService incomeService;
+    
+    @PostMapping("/saleGoodsReport/{dateFrom}/{dateTo}")
+    public ModelAndView createSaleReport(@PathVariable ("dateFrom") Date dateFrom, @PathVariable("dateTo") Date dateTo){
+       
+        
         return null;        
     }
     
-    @PostMapping("/sumGoodsCountReports{:storeId}")
-    public ModelAndView createGoodsCounterrepost(@PathVariable("storeCode") String code){
-        return null;        
-    }
+   
     
-    @PostMapping("/addGoodsCountReport")
+    @PostMapping("/incomeGoodsReport/{dateFrom}/{dateTo}")
     public ModelAndView createAddGoodsCountrepost(@RequestBody GoodsPageRequest request){
         return null;        
     } 
     
-    @PostMapping("/finReport")
+    @PostMapping("/finReport/{dateFrom}/{dateTo}")
     public ModelAndView createFinReport(){
         return null;        
     }

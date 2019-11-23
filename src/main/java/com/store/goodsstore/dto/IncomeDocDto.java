@@ -13,7 +13,7 @@ import lombok.Data;
 public class IncomeDocDto {
 
     private int num;
-    private Date incomDate;
+    private Date incomeDate;
     private String orgName;
     private String customer;
     private List<GoodsDto> goods;

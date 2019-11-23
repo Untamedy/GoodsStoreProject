@@ -2,11 +2,11 @@ package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.GoodsCounterDto;
 import com.store.goodsstore.dto.GoodsDto;
+import com.store.goodsstore.dto.OrderDto;
 import com.store.goodsstore.entities.GoodsCounter;
 import com.store.goodsstore.repository.GoodsCounterRepository;
 import com.store.goodsstore.repository.GoodsRepository;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class GoodsCounterService {
     @Autowired
     GoodsRepository goodsRepository;
 
-    public List<GoodsDto> increaseGoodsQuantity(GoodsDto[] goodsDto) {        
+    public List<GoodsDto> increaseGoodsQuantity(List<GoodsDto> goodsDto) {        
         for (GoodsDto g : goodsDto) {
             GoodsCounter counter = createGoodsCounter(g);
             int count = g.getQuantity();
@@ -34,12 +34,12 @@ public class GoodsCounterService {
             g.setQuantity(newQuantity);
             goodsService.saveGoods(g);
         }
-        return Arrays.asList(goodsDto);
+        return goodsDto;
     }
 
-    public List<GoodsCounterDto> decreaseGoodsQuantity(GoodsDto[] goodsDto) {
-        List<GoodsCounterDto> dto = new ArrayList<>();
-        for (GoodsDto g : goodsDto) {
+    public List<GoodsDto> decreaseGoodsQuantity(OrderDto orderDto) {
+        List<GoodsDto> dto = new ArrayList<>();
+        for (GoodsDto g : orderDto.getGoods()) {
             GoodsCounter counter = createGoodsCounter(g);
             int count = g.getQuantity();
             if ((counter.getQuantity()-count)<0) {
@@ -47,7 +47,8 @@ public class GoodsCounterService {
             }
             int newQuantity = counter.getQuantity() - count;
             counter.setQuantity(newQuantity);
-            dto.add(createCounterDto(repository.save(counter)));
+            g.setQuantity(newQuantity);
+            goodsService.saveGoods(g);
         }
         return dto;
     }

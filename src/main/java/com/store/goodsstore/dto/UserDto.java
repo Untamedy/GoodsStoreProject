@@ -6,7 +6,6 @@
 package com.store.goodsstore.dto;
 
 import com.store.goodsstore.entities.Organization;
-import com.store.goodsstore.persistent.State;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class UserDto {   
     private String username;
     private String userEmail;     
-    private Organization organization;    
-    private State state; 
+    private Organization organization;   
+    
     
 }

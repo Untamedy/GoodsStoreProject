@@ -69,4 +69,11 @@ public class OrganizationService {
         return identifier;
     }
 
+    Organization editOrganization(RegistrationRequest request) {
+        Organization organization = repository.findByEmail(request.getOrganizationEmail());
+        organization.setName(request.getOrganizationName());
+         return repository.save(organization);
+        
+    }
+
 }

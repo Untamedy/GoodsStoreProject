@@ -19,16 +19,19 @@ public class StoreService {
 
     @Autowired
     private StoreRepository storeRepositary;
+    
     @Autowired
-    GoodsService goodsService;
+    private GoodsService goodsService;
+    
+    @Autowired
+    private OrganizationService orgService;
 
-    public StoreDto editStore(StoreDto requestDto) {
+    public StoreDto editStore(RegistrationRequest request) {
         StoreDto dto = null;
-        Store store = storeRepositary.findByCode(requestDto.getCode());
+        Store store = storeRepositary.findByOrg(orgService.getByEmail(request.getOrganizationEmail()).getId());
         if (store != null) {
-            store.setName(requestDto.getName());
-            store.setDescription(requestDto.getDescription());
-            dto = createStoreDto(storeRepositary.saveAndFlush(store));
+            store.setName(request.getStoreName());           
+            dto = createStoreDto(storeRepositary.save(store));
         }
         return dto;
     }
@@ -44,14 +47,15 @@ public class StoreService {
         return false;
     }
 
-    public Store createStore(RegistrationRequest request) {
+    public Store saveStore(RegistrationRequest request) {
         Store store = storeRepositary.findByName(request.getStoreName());
-        if (null != store) {
+        if (null == store) {
             store = new Store();
             store.setName(request.getStoreName());
             store.setCode(createIdentifier());
+            return storeRepositary.save(store);
         }
-        return store;
+        throw new RuntimeException("Store with name " + request.getStoreName() + " is already exists");
     }
 
     public StoreDto createStoreDto(Store store) {
@@ -62,10 +66,7 @@ public class StoreService {
         response.setDescription(store.getDescription());
         return response;
     }
-
-    public List<StoreDto> getAllStore(Integer orgId) {
-        return storeRepositary.findByOrg(orgId).stream().map(this::createStoreDto).collect(Collectors.toList());
-    }
+   
 
     public Store getById(int id) {
         return storeRepositary.getOne(id);

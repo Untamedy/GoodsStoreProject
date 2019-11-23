@@ -41,13 +41,13 @@ public class GoodsService {
         return createGoodsResponse(repository.save(createGoods(goodsDto, goods)));
     }
 
-    public boolean deleteGoods(GoodsDto goodsDto) {
-        Goods goods = repository.findByCode(goodsDto.getCode());
+    public boolean deleteGoods(String code) {
+        Goods goods = repository.findByCode(code);
         if (null != goods) {
-            if (goodsCounterSecvice.getGoodsCount(goodsDto.getCode()) > 0) {
+            if (goodsCounterSecvice.getGoodsCount(code) > 0) {
                 return false;
             }
-            goods.setVisible(false);
+            repository.delete(goods);
             return true;
         }
         return false;

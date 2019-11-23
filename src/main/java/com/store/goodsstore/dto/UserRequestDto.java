@@ -6,7 +6,7 @@
 package com.store.goodsstore.dto;
 
 import com.store.goodsstore.entities.Organization;
-import com.store.goodsstore.persistent.State;
+
 import lombok.Data;
 
 /**
@@ -18,7 +18,6 @@ public class UserRequestDto {
     private String username;
     private String userEmail;
     private String password;
-    private Organization organization;
-    private State state;
+    private Organization organization;    
 
 }

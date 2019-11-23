@@ -1,6 +1,5 @@
 package com.store.goodsstore.config;
 
-import com.store.goodsstore.controllers.RolesController;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

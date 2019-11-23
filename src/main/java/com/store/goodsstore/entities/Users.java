@@ -1,6 +1,5 @@
 package com.store.goodsstore.entities;
 
-import com.store.goodsstore.persistent.State;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,7 +40,5 @@ public class Users {
     private Set<Role> roles;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "orgId")
-    private Organization org;
-    private State state;
-
+    private Organization org;   
 }

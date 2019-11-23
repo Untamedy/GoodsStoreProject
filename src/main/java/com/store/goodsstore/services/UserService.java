@@ -49,12 +49,11 @@ public class UserService {
         return userList;
     }
 
-    public UserDto editUser(UserDto userDto) {
+    public UserDto editUser(RegistrationRequest request) {
         UserDto editUserDto = null;
-        if (repositary.existsByEmail(userDto.getUserEmail())) {
-            Users user = repositary.findByEmail(userDto.getUserEmail());
-            user.setName(userDto.getUsername());
-            user.setEmail(userDto.getUserEmail());
+        if (repositary.existsByEmail(request.getUserEmail())) {
+            Users user = repositary.findByEmail(request.getUserEmail());
+            user.setName(request.getUserName());           
             return editUserDto = createUserRespons(repositary.save(user));
         }
         return editUserDto;
@@ -77,20 +76,20 @@ public class UserService {
         return false;
     }
 
-    public Users createUser(RegistrationRequest request) {
+    public Users saveNewUser(RegistrationRequest request) {
         Set<Role> roles = new HashSet<>();
         roles.add(rolesServise.findRoleByName("user"));
         roles.add(rolesServise.findRoleByName("admin"));
-
         Users user = repositary.findByEmail(request.getUserEmail());
         if (user != null) {
             user = new Users();
             user.setName(request.getUserName());
             user.setEmail(request.getUserEmail());
             user.setPassword(request.getUserPass());
-            user.setRoles(roles);
+            user.setRoles(roles); 
+            return repositary.save(user);
         }
-        return user;
+         throw new RuntimeException("User with email " + request.getUserEmail() + " is already exists");
     }
 
     public boolean existsByEmail(String email) {

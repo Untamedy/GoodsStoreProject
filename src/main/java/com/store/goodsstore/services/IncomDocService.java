@@ -5,6 +5,7 @@ import com.store.goodsstore.dto.IncomeDocDto;
 import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.IncomingDoc;
 import com.store.goodsstore.repository.IncomeRepository;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class IncomDocService {
 
     public IncomingDoc createIncomeDoc(IncomeDocDto dto) {
         IncomingDoc incomingDoc = new IncomingDoc();
-        incomingDoc.setIncomDate(dto.getIncomDate());
+        incomingDoc.setIncomDate(new Date());
         incomingDoc.setNum(dto.getNum());
         incomingDoc.setCustomer(customerService.getCustomerByName(dto.getCustomer()));
         incomingDoc.setOrg(organizationService.getByName(dto.getOrgName()));
@@ -51,7 +52,7 @@ public class IncomDocService {
 
     public IncomeDocDto creteIncomeDocDto(IncomingDoc incomingDoc) {
         IncomeDocDto dto = new IncomeDocDto();
-        dto.setIncomDate(incomingDoc.getIncomDate());
+        dto.setIncomeDate(incomingDoc.getIncomDate());
         dto.setNum(incomingDoc.getNum());
         dto.setCustomer(incomingDoc.getCustomer().getName());
         dto.setOrgName(incomingDoc.getOrg().getName());
