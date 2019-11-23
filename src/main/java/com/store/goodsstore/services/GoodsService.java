@@ -7,12 +7,9 @@ import com.store.goodsstore.entities.GoodsGroup;
 import com.store.goodsstore.entities.GoodsIncomePrice;
 import com.store.goodsstore.entities.GoodsPrice;
 import com.store.goodsstore.repository.GoodsRepository;
-import java.util.List;
-import java.util.stream.Collectors;
+import javax.persistence.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DeferredImportSelector.Group;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +28,7 @@ public class GoodsService {
     private GoodsGroupService groupService;
 
     public GoodsDto saveGoods(GoodsDto goodsDto) {
-        GoodsDto newGoods = null;        
+        GoodsDto newGoods = null;
         if (!repository.existsByCode(goodsDto.getCode())) {
             Goods goods = new Goods();
             newGoods = createGoodsResponse(repository.save(createGoods(goodsDto, goods)));
@@ -43,8 +40,6 @@ public class GoodsService {
         Goods goods = repository.findByCode(goodsDto.getCode());
         return createGoodsResponse(repository.save(createGoods(goodsDto, goods)));
     }
-
-    
 
     public boolean deleteGoods(GoodsDto goodsDto) {
         Goods goods = repository.findByCode(goodsDto.getCode());
@@ -94,14 +89,10 @@ public class GoodsService {
         return repository.existsByCode(code);
     }
 
-    
-
-    public Page<GoodsDto> getPaginatedGoods(int groupId, Pageable pageable) {
-        List<GoodsDto> dto = repository.findByGroupId(groupId).stream().map(tmp -> {
-            return createGoodsResponse(tmp);
-        }).collect(Collectors.toList());
-        Page<GoodsDto> page = new PageImpl<>(dto, pageable, dto.size());
-        return page;
+    public Page<GoodsDto> getPaginatedGoods(int groupId, Pageable page) {
+        Page<Goods> goods = repository.findByGroupId(groupId, page);
+        Page<GoodsDto> goodsDto = goods.map(this::createGoodsResponse);
+        return goodsDto;
     }
 
     public GoodsPrice createGoodsPrice(GoodsDto goodsDto) {
@@ -111,7 +102,5 @@ public class GoodsService {
     public GoodsIncomePrice createIncomePrice(GoodsDto goodsDto) {
         return new GoodsIncomePrice(goodsDto.getIncomePrice());
     }
-
-   
 
 }
