@@ -15,33 +15,33 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrganizationService {
-     private static final Logger logger = Logger.getLogger(OrganizationService.class.getName());
-    
+
+    private static final Logger logger = Logger.getLogger(OrganizationService.class.getName());
+
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private StoreService storeService;
-   
 
     @Autowired
     OrganizationRepository repository;
 
-    public OrganizationDto saveOrganisation(RegistrationRequest request) {
-        Organization organization = repository.findByEmail(request.getOrganizationEmail());
-        if (null == organization) {
-            return createOrganizationResponse(repository.save(createOrganization(request)));
-        }
-        return null;
+    public OrganizationDto saveOrganisation(Organization organization) {
+        return createOrganizationResponse(repository.save(organization));
     }
 
-    public Organization createOrganization(RegistrationRequest request) {
-        Organization organization = new Organization();
+    public Organization createOrganization(RegistrationRequest request){
+    Organization organization = repository.findByEmail(request.getOrganizationEmail());
+    if (null == organization)  {    
+       organization = new Organization();
+    }
         organization.setName(request.getOrganizationName());
         organization.setEmail(request.getOrganizationEmail());
         organization.setCode(createIdentifier());
-        return organization;
+        return organization;    
     }
+
 
     public OrganizationDto createOrganizationResponse(Organization organization) {
         OrganizationDto organizationResponse = new OrganizationDto();
@@ -54,14 +54,14 @@ public class OrganizationService {
         organizationResponse.setDescription(organization.getStore().getDescription());
         return organizationResponse;
     }
-    
-    public Organization getByEmail(String email){
+
+    public Organization getByEmail(String email) {
         return repository.findByEmail(email);
     }
-    
-    public Organization getByName(String name){
+
+    public Organization getByName(String name) {
         return repository.findByName(name);
-        
+
     }
 
     public String createIdentifier() {
@@ -72,8 +72,8 @@ public class OrganizationService {
     Organization editOrganization(RegistrationRequest request) {
         Organization organization = repository.findByEmail(request.getOrganizationEmail());
         organization.setName(request.getOrganizationName());
-         return repository.save(organization);
-        
+        return repository.save(organization);
+
     }
 
 }

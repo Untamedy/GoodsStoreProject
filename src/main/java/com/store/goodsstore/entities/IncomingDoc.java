@@ -37,7 +37,7 @@ public class IncomingDoc {
    
     private String num;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date incomDate;
+    private Date date;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "org_id")
@@ -51,5 +51,5 @@ public class IncomingDoc {
     @JoinTable(name="incomedoc_goods")
     private List<Goods> goods;
     
-    private double incomSum;
+    private double sum;
 }

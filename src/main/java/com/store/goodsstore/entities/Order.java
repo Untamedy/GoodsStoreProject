@@ -35,10 +35,10 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "my_seq")
     private int id;
    
-    private String orderNum;
+    private String num;
     
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date orderDate;
+    private Date date;
     
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="customer_id")
@@ -51,6 +51,6 @@ public class Order {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="org_id")
     private Organization org;
-    private int orderSum;
+    private int sum;
     
 }

@@ -81,7 +81,7 @@ public class UserService {
         roles.add(rolesServise.findRoleByName("user"));
         roles.add(rolesServise.findRoleByName("admin"));
         Users user = repositary.findByEmail(request.getUserEmail());
-        if (user != null) {
+        if (user == null) {
             user = new Users();
             user.setName(request.getUserName());
             user.setEmail(request.getUserEmail());

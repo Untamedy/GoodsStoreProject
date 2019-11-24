@@ -40,23 +40,23 @@ public class IncomDocService {
    
    public IncomingDoc createIncomeDoc(IncomeDocDto dto) {
         IncomingDoc incomingDoc = new IncomingDoc();
-        incomingDoc.setIncomDate(new Date());
+        incomingDoc.setDate(new Date());
         incomingDoc.setNum(dto.getNum());
         incomingDoc.setCustomer(customerService.getCustomerByName(dto.getCustomer()));
         incomingDoc.setOrg(organizationService.getByName(dto.getOrgName()));
         incomingDoc.setGoods(convertToGoodsList(dto.getGoods()));
-        incomingDoc.setIncomSum(countSum(dto.getGoods()));
+        incomingDoc.setSum(countSum(dto.getGoods()));
         return incomingDoc;
     }
 
     public IncomeDocDto creteIncomeDocDto(IncomingDoc incomingDoc) {
         IncomeDocDto dto = new IncomeDocDto();
-        dto.setIncomeDate(incomingDoc.getIncomDate());
+        dto.setIncomeDate(incomingDoc.getDate());
         dto.setNum(incomingDoc.getNum());
         dto.setCustomer(incomingDoc.getCustomer().getName());
         dto.setOrgName(incomingDoc.getOrg().getName());
         dto.setGoods(convertListToGoodsDto(incomingDoc.getGoods()));
-        dto.setIncomSum(incomingDoc.getIncomSum());
+        dto.setIncomSum(incomingDoc.getSum());
         return dto;
     }
 
@@ -91,7 +91,7 @@ public class IncomDocService {
 
     public List<IncomeDocDto> getByPeriod(Date dateFrom, Date dateTo) {
         List<IncomeDocDto> dtoList = new ArrayList<>();
-       List<IncomingDoc> list = repository.findByDate(dateFrom, dateTo);
+       List<IncomingDoc> list = repository.findAllByDateBetween(dateFrom, dateTo);
        if(!list.isEmpty()){
       dtoList = list.stream().map((tmp)->{
            return creteIncomeDocDto(tmp);

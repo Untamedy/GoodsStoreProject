@@ -45,7 +45,7 @@ public class OrderService {
     
     public Order createOrder(OrderDto dto){
        Organization organisation = organizationService.getByName(dto.getOrgName());        
-       Order order = repository.findByNumAndOrdId(dto.getOrderNum(), organisation.getId());
+       Order order = repository.findByNumAndOrgId(dto.getOrderNum(), organisation.getId());
        if(order==null){
          order = new Order();
        }
@@ -54,10 +54,10 @@ public class OrderService {
          return goodsService.createGoods(tmp);
        }).collect(Collectors.toList());
        order.setGoods(goods);
-       order.setOrderDate(dto.getOrderDate());
-       order.setOrderNum(dto.getOrderNum());
+       order.setDate(dto.getOrderDate());
+       order.setNum(dto.getOrderNum());
        order.setOrg(organizationService.getByName(dto.getOrgName()));
-       order.setOrderSum(dto.getOrderSum());
+       order.setSum(dto.getOrderSum());
        return order;
     }
 
@@ -65,15 +65,15 @@ public class OrderService {
         OrderDto dto = new OrderDto();
         dto.setCustomerName(order.getCustomer().getName());
         dto.setCustomerPhone(order.getCustomer().getPhoneNum());
-        dto.setOrderNum(order.getOrderNum());
+        dto.setOrderNum(order.getNum());
         dto.setOrgName(order.getOrg().getName());
-        dto.setOrderDate(order.getOrderDate());
+        dto.setOrderDate(order.getDate());
         List<GoodsDto> goodsDto = order.getGoods().stream().map((tmp)->{
             GoodsDto gDto = goodsService.createGoodsResponse(tmp);
             return gDto;
         }).collect(Collectors.toList());
         dto.setGoods(goodsDto);
-        dto.setOrderSum(order.getOrderSum());
+        dto.setOrderSum(order.getSum());
         return dto;        
     }
 

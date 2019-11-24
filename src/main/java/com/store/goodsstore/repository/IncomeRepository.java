@@ -15,8 +15,8 @@ import org.springframework.stereotype.Repository;
 public interface IncomeRepository extends JpaRepository<IncomingDoc, Integer>{
     
 
-    @Query("select * from IncomeDoc where date between '?1' and '?2'")
-    public List<IncomingDoc> findByDate(Date dateFrom, Date dateTo);
+    
+    public List<IncomingDoc> findAllByDateBetween(Date dateFrom, Date dateTo);
     
     public IncomingDoc findByNum(String num);
 

@@ -33,10 +33,10 @@ public class RegistrationService {
         Store store = storeService.saveStore(request);
         organization.setUser(user);
         organization.setStore(store);
-        organizationService.saveOrganisation(request);
-   }
+        organizationService.saveOrganisation(organization);
+    }
 
-public RegistrationResponse editRegData(RegistrationRequest request) {
+    public RegistrationResponse editRegData(RegistrationRequest request) {
         UserDto user = userService.editUser(request);
         StoreDto store = storeService.editStore(request);
         Organization organization = organizationService.editOrganization(request);
