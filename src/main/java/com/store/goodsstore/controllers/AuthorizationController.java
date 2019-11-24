@@ -32,9 +32,9 @@ public class AuthorizationController {
 
     @PostMapping("/registration")
     public ModelAndView registration(@RequestBody RegistrationRequest request) {
-      registrationService.register(request);
-        
-            logger.debug("User registered success");
+        logger.debug("Received a request for registration  user " + request.getUserEmail());
+      registrationService.register(request);        
+            logger.debug("Registered success");
             return new ModelAndView("/loginPage", HttpStatus.CREATED);
         }
        
