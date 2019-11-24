@@ -25,7 +25,7 @@ public class GoodsCounterService {
     @Autowired
     GoodsRepository goodsRepository;
 
-    public List<GoodsDto> increaseGoodsQuantity(List<GoodsDto> goodsDto) {        
+    public List<GoodsDto> increaseGoodsQuantity(List<GoodsDto> goodsDto) {
         for (GoodsDto g : goodsDto) {
             GoodsCounter counter = createGoodsCounter(g);
             int count = g.getQuantity();
@@ -42,7 +42,7 @@ public class GoodsCounterService {
         for (GoodsDto g : orderDto.getGoods()) {
             GoodsCounter counter = createGoodsCounter(g);
             int count = g.getQuantity();
-            if ((counter.getQuantity()-count)<0) {
+            if ((counter.getQuantity() - count) < 0) {
                 return dto;
             }
             int newQuantity = counter.getQuantity() - count;
@@ -54,11 +54,11 @@ public class GoodsCounterService {
     }
 
     public GoodsCounter createGoodsCounter(GoodsDto goods) {
-       GoodsCounter goodsCounter = repository.findByGoodsCode(goods.getCode());
-       if(goodsCounter==null){
-        return new GoodsCounter(goods.getQuantity());   
-       }
-       return goodsCounter;
+        GoodsCounter goodsCounter = repository.findByGoodsCode(goods.getCode());
+        if (goodsCounter == null) {
+            return new GoodsCounter(goods.getQuantity());
+        }
+        return goodsCounter;
     }
 
     public GoodsCounterDto createCounterDto(GoodsCounter counter) {
@@ -71,10 +71,6 @@ public class GoodsCounterService {
 
     public int getGoodsCount(String goodsCode) {
         return repository.countQantityByGoodsCode(goodsCode);
-    }
-
-    GoodsCounter getCounterByGoodsCode(String code) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

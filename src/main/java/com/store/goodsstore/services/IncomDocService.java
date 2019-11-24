@@ -35,10 +35,8 @@ public class IncomDocService {
         IncomingDoc doc = repository.save(createIncomeDoc(incomDto));
         return creteIncomeDocDto(doc);
     }
-    
-   
-   
-   public IncomingDoc createIncomeDoc(IncomeDocDto dto) {
+
+    public IncomingDoc createIncomeDoc(IncomeDocDto dto) {
         IncomingDoc incomingDoc = new IncomingDoc();
         incomingDoc.setDate(new Date());
         incomingDoc.setNum(dto.getNum());
@@ -74,30 +72,31 @@ public class IncomDocService {
         }).collect(Collectors.toList());
 
     }
+
     private double countSum(List<GoodsDto> goods) {
         double sum = 0;
         sum = goods.stream().map((g) -> g.getIncomePrice()).reduce(sum, (accumulator, _item) -> accumulator + _item);
         return sum;
     }
-    
-    public IncomeDocDto getByNum(String num){
-       return creteIncomeDocDto(repository.findByNum(num));
+
+    public IncomeDocDto getByNum(String num) {
+        return creteIncomeDocDto(repository.findByNum(num));
     }
-    
-    public List<IncomingDoc> getByCustomer(String phone){
+
+    public List<IncomingDoc> getByCustomer(String phone) {
         return repository.findByCustomer(customerService.getCustomerByPhone(phone).getId());
-        
+
     }
 
     public List<IncomeDocDto> getByPeriod(Date dateFrom, Date dateTo) {
         List<IncomeDocDto> dtoList = new ArrayList<>();
-       List<IncomingDoc> list = repository.findAllByDateBetween(dateFrom, dateTo);
-       if(!list.isEmpty()){
-      dtoList = list.stream().map((tmp)->{
-           return creteIncomeDocDto(tmp);
-       }).collect(Collectors.toList());
-          return dtoList;
-       }  
+        List<IncomingDoc> list = repository.findAllByDateBetween(dateFrom, dateTo);
+        if (!list.isEmpty()) {
+            dtoList = list.stream().map((tmp) -> {
+                return creteIncomeDocDto(tmp);
+            }).collect(Collectors.toList());
+            return dtoList;
+        }
         return dtoList;
     }
 }

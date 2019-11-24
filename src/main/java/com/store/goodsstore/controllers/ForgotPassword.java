@@ -32,7 +32,7 @@ public class ForgotPassword {
         if(userService.existsByEmail(email)){
             return new ModelAndView("restorePassPage","email",email);
         }
-        return new ModelAndView("errorPage", HttpStatus.BAD_REQUEST);
+        return new ModelAndView("error", HttpStatus.BAD_REQUEST);
     }
     
     @GetMapping("/restorePass/{newPass}")
@@ -41,7 +41,7 @@ public class ForgotPassword {
         if(userService.changePassword(pass,email)){
             return new ModelAndView("loginPage","msg","Success");
         }
-        return new ModelAndView("errorPage", HttpStatus.BAD_REQUEST);       
+        return new ModelAndView("error", HttpStatus.BAD_REQUEST);       
             }
 
 }

@@ -6,10 +6,8 @@
 package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.GoodsDto;
-import com.store.goodsstore.dto.IncomeDocDto;
 import com.store.goodsstore.dto.OrderDto;
 import com.store.goodsstore.entities.Goods;
-import com.store.goodsstore.entities.IncomingDoc;
 import com.store.goodsstore.entities.Order;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.repository.OrderRepository;
