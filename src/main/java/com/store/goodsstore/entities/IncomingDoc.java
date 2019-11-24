@@ -7,6 +7,7 @@ package com.store.goodsstore.entities;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,7 +34,8 @@ public class IncomingDoc {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    private int num;
+   
+    private String num;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date incomDate;
     
@@ -46,7 +48,7 @@ public class IncomingDoc {
     private Customer customer;
     
     @OneToMany(fetch=FetchType.EAGER)
-    @JoinTable(name="order_goods")
+    @JoinTable(name="incomedoc_goods")
     private List<Goods> goods;
     
     private double incomSum;

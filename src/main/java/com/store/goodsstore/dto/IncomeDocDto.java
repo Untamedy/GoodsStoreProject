@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class IncomeDocDto {
 
-    private int num;
+    private String num;
     private Date incomeDate;
     private String orgName;
     private String customer;

@@ -30,15 +30,13 @@ public class GoodsService {
     public GoodsDto saveGoods(GoodsDto goodsDto) {
         GoodsDto newGoods = null;
         if (!repository.existsByCode(goodsDto.getCode())) {
-            Goods goods = new Goods();
-            newGoods = createGoodsResponse(repository.save(createGoods(goodsDto, goods)));
+            newGoods = createGoodsResponse(repository.save(createGoods(goodsDto)));
         }
         return newGoods;
     }
 
     public GoodsDto updateGoods(GoodsDto goodsDto) {
-        Goods goods = repository.findByCode(goodsDto.getCode());
-        return createGoodsResponse(repository.save(createGoods(goodsDto, goods)));
+        return createGoodsResponse(repository.save(createGoods(goodsDto)));
     }
 
     public boolean deleteGoods(String code) {
@@ -53,19 +51,23 @@ public class GoodsService {
         return false;
     }
 
-    public Goods createGoods(GoodsDto goodsDto, Goods goods) {
-        //Goods goods = new Goods();
-        GoodsCounter counter = goodsCounterSecvice.createGoodsCounter(goodsDto);
-        GoodsPrice price = createGoodsPrice(goodsDto);
-        GoodsIncomePrice incomePrice = createIncomePrice(goodsDto);
-        GoodsGroup group = groupService.getGroupByname(goodsDto.getGroupName());
+    public Goods createGoods(GoodsDto goodsDto) {
+        Goods goods = repository.findByCode(goodsDto.getCode());
+        if (goods == null) {
+            goods = new Goods();
+            GoodsCounter counter = goodsCounterSecvice.createGoodsCounter(goodsDto);
+            GoodsPrice price = createGoodsPrice(goodsDto);
+            GoodsIncomePrice incomePrice = createIncomePrice(goodsDto);
+            GoodsGroup group = groupService.getGroupByname(goodsDto.getGroupName());
+            goods.setCounter(counter);
+            goods.setPrice(price);
+            goods.setGroup(group);
+        }
         goods.setName(goodsDto.getName());
         goods.setCode(goodsDto.getCode());
         goods.setUnit(goodsDto.getUnit());
         goods.setVisible(true);
-        goods.setCounter(counter);
-        goods.setPrice(price);
-        goods.setGroup(group);
+
         return goods;
     }
 

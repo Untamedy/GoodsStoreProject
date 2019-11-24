@@ -5,7 +5,6 @@
  */
 package com.store.goodsstore.controllers;
 
-import com.store.goodsstore.dto.GoodsPageRequest;
 import com.store.goodsstore.services.IncomDocService;
 import com.store.goodsstore.services.OrderService;
 import java.util.Date;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -33,23 +31,24 @@ public class ReportsController {
    @Autowired
    private IncomDocService incomeService;
     
-    @PostMapping("/saleGoodsReport/{dateFrom}/{dateTo}")
-    public ModelAndView createSaleReport(@PathVariable ("dateFrom") Date dateFrom, @PathVariable("dateTo") Date dateTo){
-       
-        
-        return null;        
+    @PostMapping("/saleGoodsReport/{docNum}")
+    public ModelAndView createSaleReport(@PathVariable ("docNum") String docNum){
+        return new ModelAndView("incodeDoc", "incomeDoc", orderService.getByNum(docNum));        
     }
     
    
     
-    @PostMapping("/incomeGoodsReport/{dateFrom}/{dateTo}")
-    public ModelAndView createAddGoodsCountrepost(@RequestBody GoodsPageRequest request){
-        return null;        
+    @PostMapping("/incomeGoodsReport/{docNum}")
+    public ModelAndView createAddGoodsCountrepost(@PathVariable ("docNum") String docNum){
+       return new ModelAndView("incodeDoc", "incomeDoc", incomeService.getByNum(docNum));
     } 
     
     @PostMapping("/finReport/{dateFrom}/{dateTo}")
-    public ModelAndView createFinReport(){
-        return null;        
+    public ModelAndView createFinReport(@PathVariable("dateFrom") Date dateFrom, @PathVariable("dateTo")Date dateTo){
+        ModelAndView model = new ModelAndView("finReportPage");        
+        model.addObject("orders", orderService.getByPeriod(dateFrom,dateTo));
+        model.addObject("incomeDOc", incomeService.getByPeriod(dateFrom,dateTo));
+        return model;        
     }
     
     

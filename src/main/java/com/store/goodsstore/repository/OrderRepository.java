@@ -6,8 +6,10 @@
 package com.store.goodsstore.repository;
 
 import com.store.goodsstore.entities.Order;
+import java.util.Date;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -17,6 +19,11 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
     
     public List<Order> findByCustomer(int id);
     
+    public Order findByNum(String num);
     
+    public Order findByNumAndOrdId(String num, int orgId);
+
+     @Query("select * from Order where date between '?1' and '?2'")
+    public List<Order> findByDate(Date dateFrom, Date dateTo);
     
 }

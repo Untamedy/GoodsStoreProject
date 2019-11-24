@@ -7,6 +7,7 @@ package com.store.goodsstore.entities;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,8 +34,9 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "my_seq")
     private int id;
+   
+    private String orderNum;
     
-    private int orderNum;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date orderDate;
     

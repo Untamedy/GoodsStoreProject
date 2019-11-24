@@ -5,6 +5,7 @@ import com.store.goodsstore.dto.IncomeDocDto;
 import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.IncomingDoc;
 import com.store.goodsstore.repository.IncomeRepository;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,11 +36,9 @@ public class IncomDocService {
         return creteIncomeDocDto(doc);
     }
     
-    public IncomeDocDto getByNum(int num){          
-        return creteIncomeDocDto(repository.findByNum(num));
-    }
-
-    public IncomingDoc createIncomeDoc(IncomeDocDto dto) {
+   
+   
+   public IncomingDoc createIncomeDoc(IncomeDocDto dto) {
         IncomingDoc incomingDoc = new IncomingDoc();
         incomingDoc.setIncomDate(new Date());
         incomingDoc.setNum(dto.getNum());
@@ -75,10 +74,30 @@ public class IncomDocService {
         }).collect(Collectors.toList());
 
     }
-
     private double countSum(List<GoodsDto> goods) {
         double sum = 0;
         sum = goods.stream().map((g) -> g.getIncomePrice()).reduce(sum, (accumulator, _item) -> accumulator + _item);
         return sum;
+    }
+    
+    public IncomeDocDto getByNum(String num){
+       return creteIncomeDocDto(repository.findByNum(num));
+    }
+    
+    public List<IncomingDoc> getByCustomer(String phone){
+        return repository.findByCustomer(customerService.getCustomerByPhone(phone).getId());
+        
+    }
+
+    public List<IncomeDocDto> getByPeriod(Date dateFrom, Date dateTo) {
+        List<IncomeDocDto> dtoList = new ArrayList<>();
+       List<IncomingDoc> list = repository.findByDate(dateFrom, dateTo);
+       if(!list.isEmpty()){
+      dtoList = list.stream().map((tmp)->{
+           return creteIncomeDocDto(tmp);
+       }).collect(Collectors.toList());
+          return dtoList;
+       }  
+        return dtoList;
     }
 }
