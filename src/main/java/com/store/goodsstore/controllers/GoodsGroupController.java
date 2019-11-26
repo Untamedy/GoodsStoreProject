@@ -44,7 +44,7 @@ public class GoodsGroupController {
 
     }
 
-    @GetMapping("/remoteGroup/{name}")
+    @GetMapping("/removedGroup/{name}")
     public ModelAndView removeGroup(@RequestParam String name) {
         if (service.removeGroup(name)) {            
             return new ModelAndView("storePage",HttpStatus.OK);
