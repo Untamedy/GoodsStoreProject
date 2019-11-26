@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        
         <style>
             .bg-1 { 
                 background-color: #1abc9c; /* Green */
@@ -34,8 +35,8 @@
 
         <div class="container-fluid bg-2 text-center">             
             <p> </p>
-            <a href="#" class="btn btn-default btn-lg">SignIn</a>
-            <a href="#" class="btn btn-default btn-lg">SignUp</a>
+            <a href="login" class="btn btn-default btn-lg">SignIn</a>
+            <a href="signUp" class="btn btn-default btn-lg">SignUp</a>
             <p> </p>
         </div>
 

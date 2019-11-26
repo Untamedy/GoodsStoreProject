@@ -1,28 +1,77 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+<!doctype html>
+<html lang="en">
 
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../../../favicon.ico">
 
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
-    </div>
+        <title>Signin</title>        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">      
+        
+        <style>
+            body {
+                height: 100%;
+            }
 
-    <!-- Login Form -->
-    <form>
-      <input type="text" id="username" class="fadeIn second" name="username" placeholder="login">
-      <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
-    </form>
+            body {
+                display: -ms-flexbox;
+                display: -webkit-box;
+                display: flex;
+                -ms-flex-align: center;
+                -ms-flex-pack: center;
+                -webkit-box-align: center;
+                align-items: center;
+                -webkit-box-pack: center;
+                justify-content: center;
+                padding-top: 40px;
+                padding-bottom: 40px;
+                background-color: #f5f5f5;
+            }
 
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
+            .form-signin {
+                width: 50%;
+                max-width: 330px;
+                padding: 15px;
+                margin: 0 auto;
+            }
 
-  </div>
-</div>
+            .form-signin .form-control {
+                position: relative;
+                box-sizing: border-box;
+                height: auto;
+                padding: 10px;
+                font-size: 16px;
+            }
+            .form-signin .form-control:focus {
+                z-index: 2;
+            }
+            .form-signin input[type="email"] {
+                margin-bottom: -1px;
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+            .form-signin input[type="password"] {
+                margin-bottom: 10px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+        </style>
+
+    </head>
+
+    <body class="text-center">
+        <form class="form-signin" method="Get" action="login">
+            <img class="mb-4" src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <label for="username" class="sr-only">Email address</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required autofocus>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+
+            <button class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>      
+        </form>
+    </body>
+</html>
