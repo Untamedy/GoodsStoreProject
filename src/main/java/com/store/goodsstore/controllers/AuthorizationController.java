@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -26,18 +27,17 @@ public class AuthorizationController {
 
     @GetMapping("/signup")
     public String forvardToSignupPage() {
-        return "signUpPage";
+        return "signupPage";
 
     }
 
-    @PostMapping("/registration")
-    public ModelAndView registration(@RequestBody RegistrationRequest request) {
-        logger.debug("Received a request for registration  user " + request.getUserEmail());
-      registrationService.register(request);        
-            logger.debug("Registered success");
-            return new ModelAndView("/loginPage", HttpStatus.CREATED);
-        }
-       
-    
+    @PostMapping("/registration{organization}")
+    public ModelAndView registration(@RequestParam(value = "organization") String[] orgData) {
+        logger.debug("Received a request for registration  user ");
+        RegistrationRequest request = registrationService.createRequest(orgData);
+        registrationService.register(request);
+        logger.debug("Registered success");
+        return new ModelAndView("/loginPage", HttpStatus.CREATED);
+    }
 
 }

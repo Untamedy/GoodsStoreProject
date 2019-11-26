@@ -44,4 +44,15 @@ public class RegistrationService {
         return new RegistrationResponse(editOrganization);
     }
 
+    public RegistrationRequest createRequest(String[] orgData) {
+        RegistrationRequest request = new RegistrationRequest();
+        request.setOrganizationName(orgData[0]);
+        request.setOrganizationEmail(orgData[1]);
+        request.setStoreName(orgData[2]);
+        request.setUserName(orgData[3]);
+        request.setUserEmail(orgData[4]);
+        request.setUserPass(orgData[5]);
+        return request;
+    }
+
 }

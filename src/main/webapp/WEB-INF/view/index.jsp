@@ -36,7 +36,7 @@
         <div class="container-fluid bg-2 text-center">             
             <p> </p>
             <a href="login" class="btn btn-default btn-lg">SignIn</a>
-            <a href="signUp" class="btn btn-default btn-lg">SignUp</a>
+            <a href="signup" class="btn btn-default btn-lg">SignUp</a>
             <p> </p>
         </div>
 
