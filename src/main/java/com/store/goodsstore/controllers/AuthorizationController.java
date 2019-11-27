@@ -2,6 +2,7 @@ package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.services.RegistrationService;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,10 @@ public class AuthorizationController {
 
     }
 
-    @PostMapping("/registration{organization}")
-    public ModelAndView registration(@RequestParam(value = "organization") String[] orgData) {
+    @PostMapping("/registration")
+    public ModelAndView registration(@RequestParam(value = "organization") Map<String, String> queryMap) {
         logger.debug("Received a request for registration  user ");
-        RegistrationRequest request = registrationService.createRequest(orgData);
+        RegistrationRequest request = registrationService.createRequest(queryMap);
         registrationService.register(request);
         logger.debug("Registered success");
         return new ModelAndView("/loginPage", HttpStatus.CREATED);

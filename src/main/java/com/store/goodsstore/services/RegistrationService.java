@@ -8,6 +8,7 @@ import com.store.goodsstore.dto.UserDto;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.entities.Users;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,14 +45,14 @@ public class RegistrationService {
         return new RegistrationResponse(editOrganization);
     }
 
-    public RegistrationRequest createRequest(String[] orgData) {
+    public RegistrationRequest createRequest(Map<String,String> quaryMap) {
         RegistrationRequest request = new RegistrationRequest();
-        request.setOrganizationName(orgData[0]);
-        request.setOrganizationEmail(orgData[1]);
-        request.setStoreName(orgData[2]);
-        request.setUserName(orgData[3]);
-        request.setUserEmail(orgData[4]);
-        request.setUserPass(orgData[5]);
+        request.setOrganizationName(quaryMap.get("orgName"));
+        request.setOrganizationEmail(quaryMap.get("orgEmail"));
+        request.setStoreName(quaryMap.get("storeName"));
+        request.setUserName(quaryMap.get("userName"));
+        request.setUserEmail(quaryMap.get("userEmail"));
+        request.setUserPass(quaryMap.get("password"));
         return request;
     }
 
