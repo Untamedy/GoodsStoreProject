@@ -1,21 +1,4 @@
-2019-11-26 13:40:24,110 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on Lenovo-PC with PID 7916 (started by Lenovo in C:\Users\Lenovo\Documents\GoodsStoreProject)
-2019-11-26 13:40:24,116 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
-2019-11-26 13:40:24,117 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
-2019-11-26 13:40:32,292 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.704 seconds (JVM running for 10.358)
-2019-11-26 19:04:47,286 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 65936 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
-2019-11-26 19:04:47,297 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
-2019-11-26 19:04:47,297 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
-2019-11-26 19:04:55,829 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.919 seconds (JVM running for 10.426)
-2019-11-26 19:22:21,073 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 113860 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
-2019-11-26 19:22:21,076 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
-2019-11-26 19:22:21,076 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
-2019-11-26 19:22:28,817 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.102 seconds (JVM running for 9.325)
-2019-11-27 14:53:22,447 DEBUG org.hibernate.validator.internal.engine.resolver.TraversableResolvers [background-preinit] Found javax.persistence.Persistence on classpath containing 'getPersistenceUtil'. Assuming JPA 2 environment. Trying to instantiate JPA aware TraversableResolver
-2019-11-27 14:53:22,623 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on Lenovo-PC with PID 11796 (started by Lenovo in C:\Users\Lenovo\Documents\GoodsStoreProject)
-2019-11-27 14:53:22,623 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
-2019-11-27 14:53:22,623 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
-2019-11-27 14:53:31,211 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.955 seconds (JVM running for 10.873)
-2019-11-27 19:37:42,657 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 972 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
-2019-11-27 19:37:42,659 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
-2019-11-27 19:37:42,661 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
-2019-11-27 19:37:50,600 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.246 seconds (JVM running for 9.464)
+2019-11-28 13:18:18,211 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on Lenovo-PC with PID 1384 (started by Lenovo in C:\Users\Lenovo\Documents\GoodsStoreProject)
+2019-11-28 13:18:18,211 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-11-28 13:18:18,211 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-11-28 13:18:26,105 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.268 seconds (JVM running for 9.726)

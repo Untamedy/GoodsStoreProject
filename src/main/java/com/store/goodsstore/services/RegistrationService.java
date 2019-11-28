@@ -28,7 +28,7 @@ public class RegistrationService {
     StoreService storeService;
 
     @Transactional
-    public void register(RegistrationRequest request) {
+    public void  register(RegistrationRequest request) {
         Organization organization = organizationService.createOrganization(request);
         Users user = userService.saveNewUser(request);
         Store store = storeService.saveStore(request);

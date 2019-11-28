@@ -20,17 +20,17 @@
 
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                    <form  method="Post" action="registration">
+                    <form  method="Post" action="registration" modelAtribut = "regForm">
                         <h2 class="text-center">Sign Up</h2>
                         <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <input type="text" name="orgName" id="orgName" class="form-control input-lg" placeholder="Organization name" tabindex="1">
+                                    <input type="text" name="organizationName" id="organizationName" class="form-control input-lg" placeholder="Organization name" tabindex="1">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <input type="email" name="orgEmail" id="orgEmail" class="form-control input-lg" placeholder="Organization email" tabindex="2">
+                                    <input type="email" name="organizationEmail" id="organizationEmail" class="form-control input-lg" placeholder="Organization email" tabindex="2">
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                             <input type="email" name="userEmail" id="userEmail" class="form-control input-lg" placeholder="User email" tabindex="4">
                         </div>
                         <div class="form-group">
-                            <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="4">
+                            <input type="password" name="userPass" id="password" class="form-control input-lg" placeholder="Password" tabindex="4">
                         </div>
 
                         <div class="row">

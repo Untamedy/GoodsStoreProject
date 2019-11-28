@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Lenovo
  */
 @Controller
-@RequestMapping("/store")
 public class StoreController {
 
-    @GetMapping()
+    @GetMapping("/store")
     public String toStorepage() {
         return "storePage";
 
