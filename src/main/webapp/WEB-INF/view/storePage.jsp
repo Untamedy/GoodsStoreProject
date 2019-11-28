@@ -52,13 +52,13 @@
 
             <div id="header">
 
-               
+
                 <div class="btn-group">
                     <button type="button" class="btn btn-info">Goods groups</button>
                     <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Add group</a>
+                        <a class="dropdown-item" href="#addGroup" data-toggle="modal" data-target="#myModal">Add group</a>
                         <a class="dropdown-item" href="#">Edit group</a>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="#section1">Candies</a>
                         </li> 
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link active" href="#section2">Fruits</a>
                         </li>
                     </ul>
@@ -121,7 +121,7 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -137,7 +137,19 @@
                                     <td><button type="button" class="btn btn-info">Edit</button></td>                                    
 
                                 </tr>
-                               <tr>
+                                <tr>
+                                    <td>Candy</td>
+                                    <td>2314</td>
+                                    <td>kg</td>
+                                    <td>10</td>
+                                    <td>50</td>
+                                    <td>100</td>
+                                    <td><button type="button" class="btn btn-info">Add to order</button></td>
+                                    <td><button type="button" class="btn btn-info">Delete</button></td>
+                                    <td><button type="button" class="btn btn-info">Edit</button></td>                                    
+
+                                </tr>
+                                <tr>
                                     <td>Candy</td>
                                     <td>2314</td>
                                     <td>kg</td>
@@ -173,19 +185,7 @@
                                     <td><button type="button" class="btn btn-info">Edit</button></td>                                    
 
                                 </tr>
-                               <tr>
-                                    <td>Candy</td>
-                                    <td>2314</td>
-                                    <td>kg</td>
-                                    <td>10</td>
-                                    <td>50</td>
-                                    <td>100</td>
-                                    <td><button type="button" class="btn btn-info">Add to order</button></td>
-                                    <td><button type="button" class="btn btn-info">Delete</button></td>
-                                    <td><button type="button" class="btn btn-info">Edit</button></td>                                    
 
-                                </tr>
-                              
                             </tbody>
                         </table>
 
@@ -202,9 +202,49 @@
             </div>
         </div>
 
+        <div name="addGroup" class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+
+                    <div class="modal-header">                        
+                        <h4 class="modal-title">Add new goods group</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>                  
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form id="myForm" role="form" method="POST" action="/saveGroup">
+                            <div class="form-group">
+                                <label for="group">Name:</label>
+                                <input type="text" class="form-control" id="groupName" name="groupName">
+                            </div>
+                            <button id="myFormSubmit" type="submit" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </form>
+
+                    </div>
 
 
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript">
+            function form_submit() {
+                document.getElementById("myForm").submit();
+            }
+        </script>
 
 
     </body>
+
+
 </html>
