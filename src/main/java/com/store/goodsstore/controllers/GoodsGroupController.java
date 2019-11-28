@@ -34,7 +34,7 @@ public class GoodsGroupController {
 
     @PostMapping("/saveGroup")
     public ModelAndView saveGroup(@RequestParam String name) {
-        return new ModelAndView("storePage", "newGroup", service.saveGroup(name));
+        return new ModelAndView("store", "newGroup", service.saveGroup(name));
 
     }
 

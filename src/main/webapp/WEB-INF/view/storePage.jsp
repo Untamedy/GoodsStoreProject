@@ -215,7 +215,7 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <form id="myForm" role="form" method="POST" action="/saveGroup">
+                        <form id="myForm" role="form" method="POST" action="saveGroup">
                             <div class="form-group">
                                 <label for="group">Name:</label>
                                 <input type="text" class="form-control" id="groupName" name="groupName">
