@@ -220,8 +220,8 @@
                                 <label for="group">Name:</label>
                                 <input type="text" class="form-control" id="groupName" name="groupName">
                             </div>
-                            <button id="myFormSubmit" type="submit" class="btn btn-success" data-dismiss="modal">Submit</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button id="myFormSubmit" type="submit" onclick="myFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
                         </form>
 
                     </div>
@@ -237,10 +237,11 @@
         </div>
 
 
-        <script type="text/javascript">
-            function form_submit() {
+        <script>
+            function myFunction() {
                 document.getElementById("myForm").submit();
             }
+
         </script>
 
 
