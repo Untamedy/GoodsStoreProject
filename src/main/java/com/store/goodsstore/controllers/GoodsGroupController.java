@@ -6,13 +6,16 @@
 package com.store.goodsstore.controllers;
 
 
+import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.services.GoodsGroupService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,30 +24,31 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Lenovo
  */
 @Controller
+@RequestMapping("/group")
 public class GoodsGroupController {
 
     @Autowired
     private GoodsGroupService service;
 
-    @GetMapping("/groups")
+    @GetMapping("/all")
     public ModelAndView getAllGroups() {
-        return new ModelAndView("storePage", "grops", service.getAllGroupDto());
+        return new ModelAndView("store", "grops", service.getAllGroupDto());
 
     }
 
-    @PostMapping("/saveGroup")
-    public ModelAndView saveGroup(@RequestParam String name) {
-        return new ModelAndView("store", "newGroup", service.saveGroup(name));
+    @GetMapping("/save")
+    public ModelAndView saveGroup(@RequestParam("groupName") String name) {
+        return new ModelAndView("storePage", "newGroup", service.saveGroup(name));
 
     }
 
-    @PostMapping("editGroup/{oldName}/{newName}")
-    public ModelAndView editGroup(@PathVariable("newName") String newName, @PathVariable("oldName")String oldName) {
+    @GetMapping("editGroup")
+    public ModelAndView editGroup(@RequestParam("newName") String newName, @RequestParam("oldName")String oldName) {        
         return new ModelAndView("storePage", "editGroup", service.editGroup(newName,oldName));
 
     }
 
-    @GetMapping("/removedGroup/{name}")
+    @GetMapping("/removedGroup")
     public ModelAndView removeGroup(@RequestParam String name) {
         if (service.removeGroup(name)) {            
             return new ModelAndView("storePage",HttpStatus.OK);

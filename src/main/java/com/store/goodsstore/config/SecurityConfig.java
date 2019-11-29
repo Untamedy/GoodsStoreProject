@@ -39,19 +39,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/store","/registration", "/login", "/forgotPass", "/error", "/signup").permitAll()
+                .antMatchers("/","/store","/group/**","/registration", "/login", "/forgotPass", "/error", "/signup").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("admin")
                 .antMatchers("/goods/**", "/reports/**").hasAnyRole("user")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login").loginProcessingUrl("/j_spring_security_check").successForwardUrl("/goods").failureUrl("/error")
+                .loginPage("/login").loginProcessingUrl("/j_spring_security_check").successForwardUrl("/store").failureUrl("/error")
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll().logoutUrl("/logout").logoutSuccessUrl("/login").invalidateHttpSession(true)
+                .permitAll().logoutUrl("/logout").logoutSuccessUrl("/loginpage").invalidateHttpSession(true)
                 .and()                
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);      
 

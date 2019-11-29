@@ -1,12 +1,16 @@
 package com.store.goodsstore.services;
 
+import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.StoreDto;
 import com.store.goodsstore.entities.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.store.goodsstore.repository.StoreRepository;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 /**
@@ -24,6 +28,9 @@ public class StoreService {
     
     @Autowired
     private OrganizationService orgService;
+    
+    @Autowired
+    private GoodsGroupService groupService;
 
     public StoreDto editStore(RegistrationRequest request) {
         StoreDto dto = null;
@@ -63,6 +70,13 @@ public class StoreService {
         response.setName(store.getName());
         response.setOrganization(store.getOrg());
         response.setDescription(store.getDescription());
+        List<GoodsGroupDto> groups = new ArrayList<>();                
+        if(!store.getGroups().isEmpty()){            
+        groups = store.getGroups().stream().map((tmp)->{
+           return groupService.createDto(tmp);
+        }).collect(Collectors.toList());      
+        }      
+          response.setGroups(groups); 
         return response;
     }
    
@@ -75,7 +89,7 @@ public class StoreService {
         return storeRepositary.findByCode(storeCode);
     }
 
-    public String createIdentifier() {
+    private String createIdentifier() {
         return UUID.randomUUID().toString();
     }
 

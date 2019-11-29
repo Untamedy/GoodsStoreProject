@@ -5,9 +5,13 @@
  */
 package com.store.goodsstore.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import com.store.goodsstore.services.StoreService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -15,10 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class StoreController {
+    
+   @Autowired
+   private StoreService service;
 
     @GetMapping("/store")
-    public String toStorepage() {
-        return "storePage";
+    public ModelAndView toStorepage(@RequestParam("code") String code) {
+        ModelAndView model = new ModelAndView("storePage");
+        model.addObject("store", service.getByCode(code));       
+        return model;
 
     }
 }

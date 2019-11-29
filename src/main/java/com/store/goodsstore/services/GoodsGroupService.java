@@ -1,8 +1,10 @@
 package com.store.goodsstore.services;
 
+import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.entities.GoodsGroup;
 import com.store.goodsstore.repository.GroupRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,16 @@ public class GoodsGroupService {
     }
 
     public GoodsGroupDto createDto(GoodsGroup group) {
-        return new GoodsGroupDto(group.getName());        
+        GoodsGroupDto groupDto = new GoodsGroupDto();
+        groupDto.setName(group.getName());
+        List<GoodsDto> goodsDto = new ArrayList<>();
+        if(!group.getGoods().isEmpty()){
+           goodsDto = group.getGoods().stream().map((tmp)->{
+           return goodsService.createGoodsResponse(tmp);
+        }).collect(Collectors.toList());       
+        }     
+         groupDto.setGoods(goodsDto);  
+        return groupDto;        
     }
     
     public GoodsGroup createGroup(String name){

@@ -48,8 +48,8 @@ public class OrganizationService {
         organizationResponse.setOrganizationId(organization.getId());
         organizationResponse.setOrganizationName(organization.getName());
         organizationResponse.setOrganizationEmail(organization.getEmail());
-        organizationResponse.setUserName(organization.getUser().getName());
-        organizationResponse.setUserEmail(organization.getUser().getEmail());
+        organizationResponse.setUserName(organization.getUsers().getName());
+        organizationResponse.setUserEmail(organization.getUsers().getEmail());
         organizationResponse.setStorename(organization.getStore().getName());
         organizationResponse.setDescription(organization.getStore().getDescription());
         return organizationResponse;

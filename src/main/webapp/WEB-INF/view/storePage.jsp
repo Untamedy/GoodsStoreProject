@@ -59,7 +59,7 @@
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#addGroup" data-toggle="modal" data-target="#myModal">Add group</a>
-                        <a class="dropdown-item" href="#">Edit group</a>
+                        <a class="dropdown-item" href="editGroup"data-toggle="modal" data-target="#editModal">Edit group</a>
                     </div>
                 </div>
                 <div class="btn-group">
@@ -67,8 +67,7 @@
                     <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Add goods</a>
-                        <a class="dropdown-item" href="#">Edit goods</a>
+                        <a class="dropdown-item" href="#">Add goods</a>                       
                     </div>
                 </div>
                 <div class="btn-group">
@@ -204,18 +203,13 @@
 
         <div name="addGroup" class="modal" id="myModal">
             <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <!-- Modal Header -->
-
+                <div class="modal-content">               
                     <div class="modal-header">                        
                         <h4 class="modal-title">Add new goods group</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>                  
-
-                    <!-- Modal body -->
+                    </div> 
                     <div class="modal-body">
-                        <form id="myForm" role="form" method="POST" action="saveGroup">
+                        <form id="myForm" role="form" method="Get" action="group/save">
                             <div class="form-group">
                                 <label for="group">Name:</label>
                                 <input type="text" class="form-control" id="groupName" name="groupName">
@@ -223,13 +217,36 @@
                             <button id="myFormSubmit" type="submit" onclick="myFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
                             <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
                         </form>
-
                     </div>
-
-
-                    <!-- Modal footer -->
                     <div class="modal-footer">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
+        <div name="editGroup" class="modal" id="editModal">
+            <div class="modal-dialog">
+                <div class="modal-content">               
+                    <div class="modal-header">                        
+                        <h4 class="modal-title">Edit group name</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> 
+                    <div class="modal-body">
+                        <form id="myForm" role="form" method="Get" action="group/save">
+                            <div class="form-group">
+                                <label for="group">Old name:</label>
+                                <%
+
+
+                                %>
+                                <input type="text" class="form-control" id="groupName" name="groupName">
+                            </div>
+                            <button id="myFormSubmit" type="submit" onclick="myFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
                     </div>
                     </form>
                 </div>
@@ -243,7 +260,7 @@
             }
 
         </script>
-
+      
 
     </body>
 

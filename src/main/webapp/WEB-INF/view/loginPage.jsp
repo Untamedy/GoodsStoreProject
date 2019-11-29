@@ -63,15 +63,16 @@
     </head>
 
     <body class="text-center">
-        <form class="form-signin" method="Get" action="login">
+        <form class="form-signin" method="get" action="login">
             <img class="mb-4" src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
             <label for="username" class="sr-only">Email address</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required autofocus>
+            <input type="text" id="username" name="j_username" class="form-control" placeholder="Email address" required autofocus>
             <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+            <input type="password" id="password" name="j_password" class="form-control" placeholder="Password" required>
 
-            <button class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>      
+            <button class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>     
+           
         </form>
     </body>
 </html>

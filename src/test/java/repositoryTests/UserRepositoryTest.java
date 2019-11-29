@@ -5,19 +5,19 @@
  */
 package repositoryTests;
 import com.store.goodsstore.GoodsstoreApplication;
-import com.store.goodsstore.entities.Organization;
+
 import com.store.goodsstore.entities.Role;
-import com.store.goodsstore.entities.Store;
-import com.store.goodsstore.entities.Users;
-import com.store.goodsstore.repository.OrganizationRepository;
+
+
+
 import com.store.goodsstore.repository.RolesRepository;
-import com.store.goodsstore.repository.UserRepository;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import com.store.goodsstore.repository.StoreRepository;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

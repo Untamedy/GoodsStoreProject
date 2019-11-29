@@ -32,7 +32,7 @@ public class RegistrationService {
         Organization organization = organizationService.createOrganization(request);
         Users user = userService.saveNewUser(request);
         Store store = storeService.saveStore(request);
-        organization.setUser(user);
+        organization.setUsers(user);
         organization.setStore(store);
         organizationService.saveOrganisation(organization);
     }

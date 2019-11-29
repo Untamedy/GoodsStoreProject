@@ -5,6 +5,7 @@
  */
 package com.store.goodsstore.dto;
 
+import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,6 +23,7 @@ public class GoodsGroupDto {
     
     private String name;
     private String storeCode;
+    private List<GoodsDto> goods;
   
     
 }

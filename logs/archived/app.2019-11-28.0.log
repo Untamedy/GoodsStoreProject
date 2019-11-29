@@ -1,0 +1,4 @@
+2019-11-28 13:18:18,211 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on Lenovo-PC with PID 1384 (started by Lenovo in C:\Users\Lenovo\Documents\GoodsStoreProject)
+2019-11-28 13:18:18,211 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-11-28 13:18:18,211 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-11-28 13:18:26,105 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.268 seconds (JVM running for 9.726)

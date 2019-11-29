@@ -41,10 +41,10 @@ public class Store implements Serializable {
     @Column(unique = true, nullable = false)
     public String code;
     
-    @OneToMany(mappedBy="store", fetch = FetchType.LAZY)    
+    @OneToMany(mappedBy="store", fetch = FetchType.EAGER)    
     private List<GoodsGroup> groups;
     
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orgId")    
     private Organization org;  
     
