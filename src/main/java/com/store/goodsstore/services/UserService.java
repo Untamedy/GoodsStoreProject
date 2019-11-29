@@ -4,6 +4,7 @@ import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.UserDto;
 import com.store.goodsstore.entities.Role;
 import com.store.goodsstore.entities.Users;
+import com.store.goodsstore.exceptions.RegistrationException;
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +90,7 @@ public class UserService {
             user.setRoles(roles); 
             return repositary.save(user);
         }
-         throw new RuntimeException("User with email " + request.getUserEmail() + " is already exists");
+         throw new RegistrationException("User with email " + request.getUserEmail() + " is already exists");
     }
 
     public boolean existsByEmail(String email) {

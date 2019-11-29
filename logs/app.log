@@ -244,3 +244,15 @@ Caused by: org.hibernate.loader.MultipleBagFetchException: cannot simultaneously
 2019-11-29 15:45:31,635 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
 2019-11-29 15:45:31,636 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
 2019-11-29 15:45:39,611 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.379 seconds (JVM running for 9.685)
+2019-11-29 19:08:30,810 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 14212 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
+2019-11-29 19:08:30,812 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-11-29 19:08:30,813 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-11-29 19:08:39,025 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.53 seconds (JVM running for 9.718)
+2019-11-29 20:17:19,085 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 122832 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
+2019-11-29 20:17:19,088 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-11-29 20:17:19,088 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-11-29 20:17:26,073 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 7.368 seconds (JVM running for 8.664)
+2019-11-29 20:21:29,694 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 105968 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
+2019-11-29 20:21:29,697 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-11-29 20:21:29,697 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-11-29 20:21:40,171 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 10.834 seconds (JVM running for 12.055)

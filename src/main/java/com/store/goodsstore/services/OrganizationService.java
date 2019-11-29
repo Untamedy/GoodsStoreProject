@@ -4,6 +4,7 @@ import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.entities.Organization;
+import com.store.goodsstore.exceptions.RegistrationException;
 import java.util.UUID;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +32,17 @@ public class OrganizationService {
         return createOrganizationResponse(repository.save(organization));
     }
 
-    public Organization createOrganization(RegistrationRequest request){
-    Organization organization = repository.findByEmail(request.getOrganizationEmail());
-    if (null == organization)  {    
-       organization = new Organization();
+    public Organization createOrganization(RegistrationRequest request) {
+        Organization organization = repository.findByEmail(request.getOrganizationEmail());
+        if (null == organization) {
+            organization = new Organization();
+            organization.setName(request.getOrganizationName());
+            organization.setEmail(request.getOrganizationEmail());
+            organization.setCode(createIdentifier());
+            return organization;
+        } 
+            throw new RegistrationException("Organization with email " + request.getOrganizationEmail() + " is alredy exists");        
     }
-        organization.setName(request.getOrganizationName());
-        organization.setEmail(request.getOrganizationEmail());
-        organization.setCode(createIdentifier());
-        return organization;    
-    }
-
 
     public OrganizationDto createOrganizationResponse(Organization organization) {
         OrganizationDto organizationResponse = new OrganizationDto();

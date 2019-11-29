@@ -4,6 +4,7 @@ import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.StoreDto;
 import com.store.goodsstore.entities.Store;
+import com.store.goodsstore.exceptions.RegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.store.goodsstore.repository.StoreRepository;
@@ -61,7 +62,7 @@ public class StoreService {
             store.setCode(createIdentifier());
             return storeRepositary.save(store);
         }
-        throw new RuntimeException("Store with name " + request.getStoreName() + " is already exists");
+        throw new RegistrationException("Store with name " + request.getStoreName() + " is already exists");
     }
 
     public StoreDto createStoreDto(Store store) {
