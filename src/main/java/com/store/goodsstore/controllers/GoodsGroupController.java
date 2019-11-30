@@ -6,15 +6,14 @@
 package com.store.goodsstore.controllers;
 
 
+
 import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.services.GoodsGroupService;
-import java.util.List;
+import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,8 +36,12 @@ public class GoodsGroupController {
     }
 
     @GetMapping("/save")
-    public ModelAndView saveGroup(@RequestParam("groupName") String name) {
-        return new ModelAndView("storePage", "newGroup", service.saveGroup(name));
+    public ModelAndView saveGroup(@RequestParam("groupName") String name,@RequestParam("storeCode")String code) {
+        GoodsGroupDto dto = new GoodsGroupDto();
+        
+        dto.setName(name);
+        dto.setStoreCode(code);
+        return new ModelAndView("storePage", "newGroup", service.saveGroup(dto));
 
     }
 

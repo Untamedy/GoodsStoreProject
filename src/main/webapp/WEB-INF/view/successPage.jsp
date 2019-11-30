@@ -18,7 +18,8 @@
             <div class="row text-center">
                 <div class="col-sm-6 col-sm-offset-3">
                     <br><br> <h2 style="color:#0fad00">Success</h2>
-                    <img src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg">
+                     <img class="rounded-circle" src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg" alt="dunat" width="72" height="72">
+               
                     <%
                         String name = (String) request.getAttribute("userName");
                         out.print("<h1> Dear, " + name + "<h1>");

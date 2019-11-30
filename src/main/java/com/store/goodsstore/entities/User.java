@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 public class User implements UserDetails {
     
+   
     private Set<Role> authorities;
     private String password;
     private String username;

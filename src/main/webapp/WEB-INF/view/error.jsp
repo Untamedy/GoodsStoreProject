@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,11 +13,9 @@
     </head>
     <body>
         <h1>Error</h1>
-      <p>Application has encountered an error. Please contact support on ...</p>
-      Exception= ${exception.message}<br><br>     
-            
-      <p>Try again ${url};</p>
-           
-     
+        <p>Application has encountered an error. Please contact support on ...</p>
+
+        <a href="index">Go to start page</a>        
+
     </body>
 </html>

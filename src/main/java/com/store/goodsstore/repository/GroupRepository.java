@@ -13,7 +13,7 @@ public interface GroupRepository extends JpaRepository<GoodsGroup,Integer>{
     
  public GoodsGroup findByNameAndStoreId(String name,int id); 
  
- public boolean existsByName(String name);        
+ public boolean existsByNameAndStoreId(String name,int storeId);        
      
  public GoodsGroup findByName(String name);
  

@@ -62,11 +62,11 @@ public class GoodsService {
             goods.setCounter(counter);
             goods.setPrice(price);
             goods.setGroup(group);
+            goods.setName(goodsDto.getName());
+            goods.setCode(goodsDto.getCode());
+            goods.setUnit(goodsDto.getUnit());
+            goods.setVisible(true);
         }
-        goods.setName(goodsDto.getName());
-        goods.setCode(goodsDto.getCode());
-        goods.setUnit(goodsDto.getUnit());
-        goods.setVisible(true);
 
         return goods;
     }

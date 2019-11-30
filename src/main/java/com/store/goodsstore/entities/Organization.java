@@ -42,4 +42,15 @@ public class Organization {
     @OneToMany(mappedBy="org",fetch= FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Customer> customers;
     
+    
+     public void addUser(Users user){
+        user.setOrg(this);
+         setUsers(users);        
+    }
+     
+     public void addStore(Store store){
+         store.setOrg(this);
+         setStore(store);
+     }
+    
 }

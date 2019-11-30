@@ -4,6 +4,7 @@ import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.entities.Organization;
+import com.store.goodsstore.entities.Users;
 import com.store.goodsstore.exceptions.RegistrationException;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -76,5 +77,7 @@ public class OrganizationService {
         return repository.save(organization);
 
     }
+    
+   
 
 }

@@ -2,6 +2,7 @@ package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.UserDto;
+import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Role;
 import com.store.goodsstore.entities.Users;
 import com.store.goodsstore.exceptions.RegistrationException;
@@ -31,20 +32,22 @@ public class UserService {
     @Autowired
     PasswordEncoder encoder;
     
-    
+    public void saveUser(Users user){
+        repositary.save(user);
+    }
 
     public UserDto getUsersByEmail(String email) {
         UserDto userDto = null;
         Users user = repositary.findByEmail(email);
         if (null != user) {
-            return userDto = createUserRespons(user);
+            return userDto = createUserDto(user);
         }        
         return userDto;
     }
 
     public List<UserDto> getAllUsers() {
         List<UserDto> userList = repositary.findAll().stream().map(user -> {
-            UserDto userDto = createUserRespons(user);
+            UserDto userDto = createUserDto(user);
             return userDto;
         }).collect(Collectors.toList());
         return userList;
@@ -55,12 +58,12 @@ public class UserService {
         if (repositary.existsByEmail(request.getUserEmail())) {
             Users user = repositary.findByEmail(request.getUserEmail());
             user.setName(request.getUserName());           
-            return editUserDto = createUserRespons(repositary.save(user));
+            return editUserDto = createUserDto(repositary.save(user));
         }
         return editUserDto;
     }
 
-    public UserDto createUserRespons(Users user) {
+    public UserDto createUserDto(Users user) {
         UserDto userDto = new UserDto();
         userDto.setUserEmail(user.getName());
         userDto.setUserEmail(user.getEmail());
@@ -77,7 +80,7 @@ public class UserService {
         return false;
     }
 
-    public Users saveNewUser(RegistrationRequest request) {
+    public Users createUser(RegistrationRequest request,Organization organsation) {
         Set<Role> roles = new HashSet<>();
         roles.add(rolesServise.findRoleByName("user"));
         roles.add(rolesServise.findRoleByName("admin"));
@@ -88,7 +91,8 @@ public class UserService {
             user.setEmail(request.getUserEmail());
             user.setPassword(request.getUserPass());
             user.setRoles(roles); 
-            return repositary.save(user);
+            user.setOrg(organsation);
+            return user;
         }
          throw new RegistrationException("User with email " + request.getUserEmail() + " is already exists");
     }

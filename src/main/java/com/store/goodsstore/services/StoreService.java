@@ -3,6 +3,7 @@ package com.store.goodsstore.services;
 import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.StoreDto;
+import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.exceptions.RegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class StoreService {
     
     @Autowired
     private GoodsGroupService groupService;
+    
+    
+    public void saveStore(Store store){
+        storeRepositary.save(store);
+    }
 
     public StoreDto editStore(RegistrationRequest request) {
         StoreDto dto = null;
@@ -54,13 +60,14 @@ public class StoreService {
         return false;
     }
 
-    public Store saveStore(RegistrationRequest request) {
+    public Store createStore(RegistrationRequest request,Organization organization) {
         Store store = storeRepositary.findByName(request.getStoreName());
         if (null == store) {
             store = new Store();
             store.setName(request.getStoreName());
             store.setCode(createIdentifier());
-            return storeRepositary.save(store);
+            store.setOrg(organization);
+            return store;
         }
         throw new RegistrationException("Store with name " + request.getStoreName() + " is already exists");
     }

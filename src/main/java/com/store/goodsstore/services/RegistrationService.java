@@ -29,14 +29,15 @@ public class RegistrationService {
 
     @Transactional
     public void  register(RegistrationRequest request) {
-        Organization organization = organizationService.createOrganization(request);
-        Users user = userService.saveNewUser(request);
-        Store store = storeService.saveStore(request);
+        Organization organization = organizationService.createOrganization(request);       
+        Users user = userService.createUser(request,organization);
+        Store store = storeService.createStore(request,organization);
         organization.setUsers(user);
         organization.setStore(store);
-        organizationService.saveOrganisation(organization);
+        organizationService.saveOrganisation(organization);        
     }
-
+    
+    @Transactional
     public RegistrationResponse editRegData(RegistrationRequest request) {
         UserDto user = userService.editUser(request);
         StoreDto store = storeService.editStore(request);
@@ -44,6 +45,8 @@ public class RegistrationService {
         OrganizationDto editOrganization = organizationService.createOrganizationResponse(organization);
         return new RegistrationResponse(editOrganization);
     }
+    
+   
 
     public RegistrationRequest createRequest(Map<String,String> quaryMap) {
         RegistrationRequest request = new RegistrationRequest();
