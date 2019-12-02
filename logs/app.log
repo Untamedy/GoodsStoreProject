@@ -1,28 +1,8 @@
-2019-11-30 16:14:35,717 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 102828 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
-2019-11-30 16:14:35,776 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
-2019-11-30 16:14:35,776 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
-2019-11-30 16:14:46,613 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 11.242 seconds (JVM running for 13.279)
-2019-11-30 16:43:45,348 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 98884 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
-2019-11-30 16:43:45,351 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
-2019-11-30 16:43:45,351 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
-2019-11-30 16:43:54,667 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 9.742 seconds (JVM running for 11.453)
-2019-11-30 17:15:11,722 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 31016 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
-2019-11-30 17:15:11,725 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
-2019-11-30 17:15:11,725 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
-2019-11-30 17:15:22,204 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 10.841 seconds (JVM running for 12.254)
-2019-11-30 17:20:42,094 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 62644 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
-2019-11-30 17:20:42,097 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
-2019-11-30 17:20:42,098 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
-2019-11-30 17:20:49,413 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 7.69 seconds (JVM running for 9.026)
-2019-11-30 17:37:22,159 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 58316 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
-2019-11-30 17:37:22,161 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
-2019-11-30 17:37:22,162 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
-2019-11-30 17:37:32,041 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 10.237 seconds (JVM running for 11.593)
-2019-11-30 17:42:57,123 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 112452 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
-2019-11-30 17:42:57,126 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
-2019-11-30 17:42:57,126 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
-2019-11-30 17:43:05,102 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.344 seconds (JVM running for 9.862)
-2019-11-30 17:57:26,055 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 21484 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
-2019-11-30 17:57:26,057 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
-2019-11-30 17:57:26,057 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
-2019-11-30 17:57:34,179 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.506 seconds (JVM running for 9.8)
+2019-12-02 18:11:53,946 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 64732 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
+2019-12-02 18:11:53,987 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-12-02 18:11:53,988 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-12-02 18:12:02,540 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.877 seconds (JVM running for 10.34)
+2019-12-02 19:02:41,470 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 41468 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
+2019-12-02 19:02:41,480 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-12-02 19:02:41,481 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-12-02 19:02:49,559 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.465 seconds (JVM running for 10.116)

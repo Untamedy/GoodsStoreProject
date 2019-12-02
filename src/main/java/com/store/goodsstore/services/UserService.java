@@ -89,7 +89,7 @@ public class UserService {
             user = new Users();
             user.setName(request.getUserName());
             user.setEmail(request.getUserEmail());
-            user.setPassword(request.getUserPass());
+            user.setPassword(encoder.encode(request.getUserPass()));
             user.setRoles(roles); 
             user.setOrg(organsation);
             return user;
