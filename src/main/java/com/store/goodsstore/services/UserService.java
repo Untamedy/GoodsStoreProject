@@ -4,6 +4,7 @@ import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.UserDto;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Role;
+import com.store.goodsstore.entities.User;
 import com.store.goodsstore.entities.Users;
 import com.store.goodsstore.exceptions.RegistrationException;
 import java.util.HashSet;
@@ -14,7 +15,7 @@ import com.store.goodsstore.repository.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 ;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
@@ -99,5 +100,9 @@ public class UserService {
 
     public boolean existsByEmail(String email) {
         return repositary.existsByEmail(email);
+    }
+
+    public Users getByName(String name) {
+       return repositary.findByName(name);
     }
 }

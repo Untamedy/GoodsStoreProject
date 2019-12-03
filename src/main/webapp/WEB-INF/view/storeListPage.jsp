@@ -1,5 +1,3 @@
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -25,9 +23,7 @@
     </head>
     <body>
 
-    <security:authorize access="isAuthenticated()">
-        authenticated as <security:authentication property="principal.username" /> 
-    </security:authorize>
+   
 
 
     <div class="container">
@@ -36,6 +32,8 @@
             <input class="form-control" type="text" placeholder="Search" aria-label="Search">
         </div>
     </div>
+    
+    <a href="allstore" class="btn btn-default btn-lg">Store list</a>
 
 
 

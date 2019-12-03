@@ -19,9 +19,9 @@ public class RolesInit {
     @Autowired
     private RolesRepository repositary;
 
-    public static final String ROLE_ADMIN = "admin";
-    public static final String ROLE_USER = "user";
-    public static final String ROLE_GUEST = "guest";
+    public static final String ROLE_ADMIN = "ADMIN";
+    public static final String ROLE_USER = "USER";
+    public static final String ROLE_GUEST = "GUEST";
 
     @PostConstruct
     public void saveRoles() {

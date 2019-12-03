@@ -1,3 +1,7 @@
+<%@page import="com.store.goodsstore.entities.GoodsGroup"%>
+<%@page import="java.util.List"%>
+<%@page import="com.store.goodsstore.dto.GoodsGroupDto"%>
+<%@page import="com.store.goodsstore.entities.Store"%>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -97,6 +101,7 @@
             <div class="row">
                 <nav class="col-sm-3 col-4" id="myScrollspy">
                     <ul class="nav flex-column">
+                       
                         <li class="nav-item">
                             <a class="nav-link active" href="#section1">Candies</a>
                         </li> 

@@ -2,6 +2,7 @@
 <html lang="en">
 
     <head>
+        
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
@@ -63,7 +64,7 @@
     </head>
 
     <body class="text-center">
-        <form class="form-signin" method="POST" action="j_spring_security_check">
+        <form class="form-signin" method="POST" action="dologin">
             <img class="mb-4" src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
             <label for="username" class="sr-only">Email address</label>

@@ -1,5 +1,6 @@
 package com.store.goodsstore.repository;
 
+import com.store.goodsstore.entities.User;
 import com.store.goodsstore.entities.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,5 +14,7 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
     public boolean existsByEmail(String email);
 
     public Users findByEmail(String email);    
+
+    public Users findByName(String name);
     
 }

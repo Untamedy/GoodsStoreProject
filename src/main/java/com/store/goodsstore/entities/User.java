@@ -21,6 +21,7 @@ public class User implements UserDetails {
     private Set<Role> authorities;
     private String password;
     private String username;
+    private Organization organization;
 
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
