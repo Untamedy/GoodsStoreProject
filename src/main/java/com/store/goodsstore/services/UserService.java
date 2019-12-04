@@ -66,8 +66,9 @@ public class UserService {
 
     public UserDto createUserDto(Users user) {
         UserDto userDto = new UserDto();
-        userDto.setUserEmail(user.getName());
+        userDto.setUsername(user.getName());
         userDto.setUserEmail(user.getEmail());
+        userDto.setOrganization(user.getOrg());
         return userDto;
     }
 

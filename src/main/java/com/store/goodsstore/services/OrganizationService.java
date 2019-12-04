@@ -52,8 +52,8 @@ public class OrganizationService {
         organizationResponse.setOrganizationEmail(organization.getEmail());
         organizationResponse.setUserName(organization.getUsers().getName());
         organizationResponse.setUserEmail(organization.getUsers().getEmail());
-        organizationResponse.setStorename(organization.getStore().getName());
-        organizationResponse.setDescription(organization.getStore().getDescription());
+        organizationResponse.setStorename(organization.getStore().get(0).getName());
+        organizationResponse.setDescription(organization.getStore().get(0).getDescription());
         return organizationResponse;
     }
 

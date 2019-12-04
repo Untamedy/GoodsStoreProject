@@ -2,9 +2,15 @@
 <%@page import="java.util.List"%>
 <%@page import="com.store.goodsstore.dto.GoodsGroupDto"%>
 <%@page import="com.store.goodsstore.entities.Store"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 
 <html lang="en">
+
     <head>          
         <title></title>
         <meta charset="utf-8">
@@ -41,7 +47,7 @@
                 height: 500px;
             }
         </style>
-    </head>
+    </head>      
     <body>    
 
         <div class="jumbotron jumbotron-fluid">
@@ -93,119 +99,77 @@
 
             </div>
 
-        </div>
 
+
+        </div>
+        <div class="container">
+            <ul class="nav">
+                <c:forEach items="${groups}" var="group"> 
+                    <li class="nav-item"><a class="nav-link active"href="#section1"><c:out value="${group.name}"/></a></li>
+                    </c:forEach>                  
+            </ul>
+        </div>
     <body data-spy="scroll" data-target="#myScrollspy" data-offset="1">
 
-        <div class="container-fluid">
-            <div class="row">
-                <nav class="col-sm-3 col-4" id="myScrollspy">
-                    <ul class="nav flex-column">
-                       
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#section1">Candies</a>
-                        </li> 
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#section2">Fruits</a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="col-sm-9 col-8">
-                    <div id="section1" class="bg-default">    
-                        <h1>Candies</h1>
-                        <p></p>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Code</th>
-                                    <th>Unit</th>
-                                    <th>Count</th>
-                                    <th>Income price</th>
-                                    <th>Price</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
+        <div class="container-fluid">     
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Candy</td>
-                                    <td>2314</td>
-                                    <td>kg</td>
-                                    <td>10</td>
-                                    <td>50</td>
-                                    <td>100</td>
-                                    <td><button type="button" class="btn btn-info">Add to order</button></td>
-                                    <td><button type="button" class="btn btn-info">Delete</button></td>
-                                    <td><button type="button" class="btn btn-info">Edit</button></td>                                    
 
-                                </tr>
-                                <tr>
-                                    <td>Candy</td>
-                                    <td>2314</td>
-                                    <td>kg</td>
-                                    <td>10</td>
-                                    <td>50</td>
-                                    <td>100</td>
-                                    <td><button type="button" class="btn btn-info">Add to order</button></td>
-                                    <td><button type="button" class="btn btn-info">Delete</button></td>
-                                    <td><button type="button" class="btn btn-info">Edit</button></td>                                    
+            <div class="row">                    
 
-                                </tr>
-                                <tr>
-                                    <td>Candy</td>
-                                    <td>2314</td>
-                                    <td>kg</td>
-                                    <td>10</td>
-                                    <td>50</td>
-                                    <td>100</td>
-                                    <td><button type="button" class="btn btn-info">Add to order</button></td>
-                                    <td><button type="button" class="btn btn-info">Delete</button></td>
-                                    <td><button type="button" class="btn btn-info">Edit</button></td>                                    
+                <div class="col-sm-12 col-8">               
 
-                                </tr>
-                                <tr>
-                                    <td>Candy</td>
-                                    <td>2314</td>
-                                    <td>kg</td>
-                                    <td>10</td>
-                                    <td>50</td>
-                                    <td>100</td>
-                                    <td><button type="button" class="btn btn-info">Add to order</button></td>
-                                    <td><button type="button" class="btn btn-info">Delete</button></td>
-                                    <td><button type="button" class="btn btn-info">Edit</button></td>                                    
+                    <div id="section1" class="bg-default"> 
+                        <c:forEach items="${groups}" var="group">    
+                            <h1> <c:out value="${group.name}"/></h1>
+                            <p></p>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Code</th>
+                                        <th>Unit</th>
+                                        <th>Count</th>
+                                        <th>Income price</th>
+                                        <th>Price</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
 
-                                </tr>
-                                <tr>
-                                    <td>Candy</td>
-                                    <td>2314</td>
-                                    <td>kg</td>
-                                    <td>10</td>
-                                    <td>50</td>
-                                    <td>100</td>
-                                    <td><button type="button" class="btn btn-info">Add to order</button></td>
-                                    <td><button type="button" class="btn btn-info">Delete</button></td>
-                                    <td><button type="button" class="btn btn-info">Edit</button></td>                                    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <c:forEach items="${groups.goods}" var="goods">   
+                                            <td><c:out value="${goods.name}"/></td>
+                                            <td><c:out value="${goods.code}"/></td>
+                                            <td><c:out value="${goods.unit}"/></td>
+                                            <td><c:out value="${goods.quantity}"/></td>
+                                            <td><c:out value="${goods.incomePrice}"/></td>
+                                            <td><c:out value="${group.price}"/></td>
+                                            <td><button type="button" class="btn btn-info">Add to order</button></td>
+                                            <td><button type="button" class="btn btn-info">Delete</button></td>
+                                            <td><button type="button" class="btn btn-info">Edit</button></td>                                    
+                                        </c:forEach>
+                                    </tr>                                   
 
-                                </tr>
+                                </tbody>
+                            </table>
 
-                            </tbody>
-                        </table>
-
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </c:forEach>    
                     </div>                  
 
                 </div>
             </div>
+
         </div>
+
 
         <div name="addGroup" class="modal" id="myModal">
             <div class="modal-dialog">
@@ -244,7 +208,6 @@
                                 <label for="group">Old name:</label>
                                 <%
 
-
                                 %>
                                 <input type="text" class="form-control" id="groupName" name="groupName">
                             </div>
@@ -265,7 +228,7 @@
                 document.getElementById("myForm").submit();
             }
         </script>
-        
+
 
 
     </body>

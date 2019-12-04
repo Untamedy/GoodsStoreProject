@@ -33,8 +33,8 @@ public class Organization {
     @Column(nullable = false)
     private String code;
     
-    @OneToOne(mappedBy = "org",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Store store;
+    @OneToMany(mappedBy = "org",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Store> store;
     
     @OneToOne(mappedBy="org",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Users users;
@@ -43,14 +43,6 @@ public class Organization {
     private List<Customer> customers;
     
     
-     public void addUser(Users user){
-        user.setOrg(this);
-         setUsers(users);        
-    }
-     
-     public void addStore(Store store){
-         store.setOrg(this);
-         setStore(store);
-     }
+    
     
 }

@@ -6,7 +6,7 @@
 package repositoryTests;
 import com.store.goodsstore.GoodsstoreApplication;
 
-import com.store.goodsstore.entities.Role;
+
 
 
 

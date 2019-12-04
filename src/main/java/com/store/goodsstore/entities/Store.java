@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -44,8 +46,8 @@ public class Store implements Serializable {
     @OneToMany(mappedBy="store", fetch = FetchType.EAGER)    
     private List<GoodsGroup> groups;
     
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orgId")    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "org_store")    
     private Organization org;  
     
     

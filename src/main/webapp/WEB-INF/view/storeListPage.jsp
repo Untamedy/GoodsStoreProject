@@ -23,7 +23,25 @@
     </head>
     <body>
 
-   
+    <div class="jumbotron jumbotron-fluid">
+
+            <div id="logout">
+                <a href="logout" class="btn btn-info btn-lg">
+                    <span class="glyphicon glyphicon-log-out"></span> Log out</a>
+            </div>
+
+            <h1>
+                <img class="rounded-circle" src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg" alt="dunat" width="72" height="72">
+                Store page </h1>
+
+            <div id="header">
+                <div class="btn-group">  
+                    
+                    <a href="gostore" class="btn btn-info" role="button">Go to store</a>
+                    <a href="allcustomer" class="btn btn-info" role="button">Go to customer list</a>
+                    <a href="allreports" class="btn btn-info" role="button">Show reports</a>
+            </div>
+        </div>
 
 
     <div class="container">
@@ -33,7 +51,7 @@
         </div>
     </div>
     
-    <a href="allstore" class="btn btn-default btn-lg">Store list</a>
+   
 
 
 

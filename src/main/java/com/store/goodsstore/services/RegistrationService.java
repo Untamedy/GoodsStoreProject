@@ -8,6 +8,8 @@ import com.store.goodsstore.dto.UserDto;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.entities.Users;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +34,10 @@ public class RegistrationService {
         Organization organization = organizationService.createOrganization(request);       
         Users user = userService.createUser(request,organization);
         Store store = storeService.createStore(request,organization);
+        List<Store> stores = new ArrayList<>();
+        stores.add(store);
         organization.setUsers(user);
-        organization.setStore(store);
+        organization.setStore(stores);
         organizationService.saveOrganisation(organization);        
     }
     

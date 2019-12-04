@@ -1,0 +1,60 @@
+INSERT INTO store.organization (id, code, email, "name")VALUES(1, '1213', 'org@mail.com', 'org');
+INSERT INTO store.store(id, code, description, "name")VALUES(1, 'store', '', 'store');
+INSERT INTO store.org_store (org_id, id)VALUES(1, 1);
+INSERT INTO store.users(id, email, "name", "password", org_id)VALUES(1, 'user@mail.com', 'user', '123', 1);
+INSERT INTO store.users_roles (users_id, roles_id)VALUES(1, 1);
+INSERT INTO store.users_roles (users_id, roles_id)VALUES(1, 2);
+INSERT INTO store.users_roles (users_id, roles_id)VALUES(1, 3);
+
+
+
+INSERT INTO store."group" (id, "name", store_id)VALUES(1, '1', 1);
+INSERT INTO store."group" (id, "name", store_id)VALUES(2, '2', 1);
+INSERT INTO store."group" (id, "name", store_id)VALUES(3, '3', 1);
+INSERT INTO store."group" (id, "name", store_id)VALUES(4, '4', 1);
+INSERT INTO store."group" (id, "name", store_id)VALUES(5, '5', 1);
+INSERT INTO store."group" (id, "name", store_id)VALUES(6, '6', 1);
+INSERT INTO store.goods_counter (id, quantity)VALUES(1, 0);
+INSERT INTO store.goods_counter (id, quantity)VALUES(2, 0);
+INSERT INTO store.goods_counter (id, quantity)VALUES(4, 0);
+INSERT INTO store.goods_counter (id, quantity)VALUES(5, 0);
+INSERT INTO store.goods_counter (id, quantity)VALUES(6, 0);
+INSERT INTO store.goods_counter (id, quantity)VALUES(7, 0);
+INSERT INTO store.goods_counter (id, quantity)VALUES(8, 0);
+INSERT INTO store.goods_counter (id, quantity)VALUES(9, 0);
+INSERT INTO store.goods_counter (id, quantity)VALUES(10, 0);
+INSERT INTO store.goods_counter (id, quantity)VALUES(3, 0);
+INSERT INTO store.goods_income_price(id, income_price)VALUES(1, 0);
+INSERT INTO store.goods_income_price(id, income_price)VALUES(2, 0);
+INSERT INTO store.goods_income_price(id, income_price)VALUES(3, 0);
+INSERT INTO store.goods_income_price(id, income_price)VALUES(4, 0);
+INSERT INTO store.goods_income_price(id, income_price)VALUES(5, 0);
+INSERT INTO store.goods_income_price(id, income_price)VALUES(6, 0);
+INSERT INTO store.goods_income_price(id, income_price)VALUES(7, 0);
+INSERT INTO store.goods_income_price(id, income_price)VALUES(8, 0);
+INSERT INTO store.goods_income_price(id, income_price)VALUES(9, 0);
+INSERT INTO store.goods_income_price(id, income_price)VALUES(10, 0);
+INSERT INTO store.goods_price(id, price)VALUES(1, 0);
+INSERT INTO store.goods_price(id, price)VALUES(2, 0);
+INSERT INTO store.goods_price(id, price)VALUES(3, 0);
+INSERT INTO store.goods_price(id, price)VALUES(4, 0);
+INSERT INTO store.goods_price(id, price)VALUES(5, 0);
+INSERT INTO store.goods_price(id, price)VALUES(6, 0);
+INSERT INTO store.goods_price(id, price)VALUES(7, 0);
+INSERT INTO store.goods_price(id, price)VALUES(8, 0);
+INSERT INTO store.goods_price(id, price)VALUES(9, 0);
+INSERT INTO store.goods_price(id, price)VALUES(10, 0);
+INSERT into store."goods" (id, code, "name", unit, visible, count_id, group_id, income_price_id, price_id)VALUES(1, '1', 'g1', 'unit', true, , 1, 1, 1);
+INSERT into store."goods" (id, code, "name", unit, visible, count_id, group_id, income_price_id, price_id)VALUES(1, '1', 'g1', 'unit', true, , 2, 2, 2);
+INSERT into store."goods" (id, code, "name", unit, visible, count_id, group_id, income_price_id, price_id)VALUES(1, '1', 'g1', 'unit', true, , 3, 3, 3);
+INSERT into store."goods" (id, code, "name", unit, visible, count_id, group_id, income_price_id, price_id)VALUES(1, '1', 'g1', 'unit', true, , 4, 4, 4);
+INSERT into store."goods" (id, code, "name", unit, visible, count_id, group_id, income_price_id, price_id)VALUES(1, '1', 'g1', 'unit', true, , 5, 5, 5);
+INSERT into store."goods" (id, code, "name", unit, visible, count_id, group_id, income_price_id, price_id)VALUES(1, '1', 'g1', 'unit', true, , 6, 6, 6);
+INSERT into store."goods" (id, code, "name", unit, visible, count_id, group_id, income_price_id, price_id)VALUES(1, '1', 'g1', 'unit', true, , 7, 7, 7);
+INSERT into store."goods" (id, code, "name", unit, visible, count_id, group_id, income_price_id, price_id)VALUES(1, '1', 'g1', 'unit', true, , 8, 8, 8);
+INSERT into store."goods" (id, code, "name", unit, visible, count_id, group_id, income_price_id, price_id)VALUES(1, '1', 'g1', 'unit', true, , 9, 9, 9);
+INSERT into store."goods" (id, code, "name", unit, visible, count_id, group_id, income_price_id, price_id)VALUES(1, '1', 'g1', 'unit', true, , 10, 10, 10);
+
+
+
+
