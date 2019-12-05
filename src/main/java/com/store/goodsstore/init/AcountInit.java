@@ -33,7 +33,6 @@ public class AcountInit {
 
     public RegistrationRequest createRequest() {
         RegistrationRequest request = new RegistrationRequest();
-
         request.setOrganizationName("TestStore");
         request.setOrganizationEmail("y.shemanska@gmail.com");
         request.setStoreName("FirstStore");

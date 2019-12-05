@@ -76,6 +76,9 @@ public class GoodsService {
         response.setName(goods.getName());
         response.setCode(goods.getCode());
         response.setUnit(goods.getUnit());
+        response.setIncomePrice(goods.getIncomePrice().getIncomePrice());
+        response.setPrice(goods.getPrice().getPrice());
+        response.setQuantity(goods.getCounter().getQuantity());               
         return response;
     }
 

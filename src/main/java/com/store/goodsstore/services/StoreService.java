@@ -3,12 +3,14 @@ package com.store.goodsstore.services;
 import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.StoreDto;
+import com.store.goodsstore.dto.UserDto;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.exceptions.RegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.store.goodsstore.repository.StoreRepository;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -33,6 +35,9 @@ public class StoreService {
     
     @Autowired
     private GoodsGroupService groupService;
+    
+    @Autowired
+    private UserService userService;
     
     
     public void saveStore(Store store){
@@ -99,6 +104,18 @@ public class StoreService {
 
     private String createIdentifier() {
         return UUID.randomUUID().toString();
+    }
+    
+    public List<GoodsGroupDto> getGroupListByCurentStore(Principal principal ){
+        String name = principal.getName();
+        UserDto user = userService.getUsersByEmail(name);
+        Organization org = user.getOrganization();
+        List<Store> stores = org.getStore();
+        Store store = stores.get(0);
+        List<GoodsGroupDto> groups = store.getGroups().stream().map((tmp)->{
+         return   groupService.createDto(tmp);
+        }).collect(Collectors.toList());
+        return groups;
     }
 
 }

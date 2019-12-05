@@ -7,11 +7,8 @@ package repositoryTests;
 
 import com.store.goodsstore.GoodsstoreApplication;
 import com.store.goodsstore.entities.Organization;
-import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.repository.OrganizationRepository;
-import com.store.goodsstore.repository.StoreRepository;
 import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,33 +25,23 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DataJpaTest
 @ContextConfiguration(classes = GoodsstoreApplication.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class StoreRepositoryTest {
-    
+public class OrganizationRepositoryTest {
+
     @Autowired
-    private StoreRepository repository;
-    
-    @Autowired
-    private OrganizationRepository orgRepository;
-            
-    
-    private Organization org;
-    
-    @BeforeEach
-    public void getOrg(){
-        org = orgRepository.findByEmail("y.shemanska@gmail.com");
-    }
+    private OrganizationRepository repository;
     
     
+
     @Test
-    public void saveStore(){
-        Store store = new Store();
-        store.setCode("11");
-        store.setName("store");
-        store.setOrg(org);
-        assertThat(null!=repository.save(store));
-        assertThat(repository.findByCode("11").getOrg().equals(org));       
-        
+    public void saveOrganisation() {
+        Organization org = new Organization();
+        org.setCode("11");
+        org.setEmail("org@mail.com");
+        org.setName("newOrg");
+
+        assertThat(null != repository.save(org));
     }
+
     
-    
+
 }
