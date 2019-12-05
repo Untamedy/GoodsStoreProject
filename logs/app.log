@@ -1680,3 +1680,25 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 2019-12-05 17:25:11,093 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
 2019-12-05 17:25:11,094 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
 2019-12-05 17:25:19,182 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.508 seconds (JVM running for 10.295)
+2019-12-05 19:27:26,897 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 125684 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
+2019-12-05 19:27:26,899 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-12-05 19:27:26,900 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-12-05 19:27:33,874 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 7.3 seconds (JVM running for 9.206)
+2019-12-05 19:42:22,026 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 131128 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
+2019-12-05 19:42:22,028 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-12-05 19:42:22,029 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-12-05 19:42:28,986 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 7.322 seconds (JVM running for 8.672)
+2019-12-05 19:42:30,630 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [main] ERROR: null value in column "code" violates not-null constraint
+  Detail: Failing row contains (37, null, testOrg@mail.com, testPrg).
+2019-12-05 19:43:13,470 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 132352 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
+2019-12-05 19:43:13,473 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-12-05 19:43:13,473 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-12-05 19:43:20,939 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 7.766 seconds (JVM running for 9.286)
+2019-12-05 19:43:22,453 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [main] ERROR: null value in column "code" violates not-null constraint
+  Detail: Failing row contains (43, null, testOrg@mail.com, testPrg).
+2019-12-05 19:45:11,846 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on KHW20225 with PID 90540 (started by YBolshakova in C:\Users\YBolshakova\Documents\gs-maven\GoodsStoreProgect)
+2019-12-05 19:45:11,849 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-12-05 19:45:11,849 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-12-05 19:45:19,043 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 7.605 seconds (JVM running for 9.22)
+2019-12-05 20:09:56,605 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [main] ERROR: duplicate key value violates unique constraint "uk_mcx2udv9matm3rou852yscccf"
+  Detail: Key (code)=(1212) already exists.

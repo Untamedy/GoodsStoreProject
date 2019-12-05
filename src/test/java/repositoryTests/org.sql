@@ -1,0 +1,1 @@
+INSERT INTO store.organization (id, code, email, "name")VALUES(1, '11', 'orgTest@mail.com', 'org');

@@ -8,8 +8,12 @@ package repositoryTests;
 import com.store.goodsstore.GoodsstoreApplication;
 import com.store.goodsstore.entities.Customer;
 import com.store.goodsstore.entities.Organization;
+import com.store.goodsstore.entities.Role;
 import com.store.goodsstore.repository.CustomerRepository;
 import com.store.goodsstore.repository.OrganizationRepository;
+import com.store.goodsstore.repository.RolesRepository;
+import java.util.HashSet;
+import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,20 +37,22 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class CustomerRepositoryTest {
     
     @Autowired
-    private OrganizationRepository orgRepository;
+    private static OrganizationRepository orgRepository;
     
     @Autowired
     private CustomerRepository repository;
     
+    private static Organization organization;
+    
    @BeforeAll
-   public static void createOrg(){
-      Organization org = new Organization();
-      org.setName("testPrg");
-      org.setEmail("testOrg@mail.com");
-      orgRepository.save(org);
-      
-               
-   }
+    public static  void createEntity(@Autowired OrganizationRepository orgrepository,@Autowired RolesRepository rolesRepository) {  
+        organization = new Organization();
+        organization.setCode("2222");
+        organization.setEmail("test2Org@mail.com");
+        organization.setName("org2");
+        orgrepository.save(organization);
+       
+    }
     
     
     
@@ -54,7 +60,7 @@ public class CustomerRepositoryTest {
     public void save(){
         Customer customer = new Customer();
         customer.setName("cust");
-        customer.setOrg(orgRepository.getbyEmail("testOrg@mail.com").get());
+        customer.setOrg(organization);
         customer.setPhoneNum("12345");
         assertThat(null!=repository.save(customer));
     }

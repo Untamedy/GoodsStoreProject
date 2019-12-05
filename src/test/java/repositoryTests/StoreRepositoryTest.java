@@ -9,8 +9,10 @@ import com.store.goodsstore.GoodsstoreApplication;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.repository.OrganizationRepository;
+import com.store.goodsstore.repository.RolesRepository;
 import com.store.goodsstore.repository.StoreRepository;
 import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -34,14 +36,19 @@ public class StoreRepositoryTest {
     private StoreRepository repository;
     
     @Autowired
-    private OrganizationRepository orgRepository;
+    private static OrganizationRepository orgRepository;
             
     
-    private Organization org;
+    private static Organization organization;
     
-    @BeforeEach
-    public void getOrg(){
-        org = orgRepository.findByEmail("y.shemanska@gmail.com");
+   @BeforeAll
+    public static  void createEntity(@Autowired OrganizationRepository orgrepository,@Autowired RolesRepository rolesRepository) {  
+        organization = new Organization();
+        organization.setCode("2222");
+        organization.setEmail("test2Org@mail.com");
+        organization.setName("org2");
+        orgrepository.save(organization);
+       
     }
     
     
@@ -50,9 +57,9 @@ public class StoreRepositoryTest {
         Store store = new Store();
         store.setCode("11");
         store.setName("store");
-        store.setOrg(org);
+        store.setOrg(organization);
         assertThat(null!=repository.save(store));
-        assertThat(repository.findByCode("11").getOrg().equals(org));       
+        assertThat(repository.findByCode("11").getOrg().equals(organization));       
         
     }
     

@@ -26,11 +26,11 @@ public class Organization {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
     private Integer id;
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String name;
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String email;
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String code;
     
     @OneToMany(mappedBy = "org",fetch = FetchType.LAZY, cascade = CascadeType.ALL)

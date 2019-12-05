@@ -27,6 +27,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -40,47 +41,49 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class UserRepositoryTest {
 
     @Autowired
-    public  UserRepository repository;
-    @Autowired
-    private  RolesRepository rolesRepository;
-    @Autowired
-    private  OrganizationRepository orgrepository; 
+    public  UserRepository repository;  
+
     @Autowired
     private  UserRepository userRepository;
 
     private  final String path = "/src/main/resources/path.sql";
-    private  Organization organization;
-    private  Set<Role> roles;
+    private static  Organization organization;
+    private static Set<Role> roles;
+    private Users user;
 
     
-
-    @BeforeEach
-    public  void createEntity() {
-        organization = orgrepository.findById(7).get();
+    @BeforeAll
+    public static  void createEntity(@Autowired OrganizationRepository orgrepository,@Autowired RolesRepository rolesRepository) {  
+        organization = new Organization();
+        organization.setCode("1111");
+        organization.setEmail("testOrg@mail.com");
+        organization.setName("org1");
+        orgrepository.save(organization);
         List<Role> r = rolesRepository.findAll();
         roles = new HashSet<>(r);
     }
+    
+   
 
-    @Test
+    @Test  
     public void saveUsertest() {
-        Users user = new Users();
+        user = new Users();
         user.setOrg(organization);
         user.setPassword("pass");
         user.setRoles(roles);
         user.setEmail("Test@gmail.com");
         user.setName("admin");
-
         assertThat(null != repository.save(user));
     }
     
     @Test
     public void findUserByEmail(){
-       assertThat(repository.findByEmail("y.shemanska@gmail.com")); 
+       assertThat(repository.findByEmail("Test@gmail.com")); 
     }
     
     @Test
     public void findByName(){
-        assertThat(null!=repository.findByName("Me"));        
+        assertThat(null!=repository.findByName("admin"));        
     }
     
 }
