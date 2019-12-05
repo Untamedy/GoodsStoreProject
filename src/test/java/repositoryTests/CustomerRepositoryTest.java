@@ -11,6 +11,7 @@ import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.repository.CustomerRepository;
 import com.store.goodsstore.repository.OrganizationRepository;
 import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -37,19 +38,26 @@ public class CustomerRepositoryTest {
     @Autowired
     private CustomerRepository repository;
     
-    private Organization organization;
+   @BeforeAll
+   public static void createOrg(){
+      Organization org = new Organization();
+      org.setName("testPrg");
+      org.setEmail("testOrg@mail.com");
+      orgRepository.save(org);
+      
+               
+   }
     
     
-   /* 
-    @Test
-    @Sql("src\\test\\resources\\org.sql")
+    
+    @Test   
     public void save(){
         Customer customer = new Customer();
         customer.setName("cust");
-        customer.setOrg(orgRepository.findById(1).get());
+        customer.setOrg(orgRepository.getbyEmail("testOrg@mail.com").get());
         customer.setPhoneNum("12345");
         assertThat(null!=repository.save(customer));
-    }*/
+    }
             
     
     

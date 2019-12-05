@@ -32,7 +32,7 @@ public class OrganizationRepositoryTest {
     
     
 
-    @Test
+    @Test    
     public void saveOrganisation() {
         Organization org = new Organization();
         org.setCode("11");
