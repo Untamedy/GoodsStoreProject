@@ -41,6 +41,7 @@ public class GroupRepositoryTest {
 
     @BeforeAll
     public static void init(@Autowired StoreRepository storeRepository, @Autowired OrganizationRepository orgRepository) {
+        
         organization = new Organization();
         organization.setCode("2222");
         organization.setEmail("test2Org@mail.com");
