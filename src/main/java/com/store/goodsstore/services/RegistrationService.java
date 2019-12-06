@@ -33,11 +33,9 @@ public class RegistrationService {
     public void  register(RegistrationRequest request) {
         Organization organization = organizationService.createOrganization(request);       
         Users user = userService.createUser(request,organization);
-        Store store = storeService.createStore(request,organization);
-        List<Store> stores = new ArrayList<>();
-        stores.add(store);
+        Store store = storeService.createStore(request,organization); 
         organization.setUsers(user);
-        organization.setStore(stores);
+        organization.setStore(store);
         organizationService.saveOrganisation(organization);        
     }
     

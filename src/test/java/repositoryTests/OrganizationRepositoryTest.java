@@ -34,10 +34,7 @@ public class OrganizationRepositoryTest {
 
     @Test    
     public void saveOrganisation() {
-        Organization org = new Organization();
-        org.setCode("11");
-        org.setEmail("org@mail.com");
-        org.setName("newOrg");
+        Organization org = new Organization("org","test2Org@mail.com","2222");       
 
         assertThat(null != repository.save(org));
     }

@@ -30,8 +30,10 @@ public class GoodsGroupController {
     private GoodsGroupService service;
 
     @GetMapping("/all")
-    public ModelAndView getAllGroups() {
-        return new ModelAndView("store", "grops", service.getAllGroupDto());
+    public ModelAndView getAllGroups(Principal principal) {
+        String name = principal.getName();
+        
+        return new ModelAndView("store", "grops", service.getAllGroupDto(name));
 
     }
 

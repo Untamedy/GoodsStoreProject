@@ -18,16 +18,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.EntityManager;
-import javax.sql.DataSource;
 import org.junit.jupiter.api.BeforeAll;
 import static org.assertj.core.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -54,11 +49,11 @@ public class UserRepositoryTest {
     
     @BeforeAll
     public static  void createEntity(@Autowired OrganizationRepository orgrepository,@Autowired RolesRepository rolesRepository) {  
-        organization = new Organization();
-        organization.setCode("1111");
-        organization.setEmail("testOrg@mail.com");
-        organization.setName("org1");
-        orgrepository.save(organization);
+       organization = orgrepository.findByEmail("test2Org@mail.com"); 
+        if(organization==null){
+             organization = new Organization("org","test2Org@mail.com","2222");
+             orgrepository.save(organization);
+        }
         List<Role> r = rolesRepository.findAll();
         roles = new HashSet<>(r);
     }

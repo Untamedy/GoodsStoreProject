@@ -8,11 +8,14 @@ package repositoryTests;
 import com.store.goodsstore.GoodsstoreApplication;
 import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.GoodsGroup;
+import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.repository.GoodsRepository;
 import com.store.goodsstore.repository.GroupRepository;
+import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.repository.StoreRepository;
 import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -36,19 +39,28 @@ public class GoodsRepositoryTest {
     @Autowired
     private GoodsRepository repository;
 
-    @Autowired
-    private StoreRepository storeRepository;
+    
+    private static Store store;
+    private static GoodsGroup group;
+    private static Organization organization;
+            
 
-    @Autowired
-    private GroupRepository groupRepository;
-
-    private Store store;
-    private GoodsGroup group;
-
-    @BeforeEach
-    public void init() {
-        store = storeRepository.findByCode("e8e4f1dd-5842-431a-a96d-706a27bc3953");
-        group = groupRepository.findByName("1");
+    @BeforeAll
+    public static void init(@Autowired OrganizationRepository orgRepozitory,@Autowired StoreRepository storeRepository, @Autowired GroupRepository groupRepository) {   
+        organization = orgRepozitory.findByEmail("test2Org@mail.com"); 
+        if(organization==null){
+             organization = new Organization("org","test2Org@mail.com","2222");
+             orgRepozitory.save(organization);
+        }
+        store = storeRepository.findByCode("22");
+        if (store == null) {
+             store = new Store("store2","22",organization);  
+            storeRepository.save(store);
+        }
+       group = groupRepository.findByName("1");
+       if(group==null){
+        group =  groupRepository.save(new GoodsGroup("g1",store));
+       }
     }
 
     @Test
@@ -57,6 +69,7 @@ public class GoodsRepositoryTest {
         goods.setCode("11");
         goods.setName("goods");
         goods.setUnit("kg");
+        goods.setGroup(group);
         assertThat(null != repository.save(goods));
     }
 
@@ -66,6 +79,7 @@ public class GoodsRepositoryTest {
         goods.setCode("12");
         goods.setName("goods1");
         goods.setUnit("kg");
+        goods.setGroup(group);
         repository.save(goods);      
         assertThat(null != repository.findByCode("12"));      
 

@@ -110,8 +110,7 @@ public class StoreService {
         String name = principal.getName();
         UserDto user = userService.getUsersByEmail(name);
         Organization org = user.getOrganization();
-        List<Store> stores = org.getStore();
-        Store store = stores.get(0);
+        Store store = org.getStore();        
         List<GoodsGroupDto> groups = store.getGroups().stream().map((tmp)->{
          return   groupService.createDto(tmp);
         }).collect(Collectors.toList());

@@ -13,7 +13,6 @@ import com.store.goodsstore.repository.RolesRepository;
 import com.store.goodsstore.repository.StoreRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,24 +42,32 @@ public class StoreRepositoryTest {
     
    @BeforeAll
     public static  void createEntity(@Autowired OrganizationRepository orgrepository,@Autowired RolesRepository rolesRepository) {  
-        organization = new Organization();
-        organization.setCode("2222");
-        organization.setEmail("test2Org@mail.com");
-        organization.setName("org2");
-        orgrepository.save(organization);
-       
+       organization = orgrepository.findByEmail("test2Org@mail.com"); 
+        if(organization==null){
+             organization = new Organization("org","test2Org@mail.com","2222");
+             orgrepository.save(organization);
+        }               
     }
     
     
     @Test
-    public void saveStore(){
-        Store store = new Store();
-        store.setCode("11");
-        store.setName("store");
-        store.setOrg(organization);
+    public void saveStore(){        
+        Store store = new Store("store","11",organization);        
         assertThat(null!=repository.save(store));
-        assertThat(repository.findByCode("11").getOrg().equals(organization));       
-        
+    }
+    
+    @Test
+    public void findByCode(){       
+        Store store = new Store("store4","24",organization);  
+        repository.save(store);        
+        assertThat(repository.findByCode("22").getOrg().equals(organization)); 
+    }
+    
+    @Test
+    public void findByName(){
+         Store store = new Store("store3","23",organization);  
+        repository.save(store);        
+        assertThat(repository.findByName("store3").getOrg().equals(organization)); 
     }
     
     

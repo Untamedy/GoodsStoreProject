@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -20,6 +21,7 @@ import lombok.Data;
  */
 @Entity
 @Data
+@NoArgsConstructor
 @SequenceGenerator(name="my_seq", initialValue=1, allocationSize=1)
 public class Organization {
 
@@ -33,8 +35,8 @@ public class Organization {
     @Column(nullable = false,unique = true)
     private String code;
     
-    @OneToMany(mappedBy = "org",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Store> store;
+    @OneToOne(mappedBy = "org",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Store store;
     
     @OneToOne(mappedBy="org",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Users users;
@@ -42,7 +44,12 @@ public class Organization {
     @OneToMany(mappedBy="org",fetch= FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Customer> customers;
     
-    
+    public Organization(String name,String email, String code){
+        this.name=name;
+        this.code=code;
+        this.email=email;
+        
+    }
     
     
 }

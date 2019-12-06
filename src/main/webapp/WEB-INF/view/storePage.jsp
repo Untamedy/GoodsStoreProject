@@ -118,9 +118,8 @@
 
                 <div class="col-sm-12 col-8">               
 
-                    <div id="section1" class="bg-default"> 
-                        <c:forEach items="${groups}" var="group">    
-                            <h1> <c:out value="${group.name}"/></h1>
+                    <div id="section1" class="bg-default">                        
+                            <h1> Group</h1>
                             <p></p>
                             <table class="table table-striped">
                                 <thead>
@@ -138,18 +137,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <c:forEach items="${groups.goods}" var="goods">   
-                                            <td><c:out value="${goods.name}"/></td>
-                                            <td><c:out value="${goods.code}"/></td>
-                                            <td><c:out value="${goods.unit}"/></td>
-                                            <td><c:out value="${goods.quantity}"/></td>
-                                            <td><c:out value="${goods.incomePrice}"/></td>
-                                            <td><c:out value="${group.price}"/></td>
-                                            <td><button type="button" class="btn btn-info">Add to order</button></td>
-                                            <td><button type="button" class="btn btn-info">Delete</button></td>
-                                            <td><button type="button" class="btn btn-info">Edit</button></td>                                    
-                                        </c:forEach>
+                                    <tr>                                        
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>5</td>
+                                        <td>5</td>
+                                        <td><button type="button" class="btn btn-info">Add to order</button></td>
+                                        <td><button type="button" class="btn btn-info">Delete</button></td>
+                                        <td><button type="button" class="btn btn-info">Edit</button></td>                                    
+
                                     </tr>                                   
 
                                 </tbody>
@@ -161,15 +159,14 @@
                                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </c:forEach>    
+                            </ul>                        
+                         
                     </div>                  
 
                 </div>
             </div>
 
         </div>
-
 
         <div name="addGroup" class="modal" id="myModal">
             <div class="modal-dialog">
@@ -179,7 +176,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="myForm" role="form" method="Get" action="group/save">
+                        <form id="myForm" role="form" method="POST" action="group/save">
                             <div class="form-group">
                                 <label for="group">Name:</label>
                                 <input type="text" class="form-control" id="groupName" name="groupName">
@@ -203,12 +200,20 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="myForm" role="form" method="Get" action="group/save">
+                        <form id="myForm" role="form" method="Post" action="group/edit">
                             <div class="form-group">
                                 <label for="group">Old name:</label>
-                                <%
-
-                                %>
+                                <select id="inputState" class="form-control">
+                                    <%
+                                        List<GoodsGroupDto> groups =(List<GoodsGroupDto>) request.getAttribute("groups");
+                                        for(GoodsGroupDto g: groups){
+                                         out.print("<option selected>"+g.getName()+"</option>");   
+                                        }                                       
+                                        
+                                    %>
+                                     
+                                </select>
+                                <label for="group">New name:</label>                               
                                 <input type="text" class="form-control" id="groupName" name="groupName">
                             </div>
                             <button id="myFormSubmit" type="submit" onclick="myFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
@@ -221,6 +226,54 @@
                 </div>
             </div>
         </div>
+                                    
+         <div name="addGoods" class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">               
+                    <div class="modal-header">                        
+                        <h4 class="modal-title">Add new goods</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> 
+                    <div class="modal-body">
+                        <form id="myForm" role="form" method="POST" action="goods/save">
+                            <label for="group">Group:</label>
+                                <select id="inputState" class="form-control">
+                                    <%                                       
+                                        for(GoodsGroupDto g: groups){
+                                         out.print("<option selected>"+g.getName()+"</option>");   
+                                        }   
+                                    %>                                     
+                                </select>
+                            <div class="form-group">
+                                <label for="group">Name:</label>
+                                <input type="text" class="form-control" id="groupName" name="groupName">
+                            </div>
+                             <div class="form-group">
+                                <label for="group">Code</label>
+                                <input type="text" class="form-control" id="groupName" name="groupName">
+                            </div>
+                             <div class="form-group">
+                                <label for="group">Unit</label>
+                                <input type="text" class="form-control" id="groupName" name="groupName">
+                            </div>
+                             <div class="form-group">
+                                <label for="group">Income price</label>
+                                <input type="text" class="form-control" id="groupName" name="groupName">
+                            </div>
+                             <div class="form-group">
+                                <label for="group">Price</label>
+                                <input type="text" class="form-control" id="groupName" name="groupName">
+                            </div>                            
+                            <button id="myFormSubmit" type="submit" onclick="myFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>                            
 
 
         <script>

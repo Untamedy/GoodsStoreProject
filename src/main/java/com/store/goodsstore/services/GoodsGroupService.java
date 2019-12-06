@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import store.repositories.UserRepository;
 
 /**
  *
@@ -27,6 +28,9 @@ public class GoodsGroupService {
 
     @Autowired
     private StoreService storeService;
+    
+    @Autowired
+    private UserService userService;
 
     public GoodsGroupDto saveGroup(GoodsGroupDto dto) {        
             return createDto(repository.save(createGroup(dto)));
@@ -80,7 +84,8 @@ public class GoodsGroupService {
         return false;
     }
 
-    public List<GoodsGroupDto> getAllGroupDto() {
+    public List<GoodsGroupDto> getAllGroupDto(String username) {
+       Store store = userService.getByName(username).getOrg().getStore();
         return repository.findAll().stream().map(tmp -> {
             return createDto(tmp);
         }).collect(Collectors.toList());

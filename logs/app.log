@@ -1702,3 +1702,34 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 2019-12-05 19:45:19,043 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 7.605 seconds (JVM running for 9.22)
 2019-12-05 20:09:56,605 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [main] ERROR: duplicate key value violates unique constraint "uk_mcx2udv9matm3rou852yscccf"
   Detail: Key (code)=(1212) already exists.
+2019-12-06 15:27:45,320 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_mcx2udv9matm3rou852yscccf"
+  Подробности: Ключ "(code)=(22)" уже существует.
+2019-12-06 15:39:59,074 DEBUG org.hibernate.validator.internal.engine.resolver.TraversableResolvers [background-preinit] Found javax.persistence.Persistence on classpath containing 'getPersistenceUtil'. Assuming JPA 2 environment. Trying to instantiate JPA aware TraversableResolver
+2019-12-06 15:51:51,426 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on Lenovo-PC with PID 984 (started by Lenovo in C:\Users\Lenovo\Documents\GoodsStoreProject)
+2019-12-06 15:51:51,429 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-12-06 15:51:51,430 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-12-06 15:52:00,793 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 9.757 seconds (JVM running for 11.232)
+2019-12-06 15:57:33,731 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on Lenovo-PC with PID 9600 (started by Lenovo in C:\Users\Lenovo\Documents\GoodsStoreProject)
+2019-12-06 15:57:33,734 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-12-06 15:57:33,735 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-12-06 15:57:43,238 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 9.895 seconds (JVM running for 11.453)
+2019-12-06 16:11:08,859 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on Lenovo-PC with PID 492 (started by Lenovo in C:\Users\Lenovo\Documents\GoodsStoreProject)
+2019-12-06 16:11:08,862 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-12-06 16:11:08,863 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-12-06 16:11:16,701 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.247 seconds (JVM running for 9.78)
+2019-12-06 16:11:19,298 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_mcx2udv9matm3rou852yscccf"
+  Подробности: Ключ "(code)=(22)" уже существует.
+2019-12-06 16:11:19,328 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_mcx2udv9matm3rou852yscccf"
+  Подробности: Ключ "(code)=(22)" уже существует.
+2019-12-06 16:12:32,379 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_mcx2udv9matm3rou852yscccf"
+  Подробности: Ключ "(code)=(22)" уже существует.
+2019-12-06 16:12:32,422 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_d0p5ly1cv6guij7sq1mbnr8ec"
+  Подробности: Ключ "(name)=(store2)" уже существует.
+2019-12-06 16:12:47,464 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_mcx2udv9matm3rou852yscccf"
+  Подробности: Ключ "(code)=(22)" уже существует.
+2019-12-06 16:13:57,574 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [main] ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "uk_d0p5ly1cv6guij7sq1mbnr8ec"
+  Подробности: Ключ "(name)=(store2)" уже существует.
+2019-12-06 16:15:14,039 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Starting GoodsstoreApplicationTests on Lenovo-PC with PID 108 (started by Lenovo in C:\Users\Lenovo\Documents\GoodsStoreProject)
+2019-12-06 16:15:14,042 DEBUG com.store.goodsstore.GoodsstoreApplicationTests [main] Running with Spring Boot v2.2.0.RELEASE, Spring v5.2.0.RELEASE
+2019-12-06 16:15:14,043 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-12-06 16:15:21,846 INFO com.store.goodsstore.GoodsstoreApplicationTests [main] Started GoodsstoreApplicationTests in 8.169 seconds (JVM running for 9.677)

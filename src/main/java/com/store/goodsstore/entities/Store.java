@@ -9,11 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,6 +47,15 @@ public class Store implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "org_store")    
     private Organization org;  
+
+    public Store(String name, String code, Organization organization) {
+       this.name = name;
+       this.code=code;
+       this.org = organization;
+               
+    }
+
+   
     
     
 

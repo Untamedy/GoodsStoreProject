@@ -14,7 +14,6 @@ import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.repository.StoreRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,17 +41,14 @@ public class GroupRepositoryTest {
     @BeforeAll
     public static void init(@Autowired StoreRepository storeRepository, @Autowired OrganizationRepository orgRepository) {
         
-        organization = new Organization();
-        organization.setCode("2222");
-        organization.setEmail("test2Org@mail.com");
-        organization.setName("org2");
-        orgRepository.save(organization);
-        store = storeRepository.findByCode("1212");
-        if (storeRepository == null) {
-            store = new Store();
-            store.setCode("1212");
-            store.setName("tetsStore");
-            store.setOrg(organization);
+        organization = orgRepository.findByEmail("test2Org@mail.com"); 
+        if(organization==null){
+             organization = new Organization("org","test2Org@mail.com","2222");
+             orgRepository.save(organization);
+        }
+        store = storeRepository.findByCode("22");
+        if (store == null) {
+             store = new Store("store2","22",organization);  
             storeRepository.save(store);
         }
     }
@@ -63,24 +59,24 @@ public class GroupRepositoryTest {
         group.setName("g1");
         group.setStore(store);
 
-        assertThat(null != repository.save(group));
-        assertThat(repository.findByName("g1").getStore().equals(store));
+        assertThat(null != repository.save(group));        
     }
 
     @Test
     public void fingGroup() {
-        GoodsGroup group = new GoodsGroup();
-        group.setName("g2");
-        group.setStore(store);
+        GoodsGroup group = new GoodsGroup("g2",store); 
+        repository.save(group);
         assertThat(null != repository.findByName("g2"));
     }
 
     @Test
     public void findByStore() {
-        GoodsGroup group = new GoodsGroup();
-        group.setName("g2");
-        group.setStore(store);
-        assertThat(null != repository.findByNameAndStoreId("g2", store.getId()));
+        GoodsGroup group = repository.findByName("g2");
+        if(group==null){
+           group = new GoodsGroup("g2",store);
+           repository.save(group);
+        }
+        assertThat(group.equals(repository.findByNameAndStoreId("g2", store.getId())));
     }
 
 }
