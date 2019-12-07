@@ -7,6 +7,7 @@ package com.store.goodsstore.entities;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -46,7 +47,7 @@ public class Order {
     
     @OneToMany(fetch=FetchType.EAGER)
     @JoinTable(name="order_goods")
-    private List<Goods> goods;
+    private Set<Goods> goods;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="org_id")

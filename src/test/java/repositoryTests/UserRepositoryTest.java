@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeAll;
 import static org.assertj.core.api.Assertions.*;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,35 +33,25 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ContextConfiguration(classes = GoodsstoreApplication.class)
-@AutoConfigureTestDatabase(replace=AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class UserRepositoryTest {
 
     @Autowired
-    public  UserRepository repository;  
+    public UserRepository repository;
 
-    @Autowired
-    private  UserRepository userRepository;
-
-    private  final String path = "/src/main/resources/path.sql";
-    private static  Organization organization;
+    private static Organization organization;
     private static Set<Role> roles;
-    private Users user;
+    private static Users user;
 
-    
     @BeforeAll
-    public static  void createEntity(@Autowired OrganizationRepository orgrepository,@Autowired RolesRepository rolesRepository) {  
-       organization = orgrepository.findByEmail("test2Org@mail.com"); 
-        if(organization==null){
-             organization = new Organization("org","test2Org@mail.com","2222");
-             orgrepository.save(organization);
-        }
+    public static void createEntity(@Autowired OrganizationRepository orgrepository, @Autowired RolesRepository rolesRepository) {
+        organization = new Organization("org", "test2Org@mail.com", "2222");
+        orgrepository.save(organization);
         List<Role> r = rolesRepository.findAll();
         roles = new HashSet<>(r);
     }
-    
-   
 
-    @Test  
+    @Test
     public void saveUsertest() {
         user = new Users();
         user.setOrg(organization);
@@ -70,15 +61,34 @@ public class UserRepositoryTest {
         user.setName("admin");
         assertThat(null != repository.save(user));
     }
-    
+
     @Test
-    public void findUserByEmail(){
-       assertThat(repository.findByEmail("Test@gmail.com")); 
+    public void findUserByEmail() {
+        user = new Users();
+        user.setOrg(organization);
+        user.setPassword("pass");
+        user.setRoles(roles);
+        user.setEmail("Test@gmail.com");
+        user.setName("admin");
+        repository.save(user);
+        assertThat(repository.findByEmail("Test@gmail.com"));
     }
-    
+
     @Test
-    public void findByName(){
-        assertThat(null!=repository.findByName("admin"));        
+    public void findByName() {
+        user = new Users();
+        user.setOrg(organization);
+        user.setPassword("pass");
+        user.setRoles(roles);
+        user.setEmail("Test@gmail.com");
+        user.setName("admin");
+        repository.save(user);
+        assertThat(null != repository.findByName("admin"));
     }
-    
+
+    @AfterAll
+    public static void cleanDB(@Autowired OrganizationRepository orgrepository, @Autowired RolesRepository rolesRepository) {        
+        orgrepository.delete(organization);
+    }
+
 }

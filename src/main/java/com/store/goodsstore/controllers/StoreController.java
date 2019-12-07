@@ -6,9 +6,6 @@
 package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.GoodsGroupDto;
-import com.store.goodsstore.dto.UserDto;
-import com.store.goodsstore.entities.Organization;
-import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.services.GoodsGroupService;
 import com.store.goodsstore.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,8 @@ import com.store.goodsstore.services.StoreService;
 import com.store.goodsstore.services.UserService;
 import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
+
 
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -56,7 +54,7 @@ public class StoreController {
 
     @GetMapping("/gostore")
     public ModelAndView allStore(Principal principal) {
-        List<GoodsGroupDto> groups = service.getGroupListByCurentStore(principal);                
+        Set<GoodsGroupDto> groups = service.getGroupListByCurentStore(principal);                
         ModelAndView model = new ModelAndView("storePage");
         model.addObject("groups",groups);
         return model;

@@ -12,6 +12,8 @@ import com.store.goodsstore.repository.CustomerRepository;
 import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.repository.RolesRepository;
 import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Ignore;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +27,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  *
  * @author Lenovo
  */
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ContextConfiguration(classes = GoodsstoreApplication.class)
@@ -40,16 +43,11 @@ public class CustomerRepositoryTest {
     private static Organization organization;
     
    @BeforeAll
-    public static  void createEntity(@Autowired OrganizationRepository orgrepository,@Autowired RolesRepository rolesRepository) {  
-         organization = orgrepository.findByEmail("test2Org@mail.com"); 
-        if(organization==null){
+    public static  void createEntity(@Autowired OrganizationRepository orgrepository,@Autowired RolesRepository rolesRepository) { 
              organization = new Organization("org","test2Org@mail.com","2222");
              orgrepository.save(organization);
-        }   
-       
     }
-    
-    
+       
     
     @Test   
     public void save(){
@@ -60,6 +58,9 @@ public class CustomerRepositoryTest {
         assertThat(null!=repository.save(customer));
     }
             
-    
+    @AfterAll
+    public static void cleanDb(@Autowired OrganizationRepository orgRepozitory){
+        orgRepozitory.delete(organization);
+    }
     
 }

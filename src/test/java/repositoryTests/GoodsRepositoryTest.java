@@ -15,8 +15,9 @@ import com.store.goodsstore.repository.GroupRepository;
 import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.repository.StoreRepository;
 import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Ignore;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,33 +40,24 @@ public class GoodsRepositoryTest {
     @Autowired
     private GoodsRepository repository;
 
-    
     private static Store store;
     private static GoodsGroup group;
     private static Organization organization;
-            
+    private static Goods goods;
+    private PageRequest pageable;
 
     @BeforeAll
-    public static void init(@Autowired OrganizationRepository orgRepozitory,@Autowired StoreRepository storeRepository, @Autowired GroupRepository groupRepository) {   
-        organization = orgRepozitory.findByEmail("test2Org@mail.com"); 
-        if(organization==null){
-             organization = new Organization("org","test2Org@mail.com","2222");
-             orgRepozitory.save(organization);
-        }
-        store = storeRepository.findByCode("22");
-        if (store == null) {
-             store = new Store("store2","22",organization);  
-            storeRepository.save(store);
-        }
-       group = groupRepository.findByName("1");
-       if(group==null){
-        group =  groupRepository.save(new GoodsGroup("g1",store));
-       }
+    public static void init(@Autowired OrganizationRepository orgRepozitory, @Autowired StoreRepository storeRepository, @Autowired GroupRepository groupRepository) {
+
+        store = new Store("store2", "22", organization); 
+        storeRepository.save(store);        
+        group = groupRepository.save(new GoodsGroup("g1", store));
+       
     }
 
     @Test
     public void saveGoodsTest() {
-        Goods goods = new Goods();
+        goods = new Goods();
         goods.setCode("11");
         goods.setName("goods");
         goods.setUnit("kg");
@@ -73,25 +65,37 @@ public class GoodsRepositoryTest {
         assertThat(null != repository.save(goods));
     }
 
+    @Ignore
     @Test
     public void findGoods() {
-        Goods goods = new Goods();
-        goods.setCode("12");
-        goods.setName("goods1");
+        goods = new Goods();
+        goods.setCode("11");
+        goods.setName("goods");
         goods.setUnit("kg");
         goods.setGroup(group);
-        repository.save(goods);      
-        assertThat(null != repository.findByCode("12"));      
+        repository.save(goods);
+        assertThat(null != repository.findByCode("11"));
 
     }
 
+    @Ignore
     @Test
     public void findByGroupId() {
-        PageRequest pageable = PageRequest.of(2 - 1, 10);
-        assertThat(null != repository.findByGroupId(1, pageable));
-        assertThat(!repository.findByGroupId(1, pageable).getContent().isEmpty());
+        goods = new Goods();
+        goods.setCode("11");
+        goods.setName("goods");
+        goods.setUnit("kg");
+        goods.setGroup(group);
+        repository.save(goods);
+        pageable = PageRequest.of(2 - 1, 10);
+        assertThat(null != repository.findByGroupId(group.getId(), pageable));
+        assertThat(!repository.findByGroupId(group.getId(), pageable).getContent().isEmpty());
     }
-    
-    
+
+    @AfterAll
+    public static void cleanDb(@Autowired OrganizationRepository orgRepository, @Autowired StoreRepository storeRepository, @Autowired GroupRepository groupRepository) {
+        groupRepository.delete(group);
+        storeRepository.delete(store);        
+    }
 
 }

@@ -12,6 +12,7 @@ import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.repository.RolesRepository;
 import com.store.goodsstore.repository.StoreRepository;
 import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -32,21 +33,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class StoreRepositoryTest {
     
     @Autowired
-    private StoreRepository repository;
-    
-    @Autowired
-    private static OrganizationRepository orgRepository;
-            
+    private StoreRepository repository;   
     
     private static Organization organization;
     
    @BeforeAll
-    public static  void createEntity(@Autowired OrganizationRepository orgrepository,@Autowired RolesRepository rolesRepository) {  
-       organization = orgrepository.findByEmail("test2Org@mail.com"); 
-        if(organization==null){
+    public static  void createEntity(@Autowired OrganizationRepository orgrepository) {   
              organization = new Organization("org","test2Org@mail.com","2222");
-             orgrepository.save(organization);
-        }               
+             orgrepository.save(organization);                       
     }
     
     
@@ -58,17 +52,23 @@ public class StoreRepositoryTest {
     
     @Test
     public void findByCode(){       
-        Store store = new Store("store4","24",organization);  
+       Store store = new Store("store","11",organization); 
         repository.save(store);        
-        assertThat(repository.findByCode("22").getOrg().equals(organization)); 
+        assertThat(repository.findByCode("11").getOrg().equals(organization)); 
     }
     
     @Test
     public void findByName(){
-         Store store = new Store("store3","23",organization);  
+       Store store = new Store("store","11",organization);
         repository.save(store);        
-        assertThat(repository.findByName("store3").getOrg().equals(organization)); 
+        assertThat(repository.findByName("store").getOrg().equals(organization)); 
     }
     
+    
+     @AfterAll
+    public static void cleanDB(@Autowired OrganizationRepository orgrepository){  
+        orgrepository.delete(organization);    
+      
+    }
     
 }

@@ -2,6 +2,13 @@
 <configuration>
 
     <property name="HOME_LOG" value="logs/app.log"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+        ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
 
     <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${HOME_LOG}</file>
@@ -11,7 +18,7 @@
             <!-- each archived file, size max 10MB -->
             <maxFileSize>10MB</maxFileSize>
             <!-- total size of all archive files, if total size > 20GB, 
-				it will delete old archived file -->
+            it will delete old archived file -->
             <totalSizeCap>20GB</totalSizeCap>
             <!-- 60 days to keep -->
             <maxHistory>60</maxHistory>
@@ -22,12 +29,10 @@
         </encoder>
     </appender>
 
-    <logger name="com.mkyong" level="debug" additivity="false">
-        <appender-ref ref="FILE-ROLLING"/>
-    </logger>
+    
 
-    <root level="error">
-        <appender-ref ref="FILE-ROLLING"/>
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
     </root>
 
 </configuration>

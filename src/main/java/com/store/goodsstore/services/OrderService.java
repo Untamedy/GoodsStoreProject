@@ -14,6 +14,7 @@ import com.store.goodsstore.repository.OrderRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,9 +49,9 @@ public class OrderService {
          order = new Order();
        }
        order.setCustomer(customerService.getCustomerByPhone(dto.getCustomerPhone())); 
-       List<Goods> goods = dto.getGoods().stream().map((tmp)->{
+       Set<Goods> goods = dto.getGoods().stream().map((tmp)->{
          return goodsService.createGoods(tmp);
-       }).collect(Collectors.toList());
+       }).collect(Collectors.toSet());
        order.setGoods(goods);
        order.setDate(dto.getOrderDate());
        order.setNum(dto.getOrderNum());

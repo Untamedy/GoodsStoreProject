@@ -35,7 +35,7 @@ public class Organization {
     @Column(nullable = false,unique = true)
     private String code;
     
-    @OneToOne(mappedBy = "org",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "org", cascade = CascadeType.ALL)
     private Store store;
     
     @OneToOne(mappedBy="org",fetch = FetchType.LAZY,cascade = CascadeType.ALL)

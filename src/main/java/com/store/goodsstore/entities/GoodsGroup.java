@@ -44,7 +44,7 @@ public class GoodsGroup {
 
     public GoodsGroup(String name, Store store) {
         this.name=name;
-        this.store = store;
+        this.store=store;
     }
 
 }

@@ -4,6 +4,7 @@ import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.StoreDto;
 import com.store.goodsstore.dto.UserDto;
+import com.store.goodsstore.entities.GoodsGroup;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.exceptions.RegistrationException;
@@ -13,8 +14,10 @@ import com.store.goodsstore.repository.StoreRepository;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -105,16 +108,20 @@ public class StoreService {
     private String createIdentifier() {
         return UUID.randomUUID().toString();
     }
-    
-    public List<GoodsGroupDto> getGroupListByCurentStore(Principal principal ){
+    @Transactional(readOnly = true)
+    public Set<GoodsGroupDto> getGroupListByCurentStore(Principal principal ){
         String name = principal.getName();
         UserDto user = userService.getUsersByEmail(name);
         Organization org = user.getOrganization();
-        Store store = org.getStore();        
-        List<GoodsGroupDto> groups = store.getGroups().stream().map((tmp)->{
+        Store store = org.getStore();  
+        Set<GoodsGroup>groups = store.getGroups();
+        if(!groups.isEmpty()){
+           Set<GoodsGroupDto> groupsDto = store.getGroups().stream().map((tmp)->{
          return   groupService.createDto(tmp);
-        }).collect(Collectors.toList());
-        return groups;
+        }).collect(Collectors.toSet());
+        return groupsDto; 
+        }
+        throw new RuntimeException();
     }
 
 }
