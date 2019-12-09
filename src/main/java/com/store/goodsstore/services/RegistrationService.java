@@ -32,10 +32,10 @@ public class RegistrationService {
     @Transactional
     public void  register(RegistrationRequest request) {
         Organization organization = organizationService.createOrganization(request);       
-        Users user = userService.createUser(request,organization);
-        Store store = storeService.createStore(request,organization); 
-        organization.setUsers(user);
-        organization.setStore(store);
+        Users user = userService.createUser(request);
+        Store store = storeService.createStore(request); 
+        organization.addUser(user);
+        organization.addStore(store);
         organizationService.saveOrganisation(organization);        
     }
     

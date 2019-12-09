@@ -1,6 +1,7 @@
 package com.store.goodsstore.entities;
 
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,7 +41,7 @@ public class Users {
     private String password;
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Role> roles;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "orgId")
     private Organization org; 
     

@@ -82,7 +82,7 @@ public class UserService {
         return false;
     }
 
-    public Users createUser(RegistrationRequest request,Organization organsation) {
+    public Users createUser(RegistrationRequest request) {
         Set<Role> roles = new HashSet<>();
         roles.add(rolesServise.findRoleByName("user"));
         roles.add(rolesServise.findRoleByName("admin"));
@@ -92,8 +92,7 @@ public class UserService {
             user.setName(request.getUserName());
             user.setEmail(request.getUserEmail());
             user.setPassword(encoder.encode(request.getUserPass()));
-            user.setRoles(roles); 
-            user.setOrg(organsation);
+            user.setRoles(roles);             
             return user;
         }
          throw new RegistrationException("User with email " + request.getUserEmail() + " is already exists");

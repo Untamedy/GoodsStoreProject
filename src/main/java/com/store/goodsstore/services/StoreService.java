@@ -68,13 +68,12 @@ public class StoreService {
         return false;
     }
 
-    public Store createStore(RegistrationRequest request,Organization organization) {
+    public Store createStore(RegistrationRequest request) {
         Store store = storeRepositary.findByName(request.getStoreName());
         if (null == store) {
             store = new Store();
             store.setName(request.getStoreName());
-            store.setCode(createIdentifier());
-            store.setOrg(organization);
+            store.setCode(createIdentifier());            
             return store;
         }
         throw new RegistrationException("Store with name " + request.getStoreName() + " is already exists");
