@@ -53,12 +53,12 @@ public class GoodsGroupController {
 
     }
 
-    @GetMapping("/removedGroup")
+   /* @GetMapping("/removedGroup")
     public ModelAndView removeGroup(@RequestParam String name) {
         if (service.removeGroup(name)) {            
             return new ModelAndView("storePage",HttpStatus.OK);
         }
         return new ModelAndView("storePage", HttpStatus.NOT_MODIFIED);
-    }
+    }*/
 
 }

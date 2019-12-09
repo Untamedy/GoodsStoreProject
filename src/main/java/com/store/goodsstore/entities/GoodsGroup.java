@@ -40,12 +40,14 @@ public class GoodsGroup {
     @JoinColumn(name="store_id")
     private Store store;
     
-    @OneToMany(mappedBy="group",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<Goods> goods;
+    //@OneToMany(mappedBy="group",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    //private List<Goods> goods;
 
     public GoodsGroup(String name, Store store) {
         this.name=name;
         this.store=store;
     }
+    
+    
 
 }

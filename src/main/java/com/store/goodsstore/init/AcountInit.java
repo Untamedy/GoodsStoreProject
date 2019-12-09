@@ -13,7 +13,9 @@ import com.store.goodsstore.repository.StoreRepository;
 import com.store.goodsstore.repository.UserRepository;
 import com.store.goodsstore.services.RegistrationService;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,23 +50,25 @@ public class AcountInit {
         }
         Store store = storeRepository.findByName("FirstStore");
         if (groupRepository.findByNameAndStoreId("testGroup1", store.getId()) == null) {
-            for(int i =1; i<10;i++){
-                addGroups(store, i);
+            Set<GoodsGroup> groups = new HashSet<>();
+            for (int i = 1; i < 10; i++) {
+               store.addGroup(createGroup(i));
             }            
+            storeRepository.save(store);
+            for (GoodsGroup g : groups) {
+                goodsRepository.saveAll(createGoods(g));
+            }
+
         }
     }
 
-    private void addGroups(Store store, int index) {       
-            GoodsGroup group = new GoodsGroup();
-            group.setName("testGroup" + index);
-            group.setStore(store);
-            List<Goods> goods = addGoods(group);
-            group.setGoods(goods);
-            groupRepository.save(group);
-            goodsRepository.saveAll(goods);
-            }
+    private GoodsGroup createGroup(int index) {
+        GoodsGroup group = new GoodsGroup();
+        group.setName("testGroup" + index);                 
+        return group;
+    }
 
-    private List<Goods> addGoods(GoodsGroup group) {
+    private List<Goods> createGoods(GoodsGroup group) {
         List<Goods> list = new ArrayList<>();
         for (int i = 1; i < 10; i++) {
             Goods goods = new Goods();
@@ -79,8 +83,11 @@ public class AcountInit {
             goods.setGroup(group);
             list.add(goods);
         }
-
         return list;
+    }
+
+    public void addGoods() {
+
     }
 
     public RegistrationRequest createRequest() {

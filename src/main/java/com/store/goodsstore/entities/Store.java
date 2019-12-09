@@ -1,6 +1,7 @@
 package com.store.goodsstore.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 
@@ -43,10 +44,10 @@ public class Store implements Serializable {
     @Column(unique = true, nullable = false)
     public String code;
     
-    @OneToMany(mappedBy="store",cascade = CascadeType.ALL)    
-    private Set<GoodsGroup> groups;
+    @OneToMany(mappedBy="store",cascade = CascadeType.ALL,fetch = FetchType.LAZY)    
+    private Set<GoodsGroup> groups = new HashSet<>();
     
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "org_id")    
     private Organization org;  
 

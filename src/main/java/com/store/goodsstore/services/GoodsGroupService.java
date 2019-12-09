@@ -50,13 +50,13 @@ public class GoodsGroupService {
     public GoodsGroupDto createDto(GoodsGroup group) {
         GoodsGroupDto groupDto = new GoodsGroupDto();
         groupDto.setName(group.getName());
-        List<GoodsDto> goodsDto = new ArrayList<>();
-        if (!group.getGoods().isEmpty()) {
-            goodsDto = group.getGoods().stream().map((tmp) -> {
-                return goodsService.createGoodsResponse(tmp);
-            }).collect(Collectors.toList());
-        }
-        groupDto.setGoods(goodsDto);
+        //List<GoodsDto> goodsDto = new ArrayList<>();
+       // if (!group.getGoods().isEmpty()) {
+       //     goodsDto = group.getGoods().stream().map((tmp) -> {
+       //         return goodsService.createGoodsResponse(tmp);
+        //    }).collect(Collectors.toList());
+      //  }
+       // groupDto.setGoods(goodsDto);
         return groupDto;
     }
 
@@ -73,7 +73,7 @@ public class GoodsGroupService {
        
     }
 
-    public boolean removeGroup(String name) {
+   /* public boolean removeGroup(String name) {
         GoodsGroup group = repository.findByName(name);
         if (group != null) {
             if (group.getGoods().isEmpty()) {
@@ -82,7 +82,7 @@ public class GoodsGroupService {
             }
         }
         return false;
-    }
+    }*/
 
     public List<GoodsGroupDto> getAllGroupDto(String username) {
        Store store = userService.getByName(username).getOrg().getStore();

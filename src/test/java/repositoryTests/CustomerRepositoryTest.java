@@ -12,7 +12,6 @@ import com.store.goodsstore.repository.CustomerRepository;
 import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.repository.RolesRepository;
 import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.Ignore;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
