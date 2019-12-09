@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -19,6 +20,7 @@ import lombok.Data;
  */
 @Entity
 @Data
+@NoArgsConstructor
 @SequenceGenerator(name = "my_seq", initialValue = 1, allocationSize = 1)
 public class GoodsPrice {
 

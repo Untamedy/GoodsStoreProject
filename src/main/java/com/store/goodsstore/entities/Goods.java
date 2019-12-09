@@ -30,7 +30,7 @@ public class Goods {
     @Column(nullable = false, unique = true)
     private String code;
     private String unit; 
-    @Column(nullable=false)
+    @Column(nullable=true)
     private boolean visible;
     
     @ManyToOne(fetch = FetchType.LAZY)

@@ -49,7 +49,8 @@ public class GoodsRepositoryTest {
     @BeforeAll
     public static void init(@Autowired OrganizationRepository orgRepozitory, @Autowired StoreRepository storeRepository, @Autowired GroupRepository groupRepository) {
 
-        store = new Store("store2", "22", organization); 
+        organization = orgRepozitory.findByEmail("y.shemanska@gmail.com");
+        store = new Store("store2", "24", organization); 
         storeRepository.save(store);        
         group = groupRepository.save(new GoodsGroup("g1", store));
        
@@ -75,7 +76,6 @@ public class GoodsRepositoryTest {
         goods.setGroup(group);
         repository.save(goods);
         assertThat(null != repository.findByCode("11"));
-
     }
 
     @Ignore

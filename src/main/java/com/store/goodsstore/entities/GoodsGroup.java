@@ -1,6 +1,7 @@
 package com.store.goodsstore.entities;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class GoodsGroup {
     @JoinColumn(name="store_id")
     private Store store;
     
-    @OneToMany(mappedBy="group",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="group",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Goods> goods;
 
     public GoodsGroup(String name, Store store) {

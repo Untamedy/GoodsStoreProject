@@ -108,6 +108,8 @@ public class StoreService {
     private String createIdentifier() {
         return UUID.randomUUID().toString();
     }
+    
+    
     @Transactional(readOnly = true)
     public Set<GoodsGroupDto> getGroupListByCurentStore(Principal principal ){
         String name = principal.getName();
