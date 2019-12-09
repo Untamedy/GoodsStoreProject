@@ -72,6 +72,7 @@ public class AcountInit {
             goods.setCode("code" + i + group.getName());
             goods.setName("goods" + i);
             goods.setUnit("kg");
+            goods.setVisible(true);
             goods.setCounter(new GoodsCounter(i));
             goods.setIncomePrice(new GoodsIncomePrice(i));
             goods.setPrice(new GoodsPrice(i));

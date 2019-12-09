@@ -29,25 +29,24 @@ public class Goods {
     private String name;
     @Column(nullable = false, unique = true)
     private String code;
-    private String unit; 
-    @Column(nullable=true)
+    private String unit;
+    @Column(nullable = false)
     private boolean visible;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
-    private GoodsGroup group;  
-    
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name="count_id")
+    private GoodsGroup group;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "count_id")
     private GoodsCounter counter;
-    
-    @OneToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name="price_id")
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "price_id")
     private GoodsPrice price;
-    
-  @OneToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name="incomePrice_id")
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "incomePrice_id")
     private GoodsIncomePrice incomePrice;
-    
- 
+
 }
