@@ -40,12 +40,13 @@ public class GroupRepositoryTest {
     private static Organization organization;
 
     @BeforeAll
-    public static void init(@Autowired StoreRepository storeRepository) {
-       
+    public static void init(@Autowired StoreRepository storeRepository,@Autowired OrganizationRepository orgRepository) {
+       organization = new Organization("orgTest", "org@mail.com", "orgtestCode");
             store = new Store();
             store.setCode("22");
             store.setName("store2");                   
-            storeRepository.save(store);
+            organization.addStore(store);
+            orgRepository.save(organization);
         
     }
 
@@ -71,8 +72,7 @@ public class GroupRepositoryTest {
 
     @AfterAll
     public static void cleanDB(@Autowired OrganizationRepository orgrepository, @Autowired StoreRepository storeRepository) {
-        storeRepository.delete(store);       
-        
+        orgrepository.delete(organization);        
 
     }
 

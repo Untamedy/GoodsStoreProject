@@ -29,8 +29,8 @@ public class OrganizationService {
     @Autowired
     OrganizationRepository repository;
 
-    public OrganizationDto saveOrganisation(Organization organization) {
-        return createOrganizationResponse(repository.save(organization));
+    public void saveOrganisation(Organization organization) {
+        repository.save(organization);       
     }
 
     public Organization createOrganization(RegistrationRequest request) {

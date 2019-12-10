@@ -49,10 +49,18 @@ public class GoodsRepositoryTest {
     @BeforeAll
     public static void init(@Autowired OrganizationRepository orgRepozitory, @Autowired StoreRepository storeRepository, @Autowired GroupRepository groupRepository) {
 
-        organization = orgRepozitory.findByEmail("y.shemanska@gmail.com");
-        store = new Store("store2", "24", organization); 
-        storeRepository.save(store);        
+        organization = new Organization("testorg", "test@mail.com", "testOrgCode");
+        
+        store = new Store();
+        store.setName("testStore1");
+        store.setCode("testCodeStore");
+        
+        organization.addStore(store);
+        orgRepozitory.save(organization);
+               
         group = groupRepository.save(new GoodsGroup("g1", store));
+        
+        
        
     }
 
@@ -94,8 +102,8 @@ public class GoodsRepositoryTest {
 
     @AfterAll
     public static void cleanDb(@Autowired OrganizationRepository orgRepository, @Autowired StoreRepository storeRepository, @Autowired GroupRepository groupRepository) {
-        groupRepository.delete(group);
-        storeRepository.delete(store);        
+       groupRepository.delete(group);
+        orgRepository.delete(organization);
     }
 
 }

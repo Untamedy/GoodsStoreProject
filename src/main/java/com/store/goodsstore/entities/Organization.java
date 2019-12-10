@@ -57,7 +57,7 @@ public class Organization {
 
     public void addUser(Users user) {
         user.setOrg(this);
-        setUsers(users);
+        setUsers(user);
     }
 
 }

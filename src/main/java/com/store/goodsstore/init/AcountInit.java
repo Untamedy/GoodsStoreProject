@@ -51,11 +51,13 @@ public class AcountInit {
         Store store = storeRepository.findByName("FirstStore");
         if (groupRepository.findByNameAndStoreId("testGroup1", store.getId()) == null) {
             Set<GoodsGroup> groups = new HashSet<>();
-            for (int i = 1; i < 10; i++) {
+            for (int i = 1; i < 10; i++) {                
                store.addGroup(createGroup(i));
-            }            
-            storeRepository.save(store);
-            for (GoodsGroup g : groups) {
+            }               
+           store = storeRepository.save(store);
+            groups = store.getGroups();
+           List<GoodsGroup> savedGroup = groupRepository.saveAll(groups);
+            for (GoodsGroup g : savedGroup) {
                 goodsRepository.saveAll(createGoods(g));
             }
 
