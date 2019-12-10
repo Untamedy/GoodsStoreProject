@@ -52,21 +52,21 @@ public class AcountInit {
         if (groupRepository.findByNameAndStoreId("testGroup1", store.getId()) == null) {
             Set<GoodsGroup> groups = new HashSet<>();
             for (int i = 1; i < 10; i++) {                
-               store.addGroup(createGroup(i));
-            }               
-           store = storeRepository.save(store);
-            groups = store.getGroups();
-           List<GoodsGroup> savedGroup = groupRepository.saveAll(groups);
-            for (GoodsGroup g : savedGroup) {
+            groups.add((createGroup(i,store)));
+            }   
+            groupRepository.saveAll(groups);
+           
+            for (GoodsGroup g : groups) {
                 goodsRepository.saveAll(createGoods(g));
             }
 
         }
     }
 
-    private GoodsGroup createGroup(int index) {
+    private GoodsGroup createGroup(int index,Store store) {
         GoodsGroup group = new GoodsGroup();
-        group.setName("testGroup" + index);                 
+        group.setName("testGroup" + index);   
+        group.setStore(store);
         return group;
     }
 
