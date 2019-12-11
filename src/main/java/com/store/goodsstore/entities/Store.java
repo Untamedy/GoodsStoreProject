@@ -17,7 +17,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  *
@@ -27,6 +29,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude="org")
 @SequenceGenerator(name="my_seq", initialValue=1, allocationSize=1)
 public class Store implements Serializable {
     
@@ -43,9 +46,10 @@ public class Store implements Serializable {
     @Column(unique = true, nullable = false)
     public String code;
     
-    @OneToMany(mappedBy="store",fetch = FetchType.LAZY)    
-    private Set<GoodsGroup> groups = new HashSet<>();
+    //@OneToMany(mappedBy="store",fetch = FetchType.LAZY)    
+    //private Set<GoodsGroup> groups = new HashSet<>();
     
+   
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "org_id")    
     private Organization org;  
@@ -57,11 +61,11 @@ public class Store implements Serializable {
                
     }
     
-    public void addGroup(GoodsGroup group){
+   /* public void addGroup(GoodsGroup group){
         groups.add(group);
         group.setStore(this);
         
-    }
+    }*/
 
    
     

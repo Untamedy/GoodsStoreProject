@@ -19,7 +19,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.transaction.annotation.Transactional;
 
-
 /**
  *
  * @author YBolshakova
@@ -29,41 +28,43 @@ public class StoreService {
 
     @Autowired
     private StoreRepository storeRepositary;
-    
+
     @Autowired
     private GoodsService goodsService;
-    
+
     @Autowired
     private OrganizationService orgService;
-    
+
     @Autowired
     private GoodsGroupService groupService;
-    
+
     @Autowired
     private UserService userService;
-    
-    
-    public void saveStore(Store store){
+
+    @Transactional
+    public void saveStore(Store store) {
         storeRepositary.save(store);
     }
 
+    @Transactional
     public StoreDto editStore(RegistrationRequest request) {
         StoreDto dto = null;
         Store store = storeRepositary.findByOrg(orgService.getByEmail(request.getOrganizationEmail()).getId());
         if (store != null) {
-            store.setName(request.getStoreName());           
+            store.setName(request.getStoreName());
             dto = createStoreDto(storeRepositary.save(store));
         }
         return dto;
     }
 
+    @Transactional
     public boolean deleteStore(StoreDto storeDto) {
         if (storeRepositary.existsByCode(storeDto.getCode())) {
             Store store = storeRepositary.findByCode(storeDto.getName());
-            if (store.getGroups().isEmpty()) {
-                 storeRepositary.delete(store);
+            if (groupService.getAllGroupByStore(store.getId()).isEmpty()) {
+                storeRepositary.delete(store);
                 return true;
-            }           
+            }
         }
         return false;
     }
@@ -73,7 +74,7 @@ public class StoreService {
         if (null == store) {
             store = new Store();
             store.setName(request.getStoreName());
-            store.setCode(createIdentifier());            
+            store.setCode(createIdentifier());
             return store;
         }
         throw new RegistrationException("Store with name " + request.getStoreName() + " is already exists");
@@ -85,21 +86,15 @@ public class StoreService {
         response.setName(store.getName());
         response.setOrganization(store.getOrg());
         response.setDescription(store.getDescription());
-        List<GoodsGroupDto> groups = new ArrayList<>();                
-        if(!store.getGroups().isEmpty()){            
-        groups = store.getGroups().stream().map((tmp)->{
-           return groupService.createDto(tmp);
-        }).collect(Collectors.toList());      
-        }      
-          response.setGroups(groups); 
         return response;
     }
-   
 
+    @Transactional(readOnly = true)
     public Store getById(int id) {
         return storeRepositary.getOne(id);
     }
 
+    @Transactional(readOnly = true)
     public Store getByCode(String storeCode) {
         return storeRepositary.findByCode(storeCode);
     }
@@ -107,22 +102,15 @@ public class StoreService {
     private String createIdentifier() {
         return UUID.randomUUID().toString();
     }
-    
-    
+
     @Transactional(readOnly = true)
-    public Set<GoodsGroupDto> getGroupListByCurentStore(Principal principal ){
+    public List<GoodsGroupDto> getGroupListByCurentStore(Principal principal) {
         String name = principal.getName();
         UserDto user = userService.getUsersByEmail(name);
         Organization org = user.getOrganization();
-        Store store = org.getStore();  
-        Set<GoodsGroup>groups = store.getGroups();
-        if(!groups.isEmpty()){
-           Set<GoodsGroupDto> groupsDto = store.getGroups().stream().map((tmp)->{
-         return   groupService.createDto(tmp);
-        }).collect(Collectors.toSet());
-        return groupsDto; 
-        }
-        throw new RuntimeException();
+        Store store = org.getStore();
+        List<GoodsGroupDto> groups = groupService.getAllGroupByStore(store.getId());
+        return groups;
     }
 
 }

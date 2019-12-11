@@ -29,27 +29,20 @@ public class GoodsGroupController {
     @Autowired
     private GoodsGroupService service;
 
-    @GetMapping("/all")
-    public ModelAndView getAllGroups(Principal principal) {
-        String name = principal.getName();
-        
-        return new ModelAndView("store", "grops", service.getAllGroupDto(name));
-
-    }
+   
 
     @GetMapping("/save")
     public ModelAndView saveGroup(@RequestParam("groupName") String name,@RequestParam("storeCode")String code) {
-        GoodsGroupDto dto = new GoodsGroupDto();
-        
+        GoodsGroupDto dto = new GoodsGroupDto();        
         dto.setName(name);
         dto.setStoreCode(code);
         return new ModelAndView("storePage", "newGroup", service.saveGroup(dto));
 
     }
 
-    @GetMapping("editGroup")
-    public ModelAndView editGroup(@RequestParam("newName") String newName, @RequestParam("oldName")String oldName) {        
-        return new ModelAndView("storePage", "editGroup", service.editGroup(newName,oldName));
+    @GetMapping("/editGroup")
+    public ModelAndView editGroup(@RequestParam("newName") String newName, @RequestParam("oldName")String oldName,@RequestParam("storeCode") String storeCode) {        
+        return new ModelAndView("storePage", "editGroup", service.editGroup(newName,oldName,storeCode));
 
     }
 

@@ -6,6 +6,9 @@
 package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.GoodsGroupDto;
+import com.store.goodsstore.dto.UserDto;
+import com.store.goodsstore.entities.Organization;
+import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.services.GoodsGroupService;
 import com.store.goodsstore.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +20,21 @@ import com.store.goodsstore.services.UserService;
 import java.security.Principal;
 import java.util.List;
 import java.util.Set;
+import org.apache.tomcat.jni.SSLContext;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
+
 
 /**
  *
  * @author Lenovo
  */
 @Controller
+@SessionAttribute
 public class StoreController {
 
     @Autowired
@@ -39,13 +48,24 @@ public class StoreController {
     
     @Autowired
     private GoodsGroupService groupService;
+    @Autowired
+    private UserService userService;
+    
+    @ModelAttribute("storeCode")
+    public String code(Principal principal){
+        String name = principal.getName();
+        UserDto user = userService.getUsersByEmail(name);
+        Organization org = user.getOrganization();
+        Store store = org.getStore();
+        return store.getCode();
+    }
 
     @GetMapping("/store")
     public ModelAndView toStorepage() {
         ModelAndView model = new ModelAndView("storePage");
         return model;
 
-    }
+    }    
 
     @PostMapping("/store")
     public ModelAndView goWork() {
@@ -54,8 +74,9 @@ public class StoreController {
 
     @GetMapping("/gostore")
     public ModelAndView allStore(Principal principal) {
-        Set<GoodsGroupDto> groups = service.getGroupListByCurentStore(principal);                
+        List<GoodsGroupDto> groups = service.getGroupListByCurentStore(principal);                
         ModelAndView model = new ModelAndView("storePage");
+        
         model.addObject("groups",groups);
         return model;
 

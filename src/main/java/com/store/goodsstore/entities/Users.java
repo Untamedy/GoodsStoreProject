@@ -17,7 +17,9 @@ import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  *
@@ -28,6 +30,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude="org")
 @SequenceGenerator(name = "my_seq", initialValue = 1, allocationSize = 1)
 public class Users {
 
@@ -41,6 +44,8 @@ public class Users {
     private String password;
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Role> roles;
+    
+    @ToString.Exclude
     @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "orgId")
     private Organization org; 

@@ -36,11 +36,15 @@ public class GoodsGroupService {
             return createDto(repository.save(createGroup(dto)));
     }
 
-    public GoodsGroupDto editGroup(String newName, String oldName) {
-        GoodsGroup group = repository.findByName(oldName);
-        group.setName(newName);
-        repository.save(group);
-        return createDto(group);
+    public GoodsGroupDto editGroup(String newName, String oldName,String storeCode) {
+        Store store = storeService.getByCode(storeCode);
+        GoodsGroup group = repository.findByNameAndStoreId(oldName, store.getId());
+        if(group!=null){
+          group.setName(newName); 
+           repository.save(group);
+            return createDto(group);
+        }  
+       throw new RuntimeException("Group with name" + oldName+ " not found in store "+ store.getName());
     }
 
     public GoodsGroup getGroupByname(String groupName) {
@@ -49,14 +53,8 @@ public class GoodsGroupService {
 
     public GoodsGroupDto createDto(GoodsGroup group) {
         GoodsGroupDto groupDto = new GoodsGroupDto();
-        groupDto.setName(group.getName());
-        //List<GoodsDto> goodsDto = new ArrayList<>();
-       // if (!group.getGoods().isEmpty()) {
-       //     goodsDto = group.getGoods().stream().map((tmp) -> {
-       //         return goodsService.createGoodsResponse(tmp);
-        //    }).collect(Collectors.toList());
-      //  }
-       // groupDto.setGoods(goodsDto);
+        groupDto.setName(group.getName());   
+        groupDto.setStoreCode(group.getStore().getCode());        
         return groupDto;
     }
 
@@ -84,12 +82,11 @@ public class GoodsGroupService {
         return false;
     }*/
 
-    public List<GoodsGroupDto> getAllGroupDto(String username) {
-       Store store = userService.getByName(username).getOrg().getStore();
-        return repository.findAll().stream().map(tmp -> {
-            return createDto(tmp);
-        }).collect(Collectors.toList());
-
+    public List<GoodsGroupDto> getAllGroupByStore(int storeId) {
+      List<GoodsGroupDto> dto= repository.findByStoreId(storeId).stream().map((tmp)->{
+          return createDto(tmp);
+      }).collect(Collectors.toList());
+      return dto;
     }
 
     List<GoodsGroup> getAllGroup() {

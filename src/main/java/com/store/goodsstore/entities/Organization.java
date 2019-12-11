@@ -12,7 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  *
@@ -34,9 +36,11 @@ public class Organization {
     @Column(nullable = false, unique = true)
     private String code;
 
+    @ToString.Exclude
     @OneToOne(mappedBy = "org", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Store store;
 
+    @ToString.Exclude
     @OneToOne(mappedBy = "org", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Users users;
 

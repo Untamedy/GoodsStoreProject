@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  *
@@ -21,6 +22,7 @@ import lombok.Data;
  */
 @Data
 @Entity
+@EqualsAndHashCode(exclude="org")
 @SequenceGenerator(name = "my_seq", initialValue = 1, allocationSize = 1)
 public class Customer {
     

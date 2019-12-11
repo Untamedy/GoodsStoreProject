@@ -200,14 +200,15 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="myForm" role="form" method="Post" action="group/edit">
+                        <form id="myForm" role="form" method="Post" action="group/editGroup">
                             <div class="form-group">
                                 <label for="group">Old name:</label>
-                                <select id="inputState" class="form-control">
+                                <select id="inputState" name ="old name" class="form-control">
                                     <%
                                         List<GoodsGroupDto> groups =(List<GoodsGroupDto>) request.getAttribute("groups");
                                         for(GoodsGroupDto g: groups){
-                                         out.print("<option selected>"+g.getName()+"</option>");   
+                                         out.print("<option selected> name =\"old name\"" +g.getName()+"</option>");  
+                                         out.print("<input type=\"hidden\" name=\"storeCode\" value=\"" + g.getStoreCode()+"\">");
                                         }                                       
                                         
                                     %>
