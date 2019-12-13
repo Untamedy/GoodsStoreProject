@@ -1,5 +1,4 @@
 <%@page import="com.store.goodsstore.dto.OrganizationDto"%>
-<%@page import="com.store.goodsstore.dto.RegistrationResponse"%>
 <%@page import="com.store.goodsstore.entities.GoodsGroup"%>
 <%@page import="java.util.List"%>
 <%@page import="com.store.goodsstore.dto.GoodsGroupDto"%>
@@ -65,7 +64,11 @@
 
             <h1>
                 <img class="rounded-circle" src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg" alt="dunat" width="72" height="72">
-                Store page </h1>
+
+                <%
+                    out.print("Store: " + dto.getStorename());
+                %>
+            </h1>
 
             <div id="header">
 
@@ -174,7 +177,7 @@
 
         </div>
 
-        <div name="addGroup" class="modal" id="myModal">
+        <div name="addGroup" class="modal" id="addModal">
             <div class="modal-dialog">
                 <div class="modal-content">               
                     <div class="modal-header">                        
@@ -182,12 +185,15 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="myForm" role="form" method="POST" action="group/save">
+                        <form id="addGroupForm" role="form" method="POST" action="group/save">
                             <div class="form-group">
                                 <label for="group">Name:</label>
                                 <input type="text" class="form-control" id="groupName" name="groupName">
+                                <%
+                                    out.print("<input type=\"hidden\" name=\"storeCode\" value=\"" + dto.getStoreCode() + "\">");
+                                %>
                             </div>
-                            <button id="myFormSubmit" type="submit" onclick="myFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button id="myFormSubmit" type="submit" onclick="addGroupFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
                             <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
                         </form>
                     </div>
@@ -198,7 +204,7 @@
             </div>
         </div>
 
-        <div name="editGroup" class="modal" id="myModal">
+        <div name="editGroup" class="modal" id="editModal">
             <div class="modal-dialog">
                 <div class="modal-content">               
                     <div class="modal-header">                        
@@ -206,24 +212,30 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="myForm" role="form" method="Post" action="group/editGroup">
+                        <form id="editGroupForm" role="form" method="Post" action="group/editGroup">
                             <div class="form-group">
                                 <label for="group">Old name:</label>
                                 <select id="inputState" name ="old name" class="form-control">
                                     <%
+                                        out.print("");
                                         List<GoodsGroupDto> groups = (List<GoodsGroupDto>) request.getAttribute("groups");
                                         for (GoodsGroupDto g : groups) {
-                                            out.print("<option selected> name =\"old name\"" + g.getName() + "</option>");
-
-                                            out.print("<input type=\"hidden\" name=\"storeCode\" value=\"" + g.getStoreCode() + "\">");
+                                            out.print("<option selected name =\"oldname\"> " + g.getName() + "</option>");
                                         }
                                     %>
 
                                 </select>
+
                                 <label for="group">New name:</label>                               
                                 <input type="text" class="form-control" id="groupName" name="groupName">
+
+                                <%
+                                    out.print("<input type=\"hidden\" name=\"storeCode\" value=\"" + dto.getStoreCode() + "\">");
+                                %>
+
+
                             </div>
-                            <button id="myFormSubmit" type="submit" onclick="myFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button id="myFormSubmit" type="submit" onclick="editGroupFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
                             <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
                         </form>
                     </div>
@@ -234,7 +246,7 @@
             </div>
         </div>
 
-        <div name="addGoods" class="modal" id="myModal">
+        <div name="addGoods" class="modal" id="addGoodsModal">
             <div class="modal-dialog">
                 <div class="modal-content">               
                     <div class="modal-header">                        
@@ -242,7 +254,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="myForm" role="form" method="POST" action="goods/save">
+                        <form id="addGoodsForm" role="form" method="POST" action="goods/save">
                             <label for="group">Group:</label>
                             <select id="inputState" class="form-control">
                                 <%
@@ -271,7 +283,7 @@
                                 <label for="group">Price</label>
                                 <input type="text" class="form-control" id="groupName" name="groupName">
                             </div>                            
-                            <button id="myFormSubmit" type="submit" onclick="myFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button id="myFormSubmit" type="submit" onclick="addGoodsFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
                             <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
                         </form>
                     </div>
@@ -284,8 +296,14 @@
 
 
         <script>
-            function myFunction() {
-                document.getElementById("myForm").submit();
+            function addGroupFunction() {
+                document.getElementById("addGroupForm").submit();
+            }            
+           
+        </script>
+        <script>
+            function editGroupFunction() {
+                document.getElementById("ediGroupForm").submit();
             }
         </script>
 
