@@ -3,9 +3,11 @@ package com.store.goodsstore.services;
 import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.dto.RegistrationRequest;
+import com.store.goodsstore.dto.UserDto;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Users;
 import com.store.goodsstore.exceptions.RegistrationException;
+import java.security.Principal;
 import java.util.UUID;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,8 @@ public class OrganizationService {
     @Autowired
     OrganizationRepository repository;
 
-    public void saveOrganisation(Organization organization) {
-        repository.save(organization);       
+    public Organization saveOrganisation(Organization organization) {
+        return repository.save(organization);
     }
 
     public Organization createOrganization(RegistrationRequest request) {
@@ -41,18 +43,18 @@ public class OrganizationService {
             organization.setEmail(request.getOrganizationEmail());
             organization.setCode(createIdentifier());
             return organization;
-        } 
-            throw new RegistrationException("Organization with email " + request.getOrganizationEmail() + " is alredy exists");        
+        }
+        throw new RegistrationException("Organization with email " + request.getOrganizationEmail() + " is alredy exists");
     }
 
     public OrganizationDto createOrganizationResponse(Organization organization) {
         OrganizationDto organizationResponse = new OrganizationDto();
-        organizationResponse.setOrganizationId(organization.getId());
         organizationResponse.setOrganizationName(organization.getName());
         organizationResponse.setOrganizationEmail(organization.getEmail());
         organizationResponse.setUserName(organization.getUsers().getName());
         organizationResponse.setUserEmail(organization.getUsers().getEmail());
         organizationResponse.setStorename(organization.getStore().getName());
+        organizationResponse.setStoreCode(organization.getStore().getCode());
         organizationResponse.setDescription(organization.getStore().getDescription());
         return organizationResponse;
     }
@@ -77,7 +79,12 @@ public class OrganizationService {
         return repository.save(organization);
 
     }
-    
-   
+
+    public OrganizationDto getOrgData(Principal principal) {
+        String name = principal.getName();
+        UserDto user = userService.getUsersByEmail(name);
+        Organization org = user.getOrganization();
+        return createOrganizationResponse(org);
+    }
 
 }

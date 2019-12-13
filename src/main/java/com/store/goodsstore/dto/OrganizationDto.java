@@ -18,6 +18,7 @@ public class OrganizationDto {
     private String organizationName;
     private String organizationEmail;
     private String storename;
+    private String storeCode;
     private String description;
     private String userName;
     private String userEmail;

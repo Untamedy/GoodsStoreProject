@@ -4,6 +4,7 @@
     Author     : YBolshakova
 --%>
 
+<%@page import="com.store.goodsstore.dto.OrganizationDto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,11 +21,7 @@
                     <br><br> <h2 style="color:#0fad00">Success</h2>
                      <img class="rounded-circle" src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg" alt="dunat" width="72" height="72">
                
-                    <%
-                        String name = (String) request.getAttribute("userName");
-                        out.print("<h1> Dear, " + name + "<h1>");
-                        %>
-                   
+                                          
                     <p style="font-size:20px;color:#5C5C5C;">Thank you for registration!
                         Please go to login.</p>
                     <a href="login" class="btn btn-success"> Sign in </a>

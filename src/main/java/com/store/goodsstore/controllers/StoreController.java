@@ -6,6 +6,7 @@
 package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.GoodsGroupDto;
+import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.dto.UserDto;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 import org.apache.tomcat.jni.SSLContext;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +36,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
  * @author Lenovo
  */
 @Controller
-@SessionAttribute
 public class StoreController {
 
     @Autowired
@@ -51,15 +52,7 @@ public class StoreController {
     @Autowired
     private UserService userService;
     
-    @ModelAttribute("storeCode")
-    public String code(Principal principal){
-        String name = principal.getName();
-        UserDto user = userService.getUsersByEmail(name);
-        Organization org = user.getOrganization();
-        Store store = org.getStore();
-        return store.getCode();
-    }
-
+  
     @GetMapping("/store")
     public ModelAndView toStorepage() {
         ModelAndView model = new ModelAndView("storePage");
@@ -68,17 +61,17 @@ public class StoreController {
     }    
 
     @PostMapping("/store")
-    public ModelAndView goWork() {
+    public ModelAndView goWork() {      
         return new ModelAndView("storeListPage");
     }
 
     @GetMapping("/gostore")
     public ModelAndView allStore(Principal principal) {
-        List<GoodsGroupDto> groups = service.getGroupListByCurentStore(principal);                
-        ModelAndView model = new ModelAndView("storePage");
-        
+        OrganizationDto dto = orgService.getOrgData(principal);        
+        List<GoodsGroupDto> groups = service.getGroupListByCurentStore(dto.getStoreCode());        
+        ModelAndView model = new ModelAndView("storePage");        
         model.addObject("groups",groups);
+        model.addObject("orgdata",dto);
         return model;
-
     }
 }

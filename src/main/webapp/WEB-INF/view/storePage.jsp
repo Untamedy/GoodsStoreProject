@@ -1,3 +1,5 @@
+<%@page import="com.store.goodsstore.dto.OrganizationDto"%>
+<%@page import="com.store.goodsstore.dto.RegistrationResponse"%>
 <%@page import="com.store.goodsstore.entities.GoodsGroup"%>
 <%@page import="java.util.List"%>
 <%@page import="com.store.goodsstore.dto.GoodsGroupDto"%>
@@ -48,7 +50,11 @@
             }
         </style>
     </head>      
-    <body>    
+    <body>   
+        <%
+            OrganizationDto dto = (OrganizationDto) request.getAttribute("orgdata");
+            session.setAttribute("orgdata", dto);
+        %>       
 
         <div class="jumbotron jumbotron-fluid">
 
@@ -119,48 +125,48 @@
                 <div class="col-sm-12 col-8">               
 
                     <div id="section1" class="bg-default">                        
-                            <h1> Group</h1>
-                            <p></p>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Code</th>
-                                        <th>Unit</th>
-                                        <th>Count</th>
-                                        <th>Income price</th>
-                                        <th>Price</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                        <h1> Group</h1>
+                        <p></p>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Code</th>
+                                    <th>Unit</th>
+                                    <th>Count</th>
+                                    <th>Income price</th>
+                                    <th>Price</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>                                        
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>3</td>
-                                        <td>4</td>
-                                        <td>5</td>
-                                        <td>5</td>
-                                        <td><button type="button" class="btn btn-info">Add to order</button></td>
-                                        <td><button type="button" class="btn btn-info">Delete</button></td>
-                                        <td><button type="button" class="btn btn-info">Edit</button></td>                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>                                        
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>5</td>
+                                    <td><button type="button" class="btn btn-info">Add to order</button></td>
+                                    <td><button type="button" class="btn btn-info">Delete</button></td>
+                                    <td><button type="button" class="btn btn-info">Edit</button></td>                                    
 
-                                    </tr>                                   
+                                </tr>                                   
 
-                                </tbody>
-                            </table>
+                            </tbody>
+                        </table>
 
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>                        
-                         
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>                        
+
                     </div>                  
 
                 </div>
@@ -192,7 +198,7 @@
             </div>
         </div>
 
-        <div name="editGroup" class="modal" id="editModal">
+        <div name="editGroup" class="modal" id="myModal">
             <div class="modal-dialog">
                 <div class="modal-content">               
                     <div class="modal-header">                        
@@ -205,14 +211,14 @@
                                 <label for="group">Old name:</label>
                                 <select id="inputState" name ="old name" class="form-control">
                                     <%
-                                        List<GoodsGroupDto> groups =(List<GoodsGroupDto>) request.getAttribute("groups");
-                                        for(GoodsGroupDto g: groups){
-                                         out.print("<option selected> name =\"old name\"" +g.getName()+"</option>");  
-                                         out.print("<input type=\"hidden\" name=\"storeCode\" value=\"" + g.getStoreCode()+"\">");
-                                        }                                       
-                                        
+                                        List<GoodsGroupDto> groups = (List<GoodsGroupDto>) request.getAttribute("groups");
+                                        for (GoodsGroupDto g : groups) {
+                                            out.print("<option selected> name =\"old name\"" + g.getName() + "</option>");
+
+                                            out.print("<input type=\"hidden\" name=\"storeCode\" value=\"" + g.getStoreCode() + "\">");
+                                        }
                                     %>
-                                     
+
                                 </select>
                                 <label for="group">New name:</label>                               
                                 <input type="text" class="form-control" id="groupName" name="groupName">
@@ -227,8 +233,8 @@
                 </div>
             </div>
         </div>
-                                    
-         <div name="addGoods" class="modal" id="myModal">
+
+        <div name="addGoods" class="modal" id="myModal">
             <div class="modal-dialog">
                 <div class="modal-content">               
                     <div class="modal-header">                        
@@ -238,30 +244,30 @@
                     <div class="modal-body">
                         <form id="myForm" role="form" method="POST" action="goods/save">
                             <label for="group">Group:</label>
-                                <select id="inputState" class="form-control">
-                                    <%                                       
-                                        for(GoodsGroupDto g: groups){
-                                         out.print("<option selected>"+g.getName()+"</option>");   
-                                        }   
-                                    %>                                     
-                                </select>
+                            <select id="inputState" class="form-control">
+                                <%
+                                    for (GoodsGroupDto g : groups) {
+                                        out.print("<option selected>" + g.getName() + "</option>");
+                                    }
+                                %>                                     
+                            </select>
                             <div class="form-group">
                                 <label for="group">Name:</label>
                                 <input type="text" class="form-control" id="groupName" name="groupName">
                             </div>
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label for="group">Code</label>
                                 <input type="text" class="form-control" id="groupName" name="groupName">
                             </div>
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label for="group">Unit</label>
                                 <input type="text" class="form-control" id="groupName" name="groupName">
                             </div>
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label for="group">Income price</label>
                                 <input type="text" class="form-control" id="groupName" name="groupName">
                             </div>
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label for="group">Price</label>
                                 <input type="text" class="form-control" id="groupName" name="groupName">
                             </div>                            

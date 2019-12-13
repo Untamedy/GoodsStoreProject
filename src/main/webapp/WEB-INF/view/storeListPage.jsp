@@ -1,7 +1,8 @@
+<%@page import="com.store.goodsstore.dto.OrganizationDto"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Bootstrap Example</title>
+        <title>Store</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -93,8 +94,8 @@
             </div>
 
             <div id="header">
-                <div class="btn-group">  
-                    <a href="gostore" class="btn btn-info mr-1" role="button">Go to store</a>
+                <div class="btn-group">                    
+                    <a href="gostore" class="btn btn-info mr-1" role="button">Go store</a>             
                     <a href="allcustomer" class="btn btn-info mr-1" role="button">Go to customer list</a>
                     <a href="allreports" class="btn btn-info mr-1" role="button">Show reports</a>
                 </div>

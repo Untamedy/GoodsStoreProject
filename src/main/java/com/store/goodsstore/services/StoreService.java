@@ -104,11 +104,8 @@ public class StoreService {
     }
 
     @Transactional(readOnly = true)
-    public List<GoodsGroupDto> getGroupListByCurentStore(Principal principal) {
-        String name = principal.getName();
-        UserDto user = userService.getUsersByEmail(name);
-        Organization org = user.getOrganization();
-        Store store = org.getStore();
+    public List<GoodsGroupDto> getGroupListByCurentStore(String storeCode) { 
+        Store store = storeRepositary.findByCode(storeCode);
         List<GoodsGroupDto> groups = groupService.getAllGroupByStore(store.getId());
         return groups;
     }

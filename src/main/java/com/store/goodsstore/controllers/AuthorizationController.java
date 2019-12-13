@@ -1,5 +1,6 @@
 package com.store.goodsstore.controllers;
 
+import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.services.RegistrationService;
 import org.slf4j.Logger;
@@ -33,9 +34,8 @@ public class AuthorizationController {
     public ModelAndView registration(@ModelAttribute("regForm") RegistrationRequest regrequest) {
         logger.debug("Received a request for registration  user "); 
         ModelAndView model = new ModelAndView("successPage");
-        registrationService.register(regrequest);   
-        
-        model.addObject("userName", regrequest.getUserName());
+        OrganizationDto dto = registrationService.register(regrequest);         
+        model.addObject("orgDto",dto);
         logger.debug("Registered success");
         return model;
     }

@@ -1,7 +1,7 @@
 package com.store.goodsstore.controllers;
 
+import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.dto.RegistrationRequest;
-import com.store.goodsstore.dto.RegistrationResponse;
 import com.store.goodsstore.services.RegistrationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class AdminController {
     public ModelAndView editStore(@RequestBody RegistrationRequest request) {
         logger.debug("Received a request for edit registration data by user " + request.getUserEmail());
         ModelAndView model = new ModelAndView("editRegDataPage");
-        RegistrationResponse response = regService.editRegData(request);
+        OrganizationDto response = regService.editRegData(request);
         if (response != null) {          
             model.addObject("editData", response); 
          logger.debug("Data are edited success");
