@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : EditGoodsPage
     Created on : Nov 5, 2019, 1:39:45 PM
     Author     : YBolshakova
@@ -14,18 +14,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>          
+    <head>
         <title>Store</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">     
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
 
-        <style>  
+        <style>
             #header {
                 position: absolute;
                 top: 150px;
@@ -33,7 +33,7 @@
             }
 
             #logout {
-                position: absolute;               
+                position: absolute;
                 top: 30px;
                 right: 15px;
             }
@@ -54,13 +54,13 @@
                 left: 10px;
             }
         </style>
-    </head> 
+    </head>
     <body>
-        <div class="container-fluid"> 
-            <div class="row">    
-                <div class="col-sm-12 col-8">   
-                    <div id="section1" class="bg-default">                        
-                        <h1> Goods:                         
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 col-8">
+                    <div id="section1" class="bg-default">
+                        <h1> Goods:
                         </h1>
                         <p></p>
                         <table class="table table-striped">
@@ -77,43 +77,46 @@
                                     <th></th>
 
                                 </tr>
-                            </thead>                           
-                                <tbody>
-                                    <tr> 
-                                       <%
-                                       List<GoodsDto> goods =(List<GoodsDto>) request.getAttribute("goodsList");
-                                       for(GoodsDto g: goods){
-                                           out.print("<td>"+g.getName()+"</td>");
-                                           out.print("<td>"+g.getName()+"</td>");
-                                           out.print("<td>"+g.getName()+"</td>");
-                                           out.print("<td>"+g.getName()+"</td>");
-                                           out.print("<td>"+g.getName()+"</td>");
-                                           out.print("<td>"+g.getName()+"</td>");
-                                           out.print("<td>"+g.getName()+"</td>");
-                                           out.print("<td><button type=\"button\" class=\"btn btn-info\">Add to order</button></td>");
-                                           out.print("<td><button type=\"button\" class=\"btn btn-info\">Delete</button></td>");
-                                           out.print("<td><button type=\"button\" class=\"btn btn-info\">Edit</button></td>");
-                                       }                                       
-                                       %>                                         
-                                    </tr>           
-                                </tbody>                            
+                            </thead>
+                            <tbody>
+                                
+                                    <%
+                                        List<GoodsDto> goods = (List<GoodsDto>) request.getAttribute("goodsList");
+                                        for (GoodsDto g : goods) {
+                                            out.print("<tr>");
+                                            out.print("<td>" + g.getName() + "</td>");
+                                            out.print("<td>" + g.getCode()+ "</td>");
+                                            out.print("<td>" + g.getUnit()+ "</td>");
+                                            out.print("<td>" + g.getQuantity()+ "</td>");
+                                            out.print("<td>" + g.getIncomePrice()+ "</td>");
+                                            out.print("<td>" + g.getPrice()+ "</td>");                                            
+                                            out.print("<td><button type=\"button\" class=\"btn btn-info\">Add to order</button></td>");
+                                            out.print("<td><button type=\"button\" class=\"btn btn-info\">Delete</button></td>");
+                                            out.print("<td><button type=\"button\" class=\"btn btn-info\">Edit</button></td>");
+                                            out.print("<tr>");
+                                        }
+                                    %>
+                                
+                            </tbody>
+                            <%
+                                List<Integer> pages = (List<Integer>) request.getAttribute("pageNumber");
+                                int id = (int) request.getAttribute("group");
+
+                            %>
                         </table>
 
                         <ul class="pagination">
-                            <li class="page-item">     
-                                <%
-                                    int pages =(int) request.getAttribute("pageNumber");
-                                    int id = (int) request.getAttribute("group");
-                                    for(int i=1;i<=pages;i++){
-                                      out.print("<a class=\"page-link\" href=\"goodslist/page/" +id + "/" + pages +"\"> </a>");   
-                                    }                                    
+                            <li class="page-item">
+                                <%      for (Integer i : pages) {
+                                        out.print("<a class=\"page-link\" href=\""+ i + "\">"+i+ "</a>");
+                                    }
                                 %>
-                                    
+
                             </li>
 
-                        </ul>                        
+                        </ul>
 
-                    </div>                  
+                    </div>
 
                 </div>
             </div>
