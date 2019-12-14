@@ -7,9 +7,6 @@ package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.dto.OrganizationDto;
-import com.store.goodsstore.dto.UserDto;
-import com.store.goodsstore.entities.Organization;
-import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.services.GoodsGroupService;
 import com.store.goodsstore.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +17,10 @@ import com.store.goodsstore.services.StoreService;
 import com.store.goodsstore.services.UserService;
 import java.security.Principal;
 import java.util.List;
-import java.util.Set;
-import org.apache.tomcat.jni.SSLContext;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+
+
 
 
 
@@ -52,6 +45,7 @@ public class StoreController {
     @Autowired
     private UserService userService;
     
+       
   
     @GetMapping("/store")
     public ModelAndView toStorepage() {

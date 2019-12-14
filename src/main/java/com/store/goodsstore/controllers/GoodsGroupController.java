@@ -9,11 +9,12 @@ package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.services.GoodsGroupService;
-import java.security.Principal;
+import com.store.goodsstore.services.StoreService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,19 +29,23 @@ public class GoodsGroupController {
 
     @Autowired
     private GoodsGroupService service;
+    @Autowired
+    private StoreService storeService;
 
    
 
-    @GetMapping("/save")
+    @PostMapping("/save")
     public ModelAndView saveGroup(@RequestParam("groupName") String name,@RequestParam("storeCode")String code) {
         GoodsGroupDto dto = new GoodsGroupDto();        
         dto.setName(name);
         dto.setStoreCode(code);
-        return new ModelAndView("storePage", "newGroup", service.saveGroup(dto));
+        service.saveGroup(dto);
+        List<GoodsGroupDto> groups = storeService.getGroupListByCurentStore(code);
+        return new ModelAndView("redirect:/gostore");
 
     }
 
-    @GetMapping("/editGroup")
+    @PostMapping("/editGroup")
     public ModelAndView editGroup(@RequestParam("newName") String newName, @RequestParam("oldName")String oldName,@RequestParam("storeCode") String storeCode) {        
         return new ModelAndView("storePage", "editGroup", service.editGroup(newName,oldName,storeCode));
 

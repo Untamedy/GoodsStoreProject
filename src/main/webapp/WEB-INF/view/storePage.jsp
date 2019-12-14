@@ -50,10 +50,10 @@
         </style>
     </head>      
     <body>   
-        <%
+            <%
             OrganizationDto dto = (OrganizationDto) request.getAttribute("orgdata");
             session.setAttribute("orgdata", dto);
-        %>       
+        %>   
 
         <div class="jumbotron jumbotron-fluid">
 
@@ -65,7 +65,7 @@
             <h1>
                 <img class="rounded-circle" src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg" alt="dunat" width="72" height="72">
 
-                <%
+                <%                    
                     out.print("Store: " + dto.getStorename());
                 %>
             </h1>
@@ -78,8 +78,8 @@
                     <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#addGroup" data-toggle="modal" data-target="#myModal">Add group</a>
-                        <a class="dropdown-item" href="editGroup"data-toggle="modal" data-target="#editModal">Edit group</a>
+                        <a class="dropdown-item" href="#addGroup" data-toggle="modal" data-target="#addGroup">Add group</a>
+                        <a class="dropdown-item" href="#editGroup"data-toggle="modal" data-target="#editGroup">Edit group</a>
                     </div>
                 </div>
                 <div class="btn-group">
@@ -87,7 +87,7 @@
                     <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Add goods</a>                       
+                        <a class="dropdown-item" href="#addGoods"data-toggle="modal" data-target="#addGoods">Add goods</a>                  
                     </div>
                 </div>
                 <div class="btn-group">
@@ -177,7 +177,7 @@
 
         </div>
 
-        <div name="addGroup" class="modal" id="addModal">
+        <div name="addGroup" class="modal" id="addGroup">
             <div class="modal-dialog">
                 <div class="modal-content">               
                     <div class="modal-header">                        
@@ -204,7 +204,7 @@
             </div>
         </div>
 
-        <div name="editGroup" class="modal" id="editModal">
+        <div name="editGroup" class="modal" id="editGroup">
             <div class="modal-dialog">
                 <div class="modal-content">               
                     <div class="modal-header">                        
@@ -223,19 +223,14 @@
                                             out.print("<option selected name =\"oldname\"> " + g.getName() + "</option>");
                                         }
                                     %>
-
                                 </select>
-
                                 <label for="group">New name:</label>                               
                                 <input type="text" class="form-control" id="groupName" name="groupName">
-
                                 <%
                                     out.print("<input type=\"hidden\" name=\"storeCode\" value=\"" + dto.getStoreCode() + "\">");
                                 %>
-
-
                             </div>
-                            <button id="myFormSubmit" type="submit" onclick="editGroupFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button id="editGroupForm" type="submit" onclick="editGroupFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
                             <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
                         </form>
                     </div>
@@ -246,7 +241,7 @@
             </div>
         </div>
 
-        <div name="addGoods" class="modal" id="addGoodsModal">
+        <div name="addGoods" class="modal" id="addGoods">
             <div class="modal-dialog">
                 <div class="modal-content">               
                     <div class="modal-header">                        
@@ -295,15 +290,14 @@
         </div>                            
 
 
-        <script>
-            function addGroupFunction() {
-                document.getElementById("addGroupForm").submit();
-            }            
-           
-        </script>
+       
         <script>
             function editGroupFunction() {
-                document.getElementById("ediGroupForm").submit();
+                document.getElementById("editGroupForm").submit();
+            }
+            
+            function addGroupFunction() {
+                document.getElementById("addGroupForm").submit();
             }
         </script>
 
