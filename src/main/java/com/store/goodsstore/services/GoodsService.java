@@ -7,7 +7,6 @@ import com.store.goodsstore.entities.GoodsGroup;
 import com.store.goodsstore.entities.GoodsIncomePrice;
 import com.store.goodsstore.entities.GoodsPrice;
 import com.store.goodsstore.repository.GoodsRepository;
-import javax.persistence.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +25,8 @@ public class GoodsService {
     private GoodsCounterService goodsCounterSecvice;
     @Autowired
     private GoodsGroupService groupService;
+    @Autowired
+    private StoreService storeService;
 
     public GoodsDto saveGoods(GoodsDto goodsDto) {
         GoodsDto newGoods = null;
@@ -58,7 +59,7 @@ public class GoodsService {
             GoodsCounter counter = goodsCounterSecvice.createGoodsCounter(goodsDto);
             GoodsPrice price = createGoodsPrice(goodsDto);
             GoodsIncomePrice incomePrice = createIncomePrice(goodsDto);
-            GoodsGroup group = groupService.getGroupByname(goodsDto.getGroupName());
+            GoodsGroup group = groupService.getById(goodsDto.getGroupId());
             goods.setCounter(counter);
             goods.setPrice(price);
             goods.setGroup(group);
@@ -76,6 +77,7 @@ public class GoodsService {
         response.setName(goods.getName());
         response.setCode(goods.getCode());
         response.setUnit(goods.getUnit());
+        response.setGroupId(goods.getGroup().getId());
         response.setIncomePrice(goods.getIncomePrice().getIncomePrice());
         response.setPrice(goods.getPrice().getPrice());
         response.setQuantity(goods.getCounter().getQuantity());               
@@ -107,5 +109,9 @@ public class GoodsService {
     public GoodsIncomePrice createIncomePrice(GoodsDto goodsDto) {
         return new GoodsIncomePrice(goodsDto.getIncomePrice());
     }
+
+  
+    
+   
 
 }

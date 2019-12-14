@@ -1,3 +1,4 @@
+<%@page import="com.store.goodsstore.dto.GoodsDto"%>
 <%@page import="com.store.goodsstore.dto.OrganizationDto"%>
 <%@page import="com.store.goodsstore.entities.GoodsGroup"%>
 <%@page import="java.util.List"%>
@@ -13,10 +14,11 @@
 <html lang="en">
 
     <head>          
-        <title></title>
+        <title>Store</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -27,7 +29,6 @@
             #header {
                 position: absolute;
                 top: 150px;
-
                 left: 50px;
             }
 
@@ -47,12 +48,18 @@
             div.col-8 div {
                 height: 500px;
             }
+            #card-deck{
+                position: fixed;
+                top: 250px;
+                left: 10px;
+            }
         </style>
     </head>      
     <body>   
-            <%
+        <%
             OrganizationDto dto = (OrganizationDto) request.getAttribute("orgdata");
             session.setAttribute("orgdata", dto);
+            List<GoodsGroupDto> groups = (List<GoodsGroupDto>) request.getAttribute("groups");
         %>   
 
         <div class="jumbotron jumbotron-fluid">
@@ -65,14 +72,12 @@
             <h1>
                 <img class="rounded-circle" src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg" alt="dunat" width="72" height="72">
 
-                <%                    
+                <%
                     out.print("Store: " + dto.getStorename());
                 %>
             </h1>
 
             <div id="header">
-
-
                 <div class="btn-group">
                     <button type="button" class="btn btn-info">Goods groups</button>
                     <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
@@ -108,74 +113,24 @@
 
             </div>
 
-
-
-        </div>
-        <div class="container">
-            <ul class="nav">
-                <c:forEach items="${groups}" var="group"> 
-                    <li class="nav-item"><a class="nav-link active"href="#section1"><c:out value="${group.name}"/></a></li>
-                    </c:forEach>                  
-            </ul>
-        </div>
-    <body data-spy="scroll" data-target="#myScrollspy" data-offset="1">
-
-        <div class="container-fluid">     
-
-
-            <div class="row">                    
-
-                <div class="col-sm-12 col-8">               
-
-                    <div id="section1" class="bg-default">                        
-                        <h1> Group</h1>
-                        <p></p>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Code</th>
-                                    <th>Unit</th>
-                                    <th>Count</th>
-                                    <th>Income price</th>
-                                    <th>Price</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>                                        
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                    <td>5</td>
-                                    <td>5</td>
-                                    <td><button type="button" class="btn btn-info">Add to order</button></td>
-                                    <td><button type="button" class="btn btn-info">Delete</button></td>
-                                    <td><button type="button" class="btn btn-info">Edit</button></td>                                    
-
-                                </tr>                                   
-
-                            </tbody>
-                        </table>
-
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>                        
-
-                    </div>                  
+            <div class="container"> 
+                <div class="card-columns" id="card-deck">
+                    <c:forEach items="${groups}" var="group"> 
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                               <a href="goodslist/page/${group.id}/1"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> <c:out value="${group.name}"/></a>       
+                            </div>
+                        </div>
+                    </c:forEach>    
 
                 </div>
-            </div>
 
+            </div>
         </div>
+       
+
+
+
 
         <div name="addGroup" class="modal" id="addGroup">
             <div class="modal-dialog">
@@ -217,8 +172,6 @@
                                 <label for="group">Old name:</label>
                                 <select id="inputState" name ="oldName" class="form-control">
                                     <%
-                                        out.print("");
-                                        List<GoodsGroupDto> groups = (List<GoodsGroupDto>) request.getAttribute("groups");
                                         for (GoodsGroupDto g : groups) {
                                             out.print("<option selected name =\"oldName\"> " + g.getName() + "</option>");
                                         }
@@ -290,14 +243,18 @@
         </div>                            
 
 
-       
+
         <script>
             function editGroupFunction() {
                 document.getElementById("editGroupForm").submit();
             }
-            
+
             function addGroupFunction() {
                 document.getElementById("addGroupForm").submit();
+            }
+
+            function addGoodsFunction() {
+                document.getElementById("addGoodsForm").submit();
             }
         </script>
 

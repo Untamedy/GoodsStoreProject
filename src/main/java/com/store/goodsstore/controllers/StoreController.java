@@ -8,6 +8,7 @@ package com.store.goodsstore.controllers;
 import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.services.GoodsGroupService;
+import com.store.goodsstore.services.GoodsService;
 import com.store.goodsstore.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,6 @@ import com.store.goodsstore.services.UserService;
 import java.security.Principal;
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 
 
@@ -44,6 +44,8 @@ public class StoreController {
     private GoodsGroupService groupService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private GoodsService goodsService;
     
        
   
@@ -62,7 +64,7 @@ public class StoreController {
     @GetMapping("/gostore")
     public ModelAndView allStore(Principal principal) {
         OrganizationDto dto = orgService.getOrgData(principal);        
-        List<GoodsGroupDto> groups = service.getGroupListByCurentStore(dto.getStoreCode());        
+        List<GoodsGroupDto> groups = service.getGroupListByCurentStore(dto.getStoreCode());       
         ModelAndView model = new ModelAndView("storePage");        
         model.addObject("groups",groups);
         model.addObject("orgdata",dto);

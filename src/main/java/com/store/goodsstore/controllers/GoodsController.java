@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author YBolshakova
  */
 @Controller
-@RequestMapping("/goods")
+//@RequestMapping("/goods")
 public class GoodsController {
 
     private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);
@@ -48,9 +49,9 @@ public class GoodsController {
     
     
 
-    @PostMapping("/goodslist/page/{groupId}/{page}")
+    @GetMapping("/goodslist/page/{groupId}/{page}")
     public ModelAndView getGoodsByGroupId(@PathVariable("groupId") int id, @PathVariable("page") int page) {
-        ModelAndView model = new ModelAndView("goodsList");
+        ModelAndView model = new ModelAndView("goodsPage");
         PageRequest pageable = PageRequest.of(page - 1, 10);
         Page<GoodsDto> goodsPage = goodsService.getPaginatedGoods(id, pageable);
         int totalPage = goodsPage.getTotalPages();
@@ -58,6 +59,7 @@ public class GoodsController {
             List<Integer> pageNunbers = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
             model.addObject("pageNumber", pageNunbers);
         }
+        model.addObject("group", id);
         model.addObject("activeList", true);
         model.addObject("goodsList", goodsPage.getContent());
 

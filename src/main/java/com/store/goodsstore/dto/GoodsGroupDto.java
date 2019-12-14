@@ -17,10 +17,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GoodsGroupDto {
     
-    public GoodsGroupDto(String name){
-        this.name = name;
-    }
-    
+      
+    private int id;
     private String name;
     private String storeCode;
     private List<GoodsDto> goods;

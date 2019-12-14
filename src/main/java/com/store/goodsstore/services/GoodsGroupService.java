@@ -53,6 +53,7 @@ public class GoodsGroupService {
 
     public GoodsGroupDto createDto(GoodsGroup group) {
         GoodsGroupDto groupDto = new GoodsGroupDto();
+        groupDto.setId(group.getId());
         groupDto.setName(group.getName());   
         groupDto.setStoreCode(group.getStore().getCode());        
         return groupDto;
@@ -91,6 +92,10 @@ public class GoodsGroupService {
 
     List<GoodsGroup> getAllGroup() {
         return repository.findAll();
+    }
+
+    public GoodsGroup getById(int groupId) {
+       return repository.findById(groupId).get();
     }
 
 }
