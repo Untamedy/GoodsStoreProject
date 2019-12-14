@@ -215,17 +215,17 @@
                         <form id="editGroupForm" role="form" method="Post" action="group/editGroup">
                             <div class="form-group">
                                 <label for="group">Old name:</label>
-                                <select id="inputState" name ="old name" class="form-control">
+                                <select id="inputState" name ="oldName" class="form-control">
                                     <%
                                         out.print("");
                                         List<GoodsGroupDto> groups = (List<GoodsGroupDto>) request.getAttribute("groups");
                                         for (GoodsGroupDto g : groups) {
-                                            out.print("<option selected name =\"oldname\"> " + g.getName() + "</option>");
+                                            out.print("<option selected name =\"oldName\"> " + g.getName() + "</option>");
                                         }
                                     %>
                                 </select>
                                 <label for="group">New name:</label>                               
-                                <input type="text" class="form-control" id="groupName" name="groupName">
+                                <input type="text" class="form-control" id="groupName" name="newName">
                                 <%
                                     out.print("<input type=\"hidden\" name=\"storeCode\" value=\"" + dto.getStoreCode() + "\">");
                                 %>

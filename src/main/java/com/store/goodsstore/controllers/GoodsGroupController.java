@@ -39,15 +39,15 @@ public class GoodsGroupController {
         GoodsGroupDto dto = new GoodsGroupDto();        
         dto.setName(name);
         dto.setStoreCode(code);
-        service.saveGroup(dto);
-        List<GoodsGroupDto> groups = storeService.getGroupListByCurentStore(code);
+        service.saveGroup(dto);       
         return new ModelAndView("redirect:/gostore");
 
     }
 
     @PostMapping("/editGroup")
     public ModelAndView editGroup(@RequestParam("newName") String newName, @RequestParam("oldName")String oldName,@RequestParam("storeCode") String storeCode) {        
-        return new ModelAndView("storePage", "editGroup", service.editGroup(newName,oldName,storeCode));
+       service.editGroup(newName,oldName,storeCode);
+        return new ModelAndView("redirect:/gostore");
 
     }
 
