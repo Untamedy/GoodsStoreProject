@@ -76,6 +76,7 @@ public class OrganizationService {
     Organization editOrganization(RegistrationRequest request) {
         Organization organization = repository.findByEmail(request.getOrganizationEmail());
         organization.setName(request.getOrganizationName());
+        organization.setEmail((request.getOrganizationEmail()));
         return repository.save(organization);
 
     }
