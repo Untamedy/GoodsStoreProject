@@ -7,6 +7,7 @@ import com.store.goodsstore.entities.GoodsGroup;
 import com.store.goodsstore.entities.GoodsIncomePrice;
 import com.store.goodsstore.entities.GoodsPrice;
 import com.store.goodsstore.repository.GoodsRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -110,7 +111,9 @@ public class GoodsService {
         return new GoodsIncomePrice(goodsDto.getIncomePrice());
     }
 
-  
+  public List<Goods> getByGroupId(int groupId){
+      return repository.findByGroupId(groupId);
+  }
     
    
 

@@ -72,16 +72,16 @@ public class GoodsGroupService {
        
     }
 
-   /* public boolean removeGroup(String name) {
+    public boolean removeGroup(String name) {
         GoodsGroup group = repository.findByName(name);
         if (group != null) {
-            if (group.getGoods().isEmpty()) {
+            if (goodsService.getByGroupId(group.getId()).isEmpty()) {
                 repository.delete(group);
                 return true;
             }
         }
         return false;
-    }*/
+    }
 
     public List<GoodsGroupDto> getAllGroupByStore(int storeId) {
       List<GoodsGroupDto> dto= repository.findByStoreId(storeId).stream().map((tmp)->{

@@ -12,6 +12,7 @@ import com.store.goodsstore.services.GoodsGroupService;
 import com.store.goodsstore.services.StoreService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,12 +52,12 @@ public class GoodsGroupController {
 
     }
 
-   /* @GetMapping("/removedGroup")
+    @GetMapping("/removedGroup")
     public ModelAndView removeGroup(@RequestParam String name) {
         if (service.removeGroup(name)) {            
             return new ModelAndView("storePage",HttpStatus.OK);
         }
         return new ModelAndView("storePage", HttpStatus.NOT_MODIFIED);
-    }*/
+    }
 
 }

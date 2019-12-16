@@ -30,7 +30,6 @@ import org.springframework.web.servlet.ModelAndView;
  * @author YBolshakova
  */
 @Controller
-//@RequestMapping("/goods")
 public class GoodsController {
 
     private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);

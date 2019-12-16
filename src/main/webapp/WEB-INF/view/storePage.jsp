@@ -18,7 +18,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -85,6 +85,7 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#addGroup" data-toggle="modal" data-target="#addGroup">Add group</a>
                         <a class="dropdown-item" href="#editGroup"data-toggle="modal" data-target="#editGroup">Edit group</a>
+                        <a class="dropdown-item" href="#deleteGroup"data-toggle="modal" data-target="#deleteGroup">Remote group</a>
                     </div>
                 </div>
                 <div class="btn-group">
@@ -118,7 +119,7 @@
                     <c:forEach items="${groups}" var="group"> 
                         <div class="card bg-light">
                             <div class="card-body text-center">
-                               <a href="goodslist/page/${group.id}/1"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> <c:out value="${group.name}"/></a>       
+                                <a href="goodslist/page/${group.id}/1"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> <c:out value="${group.name}"/></a>       
                             </div>
                         </div>
                     </c:forEach>    
@@ -127,7 +128,7 @@
 
             </div>
         </div>
-       
+
 
 
 
@@ -194,6 +195,40 @@
             </div>
         </div>
 
+        <div name="deleteGroup" class="modal" id="deleteGroup">
+            <div class="modal-dialog">
+                <div class="modal-content">               
+                    <div class="modal-header">                        
+                        <h4 class="modal-title">Edit group name</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> 
+                    <div class="modal-body">
+                        <form id="deleteGroupForm" role="form" method="Post" action="group/deleteGroup">
+                            <div class="form-group">
+                                <label for="group">Group name:</label>
+                                <select id="inputState" name ="oldName" class="form-control">
+                                    <%
+                                        for (GoodsGroupDto g : groups) {
+                                            out.print("<option selected name =\"oldName\"> " + g.getName() + "</option>");
+                                        }
+                                    %>
+                                </select>
+                                
+                                <%
+                                    out.print("<input type=\"hidden\" name=\"storeCode\" value=\"" + dto.getStoreCode() + "\">");
+                                %>
+                            </div>
+                            <button id="deleteGroupForm" type="submit" onclick="deleteGroupFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div name="addGoods" class="modal" id="addGoods">
             <div class="modal-dialog">
                 <div class="modal-content">               
@@ -202,7 +237,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="addGoodsForm" role="form" method="POST" action="goods/save">
+                        <form id="addGoodsForm" role="form" method="POST" action="saveGoods">
                             <label for="group">Group:</label>
                             <select id="inputState" class="form-control">
                                 <%
@@ -256,6 +291,10 @@
             function addGoodsFunction() {
                 document.getElementById("addGoodsForm").submit();
             }
+            function deleteGroupFunction() {
+                document.getElementById("deleteGroupForm").submit();
+            }            
+            
         </script>
 
 
