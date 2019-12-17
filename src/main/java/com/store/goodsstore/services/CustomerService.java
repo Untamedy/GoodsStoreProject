@@ -7,8 +7,11 @@ package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.CustomerDto;
 import com.store.goodsstore.entities.Customer;
+import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,13 +34,13 @@ public class CustomerService {
     private IncomDocService incomeService;
 
     public CustomerDto saveCustomer(CustomerDto dto) {
-        
+
         return cretateDto(repository.save(createCustomer(dto)));
     }
 
-    public boolean deleteCustomer(String phone,String orgCode) {
-        Customer customer = repository.findByPhoneNumAndOrgCode(phone,orgCode);
-        if (orderService.getByCustomer(phone).isEmpty() && incomeService.getByCustomer(phone).isEmpty()) {
+    public boolean deleteCustomer(String phone, String orgCode) {
+        Customer customer = repository.findByPhoneNumAndOrgCode(phone, orgCode);
+        if (orderService.getByCustomer(phone, orgCode).isEmpty() && incomeService.getByCustomer(phone, orgCode).isEmpty()) {
             repository.delete(customer);
             return true;
         }
@@ -49,19 +52,19 @@ public class CustomerService {
 
     }
 
-    public Customer getCustomerByPhoneAndOrgCode(String phone,String code) {
-        return repository.findByPhoneNumAndOrgCode(phone,code);
+    public Customer getCustomerByPhoneAndOrgCode(String phone, String code) {
+        return repository.findByPhoneNumAndOrgCode(phone, code);
     }
-    
-    public CustomerDto editCustomer(CustomerDto dto){
-        Customer customer = repository.findByPhoneNumAndOrgCode(dto.getPhone(),dto.getOrgCode());
+
+    public CustomerDto editCustomer(CustomerDto dto) {
+        Customer customer = repository.findByPhoneNumAndOrgCode(dto.getPhone(), dto.getOrgCode());
         customer.setName(dto.getName());
-        repository.save(customer);  
+        repository.save(customer);
         return cretateDto(customer);
     }
 
     public Customer createCustomer(CustomerDto dto) {
-        Customer customer = repository.findByPhoneNumAndOrgCode(dto.getPhone(),dto.getOrgCode());
+        Customer customer = repository.findByPhoneNumAndOrgCode(dto.getPhone(), dto.getOrgCode());
         if (customer == null) {
             customer = new Customer();
             customer.setName(dto.getName());
@@ -77,6 +80,13 @@ public class CustomerService {
         dto.setPhone(customer.getPhoneNum());
         dto.setOrgCode(customer.getOrg().getCode());
         return dto;
+    }
+
+    public Page<CustomerDto> getPaginatedCustomer(String orgcode, Pageable page) {
+        Organization org = organizationService.getByCode(orgcode);
+        Page<Customer> goods = repository.findAllByOrgId(org.getId(), page);
+        Page<CustomerDto> customerDto = goods.map(this::cretateDto);
+        return customerDto;
     }
 
 }

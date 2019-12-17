@@ -248,25 +248,25 @@
                             </select>
                             <div class="form-group">
                                 <label for="group">Name:</label>
-                                <input type="text" class="form-control" id="groupName" name="groupName">
+                                <input type="text" class="form-control" id="groupName" name="goodsName">
                             </div>
                             <div class="form-group">
                                 <label for="group">Code</label>
-                                <input type="text" class="form-control" id="groupName" name="groupName">
+                                <input type="text" class="form-control" id="groupName" name="goodsCode">
                             </div>
                             <div class="form-group">
                                 <label for="group">Unit</label>
-                                <input type="text" class="form-control" id="groupName" name="groupName">
+                                <input type="text" class="form-control" id="groupName" name="goodsUnit">
                             </div>
                             <div class="form-group">
                                 <label for="group">Income price</label>
-                                <input type="text" class="form-control" id="groupName" name="groupName">
+                                <input type="text" class="form-control" id="groupName" name="goodsIncome">
                             </div>
                             <div class="form-group">
                                 <label for="group">Price</label>
-                                <input type="text" class="form-control" id="groupName" name="groupName">
+                                <input type="text" class="form-control" id="groupName" name="goodsPrice">
                             </div>                            
-                            <button id="myFormSubmit" type="submit" onclick="addGoodsFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button id="addGroupSubmit" type="submit" onclick="addGoodsFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
                             <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
                         </form>
                     </div>

@@ -93,7 +93,7 @@ public class GoodsController {
     }
 
     @PostMapping("/input")
-    public ModelAndView addGoodsCount(@RequestBody IncomeDocDto incomeDto) {        
+    public ModelAndView addGoodsCount(@ModelAttribute IncomeDocDto incomeDto) {        
         goodsCounterService.increaseGoodsQuantity(incomeDto.getGoods());        
         return new ModelAndView("storePage", "incomeDoc",  incomeService.saveIncomeDoc(incomeDto));
 
