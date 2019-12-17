@@ -19,9 +19,11 @@ public class OrderDto {
     private String orderNum;
     private Date orderDate;
     private String orgName;
+    private String orgCode;
     private String customerName;
     private String customerPhone;
     private List<GoodsDto> goods;
     private int orderSum;
+    
 
 }

@@ -11,6 +11,6 @@ public class CustomerDto {
     
     private String name;
     private String phone;
-    private String orgName;
+    private String orgCode;
 
 }

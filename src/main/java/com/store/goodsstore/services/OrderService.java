@@ -43,12 +43,12 @@ public class OrderService {
     }
     
     public Order createOrder(OrderDto dto){
-       Organization organisation = organizationService.getByName(dto.getOrgName());        
+       Organization organisation = organizationService.getByCode(dto.getOrgCode());        
        Order order = repository.findByNumAndOrgId(dto.getOrderNum(), organisation.getId());
        if(order==null){
          order = new Order();
        }
-       order.setCustomer(customerService.getCustomerByPhone(dto.getCustomerPhone())); 
+       order.setCustomer(customerService.getCustomerByPhoneAndOrgCode(dto.getCustomerPhone(),dto.getOrgCode())); 
        Set<Goods> goods = dto.getGoods().stream().map((tmp)->{
          return goodsService.createGoods(tmp);
        }).collect(Collectors.toSet());
@@ -66,6 +66,7 @@ public class OrderService {
         dto.setCustomerPhone(order.getCustomer().getPhoneNum());
         dto.setOrderNum(order.getNum());
         dto.setOrgName(order.getOrg().getName());
+        dto.setOrgCode(order.getOrg().getCode());
         dto.setOrderDate(order.getDate());
         List<GoodsDto> goodsDto = order.getGoods().stream().map((tmp)->{
             GoodsDto gDto = goodsService.createGoodsResponse(tmp);
@@ -80,8 +81,8 @@ public class OrderService {
        return createDto(repository.findByNum(docNum));
     }
     
-    public List<Order> getByCustomer(String phone){
-        return repository.findByCustomer(customerService.getCustomerByPhone(phone).getId());
+    public List<Order> getByCustomer(String phone,String code){
+        return repository.findByCustomer(customerService.getCustomerByPhoneAndOrgCode(phone,code).getId());
     }  
 
      public List<OrderDto> getByPeriod(Date dateFrom, Date dateTo) {

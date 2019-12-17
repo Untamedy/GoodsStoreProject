@@ -5,7 +5,6 @@ import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.UserDto;
 import com.store.goodsstore.entities.Organization;
-import com.store.goodsstore.entities.Users;
 import com.store.goodsstore.exceptions.RegistrationException;
 import java.security.Principal;
 import java.util.UUID;
@@ -51,6 +50,7 @@ public class OrganizationService {
         OrganizationDto organizationResponse = new OrganizationDto();
         organizationResponse.setOrganizationName(organization.getName());
         organizationResponse.setOrganizationEmail(organization.getEmail());
+        organizationResponse.setOrgCode(organization.getCode());
         organizationResponse.setUserName(organization.getUsers().getName());
         organizationResponse.setUserEmail(organization.getUsers().getEmail());
         organizationResponse.setStorename(organization.getStore().getName());
@@ -86,6 +86,10 @@ public class OrganizationService {
         UserDto user = userService.getUsersByEmail(name);
         Organization org = user.getOrganization();
         return createOrganizationResponse(org);
+    }
+
+    public Organization getByCode(String orgCode) {
+        return repository.findByCode(orgCode);
     }
 
 }

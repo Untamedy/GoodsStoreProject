@@ -83,8 +83,8 @@ public class IncomDocService {
         return creteIncomeDocDto(repository.findByNum(num));
     }
 
-    public List<IncomingDoc> getByCustomer(String phone) {
-        return repository.findByCustomer(customerService.getCustomerByPhone(phone).getId());
+    public List<IncomingDoc> getByCustomer(String phone,String code) {
+        return repository.findByCustomer(customerService.getCustomerByPhoneAndOrgCode(phone,code).getId());
 
     }
 

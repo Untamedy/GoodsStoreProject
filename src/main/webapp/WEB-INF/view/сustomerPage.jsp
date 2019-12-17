@@ -4,6 +4,8 @@
     Author     : YBolshakova
 --%>
 
+<%@page import="com.store.goodsstore.entities.Customer"%>
+<%@page import="com.store.goodsstore.dto.OrganizationDto"%>
 <%@page import="com.store.goodsstore.dto.GoodsDto"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -56,9 +58,12 @@
         </style>
     </head>
     <body>
-        
-        
-        
+        <%
+            OrganizationDto dto = (OrganizationDto) session.getAttribute("orgData");
+        %>
+
+
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 col-8">
@@ -77,19 +82,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
-                                    <%
-                                        List<GoodsDto> goods = (List<GoodsDto>) request.getAttribute("goodsList");
-                                        for (GoodsDto g : goods) {
-                                            out.print("<tr>");
-                                            out.print("<td>" + g.getName() + "</td>");
-                                            out.print("<td>" + g.getCode()+ "</td>");  
-                                            out.print("<td><button type=\"button\" class=\"btn btn-info\">Delete</button></td>");
-                                            out.print("<td><button type=\"button\" class=\"btn btn-info\">Edit</button></td>");
-                                            out.print("<tr>");
-                                        }
-                                    %>
-                                
+
+                                <%
+                                    List<Customer> customers = (List<Customer>) request.getAttribute("customerList");
+                                    for (Customer c : customers) {
+                                        out.print("<tr>");
+                                        out.print("<td>" + c.getName() + "</td>");
+                                        out.print("<td>" + c.getPhoneNum() + "</td>");
+                                        out.print("<td><a href=\"customer/delete/" + c.getPhoneNum() + "/" + c.getOrg().getCode() + "class=\"btn btn-default\">Go to Google</a></td>");
+                                        out.print("<td><a href=\"customer/delete/" + c.getPhoneNum() + "/" + c.getOrg().getCode() + "class=\"btn btn-default\">Go to Google</a></td>");
+                                        out.print("<tr>");
+                                    }
+                                %>
+
                             </tbody>
                             <%
                                 List<Integer> pages = (List<Integer>) request.getAttribute("pageNumber");
@@ -101,38 +106,34 @@
                         <ul class="pagination">
                             <li class="page-item">
                                 <%      for (Integer i : pages) {
-                                        out.print("<a class=\"page-link\" href=\""+ i + "\">"+i+ "</a>");
+                                        out.print("<a class=\"page-link\" href=\"" + i + "\">" + i + "</a>");
                                     }
                                 %>
-
                             </li>
-
                         </ul>
-
                     </div>
-
                 </div>
             </div>
 
         </div>
-                                
-                                div name="addGroup" class="modal" id="addGroup">
+
+        <div name="addCustomer" class="modal" id="addCustomer">
             <div class="modal-dialog">
                 <div class="modal-content">               
                     <div class="modal-header">                        
-                        <h4 class="modal-title">Add new goods group</h4>
+                        <h4 class="modal-title">Add new customer</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
                         <form id="addCustmForm" role="form" method="POST" action="customer/save">
                             <div class="form-group">
                                 <label for="group">Name:</label>
-                                <input type="text" class="form-control" id="groupName" name="groupName">
+                                <input type="text" class="form-control" id="groupName" name="name">
                                 <%
-                                    out.print("<input type=\"hidden\" name=\"storeCode\" value=\"" + dto.getStoreCode() + "\">");
+                                    out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                                 %>
                             </div>
-                            <button id="myFormSubmit" type="submit" onclick="addGroupFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button id="myFormSubmit" type="submit" onclick="addCustomerFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
                             <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
                         </form>
                     </div>
@@ -142,5 +143,12 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            function addCustomerFunction() {
+                document.getElementById("addCustmForm").submit();
+            }
+        </script>               
     </body>
+
 </html>

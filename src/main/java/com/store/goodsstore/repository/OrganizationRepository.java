@@ -11,7 +11,9 @@ public interface OrganizationRepository extends JpaRepository<Organization, Inte
     
     public boolean existsByEmail(String email);
     public Organization findByEmail(String email);
-    public Organization findByName(String email);
+    public Organization findByName(String name);
+
+    public Organization findByCode(String orgCode);
     
 
 }
