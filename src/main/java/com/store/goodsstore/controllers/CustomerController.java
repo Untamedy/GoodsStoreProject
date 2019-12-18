@@ -43,9 +43,7 @@ public class CustomerController {
         if (totalPage > 0) {
             List<Integer> pageNunbers = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
             model.addObject("pageNumber", pageNunbers);
-        }
-        
-        model.addObject("activeList", true);
+        }       
         model.addObject("customerList", customerPage.getContent());
 
         return model;

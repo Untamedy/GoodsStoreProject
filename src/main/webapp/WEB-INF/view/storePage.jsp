@@ -203,13 +203,13 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="deleteGroupForm" role="form" method="Post" action="group/deleteGroup">
+                        <form id="deleteGroupForm" role="form" method="Post" action="group/removedGroup">
                             <div class="form-group">
                                 <label for="group">Group name:</label>
-                                <select id="inputState" name ="oldName" class="form-control">
+                                <select id="inputState" name ="name" class="form-control">
                                     <%
                                         for (GoodsGroupDto g : groups) {
-                                            out.print("<option selected name =\"oldName\"> " + g.getName() + "</option>");
+                                            out.print("<option selected name =\"name\"> " + g.getName() + "</option>");
                                         }
                                     %>
                                 </select>

@@ -1,14 +1,18 @@
 package com.store.goodsstore.init;
 
 import com.store.goodsstore.dto.RegistrationRequest;
+import com.store.goodsstore.entities.Customer;
 import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.GoodsCounter;
 import com.store.goodsstore.entities.GoodsGroup;
 import com.store.goodsstore.entities.GoodsIncomePrice;
 import com.store.goodsstore.entities.GoodsPrice;
+import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
+import com.store.goodsstore.repository.CustomerRepository;
 import com.store.goodsstore.repository.GoodsRepository;
 import com.store.goodsstore.repository.GroupRepository;
+import com.store.goodsstore.repository.OrganizationRepository;
 import com.store.goodsstore.repository.StoreRepository;
 import com.store.goodsstore.repository.UserRepository;
 import com.store.goodsstore.services.RegistrationService;
@@ -20,6 +24,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Component;
 
 /**
@@ -41,6 +46,11 @@ public class AcountInit {
     private StoreRepository storeRepository;
     @Autowired
     private GoodsRepository goodsRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
+    @Autowired
+    private OrganizationRepository orgRepository;
+            
 
     @PostConstruct
     public void saveAcount() {
@@ -48,7 +58,11 @@ public class AcountInit {
         if (!userRepository.existsByEmail(request.getUserEmail())) {
             service.register(createRequest());
         }
+        Organization organization = orgRepository.findByEmail(request.getOrganizationEmail());
         Store store = storeRepository.findByName("FirstStore");
+        if(null==customerRepository.findByPhoneNumAndOrgCode("09876541", organization.getCode())){
+           addCustomers(organization);  
+        }        
         if (groupRepository.findByNameAndStoreId("testGroup1", store.getId()) == null) {
             Set<GoodsGroup> groups = new HashSet<>();
             for (int i = 1; i < 10; i++) {                
@@ -72,7 +86,7 @@ public class AcountInit {
 
     private List<Goods> createGoods(GoodsGroup group) {
         List<Goods> list = new ArrayList<>();
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < 20; i++) {
             Goods goods = new Goods();
             goods = new Goods();
             goods.setCode("code" + i + group.getName());
@@ -88,7 +102,14 @@ public class AcountInit {
         return list;
     }
 
-    public void addGoods() {
+    public void addCustomers(Organization org){
+        for(int i=1;i<20;i++){
+            Customer customer = new Customer();
+            customer.setName("customer"+i);
+            customer.setOrg(org);
+            customer.setPhoneNum("0987654"+1);
+            customerRepository.save(customer);
+        }
 
     }
 

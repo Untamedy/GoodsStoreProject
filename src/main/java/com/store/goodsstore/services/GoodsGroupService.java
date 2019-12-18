@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -28,25 +28,34 @@ public class GoodsGroupService {
 
     @Autowired
     private StoreService storeService;
-    
+
     @Autowired
     private UserService userService;
 
-    public GoodsGroupDto saveGroup(GoodsGroupDto dto) {        
-            return createDto(repository.save(createGroup(dto)));
+    @Transactional
+    public GoodsGroupDto saveGroup(GoodsGroupDto dto) {
+        return createDto(repository.save(createGroup(dto)));
     }
 
-    public GoodsGroupDto editGroup(String newName, String oldName,String storeCode) {
+    @Transactional
+    public GoodsGroupDto editGroup(String newName, String oldName, String storeCode) {
         Store store = storeService.getByCode(storeCode);
-        GoodsGroup group = repository.findByNameAndStoreId(oldName, store.getId());
-        if(group!=null){
-          group.setName(newName); 
-           repository.save(group);
-            return createDto(group);
-        }  
-       throw new RuntimeException("Group with name" + oldName+ " not found in store "+ store.getName());
+        GoodsGroup oldgroup = repository.findByNameAndStoreId(oldName, store.getId());
+
+        if (oldgroup != null) {
+            GoodsGroup newgroup = repository.findByNameAndStoreId(newName, store.getId());
+            if (newgroup == null) {
+                oldgroup.setName(newName);
+                repository.save(oldgroup);
+                return createDto(oldgroup);
+            }
+            throw new RuntimeException("Group with name" + newName + " is already exists in store " + store.getName());
+
+        }
+        throw new RuntimeException("Group with name" + oldName + " not found in store " + store.getName());
     }
 
+    @Transactional(readOnly = true)
     public GoodsGroup getGroupByname(String groupName) {
         return repository.findByName(groupName);
     }
@@ -54,8 +63,8 @@ public class GoodsGroupService {
     public GoodsGroupDto createDto(GoodsGroup group) {
         GoodsGroupDto groupDto = new GoodsGroupDto();
         groupDto.setId(group.getId());
-        groupDto.setName(group.getName());   
-        groupDto.setStoreCode(group.getStore().getCode());        
+        groupDto.setName(group.getName());
+        groupDto.setStoreCode(group.getStore().getCode());
         return groupDto;
     }
 
@@ -67,35 +76,41 @@ public class GoodsGroupService {
             Store store = storeService.getByCode(dto.getStoreCode());
             group.setStore(store);
             return group;
-        } 
-        throw new AlreadyExistsException("Group with name " + group.getName() +" is alredy exists");
-       
+        }
+        throw new AlreadyExistsException("Group with name " + group.getName() + " is alredy exists");
+
     }
 
-    public boolean removeGroup(String name) {
-        GoodsGroup group = repository.findByName(name);
+    @Transactional
+    public boolean removeGroup(String name, String code) {
+        Store store = storeService.getByCode(code);
+        GoodsGroup group = repository.findByNameAndStoreId(name, store.getId());
         if (group != null) {
             if (goodsService.getByGroupId(group.getId()).isEmpty()) {
                 repository.delete(group);
                 return true;
             }
+            throw new RuntimeException("Can't removed group, maybe group contain goods");
         }
-        return false;
+        throw new RuntimeException("Can't removed group");
     }
 
+    @Transactional(readOnly = true)
     public List<GoodsGroupDto> getAllGroupByStore(int storeId) {
-      List<GoodsGroupDto> dto= repository.findByStoreId(storeId).stream().map((tmp)->{
-          return createDto(tmp);
-      }).collect(Collectors.toList());
-      return dto;
+        List<GoodsGroupDto> dto = repository.findByStoreId(storeId).stream().map((tmp) -> {
+            return createDto(tmp);
+        }).collect(Collectors.toList());
+        return dto;
     }
 
+    @Transactional(readOnly = true)
     List<GoodsGroup> getAllGroup() {
         return repository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public GoodsGroup getById(int groupId) {
-       return repository.findById(groupId).get();
+        return repository.findById(groupId).get();
     }
 
 }

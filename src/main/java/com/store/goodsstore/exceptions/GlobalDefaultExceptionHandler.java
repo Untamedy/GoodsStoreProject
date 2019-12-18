@@ -29,6 +29,7 @@ public class GlobalDefaultExceptionHandler extends ResponseEntityExceptionHandle
      
      ModelAndView model = new ModelAndView(DEFAULT_ERROR_VIEW);
      model.addObject("exception", e);
+     model.addObject("uri", request.getRequestURI());
      model.addObject("url", request.getRequestURI());
      return model;
  }

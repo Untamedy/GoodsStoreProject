@@ -5,12 +5,9 @@
  */
 package com.store.goodsstore.controllers;
 
-
-
 import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.services.GoodsGroupService;
 import com.store.goodsstore.services.StoreService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -33,31 +30,27 @@ public class GoodsGroupController {
     @Autowired
     private StoreService storeService;
 
-   
-
     @PostMapping("/save")
-    public ModelAndView saveGroup(@RequestParam("groupName") String name,@RequestParam("storeCode")String code) {
-        GoodsGroupDto dto = new GoodsGroupDto();        
+    public ModelAndView saveGroup(@RequestParam("groupName") String name, @RequestParam("storeCode") String code) {
+        GoodsGroupDto dto = new GoodsGroupDto();
         dto.setName(name);
         dto.setStoreCode(code);
-        service.saveGroup(dto);       
+        service.saveGroup(dto);
         return new ModelAndView("redirect:/gostore");
 
     }
 
     @PostMapping("/editGroup")
-    public ModelAndView editGroup(@RequestParam("newName") String newName, @RequestParam("oldName")String oldName,@RequestParam("storeCode") String storeCode) {        
-       service.editGroup(newName,oldName,storeCode);
+    public ModelAndView editGroup(@RequestParam("newName") String newName, @RequestParam("oldName") String oldName, @RequestParam("storeCode") String storeCode) {
+        service.editGroup(newName, oldName, storeCode);
         return new ModelAndView("redirect:/gostore");
 
     }
 
-    @GetMapping("/removedGroup")
-    public ModelAndView removeGroup(@RequestParam String name) {
-        if (service.removeGroup(name)) {            
-            return new ModelAndView("storePage",HttpStatus.OK);
-        }
-        return new ModelAndView("storePage", HttpStatus.NOT_MODIFIED);
+    @PostMapping("/removedGroup")
+    public ModelAndView removeGroup(@RequestParam("name") String name,@RequestParam("storeCode")String code) {
+        service.removeGroup(name,code);
+        return new ModelAndView("redirect:/gostore");
     }
 
 }

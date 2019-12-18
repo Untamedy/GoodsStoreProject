@@ -13,9 +13,16 @@
     </head>
     <body>
         <h1>Error</h1>
-        <p>Application has encountered an error. Please contact support on ...</p>
+        <p>Application has encountered an error.</p>
+        <%
+            Exception ex =(Exception) request.getAttribute("exception");
+            String message = ex.getMessage();
+            out.print("<p>Error couse " + message +"</p>");             
+        %>
+        
+        <button type="button" name="back" onclick="history.back()">Go back</button>
 
-        <a href="index">Go to start page</a>        
+          
 
     </body>
 </html>
