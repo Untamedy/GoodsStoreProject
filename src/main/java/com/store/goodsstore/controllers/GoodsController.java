@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -46,8 +45,6 @@ public class GoodsController {
 
     @Autowired
     private IncomDocService incomeService;
-    
-    
 
     @GetMapping("/goodslist/page/{groupId}/{page}")
     public ModelAndView getGoodsByGroupId(@PathVariable("groupId") int id, @PathVariable("page") int page) {
@@ -68,21 +65,16 @@ public class GoodsController {
 
     @PostMapping("/saveGoods")
     public ModelAndView saveGoods(@ModelAttribute("goods") GoodsDto request) {
-        GoodsDto response = goodsService.saveGoods(request);
-        if (response != null) {
-            return new ModelAndView("storePage", HttpStatus.OK);
-        }
-        return new ModelAndView("addGoodsPage", HttpStatus.NOT_MODIFIED);
+        goodsService.saveGoods(request);
+        return new ModelAndView("redirect:goodsPage");
     }
 
-    @PostMapping("/removeGoods/{goodsCode}")
-    public ModelAndView removeGoods(@PathVariable("goodsCode") String code) {
-        if (goodsService.deleteGoods(code)) {
-            return new ModelAndView("storePage", HttpStatus.OK);
-        }
-        return new ModelAndView("storePage", HttpStatus.NOT_MODIFIED);
+    @GetMapping("/removeGoods/{groupId}/{goodsCode}")
+    public ModelAndView removeGoods(@PathVariable("goodsCode") String code,@PathVariable("groupId") int id) {       
+             return new ModelAndView("redirect:goodslist/page/"+id+"/1"); 
     }
-
+    
+    
     @PostMapping("/editGoods")
     public ModelAndView editGoods(@RequestBody GoodsDto request) {
         GoodsDto response = goodsService.updateGoods(request);
@@ -93,18 +85,18 @@ public class GoodsController {
     }
 
     @PostMapping("/input")
-    public ModelAndView addGoodsCount(@ModelAttribute IncomeDocDto incomeDto) {        
-        goodsCounterService.increaseGoodsQuantity(incomeDto.getGoods());        
-        return new ModelAndView("storePage", "incomeDoc",  incomeService.saveIncomeDoc(incomeDto));
+    public ModelAndView addGoodsCount(@ModelAttribute IncomeDocDto incomeDto) {
+        goodsCounterService.increaseGoodsQuantity(incomeDto.getGoods());
+        return new ModelAndView("storePage", "incomeDoc", incomeService.saveIncomeDoc(incomeDto));
 
     }
 
     @PostMapping("/sale")
-    public ModelAndView saleGoods(@RequestBody OrderDto orderDto) {
-        List<GoodsDto> goods =  goodsCounterService.decreaseGoodsQuantity(orderDto);
-        if(!goods.isEmpty()){
+    public ModelAndView saleGoods(@ModelAttribute OrderDto orderDto) {
+        List<GoodsDto> goods = goodsCounterService.decreaseGoodsQuantity(orderDto);
+        if (!goods.isEmpty()) {
             return new ModelAndView("storePage", HttpStatus.NOT_MODIFIED);
-        }       
+        }
         return new ModelAndView("storePage", HttpStatus.OK);
     }
 

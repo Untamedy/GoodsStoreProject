@@ -28,7 +28,7 @@
         <style>
             #header {
                 position: absolute;
-                top: 150px;
+                top: 10px;
                 left: 50px;
             }
 
@@ -37,9 +37,14 @@
                 top: 30px;
                 right: 15px;
             }
+            #list{
+               position: relative;
+                top: 100px;  
+            }
 
             body {
                 position: relative;
+                top: 10px;                
             }
             ul.nav-pills {
                 top: 20px;
@@ -53,15 +58,20 @@
                 top: 250px;
                 left: 10px;
             }
+            
         </style>
     </head>
     <body>
-        <div class="container-fluid">
+         <div id="header">
+             <h1> Goods </h1>  
+                <a href="" class="btn btn-info mr-1" role="button">Income goods</a>
+               <a href="allcustomer" class="btn btn-info mr-1" role="button">Sale goods</a>
+                <a href="allcustomer" class="btn btn-info mr-1" role="button">Add goods</a>
+            </div>
+        <div class="container-fluid" id="list">
             <div class="row">
                 <div class="col-sm-12 col-8">
-                    <div id="section1" class="bg-default">
-                        <h1> Goods:
-                        </h1>
+                    <div id="section1" class="bg-default">                                                
                         <p></p>
                         <table class="table table-striped">
                             <thead>
@@ -79,24 +89,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
-                                    <%
-                                        List<GoodsDto> goods = (List<GoodsDto>) request.getAttribute("goodsList");
-                                        for (GoodsDto g : goods) {
-                                            out.print("<tr>");
-                                            out.print("<td>" + g.getName() + "</td>");
-                                            out.print("<td>" + g.getCode()+ "</td>");
-                                            out.print("<td>" + g.getUnit()+ "</td>");
-                                            out.print("<td>" + g.getQuantity()+ "</td>");
-                                            out.print("<td>" + g.getIncomePrice()+ "</td>");
-                                            out.print("<td>" + g.getPrice()+ "</td>");                                            
-                                            out.print("<td><button type=\"button\" class=\"btn btn-info\">Add to order</button></td>");
-                                            out.print("<td><button type=\"button\" class=\"btn btn-info\">Delete</button></td>");
-                                            out.print("<td><button type=\"button\" class=\"btn btn-info\">Edit</button></td>");
-                                            out.print("<tr>");
-                                        }
-                                    %>
-                                
+
+                                <%
+                                    List<GoodsDto> goods = (List<GoodsDto>) request.getAttribute("goodsList");
+                                    for (GoodsDto g : goods) {
+                                        out.print("<tr>");
+                                        out.print("<td>" + g.getName() + "</td>");
+                                        out.print("<td>" + g.getCode() + "</td>");
+                                        out.print("<td>" + g.getUnit() + "</td>");
+                                        out.print("<td>" + g.getQuantity() + "</td>");
+                                        out.print("<td>" + g.getIncomePrice() + "</td>");
+                                        out.print("<td>" + g.getPrice() + "</td>");
+                                        out.print("<td> <a href=\"allcustomer\" class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
+                                        out.print("<td> <a href=\"/GoodsStoreProject/removeGoods/"+g.getCode()+"\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
+                                        out.print("<td> <a href=\"GoodsStoreProject/editGoods\" class=\"btn btn-info mr-1\" role=\"button\">edit</a></td>");
+                                        out.print("<tr>");
+                                    }
+                                %>
+
                             </tbody>
                             <%
                                 List<Integer> pages = (List<Integer>) request.getAttribute("pageNumber");
@@ -105,22 +115,21 @@
                             %>
                         </table>
 
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <%      for (Integer i : pages) {
-                                        out.print("<a class=\"page-link\" href=\""+ i + "\">"+i+ "</a>");
-                                    }
-                                %>
+                        <ul class="pagination justify-content-center">                           
 
-                            </li>
+                            <%      for (Integer i : pages) {
+                                    out.print("<li class=\"page-item\"><a class=\"page-link\" href=\"" + i + "\">" + i + "</a></li>");
+                                }
+                            %>
 
-                        </ul>
-
+                        </ul>  
                     </div>
-
                 </div>
             </div>
 
+
         </div>
+
+
     </body>
 </html>
