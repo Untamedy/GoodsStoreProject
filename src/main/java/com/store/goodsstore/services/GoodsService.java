@@ -31,12 +31,12 @@ public class GoodsService {
     private StoreService storeService;
 
     @Transactional
-    public GoodsDto saveGoods(GoodsDto goodsDto) {
+    public void saveGoods(GoodsDto goodsDto) {
         GoodsDto newGoods = null;
         if (!repository.existsByCode(goodsDto.getCode())) {
-            newGoods = createGoodsResponse(repository.save(createGoods(goodsDto)));
+            repository.save(createGoods(goodsDto));
         }
-        return newGoods;
+        throw new RuntimeException("Goods with code " + goodsDto.getCode() + " is already exists");
     }
 
     @Transactional
@@ -51,8 +51,8 @@ public class GoodsService {
             if (goodsCounterSecvice.getGoodsCount(code) > 0) {
                 throw new RuntimeException("Goods count is more than 0");
             }
-            repository.delete(goods);           
-        }       
+            repository.delete(goods);
+        }
     }
 
     public Goods createGoods(GoodsDto goodsDto) {
