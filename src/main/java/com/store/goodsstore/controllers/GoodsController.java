@@ -70,11 +70,11 @@ public class GoodsController {
     }
 
     @GetMapping("/removeGoods/{groupId}/{goodsCode}")
-    public ModelAndView removeGoods(@PathVariable("goodsCode") String code,@PathVariable("groupId") int id) {       
-             return new ModelAndView("redirect:goodslist/page/"+id+"/1"); 
+    public ModelAndView removeGoods(@PathVariable("goodsCode") String code, @PathVariable("groupId") int id) {
+        goodsService.deleteGoods(code);
+        return new ModelAndView("redirect:/goodslist/page/" + id + "/1");
     }
-    
-    
+
     @PostMapping("/editGoods")
     public ModelAndView editGoods(@RequestBody GoodsDto request) {
         GoodsDto response = goodsService.updateGoods(request);

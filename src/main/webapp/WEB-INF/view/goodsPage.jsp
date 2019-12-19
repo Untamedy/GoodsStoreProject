@@ -62,6 +62,7 @@
         </style>
     </head>
     <body>
+        
          <div id="header">
              <h1> Goods </h1>  
                 <a href="" class="btn btn-info mr-1" role="button">Income goods</a>
@@ -101,7 +102,7 @@
                                         out.print("<td>" + g.getIncomePrice() + "</td>");
                                         out.print("<td>" + g.getPrice() + "</td>");
                                         out.print("<td> <a href=\"allcustomer\" class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
-                                        out.print("<td> <a href=\"/GoodsStoreProject/removeGoods/"+g.getCode()+"\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
+                                        out.print("<td> <a href=\"/GoodsStoreProject/removeGoods/"+(int)request.getAttribute("group")+"/"+g.getCode()+"\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
                                         out.print("<td> <a href=\"GoodsStoreProject/editGoods\" class=\"btn btn-info mr-1\" role=\"button\">edit</a></td>");
                                         out.print("<tr>");
                                     }

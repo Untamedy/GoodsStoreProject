@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -29,6 +30,7 @@ public class GoodsService {
     @Autowired
     private StoreService storeService;
 
+    @Transactional
     public GoodsDto saveGoods(GoodsDto goodsDto) {
         GoodsDto newGoods = null;
         if (!repository.existsByCode(goodsDto.getCode())) {
@@ -37,20 +39,20 @@ public class GoodsService {
         return newGoods;
     }
 
+    @Transactional
     public GoodsDto updateGoods(GoodsDto goodsDto) {
         return createGoodsResponse(repository.save(createGoods(goodsDto)));
     }
 
-    public boolean deleteGoods(String code) {
+    @Transactional
+    public void deleteGoods(String code) {
         Goods goods = repository.findByCode(code);
         if (null != goods) {
             if (goodsCounterSecvice.getGoodsCount(code) > 0) {
-                return false;
+                throw new RuntimeException("Goods count is more than 0");
             }
-            repository.delete(goods);
-            return true;
-        }
-        return false;
+            repository.delete(goods);           
+        }       
     }
 
     public Goods createGoods(GoodsDto goodsDto) {
@@ -81,22 +83,26 @@ public class GoodsService {
         response.setGroupId(goods.getGroup().getId());
         response.setIncomePrice(goods.getIncomePrice().getIncomePrice());
         response.setPrice(goods.getPrice().getPrice());
-        response.setQuantity(goods.getCounter().getQuantity());               
+        response.setQuantity(goods.getCounter().getQuantity());
         return response;
     }
 
+    @Transactional(readOnly = true)
     public int goodsCount(String goodsCode) {
         return goodsCounterSecvice.getGoodsCount(goodsCode);
     }
 
+    @Transactional(readOnly = true)
     public Goods fingByCode(String code) {
         return repository.findByCode(code);
     }
 
+    @Transactional(readOnly = true)
     public boolean existByCode(String code) {
         return repository.existsByCode(code);
     }
 
+    @Transactional
     public Page<GoodsDto> getPaginatedGoods(int groupId, Pageable page) {
         Page<Goods> goods = repository.findByGroupId(groupId, page);
         Page<GoodsDto> goodsDto = goods.map(this::createGoodsResponse);
@@ -111,10 +117,9 @@ public class GoodsService {
         return new GoodsIncomePrice(goodsDto.getIncomePrice());
     }
 
-  public List<Goods> getByGroupId(int groupId){
-      return repository.findByGroupId(groupId);
-  }
-    
-   
+    @Transactional(readOnly = true)
+    public List<Goods> getByGroupId(int groupId) {
+        return repository.findByGroupId(groupId);
+    }
 
 }

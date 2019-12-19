@@ -24,7 +24,6 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Component;
 
 /**
@@ -50,7 +49,6 @@ public class AcountInit {
     private CustomerRepository customerRepository;
     @Autowired
     private OrganizationRepository orgRepository;
-            
 
     @PostConstruct
     public void saveAcount() {
@@ -60,26 +58,26 @@ public class AcountInit {
         }
         Organization organization = orgRepository.findByEmail(request.getOrganizationEmail());
         Store store = storeRepository.findByName("FirstStore");
-        if(null==customerRepository.findByPhoneNumAndOrgCode("09876541", organization.getCode())){
-           addCustomers(organization);  
-        }        
+        if (null == customerRepository.findByPhoneNumAndOrgCode("09876541", organization.getCode())) {
+            for (int i = 1; i < 20; i++) {
+                createCustomers(organization, i);
+            }
+        }
         if (groupRepository.findByNameAndStoreId("testGroup1", store.getId()) == null) {
             Set<GoodsGroup> groups = new HashSet<>();
-            for (int i = 1; i < 10; i++) {                
-            groups.add((createGroup(i,store)));
-            }   
+            for (int i = 1; i < 10; i++) {
+                groups.add((createGroup(i, store)));
+            }
             groupRepository.saveAll(groups);
-           
             for (GoodsGroup g : groups) {
                 goodsRepository.saveAll(createGoods(g));
             }
-
         }
     }
 
-    private GoodsGroup createGroup(int index,Store store) {
+    private GoodsGroup createGroup(int index, Store store) {
         GoodsGroup group = new GoodsGroup();
-        group.setName("testGroup" + index);   
+        group.setName("testGroup" + index);
         group.setStore(store);
         return group;
     }
@@ -102,15 +100,12 @@ public class AcountInit {
         return list;
     }
 
-    public void addCustomers(Organization org){
-        for(int i=1;i<20;i++){
-            Customer customer = new Customer();
-            customer.setName("customer"+i);
-            customer.setOrg(org);
-            customer.setPhoneNum("0987654"+1);
-            customerRepository.save(customer);
-        }
-
+    public void createCustomers(Organization org, int i) {
+        Customer customer = new Customer();
+        customer.setName("customer" + i);
+        customer.setOrg(org);
+        customer.setPhoneNum("0987654" + i);
+        customerRepository.save(customer);
     }
 
     public RegistrationRequest createRequest() {
