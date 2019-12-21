@@ -84,7 +84,7 @@
                 Store page </h1>
 
             <div class="container">
-                <h2>Search store by name</h2>
+                <h2>Search goods by name</h2>
                 <div class="active-cyan-3 active-cyan-4 mb-4">
                     <form class="example" action="#">
                         <input type="text" placeholder="Search.." name="search">

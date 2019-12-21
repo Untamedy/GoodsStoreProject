@@ -1,5 +1,6 @@
 package com.store.goodsstore.services;
 
+import com.store.goodsstore.dto.EditGoodsDto;
 import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.GoodsCounter;
@@ -31,17 +32,21 @@ public class GoodsService {
     private StoreService storeService;
 
     @Transactional
-    public void saveGoods(GoodsDto goodsDto) {
-        GoodsDto newGoods = null;
+    public void saveGoods(GoodsDto goodsDto) {      
         if (!repository.existsByCode(goodsDto.getCode())) {
             repository.save(createGoods(goodsDto));
+        }else{
+            throw new RuntimeException("Goods with code " + goodsDto.getCode() + " is already exists");
         }
-        throw new RuntimeException("Goods with code " + goodsDto.getCode() + " is already exists");
+       
     }
 
     @Transactional
-    public GoodsDto updateGoods(GoodsDto goodsDto) {
-        return createGoodsResponse(repository.save(createGoods(goodsDto)));
+    public GoodsDto updateGoods(EditGoodsDto goodsDto) {
+        Goods goods = repository.findByCode(goodsDto.getCode());
+        goods.setName(goodsDto.getName());             
+        goods.getPrice().setPrice(goodsDto.getPrice());
+        return createGoodsResponse(repository.save(goods));
     }
 
     @Transactional
@@ -64,12 +69,13 @@ public class GoodsService {
             GoodsIncomePrice incomePrice = createIncomePrice(goodsDto);
             GoodsGroup group = groupService.getById(goodsDto.getGroupId());
             goods.setCounter(counter);
-            goods.setPrice(price);
+            goods.setPrice(price);           
             goods.setGroup(group);
             goods.setName(goodsDto.getName());
             goods.setCode(goodsDto.getCode());
             goods.setUnit(goodsDto.getUnit());
             goods.setVisible(true);
+            goods.setIncomePrice(incomePrice);
         }
 
         return goods;

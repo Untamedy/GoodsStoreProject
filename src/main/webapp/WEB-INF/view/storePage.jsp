@@ -239,10 +239,11 @@
                     <div class="modal-body">
                         <form id="addGoodsForm" modelAtribut="goods" role="form" method="POST" action="saveGoods">
                             <label for="group">Group:</label>
-                            <select id="inputState" class="form-control">
+                            <select name ="groupId" id="inputState" class="form-control">
                                 <%
                                     for (GoodsGroupDto g : groups) {
-                                        out.print("<option selected name=\"groupId\" value=\""+g.getId()+"\">" + g.getId()+ "</option>");
+                                        out.print("<option selected value=\""+g.getId()+"\">" + g.getName()
+                                                + "</option>");
                                     }
                                 %>                                     
                             </select>
@@ -260,15 +261,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="group">Quantity</label>
-                                <input type="text" class="form-control" id="goodscount" name="quantity">
+                                <input type="number" class="form-control" id="goodscount" name="quantity">
                             </div>
                             <div class="form-group">
                                 <label for="group">Income price</label>
-                                <input type="text" class="form-control" id="goodsincomePrice" name="incomePrice">
+                                <input type="number" class="form-control" id="goodsincomePrice" name="incomePrice">
                             </div>
                             <div class="form-group">
                                 <label for="group">Price</label>
-                                <input type="text" class="form-control" id="goodsprice" name="price">
+                                <input type="number" class="form-control" id="goodsprice" name="price">
                             </div>                            
                             <button id="addGroupSubmit" type="submit" onclick="addGoodsFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
                             <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>

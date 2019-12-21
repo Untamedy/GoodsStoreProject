@@ -1,5 +1,6 @@
 package com.store.goodsstore.controllers;
 
+import com.store.goodsstore.dto.EditGoodsDto;
 import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.dto.IncomeDocDto;
 import com.store.goodsstore.dto.OrderDto;
@@ -76,12 +77,9 @@ public class GoodsController {
     }
 
     @PostMapping("/editGoods")
-    public ModelAndView editGoods(@RequestBody GoodsDto request) {
-        GoodsDto response = goodsService.updateGoods(request);
-        if (response != null) {
-            return new ModelAndView("groupPage", HttpStatus.OK);
-        }
-        return new ModelAndView("groupPage", HttpStatus.NOT_MODIFIED);
+    public ModelAndView editGoods(@ModelAttribute("goods") EditGoodsDto request) {
+        goodsService.updateGoods(request);
+        return new ModelAndView("redirect:/goodslist/page/" + request.getGroupId() + "/1");
     }
 
     @PostMapping("/input")

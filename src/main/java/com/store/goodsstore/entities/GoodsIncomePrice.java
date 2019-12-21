@@ -21,18 +21,18 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@SequenceGenerator(name="my_seq", initialValue=1, allocationSize=1)
+@SequenceGenerator(name = "my_seq", initialValue = 1, allocationSize = 1)
 public class GoodsIncomePrice {
-    
-      @Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
-    private Integer id; 
-    @OneToOne(mappedBy = "incomePrice")    
+    private Integer id;
+    @OneToOne(mappedBy = "incomePrice")
     private Goods goods;
-    private double incomePrice;    
+    private double incomePrice;
 
     public GoodsIncomePrice(double price) {
-       this.incomePrice=price;
+        this.incomePrice = price;
     }
-    
+
 }
