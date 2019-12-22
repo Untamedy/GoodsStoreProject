@@ -51,13 +51,13 @@ public class StoreController {
   
     @GetMapping("/store")
     public ModelAndView toStorepage() {
-        ModelAndView model = new ModelAndView("storePage");
+        ModelAndView model = new ModelAndView("storeListPage");
         return model;
 
     }    
 
     @PostMapping("/store")
-    public ModelAndView goWork() {      
+    public ModelAndView goWork() {          
         return new ModelAndView("storeListPage");
     }
 

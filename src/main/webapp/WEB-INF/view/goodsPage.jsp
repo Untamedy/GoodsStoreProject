@@ -59,6 +59,11 @@
                 top: 250px;
                 left: 10px;
             }
+             #back{
+                position: relative;
+                top: 290px;
+                left: 10px;
+            }
 
         </style>
     </head>
@@ -87,8 +92,7 @@
                                     <th>Income price</th>
                                     <th>Price</th>
                                     <th></th>
-                                    <th></th>
-                                    <th></th>
+                                    <th></th>                                    
 
                                 </tr>
                             </thead>
@@ -106,7 +110,7 @@
                                         out.print("<td>" + g.getPrice() + "</td>");
                                         out.print("<td> <a href=\"allcustomer\" class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
                                         out.print("<td> <a href=\"/GoodsStoreProject/removeGoods/" + (int) request.getAttribute("group") + "/" + g.getCode() + "\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
-                                        out.print("<td> <button type=\"button\" class=\"btn btn-info mr-1\" data-toggle=\"modal\" data-target=\"#editGoods\">Edit goods</button>   </td>");
+
                                         out.print("<tr>");
                                     }
                                 %>
@@ -206,7 +210,7 @@
                                 <label for="group">New name:</label>
                                 <input type="text" class="form-control" id="goodsname" name="name">
                             </div>                          
-                            
+
                             <div class="form-group">
                                 <label for="group">New price</label>
                                 <input type="number" class="form-control" id="goodsprice" name="price">
@@ -221,7 +225,7 @@
                 </div>
             </div>
         </div> 
-
+        <a href="/GoodsStoreProject/gostore" id="back" class="btn btn-info mr-1" role="button">Back to groups</a>
         <script>
             function editGoodsFunction() {
                 document.getElementById("editGoodsForm").submit();

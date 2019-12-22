@@ -53,6 +53,11 @@
                 top: 250px;
                 left: 10px;
             }
+             #back{
+                position: relative;
+                top: 500px;
+                left: 10px;
+            }
         </style>
     </head>      
     <body>   
@@ -302,7 +307,7 @@
             
         </script>
 
-
+ <a href="/GoodsStoreProject/store" id="back" class="btn btn-info mr-1" role="button">Back to start</a>
 
     </body>
 

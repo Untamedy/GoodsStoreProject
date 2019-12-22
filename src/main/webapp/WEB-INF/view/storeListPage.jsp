@@ -1,4 +1,9 @@
+<%@page import="com.store.goodsstore.entities.Users"%>
+<%@page import="java.security.Principal"%>
 <%@page import="com.store.goodsstore.dto.OrganizationDto"%>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,7 +20,7 @@
         src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
         <style>
-             #header {
+            #header {
                 position: absolute;
                 top: 270px;
 
@@ -71,7 +76,6 @@
 
     </head>
     <body>
-
         <div class="jumbotron jumbotron-fluid">
 
             <div id="logout">
@@ -95,8 +99,8 @@
 
             <div id="header">
                 <div class="btn-group">                    
-                    <a href="gostore" class="btn btn-info mr-1" role="button">Go store</a>             
-                    <a href="allcustomer" class="btn btn-info mr-1" role="button">Go to customer list</a>
+                    <a href="gostore" class="btn btn-info mr-1" role="button">Go store</a>                    
+                    <a href="customer/allCustomer" class="btn btn-info mr-1" role="button">Go to customer list</a>
                     <a href="allreports" class="btn btn-info mr-1" role="button">Show reports</a>
                 </div>
             </div>
