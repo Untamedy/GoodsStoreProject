@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -31,6 +32,8 @@ public class IncomDocService {
     @Autowired
     private OrganizationService organizationService;
 
+    
+     @Transactional
     public IncomeDocDto saveIncomeDoc(IncomeDocDto incomDto) {
         IncomingDoc doc = repository.save(createIncomeDoc(incomDto));
         return creteIncomeDocDto(doc);
@@ -72,22 +75,22 @@ public class IncomDocService {
         }).collect(Collectors.toList());
 
     }
-
+ @Transactional
     private double countSum(List<GoodsDto> goods) {
         double sum = 0;
         sum = goods.stream().map((g) -> g.getIncomePrice()).reduce(sum, (accumulator, _item) -> accumulator + _item);
         return sum;
     }
-
+ @Transactional
     public IncomeDocDto getByNum(String num) {
         return creteIncomeDocDto(repository.findByNum(num));
     }
-
+ @Transactional
     public List<IncomingDoc> getByCustomer(String phone,String code) {
         return repository.findByCustomer(customerService.getCustomerByPhoneAndOrgCode(phone,code).getId());
 
     }
-
+ @Transactional
     public List<IncomeDocDto> getByPeriod(Date dateFrom, Date dateTo) {
         List<IncomeDocDto> dtoList = new ArrayList<>();
         List<IncomingDoc> list = repository.findAllByDateBetween(dateFrom, dateTo);

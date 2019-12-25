@@ -18,6 +18,7 @@ import com.store.goodsstore.services.StoreService;
 import com.store.goodsstore.services.UserService;
 import java.security.Principal;
 import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -51,23 +52,31 @@ public class StoreController {
   
     @GetMapping("/store")
     public ModelAndView toStorepage() {
-        ModelAndView model = new ModelAndView("storeListPage");
+       ModelAndView model = new ModelAndView("storeListPage");      
         return model;
 
     }    
 
     @PostMapping("/store")
-    public ModelAndView goWork() {          
-        return new ModelAndView("storeListPage");
+    public ModelAndView goWork() {   
+        ModelAndView model = new ModelAndView("helloUser");
+        return model;
+    }
+    
+    @GetMapping("/startWork")
+    public ModelAndView startWork(Principal principal){
+       OrganizationDto dto = orgService.getOrgData(principal); 
+       ModelAndView model = new ModelAndView("storeListPage");
+       model.addObject("orgdata", dto);
+       return model;
+        
     }
 
-    @GetMapping("/gostore")
-    public ModelAndView allStore(Principal principal) {
-        OrganizationDto dto = orgService.getOrgData(principal);        
-        List<GoodsGroupDto> groups = service.getGroupListByCurentStore(dto.getStoreCode());       
+    @GetMapping("/gostore/{storeCode}")
+    public ModelAndView allStore(@PathVariable ("storeCode")String code) {                
+        List<GoodsGroupDto> groups = service.getGroupListByCurentStore(code);       
         ModelAndView model = new ModelAndView("storePage");        
-        model.addObject("groups",groups);
-        model.addObject("orgdata",dto);
+        model.addObject("groups",groups);       
         return model;
     }
 }

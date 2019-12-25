@@ -76,6 +76,10 @@
 
     </head>
     <body>
+        <%
+            OrganizationDto dto = (OrganizationDto) request.getAttribute("orgdata");
+            session.setAttribute("orgdata", dto);
+        %>
         <div class="jumbotron jumbotron-fluid">
 
             <div id="logout">
@@ -98,10 +102,14 @@
             </div>
 
             <div id="header">
-                <div class="btn-group">                    
-                    <a href="gostore" class="btn btn-info mr-1" role="button">Go store</a>                    
-                    <a href="customer/allCustomer" class="btn btn-info mr-1" role="button">Go to customer list</a>
-                    <a href="allreports" class="btn btn-info mr-1" role="button">Show reports</a>
+                <div class="btn-group">  
+                    <%
+                        out.print("<a href=\"gostore/" + dto.getStoreCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Go store</a>");
+                        out.print("<a href=\"customer/allCustomer/" + dto.getOrgCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Go to customer list</a>");
+                        out.print("<a href=\"allreports/" + dto.getStoreCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Show reports</a>");
+
+                    %>
+
                 </div>
             </div>
 

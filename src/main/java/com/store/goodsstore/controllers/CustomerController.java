@@ -7,6 +7,7 @@ package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.CustomerDto;
 import com.store.goodsstore.dto.OrganizationDto;
+import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.services.CustomerService;
 import com.store.goodsstore.services.OrganizationService;
 import java.security.Principal;
@@ -38,24 +39,23 @@ public class CustomerController {
     @Autowired
     private OrganizationService orgService;
     
-    @GetMapping("/allCustomer")
-    public ModelAndView redirectToAllCuctomerController(Principal principal){
-        OrganizationDto dto = orgService.getOrgData(principal);
-        return new ModelAndView("redirect:/customer/allCustomer/page/"+dto.getOrgCode()+"/1");
+    @GetMapping("/allCustomer/{orgCode}")
+    public ModelAndView redirectToAllCuctomerController(@PathVariable("orgCode")String orgCode){
+        Organization dto = orgService.getByCode(orgCode);        
+        return new ModelAndView("redirect:/customer/allCustomer/page/"+dto.getCode()+"/1");
     }
     
     @GetMapping("/allCustomer/page/{orgCode}/{page}")
-    public ModelAndView getGoodsByGroupId(@PathVariable("orgCode")String code, @PathVariable("page") int page) {
-        ModelAndView model = new ModelAndView("сustomerPage");
+    public ModelAndView getCustomers(@PathVariable("orgCode")String code, @PathVariable("page") int page) {
+        ModelAndView model = new ModelAndView("сustomerPage"); 
         PageRequest pageable = PageRequest.of(page - 1, 10);
         Page<CustomerDto> customerPage = customerService.getPaginatedCustomer(code, pageable);
         int totalPage = customerPage.getTotalPages();
         if (totalPage > 0) {
             List<Integer> pageNunbers = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
-            model.addObject("pageNumber", pageNunbers);
-        }       
+            model.addObject("pageNumber", pageNunbers);        }       
         model.addObject("customerList", customerPage.getContent());
-
+     
         return model;
     }
 

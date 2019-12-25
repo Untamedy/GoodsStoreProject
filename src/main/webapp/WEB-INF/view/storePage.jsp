@@ -62,8 +62,7 @@
     </head>      
     <body>   
         <%
-            OrganizationDto dto = (OrganizationDto) request.getAttribute("orgdata");
-            session.setAttribute("orgdata", dto);
+            OrganizationDto dto = (OrganizationDto) session.getAttribute("orgdata");           
             List<GoodsGroupDto> groups = (List<GoodsGroupDto>) request.getAttribute("groups");
         %>   
 
@@ -307,7 +306,7 @@
             
         </script>
 
- <a href="/GoodsStoreProject/store" id="back" class="btn btn-info mr-1" role="button">Back to start</a>
+ <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to start</a>
 
     </body>
 

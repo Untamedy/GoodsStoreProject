@@ -11,6 +11,7 @@ import java.util.UUID;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -30,6 +31,7 @@ public class OrganizationService {
     @Autowired
     OrganizationRepository repository;
 
+    @Transactional
     public Organization saveOrganisation(Organization organization) {
         return repository.save(organization);
     }
@@ -59,10 +61,12 @@ public class OrganizationService {
         return organizationResponse;
     }
 
+    @Transactional(readOnly = true)
     public Organization getByEmail(String email) {
         return repository.findByEmail(email);
     }
 
+    @Transactional(readOnly = true)
     public Organization getByName(String name) {
         return repository.findByName(name);
 
@@ -73,6 +77,7 @@ public class OrganizationService {
         return identifier;
     }
 
+    @Transactional
     Organization editOrganization(RegistrationRequest request) {
         Organization organization = repository.findByEmail(request.getOrganizationEmail());
         organization.setName(request.getOrganizationName());
@@ -88,8 +93,9 @@ public class OrganizationService {
         return createOrganizationResponse(org);
     }
 
+    @Transactional(readOnly = true)
     public Organization getByCode(String orgCode) {
-        return repository.findByCode(orgCode);
+        return  repository.findByCode(orgCode);
     }
 
 }

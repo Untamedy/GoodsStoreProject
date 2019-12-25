@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -33,11 +34,12 @@ public class CustomerService {
     @Autowired
     private IncomDocService incomeService;
 
+    @Transactional
     public CustomerDto saveCustomer(CustomerDto dto) {
-
         return cretateDto(repository.save(createCustomer(dto)));
     }
 
+    @Transactional
     public boolean deleteCustomer(String phone, String orgCode) {
         Customer customer = repository.findByPhoneNumAndOrgCode(phone, orgCode);
         if (orderService.getByCustomer(phone, orgCode).isEmpty() && incomeService.getByCustomer(phone, orgCode).isEmpty()) {
@@ -47,15 +49,18 @@ public class CustomerService {
         return false;
     }
 
+    @Transactional(readOnly = true)
     public Customer getCustomerByName(String customer) {
         return repository.findByName(customer);
 
     }
 
+    @Transactional(readOnly = true)
     public Customer getCustomerByPhoneAndOrgCode(String phone, String code) {
         return repository.findByPhoneNumAndOrgCode(phone, code);
     }
 
+    @Transactional
     public CustomerDto editCustomer(CustomerDto dto) {
         Customer customer = repository.findByPhoneNumAndOrgCode(dto.getPhone(), dto.getOrgCode());
         customer.setName(dto.getName());
@@ -81,7 +86,7 @@ public class CustomerService {
         dto.setOrgCode(customer.getOrg().getCode());
         return dto;
     }
-
+ @Transactional
     public Page<CustomerDto> getPaginatedCustomer(String orgcode, Pageable page) {
         Organization org = organizationService.getByCode(orgcode);
         Page<Customer> goods = repository.findAllByOrgId(org.getId(), page);

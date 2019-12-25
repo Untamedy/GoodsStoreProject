@@ -4,6 +4,7 @@
     Author     : YBolshakova
 --%>
 
+<%@page import="com.store.goodsstore.dto.CustomerDto"%>
 <%@page import="com.store.goodsstore.entities.Customer"%>
 <%@page import="com.store.goodsstore.dto.OrganizationDto"%>
 <%@page import="com.store.goodsstore.dto.GoodsDto"%>
@@ -64,7 +65,7 @@
     </head>
     <body>
         <%
-            OrganizationDto dto = (OrganizationDto) session.getAttribute("orgData");
+            OrganizationDto dto = (OrganizationDto) session.getAttribute("orgdata");          
         %>
 
 
@@ -88,12 +89,12 @@
                             <tbody>
 
                                 <%
-                                    List<Customer> customers = (List<Customer>) request.getAttribute("customerList");
-                                    for (Customer c : customers) {
+                                    List<CustomerDto> customers = (List<CustomerDto>) request.getAttribute("customerList");
+                                    for (CustomerDto c : customers) {
                                         out.print("<tr>");
                                         out.print("<td>" + c.getName() + "</td>");
-                                        out.print("<td>" + c.getPhoneNum() + "</td>");
-                                        out.print("<td><a href=\"customer/delete/" + c.getPhoneNum() + "/" + c.getOrg().getCode() + "class=\"btn btn-default\">Delete/a></td>");
+                                        out.print("<td>" + c.getPhone() + "</td>");
+                                        out.print("<td><a href=\"customer/delete/" + c.getPhone() + "/" + c.getOrgCode() + "class=\"btn btn-default\">Delete</a></td>");
                                         out.print("<tr>");
                                     }
                                 %>
@@ -106,12 +107,12 @@
                         </table>
 
                         <ul class="pagination">
-                            <li class="page-item">
-                                <%      for (Integer i : pages) {
-                                        out.print("<a class=\"page-link\" href=\"" + i + "\">" + i + "</a>");
-                                    }
-                                %>
-                            </li>
+
+                            <%      for (Integer i : pages) {
+                                    out.print("<li class=\"page-item\"><a class=\"page-link\" href=\"" + i + "\">" + i + "</a></li>");
+                                }
+                            %>
+
                         </ul>
                     </div>
                 </div>
@@ -129,8 +130,8 @@
                     <div class="modal-body">
                         <form id="addCustmForm" role="form" method="POST" action="customer/save">
                             <div class="form-group">
-                                <label for="group">Name:</label>
-                                <input type="text" class="form-control" id="groupName" name="name">
+                                <label for="customer">Name:</label>
+                                <input type="text" class="form-control" id="customerName" name="name">
                                 <%
                                     out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                                 %>
@@ -145,7 +146,7 @@
                 </div>
             </div>
         </div>
-                            
+
         <div name="editCustomer" class="modal" id="editCustomer">
             <div class="modal-dialog">
                 <div class="modal-content">               
@@ -156,14 +157,14 @@
                     <div class="modal-body">
                         <form id="editCustmForm" role="form" method="POST" action="customer/save">
                             <div class="form-group">
-                                 <label for="goods">Select customer to edit</label>
-                            <select name ="phoneNum" id="inputState" class="form-control">
-                                <%
-                                    for (Customer c : customers) {
-                                        out.print("<option selected value=\"" + c.getPhoneNum()+ "\">" + c.getName() + "</option>");
-                                    }
-                                %>
-                            </select>                                 
+                                <label for="goods">Select customer to edit</label>
+                                <select name ="phoneNum" id="inputState" class="form-control">
+                                    <%
+                                        for (CustomerDto c : customers) {
+                                            out.print("<option selected value=\"" + c.getPhone() + "\">" + c.getName() + "</option>");
+                                        }
+                                    %>
+                                </select>                                 
                                 <label for="customreName">New name:</label>
                                 <input type="text" class="form-control" id="name" name="name">                                
                                 <%
@@ -180,7 +181,7 @@
                 </div>
             </div>
         </div>
-        <a href="store" id="back" class="btn btn-info mr-1" role="button">Back to start</a>                  
+        <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to start</a>                  
 
         <script>
             function addCustomerFunction() {
@@ -188,7 +189,7 @@
             }
             function editCustomerFunction() {
                 document.getElementById("editCustmForm").submit();
-            }            
+            }
         </script>               
     </body>
 
