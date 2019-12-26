@@ -35,14 +35,17 @@ public class CustomerService {
     private IncomDocService incomeService;
 
     @Transactional
-    public CustomerDto saveCustomer(CustomerDto dto) {
-        return cretateDto(repository.save(createCustomer(dto)));
+    public void saveCustomer(CustomerDto dto) {
+        if (repository.existsByPhoneNum(dto.getPhone())) {
+            throw new RuntimeException("Customer with phone number " + dto.getPhone() + "is already exists");
+        }
+        repository.save(createCustomer(dto));
     }
 
     @Transactional
     public boolean deleteCustomer(String phone, String orgCode) {
         Customer customer = repository.findByPhoneNumAndOrgCode(phone, orgCode);
-        if (orderService.getByCustomer(phone, orgCode).isEmpty() && incomeService.getByCustomer(phone, orgCode).isEmpty()) {
+        if (orderService.getByCustomer(customer).isEmpty() && incomeService.getByCustomer(customer).isEmpty()) {
             repository.delete(customer);
             return true;
         }
@@ -69,13 +72,10 @@ public class CustomerService {
     }
 
     public Customer createCustomer(CustomerDto dto) {
-        Customer customer = repository.findByPhoneNumAndOrgCode(dto.getPhone(), dto.getOrgCode());
-        if (customer == null) {
-            customer = new Customer();
-            customer.setName(dto.getName());
-            customer.setOrg(organizationService.getByCode(dto.getOrgCode()));
-            customer.setPhoneNum(dto.getPhone());
-        }
+        Customer customer = customer = new Customer();
+        customer.setName(dto.getName());
+        customer.setOrg(organizationService.getByCode(dto.getOrgCode()));
+        customer.setPhoneNum(dto.getPhone());
         return customer;
     }
 
@@ -86,7 +86,8 @@ public class CustomerService {
         dto.setOrgCode(customer.getOrg().getCode());
         return dto;
     }
- @Transactional
+
+    @Transactional
     public Page<CustomerDto> getPaginatedCustomer(String orgcode, Pageable page) {
         Organization org = organizationService.getByCode(orgcode);
         Page<Customer> goods = repository.findAllByOrgId(org.getId(), page);

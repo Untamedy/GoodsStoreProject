@@ -29,9 +29,9 @@
 
 
         <style>
-            #header {
+             #header {
                 position: absolute;
-                top: 150px;
+                top: 10px;
                 left: 50px;
             }
 
@@ -40,9 +40,14 @@
                 top: 30px;
                 right: 15px;
             }
+            #list{
+                position: relative;
+                top: 100px;  
+            }
 
             body {
                 position: relative;
+                top: 10px;                
             }
             ul.nav-pills {
                 top: 20px;
@@ -56,26 +61,28 @@
                 top: 250px;
                 left: 10px;
             }
-            #back{
+             #back{
                 position: relative;
-                top: 260px;
-                left: 10px;
+                top: 170px;
+                left: 20px;
             }
         </style>
     </head>
     <body>
         <%
-            OrganizationDto dto = (OrganizationDto) session.getAttribute("orgdata");          
+            OrganizationDto dto = (OrganizationDto) session.getAttribute("orgdata");
         %>
+        <div id="header">
+            <h1> Customers </h1>  
+            <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#addCustomer">Add customer</button> 
+            <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#editCustomer">Edit goods</button>  
+        </div>
 
 
-
-        <div class="container-fluid">
+        <div class="container-fluid" id="list">
             <div class="row">
                 <div class="col-sm-12 col-8">
-                    <div id="section1" class="bg-default">
-                        <h1> Customers:
-                        </h1>
+                    <div id="section1" class="bg-default">                        
                         <p></p>
                         <table class="table table-striped">
                             <thead>
@@ -94,7 +101,7 @@
                                         out.print("<tr>");
                                         out.print("<td>" + c.getName() + "</td>");
                                         out.print("<td>" + c.getPhone() + "</td>");
-                                        out.print("<td><a href=\"customer/delete/" + c.getPhone() + "/" + c.getOrgCode() + "class=\"btn btn-default\">Delete</a></td>");
+                                        out.print("<td><a href=\"/GoodsStoreProject/customer/delete/" + c.getPhone() + "/" + c.getOrgCode() + "\" class=\"btn btn-default\">Delete</a></td>");
                                         out.print("<tr>");
                                     }
                                 %>
@@ -106,7 +113,7 @@
                             %>
                         </table>
 
-                        <ul class="pagination">
+                        <ul class="pagination justify-content-center">
 
                             <%      for (Integer i : pages) {
                                     out.print("<li class=\"page-item\"><a class=\"page-link\" href=\"" + i + "\">" + i + "</a></li>");
@@ -128,10 +135,12 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="addCustmForm" role="form" method="POST" action="customer/save">
+                        <form id="addCustmForm" modelAttribute="customer" role="form" method="POST" action="/GoodsStoreProject/customer/save">
                             <div class="form-group">
                                 <label for="customer">Name:</label>
                                 <input type="text" class="form-control" id="customerName" name="name">
+                                <label for="customer">Phone number</label>
+                                <input type="number" class="form-control" id="customerName" name="phone">
                                 <%
                                     out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                                 %>
@@ -155,10 +164,10 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="editCustmForm" role="form" method="POST" action="customer/save">
+                        <form id="editCustmForm" role="form" method="POST" action="/GoodsStoreProject/customer/edit">
                             <div class="form-group">
                                 <label for="goods">Select customer to edit</label>
-                                <select name ="phoneNum" id="inputState" class="form-control">
+                                <select name ="phone" id="inputState" class="form-control">
                                     <%
                                         for (CustomerDto c : customers) {
                                             out.print("<option selected value=\"" + c.getPhone() + "\">" + c.getName() + "</option>");

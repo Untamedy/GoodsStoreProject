@@ -7,6 +7,7 @@ package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.dto.OrderDto;
+import com.store.goodsstore.entities.Customer;
 import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.Order;
 import com.store.goodsstore.entities.Organization;
@@ -85,8 +86,8 @@ public class OrderService {
     }
 
     @Transactional
-    public List<Order> getByCustomer(String phone, String code) {
-        return repository.findByCustomer(customerService.getCustomerByPhoneAndOrgCode(phone, code).getId());
+    public List<Order> getByCustomer(Customer customer) {
+        return repository.findByCustomerId(customer.getId());
     }
 
     @Transactional

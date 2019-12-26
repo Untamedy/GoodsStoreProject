@@ -17,7 +17,7 @@ public interface IncomeRepository extends JpaRepository<IncomingDoc, Integer>{
     
     public IncomingDoc findByNum(String num);
 
-    public List<IncomingDoc> findByCustomer(int id);
+    public List<IncomingDoc> findByCustomerId(int id);
 
  
 

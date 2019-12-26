@@ -18,7 +18,7 @@ import org.springframework.data.repository.query.Param;
  */
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
-    public List<Order> findByCustomer(int id);
+    public List<Order> findByCustomerId(int id);
 
     public Order findByNum(String num);
 

@@ -2,6 +2,7 @@ package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.dto.IncomeDocDto;
+import com.store.goodsstore.entities.Customer;
 import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.IncomingDoc;
 import com.store.goodsstore.repository.IncomeRepository;
@@ -86,8 +87,8 @@ public class IncomDocService {
         return creteIncomeDocDto(repository.findByNum(num));
     }
  @Transactional
-    public List<IncomingDoc> getByCustomer(String phone,String code) {
-        return repository.findByCustomer(customerService.getCustomerByPhoneAndOrgCode(phone,code).getId());
+    public List<IncomingDoc> getByCustomer(Customer customer) {
+        return repository.findByCustomerId(customer.getId());
 
     }
  @Transactional

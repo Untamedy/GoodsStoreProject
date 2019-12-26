@@ -4,13 +4,10 @@
  * and open the template in the editor.
  */
 package com.store.goodsstore.controllers;
-
 import com.store.goodsstore.dto.CustomerDto;
-import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.services.CustomerService;
 import com.store.goodsstore.services.OrganizationService;
-import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -23,7 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -61,25 +57,22 @@ public class CustomerController {
 
 
     @PostMapping("/save")
-    public ModelAndView saveCustomer(@RequestParam("name") String name, @RequestParam("phoneNum") String phoneNum, @RequestParam("orgCode") String code) {
-        CustomerDto dto = new CustomerDto();
-        dto.setName(name);
-        dto.setPhone(phoneNum);
-        dto.setOrgCode(code);
+    public ModelAndView saveCustomer(@ModelAttribute("customer")CustomerDto dto) {        
         customerService.saveCustomer(dto);
-        return new ModelAndView("customerPage");
+        return new ModelAndView("redirect:/customer/allCustomer/page/"+dto.getOrgCode()+"/1");
     }
     
-    @GetMapping("/delete")
-    public ModelAndView deleteCustomer(@RequestParam("name")String name, @RequestParam("orgCode")String code){
-        customerService.deleteCustomer(name, code);
-        return new ModelAndView("customerPage");
+    
+    @GetMapping("/delete/{phone}/{orgCode}")
+    public ModelAndView deleteCustomer(@PathVariable("phone") String phone, @PathVariable("orgCode")String code){
+        customerService.deleteCustomer(phone, code);
+        return new ModelAndView("redirect:/customer/allCustomer/page/"+code+"/1");
     }
     
     @PostMapping("/edit")
     public ModelAndView editCustomer(@ModelAttribute("customer")CustomerDto dto){        
         customerService.editCustomer(dto);        
-        return new ModelAndView("customerPage");        
+        return new ModelAndView("redirect:/customer/allCustomer/page/"+dto.getOrgCode()+"/1");        
     }
         
   
