@@ -9,6 +9,8 @@ import com.store.goodsstore.services.GoodsGroupService;
 import com.store.goodsstore.services.GoodsService;
 import com.store.goodsstore.services.IncomDocService;
 import com.store.goodsstore.services.OrderService;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -19,11 +21,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -31,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author YBolshakova
  */
 @Controller
+@SessionAttributes("goodsList")
 public class GoodsController {
 
     private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);
@@ -46,6 +51,13 @@ public class GoodsController {
 
     @Autowired
     private IncomDocService incomeService;
+    
+    private List<GoodsDto> goodsDtoList;
+    
+    @ModelAttribute("goodsList")
+    public void goodsList(Model model){
+       List<GoodsDto> goodsDtoList = new ArrayList<>();       
+    }
 
     @GetMapping("/goodslist/page/{groupId}/{page}")
     public ModelAndView getGoodsByGroupId(@PathVariable("groupId") int id, @PathVariable("page") int page) {
@@ -82,8 +94,22 @@ public class GoodsController {
         return new ModelAndView("redirect:/goodslist/page/" + request.getGroupId() + "/1");
     }
 
+    @PostMapping("addGoods")
+    public ModelAndView addGoodsTolist(@ModelAttribute("list") List<GoodsDto> goodsDto,@RequestParam("group") int id){
+        goodsDto.forEach((g) -> {
+            goodsDtoList.add(g);
+        });
+       return new ModelAndView("redirect:/goodslist/page/" + id + "/1");        
+        
+    }
+    
     @PostMapping("/input")
-    public ModelAndView addGoodsCount(@ModelAttribute IncomeDocDto incomeDto) {
+    public ModelAndView addGoodsCount(@ModelAttribute("goodsList") List<GoodsDto> incomeList,@RequestParam("customer")String phone) {
+        IncomeDocDto incomeDoc = new IncomeDocDto();
+        incomeDoc.setCustomer(phone);
+        incomeDoc.setIncomeDate(new Date());
+        incomeDoc.setNum(phone);
+        incomeDoc.setOrgName(phone);
         goodsCounterService.increaseGoodsQuantity(incomeDto.getGoods());
         return new ModelAndView("storePage", "incomeDoc", incomeService.saveIncomeDoc(incomeDto));
 

@@ -225,7 +225,7 @@
                 </div>
             </div>
         </div> 
-        <a href="/GoodsStoreProject/gostore" id="back" class="btn btn-info mr-1" role="button">Back to groups</a>
+        <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to groups</a>
         <script>
             function editGoodsFunction() {
                 document.getElementById("editGoodsForm").submit();

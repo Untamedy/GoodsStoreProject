@@ -123,7 +123,7 @@
                     <c:forEach items="${groups}" var="group"> 
                         <div class="card bg-light">
                             <div class="card-body text-center">
-                                <a href="goodslist/page/${group.id}/1"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> <c:out value="${group.name}"/></a>       
+                                <a href="/GoodsStoreProject/goodslist/page/${group.id}/1"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> <c:out value="${group.name}"/></a>       
                             </div>
                         </div>
                     </c:forEach>    
