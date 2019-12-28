@@ -53,7 +53,7 @@
                 top: 250px;
                 left: 10px;
             }
-             #back{
+            #back{
                 position: relative;
                 top: 500px;
                 left: 10px;
@@ -62,7 +62,7 @@
     </head>      
     <body>   
         <%
-            OrganizationDto dto = (OrganizationDto) session.getAttribute("orgdata");           
+            OrganizationDto dto = (OrganizationDto) session.getAttribute("orgdata");
             List<GoodsGroupDto> groups = (List<GoodsGroupDto>) request.getAttribute("groups");
         %>   
 
@@ -109,24 +109,25 @@
                         <a class="dropdown-item" href="#">Sale report</a>
                         <a class="dropdown-item" href="#">Fin report</a>
                     </div>
-                </div>
-
-                <button type="button" class="btn btn-info">Income goods</button>
-                <button type="button" class="btn btn-info">Sale goods</button>
+                </div>               
                 <button type="button" class="btn btn-info">Customers</button>
 
 
             </div>
 
             <div class="container"> 
-                <div class="card-columns" id="card-deck">
-                    <c:forEach items="${groups}" var="group"> 
-                        <div class="card bg-light">
-                            <div class="card-body text-center">
-                                <a href="/GoodsStoreProject/goodslist/page/${group.id}/1"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> <c:out value="${group.name}"/></a>       
-                            </div>
-                        </div>
-                    </c:forEach>    
+                <div class="card-columns" id="card-deck">                      
+                    <%
+                        for (GoodsGroupDto g : groups) {
+                            out.print("<div class=\"card bg-light\">");
+                            out.print("<div class=\"card-body text-center\">");
+                            out.print("<a href=\"/GoodsStoreProject/goodslist/page/" + dto.getOrgCode() + "/" + g.getId() + "/1\" <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i>" + g.getName() + "</a>");
+                            out.print("</div>");
+                            out.print("</div>");
+
+                        }
+                    %>
+
 
                 </div>
 
@@ -217,7 +218,7 @@
                                         }
                                     %>
                                 </select>
-                                
+
                                 <%
                                     out.print("<input type=\"hidden\" name=\"storeCode\" value=\"" + dto.getStoreCode() + "\">");
                                 %>
@@ -246,7 +247,7 @@
                             <select name ="groupId" id="inputState" class="form-control">
                                 <%
                                     for (GoodsGroupDto g : groups) {
-                                        out.print("<option selected value=\""+g.getId()+"\">" + g.getName()
+                                        out.print("<option selected value=\"" + g.getId() + "\">" + g.getName()
                                                 + "</option>");
                                     }
                                 %>                                     
@@ -302,11 +303,11 @@
             }
             function deleteGroupFunction() {
                 document.getElementById("deleteGroupForm").submit();
-            }            
-            
+            }
+
         </script>
 
- <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to start</a>
+        <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to start</a>
 
     </body>
 

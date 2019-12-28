@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -44,6 +43,7 @@ public class Organization {
     @OneToOne(mappedBy = "org", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Users users;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "org", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Customer> customers;
 

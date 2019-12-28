@@ -2,6 +2,7 @@ package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.dto.IncomeDocDto;
+import com.store.goodsstore.dto.IncomeDocResponseDto;
 import com.store.goodsstore.entities.Customer;
 import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.IncomingDoc;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,66 +34,53 @@ public class IncomDocService {
 
     @Autowired
     private OrganizationService organizationService;
+    @Autowired
+    private GoodsCounterService goodsCounterService;
 
-    
-     @Transactional
-    public IncomeDocDto saveIncomeDoc(IncomeDocDto incomDto) {
-        IncomingDoc doc = repository.save(createIncomeDoc(incomDto));
-        return creteIncomeDocDto(doc);
+    @Transactional
+    public void saveIncomeDoc(IncomeDocResponseDto incomDto) {
+        IncomingDoc doc = createIncomeDoc(incomDto);
+        goodsCounterService.increaseGoodsQuantity(incomDto.getGoodsCode(), incomDto.getQuantity());
+        repository.save(doc);       
     }
 
-    public IncomingDoc createIncomeDoc(IncomeDocDto dto) {
+    public IncomingDoc createIncomeDoc(IncomeDocResponseDto dto) {
         IncomingDoc incomingDoc = new IncomingDoc();
         incomingDoc.setDate(new Date());
-        incomingDoc.setNum(dto.getNum());
-        incomingDoc.setCustomer(customerService.getCustomerByName(dto.getCustomer()));
-        incomingDoc.setOrg(organizationService.getByName(dto.getOrgName()));
-        incomingDoc.setGoods(convertToGoodsList(dto.getGoods()));
-        incomingDoc.setSum(countSum(dto.getGoods()));
+        incomingDoc.setNum(givenNum());
+        Goods goods = goodsService.fingByCode(dto.getGoodsCode());
+        incomingDoc.setGoods(goods);
+        incomingDoc.setQuantity(dto.getQuantity());
+        incomingDoc.setSum(countSum(goods.getIncomePrice().getIncomePrice(), dto.getQuantity()));
         return incomingDoc;
     }
 
     public IncomeDocDto creteIncomeDocDto(IncomingDoc incomingDoc) {
         IncomeDocDto dto = new IncomeDocDto();
-        dto.setIncomeDate(incomingDoc.getDate());
+        dto.setDate(incomingDoc.getDate());
         dto.setNum(incomingDoc.getNum());
-        dto.setCustomer(incomingDoc.getCustomer().getName());
+        dto.setCustomerName(incomingDoc.getCustomer().getName());
+        dto.setCustomerPhone(incomingDoc.getCustomer().getPhoneNum());
         dto.setOrgName(incomingDoc.getOrg().getName());
-        dto.setGoods(convertListToGoodsDto(incomingDoc.getGoods()));
-        dto.setIncomSum(incomingDoc.getSum());
+        dto.setGoodsName(incomingDoc.getGoods().getName());
+        dto.setQuantity(incomingDoc.getQuantity());
+        dto.setSum(incomingDoc.getSum());
         return dto;
     }
 
-    private List<Goods> convertToGoodsList(List<GoodsDto> dtoList) {
-        return dtoList.stream().map(tmp -> {
-            Goods goods = goodsService.fingByCode(tmp.getCode());
-            return goods;
-        }).collect(Collectors.toList());
-    }
-
-    private List<GoodsDto> convertListToGoodsDto(List<Goods> goods) {
-        return goods.stream().map(tmp -> {
-            GoodsDto goodsDto = goodsService.createGoodsResponse(tmp);
-            return goodsDto;
-        }).collect(Collectors.toList());
-
-    }
- @Transactional
-    private double countSum(List<GoodsDto> goods) {
-        double sum = 0;
-        sum = goods.stream().map((g) -> g.getIncomePrice()).reduce(sum, (accumulator, _item) -> accumulator + _item);
-        return sum;
-    }
- @Transactional
+   
+    @Transactional
     public IncomeDocDto getByNum(String num) {
         return creteIncomeDocDto(repository.findByNum(num));
     }
- @Transactional
+
+    @Transactional
     public List<IncomingDoc> getByCustomer(Customer customer) {
         return repository.findByCustomerId(customer.getId());
 
     }
- @Transactional
+
+    @Transactional
     public List<IncomeDocDto> getByPeriod(Date dateFrom, Date dateTo) {
         List<IncomeDocDto> dtoList = new ArrayList<>();
         List<IncomingDoc> list = repository.findAllByDateBetween(dateFrom, dateTo);
@@ -102,5 +91,17 @@ public class IncomDocService {
             return dtoList;
         }
         return dtoList;
+    }
+
+    public String givenNum() {
+        int length = 10;
+        boolean useLetters = true;
+        boolean useNumbers = false;
+        return RandomStringUtils.random(length, useLetters, useNumbers);
+
+    }
+
+    public double countSum(double price, int quantity) {
+        return (double) price * quantity;
     }
 }

@@ -6,6 +6,7 @@
 package com.store.goodsstore.repository;
 
 import com.store.goodsstore.entities.Customer;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,5 +26,7 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     public Customer findByName(String name);
     
     public Page findAllByOrgId(int id,Pageable page);
+
+    public List<Customer> findByOrgId(Integer id);
     
 }

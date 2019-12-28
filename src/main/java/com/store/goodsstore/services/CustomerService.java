@@ -9,6 +9,7 @@ import com.store.goodsstore.dto.CustomerDto;
 import com.store.goodsstore.entities.Customer;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.repository.CustomerRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -93,6 +94,12 @@ public class CustomerService {
         Page<Customer> goods = repository.findAllByOrgId(org.getId(), page);
         Page<CustomerDto> customerDto = goods.map(this::cretateDto);
         return customerDto;
+    }
+    
+    public List<Customer> getByOrgCode(String code){
+        Organization org = organizationService.getByCode(code);
+        return repository.findByOrgId(org.getId());
+        
     }
 
 }

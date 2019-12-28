@@ -1,8 +1,6 @@
 package com.store.goodsstore.dto;
 
-
 import java.util.Date;
-import java.util.List;
 import lombok.Data;
 
 /**
@@ -11,11 +9,13 @@ import lombok.Data;
  */
 @Data
 public class IncomeDocDto {
-
+    private Date date;
     private String num;
-    private Date incomeDate;
     private String orgName;
-    private String customer;
-    private List<GoodsDto> goods;
-    private double incomSum;
+    private String customerName;
+     private String customerPhone;
+    private String goodsName;    
+    private int quantity;
+    private double sum;
+
 }

@@ -25,16 +25,13 @@ public class GoodsCounterService {
     @Autowired
     GoodsRepository goodsRepository;
 
-    public List<GoodsDto> increaseGoodsQuantity(List<GoodsDto> goodsDto) {
-        for (GoodsDto g : goodsDto) {
-            GoodsCounter counter = createGoodsCounter(g);
-            int count = g.getQuantity();
-            int newQuantity = counter.getQuantity() + count;
+    public void increaseGoodsQuantity(String code, int quantity) {
+        GoodsCounter counter = repository.findByGoodsCode(code);
+        if (counter != null) {
+            int newQuantity = quantity + counter.getQuantity();
             counter.setQuantity(newQuantity);
-            g.setQuantity(newQuantity);
-            goodsService.saveGoods(g);
+            repository.save(counter);
         }
-        return goodsDto;
     }
 
     public List<GoodsDto> decreaseGoodsQuantity(OrderDto orderDto) {

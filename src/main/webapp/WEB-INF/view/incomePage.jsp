@@ -4,6 +4,7 @@
     Author     : YBolshakova
 --%>
 
+<%@page import="com.store.goodsstore.entities.Customer"%>
 <%@page import="com.store.goodsstore.dto.OrganizationDto"%>
 <%@page import="com.store.goodsstore.dto.GoodsDto"%>
 <%@page import="java.util.List"%>
@@ -59,7 +60,7 @@
                 top: 250px;
                 left: 10px;
             }
-             #back{
+            #back{
                 position: relative;
                 top: 290px;
                 left: 10px;
@@ -69,18 +70,24 @@
     </head>
     <body>
 
-        <div id="header">
-            <h1> Income document </h1>             
-            <a href="" class="btn btn-info mr-1" role="button">Income goods</a>
-            
+        <%
+            OrganizationDto dto = (OrganizationDto) session.getAttribute("orgdata");
+            List<GoodsDto> goods = (List<GoodsDto>) request.getAttribute("goodsList");
+            List<Customer> customers = (List<Customer>) request.getAttribute("customer");
+            List<Integer> pages = (List<Integer>) request.getAttribute("pageNumber");
+            int id = (int) request.getAttribute("group");
+        %>
 
+        <div id="header">
+            <h1> Goods </h1>  
+            <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#createIncome">Income goods</button> 
+                                
         </div>
         <div class="container-fluid" id="list">
             <div class="row">
                 <div class="col-sm-12 col-8">
                     <div id="section1" class="bg-default">                                                
                         <p></p>
-                        <form id="addGroupForm" role="form" method="POST" action="group/save">     
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -98,36 +105,25 @@
                             <tbody>
 
                                 <%
-                                    List<GoodsDto> goods = (List<GoodsDto>) request.getAttribute("goodsList");
                                     for (GoodsDto g : goods) {
                                         out.print("<tr>");
                                         out.print("<td>" + g.getName() + "</td>");
                                         out.print("<td>" + g.getCode() + "</td>");
                                         out.print("<td>" + g.getUnit() + "</td>");
-                                        out.print("<td> <input type=\"number\" class=\"form-control\" name=\"quantity\" placeholder=\"Quantity\"</td>");
+                                        out.print("<td>" + g.getQuantity() + "</td>");
                                         out.print("<td>" + g.getIncomePrice() + "</td>");
                                         out.print("<td>" + g.getPrice() + "</td>");
                                         out.print("<td> <a href=\"allcustomer\" class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
                                         out.print("<td> <a href=\"/GoodsStoreProject/removeGoods/" + (int) request.getAttribute("group") + "/" + g.getCode() + "\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
-
                                         out.print("<tr>");
                                     }
                                 %>
 
                             </tbody>
-                            <%
-                                List<Integer> pages = (List<Integer>) request.getAttribute("pageNumber");
-                                int id = (int) request.getAttribute("group");
 
-                            %>
                         </table>
-                        <a href="allcustomer" type="submit"  class="btn btn-success" role="button">Add to input document</a>
-                        <a href="allcustomer" type="button"  class="btn btn-success" role="button">Create input document</a>                        
-                        
-                        </form>
 
-                        <ul class="pagination justify-content-center">   
-                         
+                        <ul class="pagination justify-content-center">                           
 
                             <%      for (Integer i : pages) {
                                     out.print("<li class=\"page-item\"><a class=\"page-link\" href=\"" + i + "\">" + i + "</a></li>");
@@ -140,11 +136,55 @@
             </div>
 
 
-        </div>       
+        </div>
 
-        
+        <div name="createIncome" class="modal" id="addGoods">
+            <div class="modal-dialog">
+                <div class="modal-content">               
+                    <div class="modal-header">                        
+                        <h4 class="modal-title">Add new goods</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> 
+                    <div class="modal-body">
+                        <form id="createIncome" role="form" method="POST" action="/GoodsStoreProject/input">
+                            <%
+                                out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
+                            %>                                    
+
+                            <div class="form-group">
+                                <label for="input">Customer</label>                                
+                                <select name ="code" id="inputState" class="form-control">
+
+                                    <%
+                                        for (Customer c : customers) {
+                                            out.print("<option selected value=\"" + c.getPhoneNum() + "\">" + c.getName() + "</option>");
+                                        }
+
+                                        out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
+                                    %>
+                                </select> 
+                            </div>
+                                
+
+                            <button id="addgoodsSubmit" type="submit" onclick="createIncome()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div> 
+
         <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to groups</a>
-        
+        <script>
+            function createIncome() {
+                document.getElementById("createIncome").submit();
+            }
+
+
+        </script>
 
     </body>
 </html>

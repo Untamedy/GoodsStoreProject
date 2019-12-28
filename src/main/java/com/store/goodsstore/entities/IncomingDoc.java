@@ -7,7 +7,6 @@ package com.store.goodsstore.entities;
 
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -47,9 +46,11 @@ public class IncomingDoc {
     @JoinColumn(name="customer_id")
     private Customer customer;
     
-    @OneToMany(fetch=FetchType.EAGER)
+    @OneToOne(fetch=FetchType.EAGER)
     @JoinTable(name="incomedoc_goods")
-    private List<Goods> goods;
+    private Goods goods;
     
     private double sum;
+    
+    private int quantity;
 }

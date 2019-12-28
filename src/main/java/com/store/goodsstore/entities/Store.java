@@ -30,6 +30,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(exclude="org")
+@ToString(exclude = "org")
 @SequenceGenerator(name="my_seq", initialValue=1, allocationSize=1)
 public class Store implements Serializable {
     
