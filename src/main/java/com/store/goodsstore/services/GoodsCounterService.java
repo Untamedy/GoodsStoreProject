@@ -2,14 +2,18 @@ package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.GoodsCounterDto;
 import com.store.goodsstore.dto.GoodsDto;
+import com.store.goodsstore.dto.IncomeDocResponseDto;
 import com.store.goodsstore.dto.OrderDto;
+import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.GoodsCounter;
+import com.store.goodsstore.entities.GoodsIncomePrice;
 import com.store.goodsstore.repository.GoodsCounterRepository;
 import com.store.goodsstore.repository.GoodsRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -25,12 +29,19 @@ public class GoodsCounterService {
     @Autowired
     GoodsRepository goodsRepository;
 
-    public void increaseGoodsQuantity(String code, int quantity) {
-        GoodsCounter counter = repository.findByGoodsCode(code);
+    @Transactional
+    public void increaseGoodsQuantity(IncomeDocResponseDto incomeDocDto) {
+        GoodsCounter counter = repository.findByGoodsCode(incomeDocDto.getGoodsCode());
         if (counter != null) {
-            int newQuantity = quantity + counter.getQuantity();
+            int newQuantity = incomeDocDto.getQuantity() + counter.getQuantity();
             counter.setQuantity(newQuantity);
-            repository.save(counter);
+            Goods goods = goodsService.fingByCode(incomeDocDto.getGoodsCode());
+            GoodsIncomePrice incomePrice = goods.getIncomePrice();
+            incomePrice.setIncomePrice(incomeDocDto.getIncomePrice());
+            goods.setIncomePrice(incomePrice);
+            goods.setCounter(counter);
+            goodsRepository.save(goods);
+            //repository.save(counter);
         }
     }
 

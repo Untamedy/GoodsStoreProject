@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.Data;
 
 /**
@@ -31,23 +32,23 @@ import lombok.Data;
 public class IncomingDoc {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
     private int id;
    
     private String num;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date date;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id")
     private Organization org;
     
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="customer_id")
     private Customer customer;
     
-    @OneToOne(fetch=FetchType.EAGER)
-    @JoinTable(name="incomedoc_goods")
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="goods_id")
     private Goods goods;
     
     private double sum;

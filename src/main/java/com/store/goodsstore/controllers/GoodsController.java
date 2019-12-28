@@ -111,7 +111,7 @@ public class GoodsController {
     @PostMapping("/input")
     public ModelAndView addGoodsCount(@ModelAttribute("income") IncomeDocResponseDto incomeDocDto) {
          incomeService.saveIncomeDoc(incomeDocDto);  
-       return new ModelAndView("redirect:/goodslist/page/"+incomeDocDto.getOrgCode() + incomeDocDto.getGroupId() + "/1");
+       return new ModelAndView("redirect:/goodslist/page/"+incomeDocDto.getOrgCode()+"/" + incomeDocDto.getGroupId() + "/1");
     }
     
 

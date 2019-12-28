@@ -233,7 +233,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">               
                     <div class="modal-header">                        
-                        <h4 class="modal-title">Add new goods</h4>
+                        <h4 class="modal-title">Income goods</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
@@ -270,6 +270,10 @@
                                 <label for="group">Quantity</label>
                                 <input type="number" class="form-control" id="quantity" name="quantity">
                             </div> 
+                                <div class="form-group">
+                                <label for="group">Income price</label>
+                                <input type="number" class="form-control" id="quantity" name="quantity">
+                            </div>
                             <button id="createIncome" type="submit" onclick="createIncomeFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
                             <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
                         </form>

@@ -14,5 +14,6 @@ public class IncomeDocResponseDto {
     private String customer;
     private String goodsCode;
     private int quantity;
+    private double incomePrice;
     private int groupId;
 }

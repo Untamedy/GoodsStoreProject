@@ -1,11 +1,11 @@
 package com.store.goodsstore.services;
 
-import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.dto.IncomeDocDto;
 import com.store.goodsstore.dto.IncomeDocResponseDto;
 import com.store.goodsstore.entities.Customer;
 import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.IncomingDoc;
+import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.repository.IncomeRepository;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,7 +40,8 @@ public class IncomDocService {
     @Transactional
     public void saveIncomeDoc(IncomeDocResponseDto incomDto) {
         IncomingDoc doc = createIncomeDoc(incomDto);
-        goodsCounterService.increaseGoodsQuantity(incomDto.getGoodsCode(), incomDto.getQuantity());
+        goodsCounterService.increaseGoodsQuantity(incomDto);
+        
         repository.save(doc);       
     }
 
@@ -50,6 +51,10 @@ public class IncomDocService {
         incomingDoc.setNum(givenNum());
         Goods goods = goodsService.fingByCode(dto.getGoodsCode());
         incomingDoc.setGoods(goods);
+        Customer customer = customerService.getCustomerByPhoneAndOrgCode(dto.getCustomer(), dto.getOrgCode());
+        incomingDoc.setCustomer(customer);
+        Organization org = organizationService.getByCode(dto.getOrgCode());
+        incomingDoc.setOrg(org);
         incomingDoc.setQuantity(dto.getQuantity());
         incomingDoc.setSum(countSum(goods.getIncomePrice().getIncomePrice(), dto.getQuantity()));
         return incomingDoc;
