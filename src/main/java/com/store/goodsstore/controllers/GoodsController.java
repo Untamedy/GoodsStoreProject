@@ -92,7 +92,8 @@ public class GoodsController {
 
     @PostMapping("/saveGoods")
     public ModelAndView saveGoods(@ModelAttribute("goods") GoodsDto request) {
-        goodsService.saveGoods(request);
+        Goods goods = goodsService.createGoods(request);
+        goodsService.saveGoods(goods);
         return new ModelAndView("redirect:/goodslist/page/" + request.getGroupId() + "/1");
     }
 
