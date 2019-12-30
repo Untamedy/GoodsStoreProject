@@ -116,7 +116,7 @@
                                         out.print("<td>" + g.getQuantity() + "</td>");
                                         out.print("<td>" + g.getIncomePrice() + "</td>");
                                         out.print("<td>" + g.getPrice() + "</td>");
-                                        out.print("<td> <a href=\"/GoodsStoreProject/addToOrder/" + dto.getOrgCode() + "/" + g.getCode() + "class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
+                                        out.print("<td> <a href=\"/GoodsStoreProject/addToOrder/" + dto.getOrgCode() + "/" + g.getCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
                                         out.print("<td> <a href=\"/GoodsStoreProject/removeGoods/" + (int) request.getAttribute("group") + "/" + g.getCode() + "\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
                                         out.print("<tr>");
                                     }

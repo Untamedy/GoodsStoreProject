@@ -47,14 +47,12 @@ public class GoodsCounterService {
     public void decreaseGoodsQuantity(List<GoodsDto> goods) {
         if (!goods.isEmpty()) {
             for (GoodsDto g : goods) {              
-                GoodsCounter counter = goodsService.g
-                int count = counter.getQuantity();
+                int count = g.getQuantity();
                 if (count == 0) {
                     throw new RuntimeException("Goods " + g.getName() + " with code =" + g.getCode() + " quantity is 0");
                 }
-                int newQuantity = count--;
-                counter.setQuantity(newQuantity);
-                goodsEntity.setCounter(counter);
+                int newQuantity = count--;              
+                g.setQuantity(newQuantity);
                 goodsService.saveGoods(g);
             }
         }

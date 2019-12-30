@@ -66,8 +66,8 @@ public class GoodsController {
     private OrganizationService orgService;
 
     @ModelAttribute("order")
-    public Order goodsList(Model model) {
-        return new Order();
+    public OrderDto goodsList(Model model) {
+        return new OrderDto();
     }
 
     @GetMapping("/goodslist/page/{orgcode}/{groupId}/{page}")
@@ -91,9 +91,8 @@ public class GoodsController {
     }
 
     @PostMapping("/saveGoods")
-    public ModelAndView saveGoods(@ModelAttribute("goods") GoodsDto request) {
-        Goods goods = goodsService.createGoods(request);
-        goodsService.saveGoods(goods);
+    public ModelAndView saveGoods(@ModelAttribute("goods") GoodsDto request) {        
+        goodsService.saveGoods(request);
         return new ModelAndView("redirect:/goodslist/page/" + request.getGroupId() + "/1");
     }
 
@@ -115,8 +114,8 @@ public class GoodsController {
         return new ModelAndView("redirect:/goodslist/page/" + incomeDocDto.getOrgCode() + "/" + incomeDocDto.getGroupId() + "/1");
     }
 
-    @PostMapping("/addToOrder/{orgCode}/{goodsCode}")
-    public ModelAndView addGoodsToOrder(@ModelAttribute("order") OrderDto order,@PathVariable("orgCode")String orgcode, @PathVariable("goodsCode") String code) {
+    @GetMapping("/addToOrder/{orgCode}/{goodsCode}")
+    public ModelAndView addGoodsToOrder(@ModelAttribute("order") OrderDto order, @PathVariable("orgCode") String orgcode, @PathVariable("goodsCode") String code) {
         Goods goods = goodsService.fingByCode(code);
         order.getGoods().add(goodsService.createGoodsResponse(goods));
         return new ModelAndView("redirect:/goodslist/page/" + orgcode + "/" + goods.getGroup().getId() + "/1");
@@ -124,12 +123,14 @@ public class GoodsController {
     }
 
     @PostMapping("/sale")
-    public ModelAndView saleGoods(@ModelAttribute OrderDto order,@RequestParam("customer") String phone,@RequestParam("orgCode")String orgCode) {
-       order.setCustomerPhone(phone);
-       order.setOrgCode(orgCode);
-       orderService.saveOrder(order);
-      goodsCounterService.decreaseGoodsQuantity(order.getGoods());
-        
+    public ModelAndView saleGoods(@ModelAttribute OrderDto order, @RequestParam("customer") String phone, @RequestParam("orgCode") String orgCode) {
+        order.setCustomerPhone(phone);
+        order.setOrgCode(orgCode);
+        OrderDto orderDto = orderService.saveOrder(order);
+        goodsCounterService.decreaseGoodsQuantity(order.getGoods());
+        ModelAndView model = new ModelAndView("orderPage");
+        model.addObject("order", orderDto);        
+        return model;
     }
 
 }

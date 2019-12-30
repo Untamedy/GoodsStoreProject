@@ -5,6 +5,7 @@
  */
 package com.store.goodsstore.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lombok.Data;
@@ -22,7 +23,7 @@ public class OrderDto {
     private String orgCode;
     private String customerName;
     private String customerPhone;
-    private List<GoodsDto> goods;
+    private List<GoodsDto> goods = new ArrayList<>();
     private double orderSum;
     
 

@@ -32,9 +32,9 @@ public class GoodsService {
     private StoreService storeService;
 
     @Transactional
-    public void saveGoods(Goods goods) {
+    public void saveGoods(GoodsDto goods) {
         if (!repository.existsByCode(goods.getCode())) {
-            repository.save(goods);
+            repository.save(createGoods(goods));
         } else {
             throw new RuntimeException("Goods with code " + goods.getCode() + " is already exists");
         }
@@ -129,4 +129,5 @@ public class GoodsService {
         return repository.findByGroupId(groupId);
     }
 
+   
 }
