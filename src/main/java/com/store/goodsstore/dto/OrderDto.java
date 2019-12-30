@@ -23,7 +23,7 @@ public class OrderDto {
     private String customerName;
     private String customerPhone;
     private List<GoodsDto> goods;
-    private int orderSum;
+    private double orderSum;
     
 
 }

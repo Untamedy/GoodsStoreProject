@@ -41,45 +41,33 @@ public class GoodsCounterService {
             goods.setIncomePrice(incomePrice);
             goods.setCounter(counter);
             goodsRepository.save(goods);
-            //repository.save(counter);
         }
     }
 
-    public List<GoodsDto> decreaseGoodsQuantity(OrderDto orderDto) {
-        List<GoodsDto> dto = new ArrayList<>();
-        for (GoodsDto g : orderDto.getGoods()) {
-            GoodsCounter counter = createGoodsCounter(g);
-            int count = g.getQuantity();
-            if ((counter.getQuantity() - count) < 0) {
-                return dto;
+    public void decreaseGoodsQuantity(List<GoodsDto> goods) {
+        if (!goods.isEmpty()) {
+            for (GoodsDto g : goods) {              
+                GoodsCounter counter = goodsService.g
+                int count = counter.getQuantity();
+                if (count == 0) {
+                    throw new RuntimeException("Goods " + g.getName() + " with code =" + g.getCode() + " quantity is 0");
+                }
+                int newQuantity = count--;
+                counter.setQuantity(newQuantity);
+                goodsEntity.setCounter(counter);
+                goodsService.saveGoods(g);
             }
-            int newQuantity = counter.getQuantity() - count;
-            counter.setQuantity(newQuantity);
-            g.setQuantity(newQuantity);
-            goodsService.saveGoods(g);
         }
-        return dto;
-    }
-
-    public GoodsCounter createGoodsCounter(GoodsDto goods) {
-        GoodsCounter goodsCounter = repository.findByGoodsCode(goods.getCode());
-        if (goodsCounter == null) {
-            return new GoodsCounter(goods.getQuantity());
-        }
-        return goodsCounter;
-    }
-
-    public GoodsCounterDto createCounterDto(GoodsCounter counter) {
-        GoodsCounterDto dto = new GoodsCounterDto();
-        dto.setGoodsCode(counter.getGoods().getCode());
-        dto.setQuantity(counter.getQuantity());
-        return new GoodsCounterDto();
 
     }
 
     public int getGoodsCount(String goodsCode) {
         GoodsCounter count = repository.findByGoodsCode(goodsCode);
         return count.getQuantity();
+    }
+
+    GoodsCounter createGoodsCounter(GoodsDto goodsDto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

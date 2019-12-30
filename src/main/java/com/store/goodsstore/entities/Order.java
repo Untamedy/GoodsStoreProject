@@ -46,11 +46,13 @@ public class Order {
     
     @OneToMany(fetch=FetchType.EAGER)
     @JoinTable(name="order_goods")
-    private Set<Goods> goods;
+    private List<Goods> goods;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="org_id")
     private Organization org;
-    private int sum;
+    private double sum;
+    
+    private int orderGoodsQuantity;
     
 }

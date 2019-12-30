@@ -6,6 +6,8 @@ import com.store.goodsstore.dto.IncomeDocResponseDto;
 import com.store.goodsstore.dto.OrderDto;
 import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.entities.Customer;
+import com.store.goodsstore.entities.Goods;
+import com.store.goodsstore.entities.Order;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.services.CustomerService;
 import com.store.goodsstore.services.GoodsCounterService;
@@ -25,7 +27,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +34,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -66,12 +66,12 @@ public class GoodsController {
     private OrganizationService orgService;
 
     @ModelAttribute("order")
-    public OrderDto goodsList(Model model) {
-        return new OrderDto();
+    public Order goodsList(Model model) {
+        return new Order();
     }
 
     @GetMapping("/goodslist/page/{orgcode}/{groupId}/{page}")
-    public ModelAndView getGoodsByGroupId(@PathVariable("groupId") int id, @PathVariable("page") int page,@PathVariable("orgcode")String code) {
+    public ModelAndView getGoodsByGroupId(@PathVariable("groupId") int id, @PathVariable("page") int page, @PathVariable("orgcode") String code) {
         ModelAndView model = new ModelAndView("goodsPage");
         PageRequest pageable = PageRequest.of(page - 1, 10);
         Page<GoodsDto> goodsPage = goodsService.getPaginatedGoods(id, pageable);
@@ -80,7 +80,7 @@ public class GoodsController {
             List<Integer> pageNunbers = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
             model.addObject("pageNumber", pageNunbers);
         }
-        
+
         List<Customer> customers = customerService.getByOrgCode(code);
         model.addObject("group", id);
         model.addObject("customers", customers);
@@ -110,18 +110,25 @@ public class GoodsController {
 
     @PostMapping("/input")
     public ModelAndView addGoodsCount(@ModelAttribute("income") IncomeDocResponseDto incomeDocDto) {
-         incomeService.saveIncomeDoc(incomeDocDto);  
-       return new ModelAndView("redirect:/goodslist/page/"+incomeDocDto.getOrgCode()+"/" + incomeDocDto.getGroupId() + "/1");
+        incomeService.saveIncomeDoc(incomeDocDto);
+        return new ModelAndView("redirect:/goodslist/page/" + incomeDocDto.getOrgCode() + "/" + incomeDocDto.getGroupId() + "/1");
     }
-    
+
+    @PostMapping("/addToOrder/{orgCode}/{goodsCode}")
+    public ModelAndView addGoodsToOrder(@ModelAttribute("order") OrderDto order,@PathVariable("orgCode")String orgcode, @PathVariable("goodsCode") String code) {
+        Goods goods = goodsService.fingByCode(code);
+        order.getGoods().add(goodsService.createGoodsResponse(goods));
+        return new ModelAndView("redirect:/goodslist/page/" + orgcode + "/" + goods.getGroup().getId() + "/1");
+
+    }
 
     @PostMapping("/sale")
-    public ModelAndView saleGoods(@ModelAttribute OrderDto orderDto) {
-        List<GoodsDto> goods = goodsCounterService.decreaseGoodsQuantity(orderDto);
-        if (!goods.isEmpty()) {
-            return new ModelAndView("storePage", HttpStatus.NOT_MODIFIED);
-        }
-        return new ModelAndView("storePage", HttpStatus.OK);
+    public ModelAndView saleGoods(@ModelAttribute OrderDto order,@RequestParam("customer") String phone,@RequestParam("orgCode")String orgCode) {
+       order.setCustomerPhone(phone);
+       order.setOrgCode(orgCode);
+       orderService.saveOrder(order);
+      goodsCounterService.decreaseGoodsQuantity(order.getGoods());
+        
     }
 
 }

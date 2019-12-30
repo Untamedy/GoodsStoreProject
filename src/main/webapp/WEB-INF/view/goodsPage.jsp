@@ -83,7 +83,7 @@
             <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#addGoods">Add goods</button> 
             <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#editGoods">Edit goods</button> 
             <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#createIncome">Income goods</button>                                 
-            <a href="allcustomer" class="btn btn-info mr-1" role="button">Sale goods</a>
+            <a href="#sale" class="btn btn-info mr-1" role="button">Sale goods</a>
 
         </div>
         <div class="container-fluid" id="list">
@@ -116,7 +116,7 @@
                                         out.print("<td>" + g.getQuantity() + "</td>");
                                         out.print("<td>" + g.getIncomePrice() + "</td>");
                                         out.print("<td>" + g.getPrice() + "</td>");
-                                        out.print("<td> <a href=\"allcustomer\" class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
+                                        out.print("<td> <a href=\"/GoodsStoreProject/addToOrder/" + dto.getOrgCode() + "/" + g.getCode() + "class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
                                         out.print("<td> <a href=\"/GoodsStoreProject/removeGoods/" + (int) request.getAttribute("group") + "/" + g.getCode() + "\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
                                         out.print("<tr>");
                                     }
@@ -238,7 +238,7 @@
                     </div> 
                     <div class="modal-body">
                         <form id="createIncomeForm" role="form" modelAttribute="income" method="POST" action="/GoodsStoreProject/input">
-                        <
+                            <
                             <div class="form-group">
                                 <%
                                     out.print("<input type=\"hidden\" name=\"groupId\" value=\"" + id + "\">");
@@ -270,9 +270,9 @@
                                 <label for="group">Quantity</label>
                                 <input type="number" class="form-control" id="quantity" name="quantity">
                             </div> 
-                                <div class="form-group">
+                            <div class="form-group">
                                 <label for="group">Income price</label>
-                                <input type="number" class="form-control" id="quantity" name="quantity">
+                                <input type="number" class="form-control" id="incomePrice" name="incomePrice">
                             </div>
                             <button id="createIncome" type="submit" onclick="createIncomeFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
                             <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -283,6 +283,45 @@
                 </div>
             </div>
         </div> 
+
+        <div name="saleGoods" class="modal" id="saleGoods">
+            <div class="modal-dialog">
+                <div class="modal-content">               
+                    <div class="modal-header">                        
+                        <h4 class="modal-title">Sale goods</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> 
+                    <div class="modal-body">
+                        <form id="saleGoodsForm" role="form" modelAttribute="income" method="POST" action="/GoodsStoreProject/sale">
+                            <
+                            <div class="form-group">
+                                <%
+                                    out.print("<input type=\"hidden\" name=\"groupId\" value=\"" + id + "\">");
+                                    out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
+                                %>  
+                            </div>  
+                            <div class="form-group">
+                                <label for="input">Customer</label>                                
+                                <select name ="customer" id="inputState" class="form-control">
+                                    <%
+                                        for (Customer c : customers) {
+                                            out.print("<option selected value=\"" + c.getPhoneNum() + "\">" + c.getName() + "</option>");
+                                        }
+                                    %>
+                                </select> 
+                            </div>                            
+
+                            <button id="saleGoods" type="submit" onclick="saleGoodsFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+
 
         <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to groups</a>
 
@@ -299,6 +338,10 @@
             function createIncomeFunction() {
                 document.getElementById("createIncomeForm").submit();
             }
+            function saleGoodsFunction() {
+                document.getElementById("saleGoodsForm").submit();
+            }
+
 
         </script>
 

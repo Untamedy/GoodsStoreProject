@@ -15,8 +15,8 @@ import com.store.goodsstore.repository.OrderRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,25 +41,26 @@ public class OrderService {
     private OrganizationService organizationService;
 
     @Transactional
-    public OrderDto saveOrder(OrderDto dto) {
-        return createDto(repository.save(createOrder(dto)));
+    public OrderDto saveOrder(OrderDto order) {
+        return createDto(repository.save(createOrder(order)));
     }
 
     public Order createOrder(OrderDto dto) {
         Organization organisation = organizationService.getByCode(dto.getOrgCode());
+        Customer customer = customerService.getCustomerByPhoneAndOrgCode(dto.getCustomerPhone(),dto.getOrgCode());      
         Order order = repository.findByNumAndOrgId(dto.getOrderNum(), organisation.getId());
         if (order == null) {
             order = new Order();
         }
-        order.setCustomer(customerService.getCustomerByPhoneAndOrgCode(dto.getCustomerPhone(), dto.getOrgCode()));
-        Set<Goods> goods = dto.getGoods().stream().map((tmp) -> {
+        order.setCustomer(customer);
+        List<Goods> goods = dto.getGoods().stream().map((tmp) -> {
             return goodsService.createGoods(tmp);
-        }).collect(Collectors.toSet());
+        }).collect(Collectors.toList());
         order.setGoods(goods);
         order.setDate(dto.getOrderDate());
-        order.setNum(dto.getOrderNum());
-        order.setOrg(organizationService.getByName(dto.getOrgName()));
-        order.setSum(dto.getOrderSum());
+        order.setNum(givenNum());
+        order.setOrg(organisation);
+        order.setSum(countSum(dto.getGoods()));
         return order;
     }
 
@@ -102,4 +103,20 @@ public class OrderService {
         }
         return dtoList;
     }
+    
+     public String givenNum() {
+        int length = 10;
+        boolean useLetters = true;
+        boolean useNumbers = false;
+        return RandomStringUtils.random(length, useLetters, useNumbers);
+
+    }
+     
+     private double countSum(List<GoodsDto> goods){
+         int sum = 0;
+         for(GoodsDto g:goods){
+            sum+=g.getPrice();
+         }
+         return sum;
+     }
 }
