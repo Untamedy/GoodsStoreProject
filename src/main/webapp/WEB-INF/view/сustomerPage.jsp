@@ -138,9 +138,9 @@
                         <form id="addCustmForm" modelAttribute="customer" role="form" method="POST" action="/GoodsStoreProject/customer/save">
                             <div class="form-group">
                                 <label for="customer">Name:</label>
-                                <input type="text" class="form-control" id="customerName" name="name">
+                                <input type="text" class="form-control" id="customerName" name="name" required>
                                 <label for="customer">Phone number</label>
-                                <input type="number" class="form-control" id="customerName" name="phone">
+                                <input type="number" class="form-control" id="customerName" name="phone" required>
                                 <%
                                     out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                                 %>
@@ -175,7 +175,7 @@
                                     %>
                                 </select>                                 
                                 <label for="customreName">New name:</label>
-                                <input type="text" class="form-control" id="name" name="name">                                
+                                <input type="text" class="form-control" id="name" name="name" required>                                
                                 <%
                                     out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                                 %>

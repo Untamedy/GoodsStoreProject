@@ -72,13 +72,11 @@ public class GoodsService {
             goods.setPrice(price);
             goods.setGroup(group);
             goods.setIncomePrice(incomePrice);
+            goods.setName(goodsDto.getName());
+            goods.setCode(goodsDto.getCode());
+            goods.setUnit(goodsDto.getUnit());
+            goods.setVisible(true);
         }
-
-        goods.setName(goodsDto.getName());
-        goods.setCode(goodsDto.getCode());
-        goods.setUnit(goodsDto.getUnit());
-        goods.setVisible(true);
-
         return goods;
     }
 
@@ -129,5 +127,4 @@ public class GoodsService {
         return repository.findByGroupId(groupId);
     }
 
-   
 }

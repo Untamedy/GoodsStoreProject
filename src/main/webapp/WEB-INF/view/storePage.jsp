@@ -149,7 +149,7 @@
                         <form id="addGroupForm" role="form" method="POST" action="group/save">
                             <div class="form-group">
                                 <label for="group">Name:</label>
-                                <input type="text" class="form-control" id="groupName" name="groupName">
+                                <input type="text" class="form-control" id="groupName" name="groupName"required="true">
                                 <%
                                     out.print("<input type=\"hidden\" name=\"storeCode\" value=\"" + dto.getStoreCode() + "\">");
                                 %>
@@ -176,7 +176,7 @@
                         <form id="editGroupForm" role="form" method="Post" action="group/editGroup">
                             <div class="form-group">
                                 <label for="group">Old name:</label>
-                                <select id="inputState" name ="oldName" class="form-control">
+                                <select id="inputState" name ="oldName" class="form-control" required="true">
                                     <%
                                         for (GoodsGroupDto g : groups) {
                                             out.print("<option selected name =\"oldName\"> " + g.getName() + "</option>");
@@ -184,7 +184,7 @@
                                     %>
                                 </select>
                                 <label for="group">New name:</label>                               
-                                <input type="text" class="form-control" id="groupName" name="newName">
+                                <input type="text" class="form-control" id="groupName" name="newName" required="true">
                                 <%
                                     out.print("<input type=\"hidden\" name=\"storeCode\" value=\"" + dto.getStoreCode() + "\">");
                                 %>
@@ -211,7 +211,7 @@
                         <form id="deleteGroupForm" role="form" method="Post" action="group/removedGroup">
                             <div class="form-group">
                                 <label for="group">Group name:</label>
-                                <select id="inputState" name ="name" class="form-control">
+                                <select id="inputState" name ="name" class="form-control" required="true">
                                     <%
                                         for (GoodsGroupDto g : groups) {
                                             out.print("<option selected name =\"name\"> " + g.getName() + "</option>");
@@ -244,7 +244,7 @@
                     <div class="modal-body">
                         <form id="addGoodsForm" modelAtribut="goods" role="form" method="POST" action="saveGoods">
                             <label for="group">Group:</label>
-                            <select name ="groupId" id="inputState" class="form-control">
+                            <select name ="groupId" id="inputState" class="form-control" required="true">
                                 <%
                                     for (GoodsGroupDto g : groups) {
                                         out.print("<option selected value=\"" + g.getId() + "\">" + g.getName()
@@ -254,27 +254,27 @@
                             </select>
                             <div class="form-group">
                                 <label for="group">Name:</label>
-                                <input type="text" class="form-control" id="goodsname" name="name">
+                                <input type="text" class="form-control" id="goodsname" name="name" required="true">
                             </div>
                             <div class="form-group">
                                 <label for="group">Code</label>
-                                <input type="text" class="form-control" id="goodscode" name="code">
+                                <input type="text" class="form-control" id="goodscode" name="code" required="true">
                             </div>
                             <div class="form-group">
                                 <label for="group">Unit</label>
-                                <input type="text" class="form-control" id="goodsunit" name="unit">
+                                <input type="text" class="form-control" id="goodsunit" name="unit" required="true">
                             </div>
                             <div class="form-group">
                                 <label for="group">Quantity</label>
-                                <input type="number" class="form-control" id="goodscount" name="quantity">
+                                <input type="number" class="form-control" id="goodscount" name="quantity" default="0">
                             </div>
                             <div class="form-group">
                                 <label for="group">Income price</label>
-                                <input type="number" class="form-control" id="goodsincomePrice" name="incomePrice">
+                                <input type="number" class="form-control" id="goodsincomePrice" name="incomePrice" default="0">
                             </div>
                             <div class="form-group">
                                 <label for="group">Price</label>
-                                <input type="number" class="form-control" id="goodsprice" name="price">
+                                <input type="number" class="form-control" id="goodsprice" name="price" default="0">
                             </div>                            
                             <button id="addGroupSubmit" type="submit" onclick="addGoodsFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
                             <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>

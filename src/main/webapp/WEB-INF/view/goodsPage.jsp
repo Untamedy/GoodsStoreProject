@@ -82,8 +82,8 @@
             <h1> Goods </h1>  
             <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#addGoods">Add goods</button> 
             <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#editGoods">Edit goods</button> 
-            <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#createIncome">Income goods</button>                                 
-            <a href="#sale" class="btn btn-info mr-1" role="button">Sale goods</a>
+            <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#createIncome">Income goods</button>
+            <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#saleGoods">Sale goods</button>             
 
         </div>
         <div class="container-fluid" id="list">
@@ -157,12 +157,12 @@
 
                             <div class="form-group">
                                 <label for="group">Name:</label>
-                                <input type="text" class="form-control" id="goodsname" name="name">
+                                <input type="text" class="form-control" id="goodsname" name="name" required="true">
                             </div>
 
                             <div class="form-group">
                                 <label for="group">Unit</label>
-                                <input type="text" class="form-control" id="goodsunit" name="unit">
+                                <input type="text" class="form-control" id="goodsunit" name="unit" required="true">
                             </div>
                             <div class="form-group">
                                 <label for="group">Quantity</label>
@@ -211,12 +211,12 @@
 
                             <div class="form-group">
                                 <label for="group">New name:</label>
-                                <input type="text" class="form-control" id="goodsname" name="name">
+                                <input type="text" class="form-control" id="goodsname" name="name" required="true">
                             </div>                          
 
                             <div class="form-group">
                                 <label for="group">New price</label>
-                                <input type="number" class="form-control" id="goodsprice" name="price">
+                                <input type="number" class="form-control" id="goodsprice" name="price" required="true">
                             </div>                            
                             <button id="addgoodsSubmit" type="submit" onclick="editGoodsFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
                             <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -284,7 +284,7 @@
             </div>
         </div> 
 
-        <div name="saleGoods" class="modal" id="saleGoods">
+        <div name="saleGoodsDoc" class="modal" id="saleGoods">
             <div class="modal-dialog">
                 <div class="modal-content">               
                     <div class="modal-header">                        
@@ -293,7 +293,7 @@
                     </div> 
                     <div class="modal-body">
                         <form id="saleGoodsForm" role="form" modelAttribute="income" method="POST" action="/GoodsStoreProject/sale">
-                            <
+                            
                             <div class="form-group">
                                 <%
                                     out.print("<input type=\"hidden\" name=\"groupId\" value=\"" + id + "\">");
@@ -311,7 +311,7 @@
                                 </select> 
                             </div>                            
 
-                            <button id="saleGoods" type="submit" onclick="saleGoodsFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button id="saleGoodsSubmit" type="submit" onclick="saleGoodsFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
                             <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
                         </form>
                     </div>

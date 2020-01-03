@@ -12,6 +12,7 @@ import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.Order;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.repository.OrderRepository;
+import com.sun.org.apache.bcel.internal.generic.D2F;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,23 +46,20 @@ public class OrderService {
         return createDto(repository.save(createOrder(order)));
     }
 
-    public Order createOrder(OrderDto dto) {
-        Organization organisation = organizationService.getByCode(dto.getOrgCode());
-        Customer customer = customerService.getCustomerByPhoneAndOrgCode(dto.getCustomerPhone(),dto.getOrgCode());      
-        Order order = repository.findByNumAndOrgId(dto.getOrderNum(), organisation.getId());
-        if (order == null) {
-            order = new Order();
-        }
-        order.setCustomer(customer);
-        List<Goods> goods = dto.getGoods().stream().map((tmp) -> {
+    public Order createOrder(OrderDto order) {
+        Organization organisation = organizationService.getByCode(order.getOrgCode());
+        Customer customer = customerService.getCustomerByPhoneAndOrgCode(order.getCustomerPhone(),order.getOrgCode());      
+        Order newOrder = new Order();        
+        newOrder.setCustomer(customer);
+        List<Goods> goods = order.getGoods().stream().map((tmp) -> {
             return goodsService.createGoods(tmp);
         }).collect(Collectors.toList());
-        order.setGoods(goods);
-        order.setDate(dto.getOrderDate());
-        order.setNum(givenNum());
-        order.setOrg(organisation);
-        order.setSum(countSum(dto.getGoods()));
-        return order;
+        newOrder.setGoods(goods);
+        newOrder.setDate(new Date());
+        newOrder.setNum(givenNum());
+        newOrder.setOrg(organisation);
+        newOrder.setSum(countSum(order.getGoods()));
+        return newOrder;
     }
 
     private OrderDto createDto(Order order) {

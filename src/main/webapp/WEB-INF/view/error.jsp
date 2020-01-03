@@ -17,7 +17,14 @@
         <%
             Exception ex =(Exception) request.getAttribute("exception");
             String message = ex.getMessage();
-            out.print("<p>Error couse " + message +"</p>");             
+            if(message!=null){
+                 out.print("<p>Error couse " + message +"</p>");
+            }
+            else{
+                out.print("Oops...Somethink was wrong. Ask to program developer about our problem");
+                
+            }
+                        
         %>
         
         <button type="button" name="back" onclick="history.back()">Go back</button>

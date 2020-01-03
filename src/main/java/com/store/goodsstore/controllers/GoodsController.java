@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -43,7 +44,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 
-@SessionAttributes("order")
+@SessionAttributes(types = OrderDto.class)
 public class GoodsController {
 
     private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);
@@ -66,8 +67,8 @@ public class GoodsController {
     private OrganizationService orgService;
 
     @ModelAttribute("order")
-    public OrderDto goodsList(Model model) {
-        return new OrderDto();
+    public void goodsList(Model model) {
+        model.addAttribute("order", new OrderDto());
     }
 
     @GetMapping("/goodslist/page/{orgcode}/{groupId}/{page}")
@@ -91,7 +92,7 @@ public class GoodsController {
     }
 
     @PostMapping("/saveGoods")
-    public ModelAndView saveGoods(@ModelAttribute("goods") GoodsDto request) {        
+    public ModelAndView saveGoods(@ModelAttribute("goods") GoodsDto request) {
         goodsService.saveGoods(request);
         return new ModelAndView("redirect:/goodslist/page/" + request.getGroupId() + "/1");
     }
@@ -115,7 +116,7 @@ public class GoodsController {
     }
 
     @GetMapping("/addToOrder/{orgCode}/{goodsCode}")
-    public ModelAndView addGoodsToOrder(@ModelAttribute("order") OrderDto order, @PathVariable("orgCode") String orgcode, @PathVariable("goodsCode") String code) {
+    public ModelAndView addGoodsToOrder(OrderDto order, @PathVariable("orgCode") String orgcode, @PathVariable("goodsCode") String code) {
         Goods goods = goodsService.fingByCode(code);
         order.getGoods().add(goodsService.createGoodsResponse(goods));
         return new ModelAndView("redirect:/goodslist/page/" + orgcode + "/" + goods.getGroup().getId() + "/1");
@@ -123,13 +124,14 @@ public class GoodsController {
     }
 
     @PostMapping("/sale")
-    public ModelAndView saleGoods(@ModelAttribute OrderDto order, @RequestParam("customer") String phone, @RequestParam("orgCode") String orgCode) {
+    public ModelAndView saleGoods(OrderDto order, @RequestParam("customer") String phone, @RequestParam("orgCode") String orgCode, SessionStatus status) {
         order.setCustomerPhone(phone);
         order.setOrgCode(orgCode);
         OrderDto orderDto = orderService.saveOrder(order);
         goodsCounterService.decreaseGoodsQuantity(order.getGoods());
         ModelAndView model = new ModelAndView("orderPage");
-        model.addObject("order", orderDto);        
+        model.addObject("order", orderDto);
+        status.setComplete();
         return model;
     }
 
