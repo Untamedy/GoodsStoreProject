@@ -104,7 +104,7 @@ public class GoodsController {
     }
 
     @PostMapping("/editGoods")
-    public ModelAndView editGoods(@ModelAttribute("goods") EditGoodsDto request) {
+    public ModelAndView editGoods(@ModelAttribute("goods") EditGoodsDto request) {                       
         goodsService.updateGoods(request);
         return new ModelAndView("redirect:/goodslist/page/" + request.getGroupId() + "/1");
     }

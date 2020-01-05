@@ -51,9 +51,10 @@ public class GoodsCounterService {
                 if (count == 0) {
                     throw new RuntimeException("Goods " + g.getName() + " with code =" + g.getCode() + " quantity is 0");
                 }
-                int newQuantity = count--;              
-                g.setQuantity(newQuantity);
-                goodsService.saveGoods(g);
+                int newQuantity = count--; 
+                Goods editGoods = goodsService.fingByCode(g.getCode());
+                editGoods.getCounter().setQuantity(newQuantity);               
+                goodsRepository.save(editGoods);
             }
         }
 

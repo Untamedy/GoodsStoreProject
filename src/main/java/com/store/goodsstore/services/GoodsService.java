@@ -40,13 +40,14 @@ public class GoodsService {
         }
 
     }
+    
 
     @Transactional
-    public GoodsDto updateGoods(EditGoodsDto goodsDto) {
+    public void updateGoods(EditGoodsDto goodsDto) {
         Goods goods = repository.findByCode(goodsDto.getCode());
         goods.setName(goodsDto.getName());
         goods.getPrice().setPrice(goodsDto.getPrice());
-        return createGoodsResponse(repository.save(goods));
+       repository.save(goods);
     }
 
     @Transactional

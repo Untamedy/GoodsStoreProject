@@ -49,7 +49,7 @@ public class Order {
     private Customer customer;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "order_goods", joinColumns = {@JoinColumn(name = "orderId")}, inverseJoinColumns = {@JoinColumn(name = "goods_Id")})
+    @JoinTable(name = "order_goods")
     private List<Goods> goods;
 
     @ManyToOne(fetch = FetchType.EAGER)
