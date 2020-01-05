@@ -17,6 +17,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class OrderService {
+      private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     @Autowired
     private OrderRepository repository;
@@ -54,10 +57,10 @@ public class OrderService {
             return goodsService.createGoods(tmp);
         }).collect(Collectors.toList());
         newOrder.setGoods(goods);
-        newOrder.setDate(new Date());
-        newOrder.setNum(givenNum());
+        newOrder.setDate(new Date());        
         newOrder.setOrg(organisation);
         newOrder.setSum(countSum(order.getGoods()));
+        logger.debug("Order created");
         return newOrder;
     }
 
@@ -65,7 +68,7 @@ public class OrderService {
         OrderDto dto = new OrderDto();
         dto.setCustomerName(order.getCustomer().getName());
         dto.setCustomerPhone(order.getCustomer().getPhoneNum());
-        dto.setOrderNum(order.getNum());
+        dto.setOrderNum(order.getId());
         dto.setOrgName(order.getOrg().getName());
         dto.setOrgCode(order.getOrg().getCode());
         dto.setOrderDate(order.getDate());
@@ -80,7 +83,7 @@ public class OrderService {
 
     @Transactional
     public OrderDto getByNum(String docNum) {
-        return createDto(repository.findByNum(docNum));
+        return createDto(repository.findById(Integer.valueOf(docNum)).get());
     }
 
     @Transactional
@@ -88,7 +91,7 @@ public class OrderService {
         return repository.findByCustomerId(customer.getId());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<OrderDto> getByPeriod(Date dateFrom, Date dateTo) {
         List<OrderDto> dtoList = new ArrayList<>();
         List<Order> list = repository.findByDate(dateFrom, dateTo);

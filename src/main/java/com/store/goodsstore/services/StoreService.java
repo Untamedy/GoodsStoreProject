@@ -3,20 +3,15 @@ package com.store.goodsstore.services;
 import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.StoreDto;
-import com.store.goodsstore.dto.UserDto;
-import com.store.goodsstore.entities.GoodsGroup;
-import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.exceptions.RegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.store.goodsstore.repository.StoreRepository;
-import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -25,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class StoreService {
+    
+     private static final Logger logger = LoggerFactory.getLogger(StoreService.class);
 
     @Autowired
     private StoreRepository storeRepositary;
@@ -53,6 +50,8 @@ public class StoreService {
         if (store != null) {
             store.setName(request.getStoreName());
             dto = createStoreDto(storeRepositary.save(store));
+            logger.debug("Store " + request.getStoreName() +" edited");
+            
         }
         return dto;
     }
@@ -63,6 +62,7 @@ public class StoreService {
             Store store = storeRepositary.findByCode(storeDto.getName());
             if (groupService.getAllGroupByStore(store.getId()).isEmpty()) {
                 storeRepositary.delete(store);
+                logger.debug("Store"+ storeDto.getName()+ "deleted");
                 return true;
             }
         }
@@ -107,6 +107,7 @@ public class StoreService {
     public List<GoodsGroupDto> getGroupListByCurentStore(String storeCode) { 
         Store store = storeRepositary.findByCode(storeCode);
         List<GoodsGroupDto> groups = groupService.getAllGroupByStore(store.getId());
+        logger.debug("Selected all groups by store");
         return groups;
     }
 

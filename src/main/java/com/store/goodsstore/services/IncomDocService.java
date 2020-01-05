@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class IncomDocService {
+    
+      private static final Logger logger = LoggerFactory.getLogger(IncomDocService.class);
 
     @Autowired
     private IncomeRepository repository;
@@ -41,14 +45,13 @@ public class IncomDocService {
     public void saveIncomeDoc(IncomeDocResponseDto incomDto) {
         IncomingDoc doc = createIncomeDoc(incomDto);
         goodsCounterService.increaseGoodsQuantity(incomDto);
-        
+        logger.debug("IncomeDoc saved");
         repository.save(doc);       
     }
 
     public IncomingDoc createIncomeDoc(IncomeDocResponseDto dto) {
         IncomingDoc incomingDoc = new IncomingDoc();
-        incomingDoc.setDate(new Date());
-        incomingDoc.setNum(givenNum());
+        incomingDoc.setDate(new Date());        
         Goods goods = goodsService.fingByCode(dto.getGoodsCode());
         incomingDoc.setGoods(goods);
         Customer customer = customerService.getCustomerByPhoneAndOrgCode(dto.getCustomer(), dto.getOrgCode());
@@ -63,7 +66,7 @@ public class IncomDocService {
     public IncomeDocDto creteIncomeDocDto(IncomingDoc incomingDoc) {
         IncomeDocDto dto = new IncomeDocDto();
         dto.setDate(incomingDoc.getDate());
-        dto.setNum(incomingDoc.getNum());
+        dto.setNum(incomingDoc.getId());
         dto.setCustomerName(incomingDoc.getCustomer().getName());
         dto.setCustomerPhone(incomingDoc.getCustomer().getPhoneNum());
         dto.setOrgName(incomingDoc.getOrg().getName());
@@ -74,10 +77,7 @@ public class IncomDocService {
     }
 
    
-    @Transactional
-    public IncomeDocDto getByNum(String num) {
-        return creteIncomeDocDto(repository.findByNum(num));
-    }
+    
 
     @Transactional
     public List<IncomingDoc> getByCustomer(Customer customer) {

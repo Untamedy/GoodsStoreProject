@@ -2,9 +2,7 @@ package com.store.goodsstore.services;
 
 import com.store.goodsstore.dto.RegistrationRequest;
 import com.store.goodsstore.dto.UserDto;
-import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Role;
-import com.store.goodsstore.entities.User;
 import com.store.goodsstore.entities.Users;
 import com.store.goodsstore.exceptions.RegistrationException;
 import java.util.HashSet;
@@ -12,10 +10,9 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.store.goodsstore.repository.UserRepository;
-import java.util.List;
-import java.util.stream.Collectors;
-;
-import org.springframework.security.crypto.password.PasswordEncoder;import org.springframework.security.crypto.password.PasswordEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
@@ -25,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;import org.s
 
 @Service
 public class UserService {
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     UserRepository repositary;
@@ -41,27 +39,21 @@ public class UserService {
         UserDto userDto = null;
         Users user = repositary.findByEmail(email);
         if (null != user) {
+            logger.debug("User by email "+ email +" foundet");
             return userDto = createUserDto(user);
         }        
         return userDto;
-    }
-
-    public List<UserDto> getAllUsers() {
-        List<UserDto> userList = repositary.findAll().stream().map(user -> {
-            UserDto userDto = createUserDto(user);
-            return userDto;
-        }).collect(Collectors.toList());
-        return userList;
     }
 
     public UserDto editUser(RegistrationRequest request) {
         UserDto editUserDto = null;
         if (repositary.existsByEmail(request.getUserEmail())) {
             Users user = repositary.findByEmail(request.getUserEmail());
-            user.setName(request.getUserName());           
+            user.setName(request.getUserName()); 
+            logger.debug("User " +user.getEmail()+" is edited");
             return editUserDto = createUserDto(repositary.save(user));
         }
-        return editUserDto;
+       throw  new RuntimeException("User not edited couse user with email " + request.getUserEmail()+ " not found");
     }
 
     public UserDto createUserDto(Users user) {
@@ -77,6 +69,7 @@ public class UserService {
         if (null != user) {
             user.setPassword(pass);
             repositary.save(user);
+            logger.debug("Password to user "+ user.getEmail()+ " changed");
             return true;
         }
         return false;

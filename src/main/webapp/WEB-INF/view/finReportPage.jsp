@@ -4,6 +4,7 @@
     Author     : YBolshakova
 --%>
 
+<%@page import="com.store.goodsstore.dto.IncomeDocDto"%>
 <%@page import="com.store.goodsstore.dto.OrderDto"%>
 <%@page import="com.store.goodsstore.entities.Customer"%>
 <%@page import="com.store.goodsstore.dto.OrganizationDto"%>
@@ -18,7 +19,7 @@
 <html lang="en">
 
     <head>
-        <title>Goods</title>
+        <title>Income documents</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">      
@@ -73,50 +74,41 @@
 
         <%
             OrganizationDto dto = (OrganizationDto) session.getAttribute("orgdata");
-            OrderDto orderDto = (OrderDto) request.getAttribute("order");
+           double orderSum = (double) request.getAttribute("orderSum");
+            double incomeSum = (double) request.getAttribute("incomeSum");
+            double result = (double)request.getAttribute("result");
 
         %>
 
         <div id="header">
-            <%                out.print("<h1> Order № " + orderDto.getOrderNum() + " </h1>");
-            %>                    
+            <h1> Finance report</h1>
+                               
 
         </div>
         <div class="container-fluid" id="list">
             <div class="row">
                 <div class="col-sm-12 col-8">
                     <div id="section1" class="bg-default">                                                
-                        <p></p>
-                        <%
-                            out.print("<h3>Organization: " + orderDto.getOrgName() + "</h3>");
-                            out.print("<h3>Customer: " + orderDto.getCustomerName() + ", " + orderDto.getCustomerPhone() + "</h3>");
-                            out.print("<h3>Order amount: " + orderDto.getOrderSum() + "</h3>");
-                            out.print("<h3>Date: " + orderDto.getOrderDate() + "</h3>");
-                        %>
+                        <p></p>                       
 
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Code</th>
-                                    <th>Unit</th>
-                                    <th>Count</th>                                    
-                                    <th>Price</th>                                                                        
+                                    <th>Incomes</th>
+                                    <th>Sales</th>                                                                         
+                                    <th>Result</th>
 
                                 </tr>
                             </thead>
                             <tbody>
 
-                                <%
-                                    for (GoodsDto g : orderDto.getGoods()) {
+                                <%                                    
                                         out.print("<tr>");
-                                        out.print("<td>" + g.getName() + "</td>");
-                                        out.print("<td>" + g.getCode() + "</td>");
-                                        out.print("<td>" + g.getUnit() + "</td>");
-                                        out.print("<td>1</td>");
-                                        out.print("<td>" + g.getPrice() + "</td>");
+                                        out.print("<td>" + incomeSum+ "</td>");
+                                        out.print("<td>" + orderSum + "</td>");
+                                        out.print("<td><h3>" + result + "</h3></td>");                                       
                                         out.print("<tr>");
-                                    }
+                                    
                                 %>
 
                             </tbody>
@@ -128,16 +120,9 @@
                 </div>
             </div>
 
-
         </div>
 
-
-
-
-
         <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to groups</a>
-
-
 
     </body>
 </html>

@@ -22,6 +22,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+        <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
 
 
@@ -104,10 +106,10 @@
                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                         Reports
                     </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Input report</a>
-                        <a class="dropdown-item" href="#">Sale report</a>
-                        <a class="dropdown-item" href="#">Fin report</a>
+                    <div class="dropdown-menu">                       
+                        <a class="dropdown-item" href="#addGoods"data-toggle="modal" data-target="#input">Input report</a>                        
+                        <a class="dropdown-item" href="#addGoods"data-toggle="modal" data-target="#sale">Sale report</a>                       
+                        <a class="dropdown-item" href="#addGoods"data-toggle="modal" data-target="#fin">Fin report</a>
                     </div>
                 </div>               
                 <button type="button" class="btn btn-info">Customers</button>
@@ -285,7 +287,99 @@
                     </form>
                 </div>
             </div>
-        </div>                            
+        </div> 
+
+        <div name="input" class="modal" id="input">
+            <div class="modal-dialog">
+                <div class="modal-content">               
+                    <div class="modal-header">                        
+                        <h4 class="modal-title">Input doc by period</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> 
+                    <div class="modal-body">
+                        <form id="inputForm" role="form" method="Post" action="reports/incomeGoodsReport">
+                           <div class="form-group">
+                                <label for="group">Date from</label>
+                                <input id="datepicker1" name="dateTo" width="276" />
+
+                            </div>
+                          <div class="form-group">
+                                <label for="group">Date to</label>
+                                <input id="datepicker2" name="dateTo" width="276" />
+
+                            </div>
+
+                            <button id="inputReportForm" type="submit" onclick="inputDocFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div name="sale" class="modal" id="sale">
+            <div class="modal-dialog">
+                <div class="modal-content">               
+                    <div class="modal-header">                        
+                        <h4 class="modal-title">Sale doc by period</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> 
+                    <div class="modal-body">
+                        <form id="saleForm" role="form" method="Post" action="reports/saleGoodsReport">
+                            <div class="form-group">
+                                <label for="group">Date from:</label>
+                                <input id="datepicker3" name="dateFrom" width="276" />                                                               
+                            </div>
+                            <div class="form-group">
+                                <label for="group">Date to</label>
+                                <input id="datepicker4" name="dateTo" width="276" />
+                                                             
+                            </div>
+
+                            <button id="saleForm" type="submit" onclick="saleDocFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div name="fin" class="modal" id="fin">
+            <div class="modal-dialog">
+                <div class="modal-content">               
+                    <div class="modal-header">                        
+                        <h4 class="modal-title">Fin report by period</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> 
+                    <div class="modal-body">
+                        <form id="finForm" role="form" method="Post" action="reports/finReport">
+                            <div class="form-group">
+                                <label for="group">Date from:</label>
+                                <input id="datepicker5" name="dateFrom" width="276" />
+                                                              
+                            </div>
+                            <div class="form-group">
+                                <label for="group">Date to</label>
+                                <input id="datepicker6" name="dateTo" width="276" />
+                                                              
+                            </div>
+
+                            <button id="finReportForm" type="submit" onclick="finDocFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 
 
@@ -304,6 +398,36 @@
             function deleteGroupFunction() {
                 document.getElementById("deleteGroupForm").submit();
             }
+            function inputDocFunction() {
+                document.getElementById("inputForm").submit();
+            }
+            function saleDocFunction() {
+                document.getElementById("saleForm").submit();
+            }
+            function finDocFunction() {
+                document.getElementById("finDocForm").submit();
+            }
+
+            $('#datepicker1').datepicker({
+                uiLibrary: 'bootstrap4'
+            });
+             $('#datepicker2').datepicker({
+                uiLibrary: 'bootstrap4'
+            });
+             $('#datepicker3').datepicker({
+                uiLibrary: 'bootstrap4'
+            });
+             $('#datepicker4').datepicker({
+                uiLibrary: 'bootstrap4'
+            });
+             $('#datepicker5').datepicker({
+                uiLibrary: 'bootstrap4'
+            });
+             $('#datepicker6').datepicker({
+                uiLibrary: 'bootstrap4'
+            });
+            
+
 
         </script>
 

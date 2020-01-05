@@ -92,10 +92,10 @@
                 Store page </h1>
 
             <div class="container">
-                <h2>Search order by code</h2>
+                <h2>Search orders by customer</h2>
                 <div class="active-cyan-3 active-cyan-4 mb-4">
-                    <form class="example" action="#">
-                        <input type="text" placeholder="Search.." name="search">
+                    <form class="example" action="search">
+                        <input type="text" placeholder="Customer phone" name="search">
                         <button type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>

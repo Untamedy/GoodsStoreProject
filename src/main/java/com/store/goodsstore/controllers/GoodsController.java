@@ -104,7 +104,7 @@ public class GoodsController {
     }
 
     @PostMapping("/editGoods")
-    public ModelAndView editGoods(@ModelAttribute("goods") EditGoodsDto request) {                       
+    public ModelAndView editGoods(@ModelAttribute("goods") EditGoodsDto request) {
         goodsService.updateGoods(request);
         return new ModelAndView("redirect:/goodslist/page/" + request.getGroupId() + "/1");
     }
@@ -133,6 +133,15 @@ public class GoodsController {
         model.addObject("order", orderDto);
         status.setComplete();
         return model;
+    }
+
+    @PostMapping("/search")
+    public ModelAndView searchOrder(@RequestParam("num") String num) {
+        OrderDto orderDto = orderService.getByNum(num);
+        ModelAndView model = new ModelAndView("orderPage");
+        model.addObject("order", orderDto);
+        return model;
+
     }
 
 }

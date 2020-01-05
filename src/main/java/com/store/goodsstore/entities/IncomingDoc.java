@@ -30,9 +30,8 @@ public class IncomingDoc {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_seq")
-    private int id;
+    private int id;   
    
-    private String num;
     @Temporal(TemporalType.DATE)
     private Date date;
     

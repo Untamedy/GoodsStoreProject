@@ -9,6 +9,8 @@ import com.store.goodsstore.entities.GoodsIncomePrice;
 import com.store.goodsstore.entities.GoodsPrice;
 import com.store.goodsstore.repository.GoodsRepository;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class GoodsService {
+
+    private static final Logger logger = LoggerFactory.getLogger(GoodsService.class);
 
     @Autowired
     private GoodsRepository repository;
@@ -35,19 +39,20 @@ public class GoodsService {
     public void saveGoods(GoodsDto goods) {
         if (!repository.existsByCode(goods.getCode())) {
             repository.save(createGoods(goods));
+            logger.debug("Goods " + goods.getCode() + " saved");
         } else {
             throw new RuntimeException("Goods with code " + goods.getCode() + " is already exists");
         }
 
     }
-    
 
     @Transactional
     public void updateGoods(EditGoodsDto goodsDto) {
         Goods goods = repository.findByCode(goodsDto.getCode());
         goods.setName(goodsDto.getName());
         goods.getPrice().setPrice(goodsDto.getPrice());
-       repository.save(goods);
+        logger.debug("Goods " + goods.getCode() + " edited");
+        repository.save(goods);
     }
 
     @Transactional
@@ -57,6 +62,7 @@ public class GoodsService {
             if (goodsCounterSecvice.getGoodsCount(code) > 0) {
                 throw new RuntimeException("Goods count is more than 0");
             }
+            logger.debug("Goods " + goods.getCode() + " deleted");
             repository.delete(goods);
         }
     }
@@ -108,7 +114,7 @@ public class GoodsService {
         return repository.existsByCode(code);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Page<GoodsDto> getPaginatedGoods(int groupId, Pageable page) {
         Page<Goods> goods = repository.findByGroupId(groupId, page);
         Page<GoodsDto> goodsDto = goods.map(this::createGoodsResponse);

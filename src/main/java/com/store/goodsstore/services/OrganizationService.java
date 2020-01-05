@@ -8,7 +8,7 @@ import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.exceptions.RegistrationException;
 import java.security.Principal;
 import java.util.UUID;
-import java.util.logging.Logger;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +43,7 @@ public class OrganizationService {
             organization.setName(request.getOrganizationName());
             organization.setEmail(request.getOrganizationEmail());
             organization.setCode(createIdentifier());
+            logger.debug("Organisation "+ request.getOrganizationEmail()+ " created");
             return organization;
         }
         throw new RegistrationException("Organization with email " + request.getOrganizationEmail() + " is alredy exists");
@@ -82,6 +83,7 @@ public class OrganizationService {
         Organization organization = repository.findByEmail(request.getOrganizationEmail());
         organization.setName(request.getOrganizationName());
         organization.setEmail((request.getOrganizationEmail()));
+        logger.debug("Organization "+ request.getOrganizationEmail()+" edited");
         return repository.save(organization);
 
     }

@@ -8,6 +8,8 @@ import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.entities.Users;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class RegistrationService {
+     private static final Logger logger = LoggerFactory.getLogger(RegistrationService.class);
 
     @Autowired
     UserService userService;
@@ -33,6 +36,7 @@ public class RegistrationService {
         Store store = storeService.createStore(request);
         organization.addUser(user);
         organization.addStore(store);
+        logger.debug("New organisation with name "+request.getOrganizationName()+" registered");
         return organizationService.createOrganizationResponse(organizationService.saveOrganisation(organization));
     }
 
@@ -41,6 +45,7 @@ public class RegistrationService {
         UserDto user = userService.editUser(request);
         StoreDto store = storeService.editStore(request);
         Organization organization = organizationService.editOrganization(request);
+        logger.debug("Organization data edited");
         return organizationService.createOrganizationResponse(organization);       
     }
 

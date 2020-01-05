@@ -1,14 +1,15 @@
 package com.store.goodsstore.services;
 
-import com.store.goodsstore.dto.GoodsDto;
+
 import com.store.goodsstore.dto.GoodsGroupDto;
 import com.store.goodsstore.entities.GoodsGroup;
 import com.store.goodsstore.entities.Store;
 import com.store.goodsstore.exceptions.AlreadyExistsException;
 import com.store.goodsstore.repository.GroupRepository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class GoodsGroupService {
+    private static final Logger logger = LoggerFactory.getLogger(GoodsGroupService.class);
 
     @Autowired
     private GroupRepository repository;
@@ -34,6 +36,7 @@ public class GoodsGroupService {
 
     @Transactional
     public GoodsGroupDto saveGroup(GoodsGroupDto dto) {
+        logger.debug("Save goodsGroup "+ dto.getName());
         return createDto(repository.save(createGroup(dto)));
     }
 
@@ -47,6 +50,7 @@ public class GoodsGroupService {
             if (newgroup == null) {
                 oldgroup.setName(newName);
                 repository.save(oldgroup);
+                logger.debug("Edit goodsGroup");
                 return createDto(oldgroup);
             }
             throw new RuntimeException("Group with name" + newName + " is already exists in store " + store.getName());
@@ -88,6 +92,7 @@ public class GoodsGroupService {
         if (group != null) {
             if (goodsService.getByGroupId(group.getId()).isEmpty()) {
                 repository.delete(group);
+                logger.debug("Group deleted");
                 return true;
             }
             throw new RuntimeException("Can't removed group, maybe group contain goods");
