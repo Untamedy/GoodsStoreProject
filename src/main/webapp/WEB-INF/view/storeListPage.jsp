@@ -11,13 +11,14 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+        <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
-        <script type="text/javascript" 
-        src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        
 
         <style>
             #header {
@@ -94,11 +95,11 @@
             <div class="container">
                 <h2>Search orders by customer</h2>
                 <div class="active-cyan-3 active-cyan-4 mb-4">                    
-                        <%
-                        out.print(" <form class=\"example\" action=\"search/"+dto.getOrgCode()+"\">");                        
-                        %>
-                        <input type="text" placeholder="Customer phone" name="customer">
-                        <button type="submit"><i class="fa fa-search"></i></button>
+                    <%
+                        out.print(" <form class=\"example\" action=\"search/" + dto.getOrgCode() + "\">");
+                    %>
+                    <input type="text" placeholder="Customer phone" name="customer">
+                    <button type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
             </div>
@@ -108,13 +109,56 @@
                     <%
                         out.print("<a href=\"gostore/" + dto.getStoreCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Go store</a>");
                         out.print("<a href=\"customer/allCustomer/" + dto.getOrgCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Go to customer list</a>");
-                        out.print("<a href=\"allreports/" + dto.getStoreCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Show reports</a>");
+
 
                     %>
+                    <a class="btn btn-info mr-1" role="button" href="#addGoods"data-toggle="modal" data-target="#fin">Show fin report</a>
 
                 </div>
             </div>
+            <div name="fin" class="modal" id="fin">
+                <div class="modal-dialog">
+                    <div class="modal-content">               
+                        <div class="modal-header">                        
+                            <h4 class="modal-title">Fin report by period</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div> 
+                        <div class="modal-body">
+                            <form id="finDocForm" role="form" method="Post" action="/GoodsStoreProject/finReport">
+                                <div class="form-group">
+                                    <label for="group">Date from:</label>
+                                    <input id="datepicker1" name="dateFrom" width="276" />
 
+                                </div>
+                                <div class="form-group">
+                                    <label for="group">Date to</label>
+                                    <input id="datepicker2" name="dateTo" width="276" />
+
+                                </div>
+
+                                <button id="finReportForm" type="submit" onclick="finDocFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
+                                <button type="button"  class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function finDocFunction() {
+                    document.getElementById("finDocForm").submit();
+                }
+
+                $('#datepicker1').datepicker({
+                    uiLibrary: 'bootstrap4'
+                });
+                $('#datepicker2').datepicker({
+                    uiLibrary: 'bootstrap4'
+                });
+            </script>
 
     </body>
 </html>
