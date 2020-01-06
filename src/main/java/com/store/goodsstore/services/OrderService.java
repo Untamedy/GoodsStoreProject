@@ -87,8 +87,15 @@ public class OrderService {
     }
 
     @Transactional
-    public List<Order> getByCustomer(Customer customer) {
-        return repository.findByCustomerId(customer.getId());
+    public List<OrderDto> getByCustomer(String phone,String code) {
+        List<OrderDto> orders = new ArrayList<>();
+        Customer customer = customerService.getCustomerByPhoneAndOrgCode(phone, code);
+        if(customer!=null){  
+            orders = repository.findByCustomerId(customer.getId()).stream().map((tmp)->{
+               return createDto(tmp);
+            }).collect(Collectors.toList());
+        }
+        return orders;
     }
 
     @Transactional(readOnly = true)

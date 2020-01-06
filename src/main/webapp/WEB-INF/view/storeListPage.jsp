@@ -93,9 +93,11 @@
 
             <div class="container">
                 <h2>Search orders by customer</h2>
-                <div class="active-cyan-3 active-cyan-4 mb-4">
-                    <form class="example" action="search">
-                        <input type="text" placeholder="Customer phone" name="search">
+                <div class="active-cyan-3 active-cyan-4 mb-4">                    
+                        <%
+                        out.print(" <form class=\"example\" action=\"search/"+dto.getOrgCode()+"\">");                        
+                        %>
+                        <input type="text" placeholder="Customer phone" name="customer">
                         <button type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>

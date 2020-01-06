@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author Lenovo
  */
-@Controller("/reports")
+@Controller
 public class ReportsController {
 
     private static final Logger logger = LoggerFactory.getLogger(ReportsController.class);
@@ -37,7 +38,7 @@ public class ReportsController {
 
     @PostMapping("/saleGoodsReport")
     public ModelAndView createSaleReport(@RequestParam("dateFrom") Date dateFrom, @RequestParam("dateTo") Date dateTo) {
-        ModelAndView model = new ModelAndView("incomeReportPage");
+        ModelAndView model = new ModelAndView("saleReportPage");
         List<OrderDto> orders = orderService.getByPeriod(dateFrom, dateTo);
         model.addObject("list", orders);
         return model;
@@ -45,7 +46,7 @@ public class ReportsController {
 
     @PostMapping("/incomeGoodsReport")
     public ModelAndView createAddGoodsCountrepost(@RequestParam("dateFrom") Date dateFrom, @RequestParam("dateTo") Date dateTo) {
-         ModelAndView model = new ModelAndView("saleReportPage");
+         ModelAndView model = new ModelAndView("inputReportPage");
         List<IncomeDocDto> incomes = incomeService.getByPeriod(dateFrom, dateTo);
         model.addObject("list", incomes);
         return model;
@@ -61,12 +62,20 @@ public class ReportsController {
         }
         List<IncomeDocDto> incomes = incomeService.getByPeriod(dateFrom, dateTo);
         double incomeSum = 0;
-        for (OrderDto order : orders) {
-            orderSum += order.getOrderSum();
+        for (IncomeDocDto in : incomes) {
+            incomeSum += in.getSum();
         }
-        model.addObject("orders", orderSum);
-        model.addObject("incomeDOc", incomeSum);
+        model.addObject("orderSum", orderSum);
+        model.addObject("incomeSum", incomeSum);
         model.addObject("result", orderSum - incomeSum);
+        return model;
+    }
+    
+    @GetMapping("/search/{orgCode}")
+    public ModelAndView searchOrder(@RequestParam("customer") String num,@PathVariable("orgCode")String orgCode) {
+        List<OrderDto> orders = orderService.getByCustomer(num,orgCode);
+        ModelAndView model = new ModelAndView("saleReportPage");
+        model.addObject("list", orders);
         return model;
     }
 

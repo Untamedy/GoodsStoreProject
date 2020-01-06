@@ -297,10 +297,10 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="inputForm" role="form" method="Post" action="reports/incomeGoodsReport">
+                        <form id="inputForm" role="form" method="Post" action="/GoodsStoreProject/incomeGoodsReport">
                            <div class="form-group">
                                 <label for="group">Date from</label>
-                                <input id="datepicker1" name="dateTo" width="276" />
+                                <input id="datepicker1" name="dateFrom" width="276" />
 
                             </div>
                           <div class="form-group">
@@ -328,7 +328,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="saleForm" role="form" method="Post" action="reports/saleGoodsReport">
+                        <form id="saleForm" role="form" method="Post" action="/GoodsStoreProject/saleGoodsReport">
                             <div class="form-group">
                                 <label for="group">Date from:</label>
                                 <input id="datepicker3" name="dateFrom" width="276" />                                                               
@@ -358,7 +358,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="finForm" role="form" method="Post" action="reports/finReport">
+                        <form id="finDocForm" role="form" method="Post" action="/GoodsStoreProject/finReport">
                             <div class="form-group">
                                 <label for="group">Date from:</label>
                                 <input id="datepicker5" name="dateFrom" width="276" />

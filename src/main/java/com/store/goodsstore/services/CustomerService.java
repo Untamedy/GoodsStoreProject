@@ -50,12 +50,12 @@ public class CustomerService {
     @Transactional
     public boolean deleteCustomer(String phone, String orgCode) {
         Customer customer = repository.findByPhoneNumAndOrgCode(phone, orgCode);
-        if (orderService.getByCustomer(customer).isEmpty() && incomeService.getByCustomer(customer).isEmpty()) {
+        if (orderService.getByCustomer(phone,orgCode).isEmpty() && incomeService.getByCustomer(customer).isEmpty()) {
             repository.delete(customer);
             logger.debug("Customer "+ customer.getName() +" deleted");
             return true;
         }
-        return false;
+       throw new RuntimeException("Customer can't be deleted cause he have created orders or income docs");
     }
 
     @Transactional(readOnly = true)

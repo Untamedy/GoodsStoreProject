@@ -134,14 +134,5 @@ public class GoodsController {
         status.setComplete();
         return model;
     }
-
-    @PostMapping("/search")
-    public ModelAndView searchOrder(@RequestParam("num") String num) {
-        OrderDto orderDto = orderService.getByNum(num);
-        ModelAndView model = new ModelAndView("orderPage");
-        model.addObject("order", orderDto);
-        return model;
-
-    }
-
+   
 }

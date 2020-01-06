@@ -79,8 +79,8 @@
         %>
 
         <div id="header">
-            <%                out.print("<h1> Incom documents</h1>");
-            %>                    
+            <h1> Orders </h1>
+                                
 
         </div>
         <div class="container-fluid" id="list">
