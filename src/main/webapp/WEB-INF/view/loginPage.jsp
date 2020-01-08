@@ -72,7 +72,9 @@
             <label for="password" class="sr-only">Password</label>
             <input type="password"  name="password" class="form-control" placeholder="Password" required>
 
-            <button class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>     
+            <button class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>  
+            
+            <a href="login" class="btn btn-success btn-block btn-lg">Sign In</a>
            
         </form>
     </body>

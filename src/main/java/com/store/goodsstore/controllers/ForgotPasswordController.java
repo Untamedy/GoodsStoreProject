@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -16,8 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
  * @author YBolshakova
  */
 @Controller
-public class ForgotPassword {
-    private static final Logger logger = LoggerFactory.getLogger(ForgotPassword.class);
+public class ForgotPasswordController {
+    private static final Logger logger = LoggerFactory.getLogger(ForgotPasswordController.class);
     
     @Autowired
     private UserService userService;
@@ -27,21 +28,17 @@ public class ForgotPassword {
         return "forgotPassForm";
     }
     
-     @GetMapping("/forgotPass/{userEmail}")
-    public ModelAndView restorePass(@PathVariable("userEmai") String email){
+     @GetMapping("/forgotPass")
+    public ModelAndView restorePass(@RequestParam("userEmai") String email){
         if(userService.existsByEmail(email)){
-            return new ModelAndView("restorePassPage","email",email);
+            return new ModelAndView("forgotPassFormPage","email",email);
         }
-        return new ModelAndView("error", HttpStatus.BAD_REQUEST);
+        return new ModelAndView("error");
     }
     
     @GetMapping("/restorePass/{newPass}")
-    public ModelAndView setNewPass(@PathVariable("newPass") String pass,Model model){
-        String email = (String) model.getAttribute("email");
-        if(userService.changePassword(pass,email)){
-            return new ModelAndView("loginPage","msg","Success");
-        }
-        return new ModelAndView("error", HttpStatus.BAD_REQUEST);       
-            }
-
+    public ModelAndView setNewPass(@RequestParam("newPass") String pass,@RequestParam("email") String email){    
+        userService.changePassword(pass,email);
+            return new ModelAndView("loginPage");  
+    }
 }
