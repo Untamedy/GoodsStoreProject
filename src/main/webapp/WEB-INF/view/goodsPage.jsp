@@ -4,6 +4,7 @@
     Author     : YBolshakova
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.store.goodsstore.entities.Customer"%>
 <%@page import="com.store.goodsstore.dto.OrganizationDto"%>
 <%@page import="com.store.goodsstore.dto.GoodsDto"%>
@@ -72,9 +73,19 @@
 
         <%
             OrganizationDto dto = (OrganizationDto) session.getAttribute("orgdata");
-            List<GoodsDto> goods = (List<GoodsDto>) request.getAttribute("goodsList");
-            List<Customer> customers = (List<Customer>) request.getAttribute("customers");
-            List<Integer> pages = (List<Integer>) request.getAttribute("pageNumber");
+            List<GoodsDto> goods = new ArrayList<>();
+            List<Customer> customers = new ArrayList<>();
+             List<Integer> pages = new ArrayList<>();
+            if(request.getAttribute("goodsList")!=null){
+               goods =  (List<GoodsDto>) request.getAttribute("goodsList");                
+            }
+            if(request.getAttribute("customers")!=null){
+                customers = (List<Customer>) request.getAttribute("customers");
+            }
+            if(request.getAttribute("pageNumber")!=null){
+                pages = (List<Integer>) request.getAttribute("pageNumber");
+            }       
+                      
             int id = (int) request.getAttribute("group");
         %>
 
@@ -128,9 +139,13 @@
 
                         <ul class="pagination justify-content-center">                           
 
-                            <%      for (Integer i : pages) {
-                                    out.print("<li class=\"page-item\"><a class=\"page-link\" href=\"" + i + "\">" + i + "</a></li>");
+                            <%    
+                                if(!pages.isEmpty()){
+                                   for (Integer i : pages) {
+                                           out.print("<li class=\"page-item\"><a class=\"page-link\" href=\"" + i + "\">" + i + "</a></li>");
+                                       }  
                                 }
+                               
                             %>
 
                         </ul>  

@@ -7,8 +7,10 @@ package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.IncomeDocDto;
 import com.store.goodsstore.dto.OrderDto;
+import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.services.IncomDocService;
 import com.store.goodsstore.services.OrderService;
+import com.store.goodsstore.services.OrganizationService;
 import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
@@ -35,32 +37,37 @@ public class ReportsController {
 
     @Autowired
     private IncomDocService incomeService;
+    @Autowired
+    private OrganizationService orgService;
 
     @PostMapping("/saleGoodsReport")
-    public ModelAndView createSaleReport(@RequestParam("dateFrom") Date dateFrom, @RequestParam("dateTo") Date dateTo) {
+    public ModelAndView createSaleReport(@RequestParam("dateFrom") Date dateFrom, @RequestParam("dateTo") Date dateTo,@RequestParam("orgCode")String code) {
         ModelAndView model = new ModelAndView("saleReportPage");
-        List<OrderDto> orders = orderService.getByPeriod(dateFrom, dateTo);
+        Organization organization = orgService.getByCode(code);
+        List<OrderDto> orders = orderService.getByPeriod(dateFrom, dateTo,organization);
         model.addObject("list", orders);
         return model;
     }
 
     @PostMapping("/incomeGoodsReport")
-    public ModelAndView createAddGoodsCountrepost(@RequestParam("dateFrom") Date dateFrom, @RequestParam("dateTo") Date dateTo) {
+    public ModelAndView createAddGoodsCountrepost(@RequestParam("dateFrom") Date dateFrom, @RequestParam("dateTo") Date dateTo,@RequestParam("orgCode")String code) {
          ModelAndView model = new ModelAndView("inputReportPage");
-        List<IncomeDocDto> incomes = incomeService.getByPeriod(dateFrom, dateTo);
+          Organization organization = orgService.getByCode(code);
+        List<IncomeDocDto> incomes = incomeService.getByPeriod(dateFrom, dateTo,organization);
         model.addObject("list", incomes);
         return model;
     }
 
     @PostMapping("/finReport")
-    public ModelAndView createFinReport(@RequestParam("dateFrom") Date dateFrom, @RequestParam("dateTo") Date dateTo) {
+    public ModelAndView createFinReport(@RequestParam("dateFrom") Date dateFrom, @RequestParam("dateTo") Date dateTo,@RequestParam("orgCode")String code) {
         ModelAndView model = new ModelAndView("finReportPage");
-        List<OrderDto> orders = orderService.getByPeriod(dateFrom, dateTo);
+        Organization organization = orgService.getByCode(code);
+        List<OrderDto> orders = orderService.getByPeriod(dateFrom, dateTo,organization);
         double orderSum = 0;
         for (OrderDto order : orders) {
             orderSum += order.getOrderSum();
         }
-        List<IncomeDocDto> incomes = incomeService.getByPeriod(dateFrom, dateTo);
+        List<IncomeDocDto> incomes = incomeService.getByPeriod(dateFrom, dateTo,organization);
         double incomeSum = 0;
         for (IncomeDocDto in : incomes) {
             incomeSum += in.getSum();

@@ -18,7 +18,7 @@
         <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
         <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
-        
+
 
         <style>
             #header {
@@ -84,7 +84,7 @@
         <div class="jumbotron jumbotron-fluid">
 
             <div id="logout">
-                <a href="logout" class="btn btn-info btn-lg">
+                <a href="/GoodsStoreProject/logout" class="btn btn-info btn-lg">
                     <span class="glyphicon glyphicon-log-out"></span> Log out</a>
             </div>
 
@@ -112,7 +112,7 @@
 
 
                     %>
-                    <a class="btn btn-info mr-1" role="button" href="#addGoods"data-toggle="modal" data-target="#fin">Show fin report</a>
+                    <a class="btn btn-info mr-1" role="button" href="#fin"data-toggle="modal" data-target="#fin">Show fin report</a>
 
                 </div>
             </div>
@@ -125,6 +125,9 @@
                         </div> 
                         <div class="modal-body">
                             <form id="finDocForm" role="form" method="Post" action="/GoodsStoreProject/finReport">
+                                <%                                     
+                                    out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
+                                %>
                                 <div class="form-group">
                                     <label for="group">Date from:</label>
                                     <input id="datepicker1" name="dateFrom" width="276" />

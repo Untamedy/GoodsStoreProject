@@ -4,6 +4,7 @@
     Author     : YBolshakova
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.store.goodsstore.dto.CustomerDto"%>
 <%@page import="com.store.goodsstore.entities.Customer"%>
 <%@page import="com.store.goodsstore.dto.OrganizationDto"%>
@@ -29,7 +30,7 @@
 
 
         <style>
-             #header {
+            #header {
                 position: absolute;
                 top: 10px;
                 left: 50px;
@@ -61,7 +62,7 @@
                 top: 250px;
                 left: 10px;
             }
-             #back{
+            #back{
                 position: relative;
                 top: 300px;
                 left: 20px;
@@ -71,6 +72,15 @@
     <body>
         <%
             OrganizationDto dto = (OrganizationDto) session.getAttribute("orgdata");
+            List<CustomerDto> customers = new ArrayList<>();
+            List<Integer> pages = new ArrayList<>();
+            if (request.getAttribute("customerList") != null) {
+                customers = (List<CustomerDto>) request.getAttribute("customerList");
+            }
+            if (request.getAttribute("pageNumber") != null) {
+                pages = (List<Integer>) request.getAttribute("pageNumber");
+            }
+
         %>
         <div id="header">
             <h1> Customers </h1>  
@@ -95,9 +105,7 @@
                             </thead>
                             <tbody>
 
-                                <%
-                                    List<CustomerDto> customers = (List<CustomerDto>) request.getAttribute("customerList");
-                                    for (CustomerDto c : customers) {
+                                <%                                    for (CustomerDto c : customers) {
                                         out.print("<tr>");
                                         out.print("<td>" + c.getName() + "</td>");
                                         out.print("<td>" + c.getPhone() + "</td>");
@@ -107,17 +115,17 @@
                                 %>
 
                             </tbody>
-                            <%
-                                List<Integer> pages = (List<Integer>) request.getAttribute("pageNumber");
 
-                            %>
                         </table>
 
                         <ul class="pagination justify-content-center">
 
-                            <%      for (Integer i : pages) {
-                                    out.print("<li class=\"page-item\"><a class=\"page-link\" href=\"" + i + "\">" + i + "</a></li>");
+                            <%                                if (!pages.isEmpty()) {
+                                    for (Integer i : pages) {
+                                        out.print("<li class=\"page-item\"><a class=\"page-link\" href=\"" + i + "\">" + i + "</a></li>");
+                                    }
                                 }
+
                             %>
 
                         </ul>
@@ -141,8 +149,7 @@
                                 <input type="text" class="form-control" id="customerName" name="name" required>
                                 <label for="customer">Phone number</label>
                                 <input type="number" class="form-control" id="customerName" name="phone" required>
-                                <%
-                                    out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
+                                <%                                    out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                                 %>
                             </div>
                             <button id="myFormSubmit" type="submit" onclick="addCustomerFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>

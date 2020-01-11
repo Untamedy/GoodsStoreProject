@@ -36,21 +36,21 @@ public class GoodsGroupController {
         dto.setName(name);
         dto.setStoreCode(code);
         service.saveGroup(dto);
-        return new ModelAndView("redirect:/gostore");
+        return new ModelAndView("redirect:/gostore/"+code);
 
     }
 
     @PostMapping("/editGroup")
     public ModelAndView editGroup(@RequestParam("newName") String newName, @RequestParam("oldName") String oldName, @RequestParam("storeCode") String storeCode) {
         service.editGroup(newName, oldName, storeCode);
-        return new ModelAndView("redirect:/gostore");
+        return new ModelAndView("redirect:/gostore/"+storeCode);
 
     }
 
     @PostMapping("/removedGroup")
     public ModelAndView removeGroup(@RequestParam("name") String name,@RequestParam("storeCode")String code) {
         service.removeGroup(name,code);
-        return new ModelAndView("redirect:/gostore");
+        return new ModelAndView("redirect:/gostore/"+code);
     }
 
 }

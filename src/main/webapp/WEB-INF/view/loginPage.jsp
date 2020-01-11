@@ -59,6 +59,11 @@
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
             }
+            #signUp {
+                position: absolute;               
+                top: 30px;
+                right: 15px;
+            }
 
            
         </style>
@@ -66,6 +71,9 @@
     </head>
 
     <body class="text-center">
+        <header>
+            <a href="signup" id="signUp" class="btn btn-default btn-lg">SignUp</a>
+        </header>
         <form class="form-signin" method="POST" action="dologin">
             <img class="mb-4" src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>

@@ -87,9 +87,9 @@ public class IncomDocService {
     }
 
     @Transactional
-    public List<IncomeDocDto> getByPeriod(Date dateFrom, Date dateTo) {
+    public List<IncomeDocDto> getByPeriod(Date dateFrom, Date dateTo,Organization org) {
         List<IncomeDocDto> dtoList = new ArrayList<>();
-        List<IncomingDoc> list = repository.findAllByDateBetween(dateFrom, dateTo);
+        List<IncomingDoc> list = repository.findByDate(dateFrom, dateTo,org);
         if (!list.isEmpty()) {
             dtoList = list.stream().map((tmp) -> {
                 return creteIncomeDocDto(tmp);

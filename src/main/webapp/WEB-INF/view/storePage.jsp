@@ -71,7 +71,7 @@
         <div class="jumbotron jumbotron-fluid">
 
             <div id="logout">
-                <a href="logout" class="btn btn-info btn-lg">
+                <a href="/GoodsStoreProject/logout" class="btn btn-info btn-lg">
                     <span class="glyphicon glyphicon-log-out"></span> Log out</a>
             </div>
 
@@ -111,8 +111,11 @@
                         <a class="dropdown-item" href="#addGoods"data-toggle="modal" data-target="#sale">Sale report</a>                       
                         <a class="dropdown-item" href="#addGoods"data-toggle="modal" data-target="#fin">Fin report</a>
                     </div>
-                </div>               
-                <button type="button" class="btn btn-info">Customers</button>
+                </div>  
+                <%
+                    out.print("<a href=\"/GoodsStoreProject/customer/allCustomer/" + dto.getOrgCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Customers</a>");
+                %>
+
 
 
             </div>
@@ -148,7 +151,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="addGroupForm" role="form" method="POST" action="group/save">
+                        <form id="addGroupForm" role="form" method="POST" action="/GoodsStoreProject/group/save">
                             <div class="form-group">
                                 <label for="group">Name:</label>
                                 <input type="text" class="form-control" id="groupName" name="groupName"required="true">
@@ -175,7 +178,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="editGroupForm" role="form" method="Post" action="group/editGroup">
+                        <form id="editGroupForm" role="form" method="Post" action="/GoodsStoreProject/group/editGroup">
                             <div class="form-group">
                                 <label for="group">Old name:</label>
                                 <select id="inputState" name ="oldName" class="form-control" required="true">
@@ -210,7 +213,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="deleteGroupForm" role="form" method="Post" action="group/removedGroup">
+                        <form id="deleteGroupForm" role="form" method="Post" action="/GoodsStoreProject/group/removedGroup">
                             <div class="form-group">
                                 <label for="group">Group name:</label>
                                 <select id="inputState" name ="name" class="form-control" required="true">
@@ -246,7 +249,7 @@
                     <div class="modal-body">
                         <form id="addGoodsForm" modelAtribut="goods" role="form" method="POST" action="/GoodsStoreProject/saveGoods">
                             <%
-                             out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
+                                out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                             %>
                             <label for="group">Group:</label>
                             <select name ="groupId" id="inputState" class="form-control" required="true">
@@ -301,12 +304,15 @@
                     </div> 
                     <div class="modal-body">
                         <form id="inputForm" role="form" method="Post" action="/GoodsStoreProject/incomeGoodsReport">
-                           <div class="form-group">
+                            <%
+                                out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
+                            %>
+                            <div class="form-group">
                                 <label for="group">Date from</label>
                                 <input id="datepicker1" name="dateFrom" width="276" />
 
                             </div>
-                          <div class="form-group">
+                            <div class="form-group">
                                 <label for="group">Date to</label>
                                 <input id="datepicker2" name="dateTo" width="276" />
 
@@ -332,6 +338,9 @@
                     </div> 
                     <div class="modal-body">
                         <form id="saleForm" role="form" method="Post" action="/GoodsStoreProject/saleGoodsReport">
+                            <%
+                                out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
+                            %>                            
                             <div class="form-group">
                                 <label for="group">Date from:</label>
                                 <input id="datepicker3" name="dateFrom" width="276" />                                                               
@@ -339,7 +348,7 @@
                             <div class="form-group">
                                 <label for="group">Date to</label>
                                 <input id="datepicker4" name="dateTo" width="276" />
-                                                             
+
                             </div>
 
                             <button id="saleForm" type="submit" onclick="saleDocFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
@@ -362,15 +371,18 @@
                     </div> 
                     <div class="modal-body">
                         <form id="finDocForm" role="form" method="Post" action="/GoodsStoreProject/finReport">
+                            <%
+                                out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
+                            %>
                             <div class="form-group">
                                 <label for="group">Date from:</label>
                                 <input id="datepicker5" name="dateFrom" width="276" />
-                                                              
+
                             </div>
                             <div class="form-group">
                                 <label for="group">Date to</label>
                                 <input id="datepicker6" name="dateTo" width="276" />
-                                                              
+
                             </div>
 
                             <button id="finReportForm" type="submit" onclick="finDocFunction()" class="btn btn-success" data-dismiss="modal">Submit</button>
@@ -414,22 +426,22 @@
             $('#datepicker1').datepicker({
                 uiLibrary: 'bootstrap4'
             });
-             $('#datepicker2').datepicker({
+            $('#datepicker2').datepicker({
                 uiLibrary: 'bootstrap4'
             });
-             $('#datepicker3').datepicker({
+            $('#datepicker3').datepicker({
                 uiLibrary: 'bootstrap4'
             });
-             $('#datepicker4').datepicker({
+            $('#datepicker4').datepicker({
                 uiLibrary: 'bootstrap4'
             });
-             $('#datepicker5').datepicker({
+            $('#datepicker5').datepicker({
                 uiLibrary: 'bootstrap4'
             });
-             $('#datepicker6').datepicker({
+            $('#datepicker6').datepicker({
                 uiLibrary: 'bootstrap4'
             });
-            
+
 
 
         </script>

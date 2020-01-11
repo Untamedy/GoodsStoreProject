@@ -99,9 +99,9 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    public List<OrderDto> getByPeriod(Date dateFrom, Date dateTo) {
+    public List<OrderDto> getByPeriod(Date dateFrom, Date dateTo,Organization org) {
         List<OrderDto> dtoList = new ArrayList<>();
-        List<Order> list = repository.findByDate(dateFrom, dateTo);
+        List<Order> list = repository.findByDate(dateFrom, dateTo,org);
         if (!list.isEmpty()) {
             dtoList = list.stream().map((tmp) -> {
                 return createDto(tmp);
