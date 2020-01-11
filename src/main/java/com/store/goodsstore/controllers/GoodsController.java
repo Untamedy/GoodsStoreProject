@@ -16,12 +16,9 @@ import com.store.goodsstore.services.GoodsService;
 import com.store.goodsstore.services.IncomDocService;
 import com.store.goodsstore.services.OrderService;
 import com.store.goodsstore.services.OrganizationService;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import org.omg.IOP.CodeSets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,21 +89,21 @@ public class GoodsController {
     }
 
     @PostMapping("/saveGoods")
-    public ModelAndView saveGoods(@ModelAttribute("goods") GoodsDto request) {
+    public ModelAndView saveGoods(@ModelAttribute("goods") GoodsDto request,@RequestParam("orgCode") String code) {
         goodsService.saveGoods(request);
-        return new ModelAndView("redirect:/goodslist/page/" + request.getGroupId() + "/1");
+        return new ModelAndView("redirect:/goodslist/page/"+code+"/" + request.getGroupId() + "/1");
     }
 
-    @GetMapping("/removeGoods/{groupId}/{goodsCode}")
-    public ModelAndView removeGoods(@PathVariable("goodsCode") String code, @PathVariable("groupId") int id) {
+    @GetMapping("/removeGoods/{orgCode}/{groupId}/{goodsCode}")
+    public ModelAndView removeGoods(@PathVariable("goodsCode") String code, @PathVariable("groupId") int id,@PathVariable("orgCode")String orgCode) {
         goodsService.deleteGoods(code);
-        return new ModelAndView("redirect:/goodslist/page/" + id + "/1");
+        return new ModelAndView("redirect:/goodslist/page/"+orgCode+"/" +  id + "/1");
     }
 
     @PostMapping("/editGoods")
-    public ModelAndView editGoods(@ModelAttribute("goods") EditGoodsDto request) {
+    public ModelAndView editGoods(@ModelAttribute("goods") EditGoodsDto request,@RequestParam("orgCode") String code) {
         goodsService.updateGoods(request);
-        return new ModelAndView("redirect:/goodslist/page/" + request.getGroupId() + "/1");
+        return new ModelAndView("redirect:/goodslist/page/"+code+"/" + request.getGroupId() + "/1");
     }
 
     @PostMapping("/input")

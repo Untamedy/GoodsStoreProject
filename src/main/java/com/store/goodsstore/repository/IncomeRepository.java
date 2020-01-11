@@ -16,6 +16,8 @@ public interface IncomeRepository extends JpaRepository<IncomingDoc, Integer>{
     public List<IncomingDoc> findAllByDateBetween(Date dateFrom, Date dateTo);    
 
     public List<IncomingDoc> findByCustomerId(int id);
+    
+    public List<IncomingDoc> findByGoodsId(int id);
 
  
 

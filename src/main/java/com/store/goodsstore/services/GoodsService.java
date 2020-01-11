@@ -34,6 +34,10 @@ public class GoodsService {
     private GoodsGroupService groupService;
     @Autowired
     private StoreService storeService;
+    @Autowired
+    private OrderService orderService;    
+    @Autowired
+    private IncomDocService incomeService;
 
     @Transactional
     public void saveGoods(GoodsDto goods) {
@@ -59,7 +63,10 @@ public class GoodsService {
     public void deleteGoods(String code) {
         Goods goods = repository.findByCode(code);
         if (null != goods) {
-            if (goodsCounterSecvice.getGoodsCount(code) > 0) {
+            if (goods.getCounter().getQuantity() == 0) {
+                if(!orderService.ordersConteinGoods(goods.getId()).isEmpty()||!incomeService.incomeConteinGoodsId(goods.getId()).isEmpty()){
+                    throw new RuntimeException("Goods use in sale or income documents");
+                }
                 throw new RuntimeException("Goods count is more than 0");
             }
             logger.debug("Goods " + goods.getCode() + " deleted");

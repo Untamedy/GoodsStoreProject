@@ -15,5 +15,5 @@ public class GoodsDto {
     private int groupId;
     private int quantity;
     private double price;  
-    private double incomePrice;
+    private double incomePrice;    
 }

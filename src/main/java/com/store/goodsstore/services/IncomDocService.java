@@ -5,6 +5,7 @@ import com.store.goodsstore.dto.IncomeDocResponseDto;
 import com.store.goodsstore.entities.Customer;
 import com.store.goodsstore.entities.Goods;
 import com.store.goodsstore.entities.IncomingDoc;
+import com.store.goodsstore.entities.Order;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.repository.IncomeRepository;
 import java.util.ArrayList;
@@ -108,5 +109,9 @@ public class IncomDocService {
 
     public double countSum(double price, int quantity) {
         return (double) price * quantity;
+    }
+
+    public List<IncomingDoc> incomeConteinGoodsId(Integer id) {
+      return repository.findByCustomerId(id);
     }
 }

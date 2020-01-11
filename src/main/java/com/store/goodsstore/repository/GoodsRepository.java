@@ -25,4 +25,5 @@ public interface GoodsRepository extends PagingAndSortingRepository<Goods, Integ
     
     
     
+    
 }

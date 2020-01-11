@@ -12,11 +12,7 @@
         <title>Error page</title>
     </head>
     <body>
-        <div class="container-fluid bg-1 text-center">
-            <h1>Portable Store</h1>  
-            <img src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg" class="img-circle" alt="Dunat" width="350" height="350">
-            <h3>This app will help you gain control of your small business</h3>
-        </div>
+        
 
         <div class="container-fluid bg-2 text-center">             
             <h1>Error</h1>

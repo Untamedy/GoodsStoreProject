@@ -244,7 +244,10 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="addGoodsForm" modelAtribut="goods" role="form" method="POST" action="saveGoods">
+                        <form id="addGoodsForm" modelAtribut="goods" role="form" method="POST" action="/GoodsStoreProject/saveGoods">
+                            <%
+                             out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
+                            %>
                             <label for="group">Group:</label>
                             <select name ="groupId" id="inputState" class="form-control" required="true">
                                 <%

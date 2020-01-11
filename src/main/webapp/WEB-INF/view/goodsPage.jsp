@@ -117,7 +117,7 @@
                                         out.print("<td>" + g.getIncomePrice() + "</td>");
                                         out.print("<td>" + g.getPrice() + "</td>");
                                         out.print("<td> <a href=\"/GoodsStoreProject/addToOrder/" + dto.getOrgCode() + "/" + g.getCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
-                                        out.print("<td> <a href=\"/GoodsStoreProject/removeGoods/" + (int) request.getAttribute("group") + "/" + g.getCode() + "\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
+                                        out.print("<td> <a href=\"/GoodsStoreProject/removeGoods/"+dto.getOrgCode()+"/" + (int) request.getAttribute("group") + "/" + g.getCode() + "\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
                                         out.print("<tr>");
                                     }
                                 %>
@@ -153,11 +153,16 @@
                             <%
                                 int groupId = (int) request.getAttribute("group");
                                 out.print("<input type=\"hidden\" name=\"groupId\" value=\"" + groupId + "\">");
+                                out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                             %>                                    
 
                             <div class="form-group">
                                 <label for="group">Name:</label>
                                 <input type="text" class="form-control" id="goodsname" name="name" required="true">
+                            </div>
+                            <div class="form-group">
+                                <label for="group">Code</label>
+                                <input type="text" class="form-control" id="goodsunit" name="code" required="true">
                             </div>
 
                             <div class="form-group">
@@ -196,6 +201,9 @@
                     </div> 
                     <div class="modal-body">
                         <form id="editGoodsForm" role="form" method="POST" action="/GoodsStoreProject/editGoods">
+                             <%
+                             out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
+                            %>
                             <label for="goods">Select goods to edit</label>
                             <select name ="code" id="inputState" class="form-control">
 

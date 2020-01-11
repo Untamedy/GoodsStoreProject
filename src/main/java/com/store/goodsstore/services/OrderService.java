@@ -126,4 +126,8 @@ public class OrderService {
          }
          return sum;
      }
+     
+     public List<Order> ordersConteinGoods(int id){
+       return repository.findByGoodsId(id);
+     }
 }

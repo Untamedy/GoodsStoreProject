@@ -63,7 +63,7 @@
             }
              #back{
                 position: relative;
-                top: 170px;
+                top: 300px;
                 left: 20px;
             }
         </style>
@@ -75,7 +75,7 @@
         <div id="header">
             <h1> Customers </h1>  
             <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#addCustomer">Add customer</button> 
-            <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#editCustomer">Edit goods</button>  
+            <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#editCustomer">Edit customer</button>  
         </div>
 
 
@@ -101,7 +101,7 @@
                                         out.print("<tr>");
                                         out.print("<td>" + c.getName() + "</td>");
                                         out.print("<td>" + c.getPhone() + "</td>");
-                                        out.print("<td><a href=\"/GoodsStoreProject/customer/delete/" + c.getPhone() + "/" + c.getOrgCode() + "\" class=\"btn btn-default\">Delete</a></td>");
+                                        out.print("<td><a href=\"/GoodsStoreProject/customer/delete/" + c.getPhone() + "/" + c.getOrgCode() + "\" class=\"btn btn-info\">Delete</a></td>");
                                         out.print("<tr>");
                                     }
                                 %>
