@@ -293,7 +293,7 @@
                     </div> 
                     <div class="modal-body">
                         <form id="saleGoodsForm" role="form" modelAttribute="income" method="POST" action="/GoodsStoreProject/sale">
-                            
+
                             <div class="form-group">
                                 <%
                                     out.print("<input type=\"hidden\" name=\"groupId\" value=\"" + id + "\">");
@@ -321,9 +321,11 @@
             </div>
         </div> 
 
+        <%
+            out.print(" <a href=\"/GoodsStoreProject/gostore/" + dto.getStoreCode()+ "\"id=\"back\" class=\"btn btn-info mr-1\" role=\"button\">Back to groups</a>");
+        %>
 
 
-        <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to groups</a>
 
         <script>
             function editGoodsFunction() {

@@ -67,12 +67,12 @@ public class UserService {
     public boolean changePassword(String pass, String email) {
         Users user = repositary.findByEmail(email);
         if (null != user) {
-            user.setPassword(pass);
+            user.setPassword(encoder.encode(pass));
             repositary.save(user);
             logger.debug("Password to user "+ user.getEmail()+ " changed");
             return true;
         }
-        return false;
+       throw new RuntimeException("User with email " + email + " doesn't exists");
     }
 
     public Users createUser(RegistrationRequest request) {

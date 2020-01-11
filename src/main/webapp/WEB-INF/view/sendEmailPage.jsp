@@ -2,16 +2,16 @@
 <html lang="en">
 
     <head>
-
+        
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../../../favicon.ico">
 
-        <title>Signin</title>        
+        <title>Send email</title>        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">      
-
+        
         <style>
             body {
                 height: 100%;
@@ -59,26 +59,18 @@
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
             }
-
-           
         </style>
 
     </head>
 
     <body class="text-center">
-        <form class="form-signin" method="POST" action="dologin">
+        <form class="form-signin" method="POST" action="forgotPass">
             <img class="mb-4" src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label for="username" class="sr-only">Email address</label>
-            <input type="email"  name="username" class="form-control" placeholder="Email address" required autofocus>
-            <label for="password" class="sr-only">Password</label>
-            <input type="password"  name="password" class="form-control" placeholder="Password" required>
+            <h1 class="h3 mb-3 font-weight-normal">Please enter your email</h1>
+            <label for="useremail" class="sr-only">Email address</label>
+            <input type="email"  name="email" class="form-control" placeholder="Email address" required autofocus>            
 
-            <button class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>  
-             <a href="sendEmail" class="btn btn-link">Forgot password?</a> 
-        </form>  
-        
-        
-           
-       </body>
+            <button class="btn btn-lg btn-default btn-block" type="submit">Change password</button> 
+        </form>
+    </body>
 </html>
