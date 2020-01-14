@@ -6,11 +6,9 @@
 package serviceTests;
 
 import com.store.goodsstore.GoodsstoreApplication;
-import com.store.goodsstore.dto.UserDto;
 import com.store.goodsstore.entities.Users;
 import com.store.goodsstore.repository.UserRepository;
 import com.store.goodsstore.services.UserService;
-import org.assertj.core.api.Assertions;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -21,7 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -29,12 +26,22 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author Lenovo
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = GoodsstoreApplication.class)
+@SpringBootTest(classes = GoodsstoreApplication.class)
+
 public class UserServiceTest {
     
+    @TestConfiguration
+    static class UserServiceConfig{
+        @Bean
+        public  UserService userService(){
+          return new UserService();
+        }
+        
+    }
     
+   
     @Autowired 
-   UserService service;
+   private UserService service;
    
   
     @MockBean
@@ -45,7 +52,7 @@ public class UserServiceTest {
         Users newUser = new Users();
         newUser.setEmail("example@mail.com");
         newUser.setName("User");
-        
+        Mockito.when(repository.existsByEmail("y.shemanska@gmail.com")).thenReturn(false);
         Mockito.when(repository.findByEmail(newUser.getName())).thenReturn(newUser);
         
     }
@@ -53,8 +60,8 @@ public class UserServiceTest {
     @Test
     public void getUserByEmail(){
         String name = "User";
-        UserDto user = service.getUsersByEmail(name);
-       assertThat(user.getUsername()).isEqualTo(name);    
+        Users user = service.getByName(name);
+       assertThat(user.getName()).isEqualTo(name);    
     }
     
     
