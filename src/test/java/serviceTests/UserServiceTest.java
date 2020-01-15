@@ -5,9 +5,10 @@
  */
 package serviceTests;
 
-import com.store.goodsstore.GoodsstoreApplication;
 import com.store.goodsstore.entities.Users;
+import com.store.goodsstore.init.RolesInit;
 import com.store.goodsstore.repository.UserRepository;
+import com.store.goodsstore.services.RolesService;
 import com.store.goodsstore.services.UserService;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
@@ -19,6 +20,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -26,19 +29,28 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author Lenovo
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = GoodsstoreApplication.class)
+@SpringBootTest
+public class UserServiceTest {   
+   
+     @Configuration
+    static class TestConfig {
+         
+         
+         @Bean
+         public RolesInit rolesInit(){
+             return new RolesInit();
+         }
+         @Bean
+         public RolesService roleService(){
+             return new RolesService();
+         }
 
-public class UserServiceTest {
-    
-    @TestConfiguration
-    static class UserServiceConfig{
-        @Bean
+         @Bean
         public  UserService userService(){
           return new UserService();
         }
         
     }
-    
    
     @Autowired 
    private UserService service;

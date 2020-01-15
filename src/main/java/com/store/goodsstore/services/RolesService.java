@@ -11,7 +11,7 @@ import com.store.goodsstore.repository.RolesRepository;
  * @author YBolshakova
  */
 @Service
-public class RolesServise {
+public class RolesService {
 
     @Autowired
     private RolesInit rolesInit;
