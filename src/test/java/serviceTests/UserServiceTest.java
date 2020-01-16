@@ -6,7 +6,6 @@
 package serviceTests;
 
 import com.store.goodsstore.entities.Users;
-import com.store.goodsstore.init.RolesInit;
 import com.store.goodsstore.repository.UserRepository;
 import com.store.goodsstore.services.RolesService;
 import com.store.goodsstore.services.UserService;
@@ -17,7 +16,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,54 +28,45 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserServiceTest {   
-   
-     @Configuration
-    static class TestConfig {
-         
-         
-         @Bean
-         public RolesInit rolesInit(){
-             return new RolesInit();
-         }
-         @Bean
-         public RolesService roleService(){
-             return new RolesService();
-         }
+public class UserServiceTest {
 
-         @Bean
-        public  UserService userService(){
-          return new UserService();
+    @Configuration
+    static class TestConfig {
+        @MockBean
+        private PasswordEncoder encoder;
+
+        @MockBean
+        private RolesService roleService;
+
+        @Bean
+        public UserService userService() {
+            return new UserService();
         }
-        
+
     }
+    
+
+    @Autowired
+    private UserService service;
+
    
-    @Autowired 
-   private UserService service;
-   
-  
     @MockBean
     private UserRepository repository;
+
     
-    @Before
-    public void setup(){
-        Users newUser = new Users();
-        newUser.setEmail("example@mail.com");
-        newUser.setName("User");
-        Mockito.when(repository.existsByEmail("y.shemanska@gmail.com")).thenReturn(false);
-        Mockito.when(repository.findByEmail(newUser.getName())).thenReturn(newUser);
-        
-    }
-    
+
     @Test
-    public void getUserByEmail(){
+    public void getUserByEmail() {
         String name = "User";
+        
+         Users newUser = new Users();
+        newUser.setEmail("example@mail.com");
+        newUser.setName(name); 
+        
+         Mockito.when(repository.findByName(newUser.getName())).thenReturn(newUser);
+        
         Users user = service.getByName(name);
-       assertThat(user.getName()).isEqualTo(name);    
+        assertThat(user.getName()).isEqualTo(name);
     }
-    
-    
-    
-    
-    
+
 }
