@@ -79,9 +79,9 @@ public class CustomerServiceTest {
         customer.setPhoneNum("121212");
 
         dto = new CustomerDto();
-        dto.setName(customer.getName());
-        dto.setOrgCode(customer.getOrg().getCode());
-        dto.setPhone(customer.getPhoneNum());
+        dto.setName("Customer");
+        dto.setOrgCode("1111");
+        dto.setPhone("121212");
 
     }
 
