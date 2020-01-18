@@ -31,8 +31,9 @@ public class UserService {
     @Autowired
     PasswordEncoder encoder;
     
-    public void saveUser(Users user){
-        repositary.save(user);
+    public Users saveUser(Users user){
+     return repositary.save(user);
+        
     }
 
     public UserDto getUsersByEmail(String email) {
