@@ -12,11 +12,8 @@ import com.store.goodsstore.entities.Users;
 import com.store.goodsstore.repository.UserRepository;
 import com.store.goodsstore.services.RolesService;
 import com.store.goodsstore.services.UserService;
-import java.net.URI;
 import java.util.HashSet;
 import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.Before;
-import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -86,7 +83,7 @@ public class UserServiceTest {
     @Test
     public void getUserByName() {
         String name = "User";
-        Mockito.when(repository.findByName(newUser.getName())).thenReturn(newUser);
+        Mockito.when(repository.findByName(name)).thenReturn(newUser);
         Users userByName = service.getByName(name);
 
         assertThat(userByName.getName()).isEqualTo(name);

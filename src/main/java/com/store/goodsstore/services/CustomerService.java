@@ -39,12 +39,13 @@ public class CustomerService {
     private IncomDocService incomeService;
 
     @Transactional
-    public void saveCustomer(CustomerDto dto) {
-        if (repository.existsByPhoneNum(dto.getPhone())) {
+    public Customer saveCustomer(CustomerDto dto) {
+         if (repository.existsByPhoneNum(dto.getPhone())) {
             throw new RuntimeException("Customer with phone number " + dto.getPhone() + "is already exists");
         }
         logger.debug("Customer "+ dto.getName() +" saved");
-        repository.save(createCustomer(dto));
+        Customer cust = createCustomer(dto);
+       return repository.save(cust);
     }
 
     @Transactional
@@ -79,7 +80,7 @@ public class CustomerService {
     }
 
     public Customer createCustomer(CustomerDto dto) {
-        Customer customer = customer = new Customer();
+        Customer customer = new Customer();
         customer.setName(dto.getName());
         customer.setOrg(organizationService.getByCode(dto.getOrgCode()));
         customer.setPhoneNum(dto.getPhone());
