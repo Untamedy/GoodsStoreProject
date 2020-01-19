@@ -80,11 +80,11 @@ public class CustomerService {
     }
 
     public Customer createCustomer(CustomerDto dto) {
-        Customer customer = new Customer();
-        customer.setName(dto.getName());
-        customer.setOrg(organizationService.getByCode(dto.getOrgCode()));
-        customer.setPhoneNum(dto.getPhone());
-        return customer;
+        Customer createdCustomer = new Customer();
+        createdCustomer.setName(dto.getName());
+        createdCustomer.setOrg(organizationService.getByCode(dto.getOrgCode()));
+        createdCustomer.setPhoneNum(dto.getPhone());
+        return createdCustomer;
     }
 
     public CustomerDto cretateDto(Customer customer) {

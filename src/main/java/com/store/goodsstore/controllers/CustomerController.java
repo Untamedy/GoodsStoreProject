@@ -5,6 +5,7 @@
  */
 package com.store.goodsstore.controllers;
 import com.store.goodsstore.dto.CustomerDto;
+import com.store.goodsstore.entities.Customer;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.services.CustomerService;
 import com.store.goodsstore.services.OrganizationService;
@@ -58,7 +59,7 @@ public class CustomerController {
 
     @PostMapping("/save")
     public ModelAndView saveCustomer(@ModelAttribute("customer")CustomerDto dto) {        
-        customerService.saveCustomer(dto);
+       Customer c =  customerService.saveCustomer(dto);
         return new ModelAndView("redirect:/customer/allCustomer/page/"+dto.getOrgCode()+"/1");
     }
     

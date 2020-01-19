@@ -32,7 +32,7 @@ public class GoodsCounterService {
     GoodsRepository goodsRepository;
 
     @Transactional
-    public void increaseGoodsQuantity(IncomeDocResponseDto incomeDocDto) {
+    public Goods increaseGoodsQuantity(IncomeDocResponseDto incomeDocDto) {
         GoodsCounter counter = repository.findByGoodsCode(incomeDocDto.getGoodsCode());
         if (counter != null) {
             int newQuantity = incomeDocDto.getQuantity() + counter.getQuantity();
@@ -42,26 +42,27 @@ public class GoodsCounterService {
             incomePrice.setIncomePrice(incomeDocDto.getIncomePrice());
             goods.setIncomePrice(incomePrice);
             goods.setCounter(counter);
-            goodsRepository.save(goods);
             logger.debug("Goods count " + goods.getName() + " incresed");
-
+            return goodsRepository.save(goods);
         }
+        throw new RuntimeException("Goodscounter for goods with code " + incomeDocDto.getGoodsCode() + " not found");
     }
 
-    public void decreaseGoodsQuantity(List<GoodsDto> goods) {       
+    public Goods decreaseGoodsQuantity(List<GoodsDto> goods) {
         if (!goods.isEmpty()) {
             for (GoodsDto g : goods) {
-                int count = goodsService.goodsCount(g.getCode());                            
+                int count = goodsService.goodsCount(g.getCode());
                 if (count == 0) {
                     throw new RuntimeException("Goods " + g.getName() + " with code =" + g.getCode() + " quantity is 0");
                 }
-                int newQuantity = count-1;
+                int newQuantity = count - 1;
                 Goods editGoods = goodsService.fingByCode(g.getCode());
                 editGoods.getCounter().setQuantity(newQuantity);
-                goodsRepository.save(editGoods);
                 logger.debug("Goods count " + editGoods.getName() + " decreased");
+                return goodsRepository.save(editGoods);
             }
         }
+        throw new RuntimeException("Order goods list is empty");
 
     }
 
