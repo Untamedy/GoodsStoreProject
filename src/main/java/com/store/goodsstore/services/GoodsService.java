@@ -66,8 +66,9 @@ public class GoodsService {
             if (goods.getCounter().getQuantity() == 0) {
                 if(!orderService.ordersConteinGoods(goods.getId()).isEmpty()||!incomeService.incomeConteinGoodsId(goods.getId()).isEmpty()){
                     throw new RuntimeException("Goods use in sale or income documents");
-                }
-                throw new RuntimeException("Goods count is more than 0");
+                }               
+            }else{
+                 throw new RuntimeException("Goods count is more than 0");
             }
             logger.debug("Goods " + goods.getCode() + " deleted");
             repository.delete(goods);

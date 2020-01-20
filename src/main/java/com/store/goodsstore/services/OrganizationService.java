@@ -79,7 +79,7 @@ public class OrganizationService {
     }
 
     @Transactional
-    Organization editOrganization(RegistrationRequest request) {
+    public Organization editOrganization(RegistrationRequest request) {
         Organization organization = repository.findByEmail(request.getOrganizationEmail());
         organization.setName(request.getOrganizationName());
         organization.setEmail((request.getOrganizationEmail()));

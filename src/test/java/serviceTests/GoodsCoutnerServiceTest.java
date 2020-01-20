@@ -8,12 +8,14 @@ package serviceTests;
 import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.dto.IncomeDocResponseDto;
 import com.store.goodsstore.entities.Goods;
+import com.store.goodsstore.entities.GoodsCounter;
 import com.store.goodsstore.repository.GoodsCounterRepository;
 import com.store.goodsstore.repository.GoodsRepository;
 import com.store.goodsstore.services.GoodsCounterService;
 import com.store.goodsstore.services.GoodsService;
 import java.util.ArrayList;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +38,8 @@ public class GoodsCoutnerServiceTest {
     private static IncomeDocResponseDto incomDto;
 
     private static List<GoodsDto> goodsDto = new ArrayList<>();
+
+    private static GoodsCounter counter;
 
     @Configuration
     static class Testconfig {
@@ -76,21 +80,30 @@ public class GoodsCoutnerServiceTest {
         incomDto.setOrgCode("12");
         incomDto.setQuantity(1);
 
+        counter = new GoodsCounter();        
+        counter.setQuantity(0);
+
     }
 
     @Test
     public void increaseGoodsQuantityTest() {
-        String code = "11";
-        Goods goods = new Goods();
-        goods.setCode("11");
-        Mockito.when(goodsService.goodsCount(code)).thenReturn(1);
-        Mockito.when(goodsService.fingByCode(code)).thenReturn(goods);
-        
-                
-                }
+        String code = "111";
+        Mockito.when(repository.findByGoodsCode(code)).thenReturn(null);
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            service.increaseGoodsQuantity(incomDto);
+        });
+
+    }
 
     @Test
     public void decreaseGoodsQuantityTest() {
+        String code = "111";
+        Mockito.when(goodsService.goodsCount(code)).thenReturn(counter.getQuantity());
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            service.decreaseGoodsQuantity(goodsDto);
+        });
 
     }
 
