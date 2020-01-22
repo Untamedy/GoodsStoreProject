@@ -4,11 +4,8 @@ import com.store.goodsstore.dto.EditGoodsDto;
 import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.dto.IncomeDocResponseDto;
 import com.store.goodsstore.dto.OrderDto;
-import com.store.goodsstore.dto.OrganizationDto;
 import com.store.goodsstore.entities.Customer;
 import com.store.goodsstore.entities.Goods;
-import com.store.goodsstore.entities.Order;
-import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.services.CustomerService;
 import com.store.goodsstore.services.GoodsCounterService;
 import com.store.goodsstore.services.GoodsGroupService;
@@ -16,6 +13,7 @@ import com.store.goodsstore.services.GoodsService;
 import com.store.goodsstore.services.IncomDocService;
 import com.store.goodsstore.services.OrderService;
 import com.store.goodsstore.services.OrganizationService;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -130,6 +128,20 @@ public class GoodsController {
         model.addObject("order", orderDto);
         status.setComplete();
         return model;
+    }
+    
+    @GetMapping("/show")
+    public ModelAndView showOrder(OrderDto order){
+        double sum = 0;
+        for(GoodsDto g: order.getGoods()){
+            sum+=g.getPrice();            
+        }
+        order.setOrderSum(sum);
+        order.setOrderDate(new Date());
+         ModelAndView model = new ModelAndView("orderPage");
+        model.addObject("order", order);
+        return model;
+        
     }
    
 }

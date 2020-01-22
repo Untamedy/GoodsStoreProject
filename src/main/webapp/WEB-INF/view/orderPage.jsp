@@ -88,8 +88,13 @@
                     <div id="section1" class="bg-default">                                                
                         <p></p>
                         <%
-                            out.print("<h3>Organization: " + orderDto.getOrgName() + "</h3>");
-                            out.print("<h3>Customer: " + orderDto.getCustomerName() + ", " + orderDto.getCustomerPhone() + "</h3>");
+                            if(orderDto.getOrgName()!=null){
+                             out.print("<h3>Organization: " + orderDto.getOrgName() + "</h3>");   
+                            }
+                            if(orderDto.getCustomerName()!=null){
+                               out.print("<h3>Customer: " + orderDto.getCustomerName() + ", " + orderDto.getCustomerPhone() + "</h3>"); 
+                            }                        
+                            
                             out.print("<h3>Order amount: " + orderDto.getOrderSum() + "</h3>");
                             out.print("<h3>Date: " + orderDto.getOrderDate() + "</h3>");
                         %>
@@ -134,8 +139,10 @@
 
 
 
-
-        <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to groups</a>
+<%
+out.print("<a href=\"/GoodsStoreProject/gostore/"+ dto.getStoreCode()+ "\" id=\"back\" class=\"btn btn-info mr-1\" role=\"button\">Back to groups</a>");
+%>
+       
 
 
 

@@ -75,17 +75,17 @@
             OrganizationDto dto = (OrganizationDto) session.getAttribute("orgdata");
             List<GoodsDto> goods = new ArrayList<>();
             List<Customer> customers = new ArrayList<>();
-             List<Integer> pages = new ArrayList<>();
-            if(request.getAttribute("goodsList")!=null){
-               goods =  (List<GoodsDto>) request.getAttribute("goodsList");                
+            List<Integer> pages = new ArrayList<>();
+            if (request.getAttribute("goodsList") != null) {
+                goods = (List<GoodsDto>) request.getAttribute("goodsList");
             }
-            if(request.getAttribute("customers")!=null){
+            if (request.getAttribute("customers") != null) {
                 customers = (List<Customer>) request.getAttribute("customers");
             }
-            if(request.getAttribute("pageNumber")!=null){
+            if (request.getAttribute("pageNumber") != null) {
                 pages = (List<Integer>) request.getAttribute("pageNumber");
-            }       
-                      
+            }
+
             int id = (int) request.getAttribute("group");
         %>
 
@@ -94,6 +94,9 @@
             <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#addGoods">Add goods</button> 
             <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#editGoods">Edit goods</button> 
             <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#createIncome">Income goods</button>
+            
+            <a href="/GoodsStoreProject/show" class="btn btn-info mr-1" role="button">Show order</a>
+            
             <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#saleGoods">Sale goods</button>             
 
         </div>
@@ -128,7 +131,7 @@
                                         out.print("<td>" + g.getIncomePrice() + "</td>");
                                         out.print("<td>" + g.getPrice() + "</td>");
                                         out.print("<td> <a href=\"/GoodsStoreProject/addToOrder/" + dto.getOrgCode() + "/" + g.getCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
-                                        out.print("<td> <a href=\"/GoodsStoreProject/removeGoods/"+dto.getOrgCode()+"/" + (int) request.getAttribute("group") + "/" + g.getCode() + "\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
+                                        out.print("<td> <a href=\"/GoodsStoreProject/removeGoods/" + dto.getOrgCode() + "/" + (int) request.getAttribute("group") + "/" + g.getCode() + "\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
                                         out.print("<tr>");
                                     }
                                 %>
@@ -139,13 +142,13 @@
 
                         <ul class="pagination justify-content-center">                           
 
-                            <%    
-                                if(!pages.isEmpty()){
-                                   for (Integer i : pages) {
-                                           out.print("<li class=\"page-item\"><a class=\"page-link\" href=\"" + i + "\">" + i + "</a></li>");
-                                       }  
+                            <%
+                                if (!pages.isEmpty()) {
+                                    for (Integer i : pages) {
+                                        out.print("<li class=\"page-item\"><a class=\"page-link\" href=\"" + i + "\">" + i + "</a></li>");
+                                    }
                                 }
-                               
+
                             %>
 
                         </ul>  
@@ -165,8 +168,7 @@
                     </div> 
                     <div class="modal-body">
                         <form id="addGoodsForm" modelAtribut="goods" role="form" method="POST" action="/GoodsStoreProject/saveGoods">
-                            <%
-                                int groupId = (int) request.getAttribute("group");
+                            <%                                int groupId = (int) request.getAttribute("group");
                                 out.print("<input type=\"hidden\" name=\"groupId\" value=\"" + groupId + "\">");
                                 out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                             %>                                    
@@ -216,8 +218,8 @@
                     </div> 
                     <div class="modal-body">
                         <form id="editGoodsForm" role="form" method="POST" action="/GoodsStoreProject/editGoods">
-                             <%
-                             out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
+                            <%
+                                out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                             %>
                             <label for="goods">Select goods to edit</label>
                             <select name ="code" id="inputState" class="form-control">
@@ -345,7 +347,7 @@
         </div> 
 
         <%
-            out.print(" <a href=\"/GoodsStoreProject/gostore/" + dto.getStoreCode()+ "\"id=\"back\" class=\"btn btn-info mr-1\" role=\"button\">Back to groups</a>");
+            out.print(" <a href=\"/GoodsStoreProject/gostore/" + dto.getStoreCode() + "\"id=\"back\" class=\"btn btn-info mr-1\" role=\"button\">Back to groups</a>");
         %>
 
 

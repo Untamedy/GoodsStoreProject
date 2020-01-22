@@ -39,5 +39,7 @@ public class AuthorizationController {
         logger.debug("Registered success");
         return model;
     }
+    
+    
 
 }
