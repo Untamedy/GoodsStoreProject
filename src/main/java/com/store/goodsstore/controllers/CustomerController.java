@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -28,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Lenovo
  */
 @Controller
-@RequestMapping("/customer")
 public class CustomerController {
 
     @Autowired
@@ -39,7 +37,7 @@ public class CustomerController {
     @GetMapping("/allCustomer/{orgCode}")
     public ModelAndView redirectToAllCuctomerController(@PathVariable("orgCode")String orgCode){
         Organization dto = orgService.getByCode(orgCode);        
-        return new ModelAndView("redirect:/customer/allCustomer/page/"+dto.getCode()+"/1");
+        return new ModelAndView("redirect:/allCustomer/page/"+dto.getCode()+"/1");
     }
     
     @GetMapping("/allCustomer/page/{orgCode}/{page}")
@@ -60,20 +58,20 @@ public class CustomerController {
     @PostMapping("/save")
     public ModelAndView saveCustomer(@ModelAttribute("customer")CustomerDto dto) {        
        Customer c =  customerService.saveCustomer(dto);
-        return new ModelAndView("redirect:/customer/allCustomer/page/"+dto.getOrgCode()+"/1");
+        return new ModelAndView("redirect:/allCustomer/page/"+dto.getOrgCode()+"/1");
     }
     
     
     @GetMapping("/delete/{phone}/{orgCode}")
     public ModelAndView deleteCustomer(@PathVariable("phone") String phone, @PathVariable("orgCode")String code){
         customerService.deleteCustomer(phone, code);
-        return new ModelAndView("redirect:/customer/allCustomer/page/"+code+"/1");
+        return new ModelAndView("redirect:/allCustomer/page/"+code+"/1");
     }
     
     @PostMapping("/edit")
     public ModelAndView editCustomer(@ModelAttribute("customer")CustomerDto dto){        
         customerService.editCustomer(dto);        
-        return new ModelAndView("redirect:/customer/allCustomer/page/"+dto.getOrgCode()+"/1");        
+        return new ModelAndView("redirect:/allCustomer/page/"+dto.getOrgCode()+"/1");        
     }
         
   
