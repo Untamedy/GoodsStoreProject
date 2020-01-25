@@ -37,7 +37,7 @@
 
         <div class="container-fluid bg-2 text-center">             
             <h1>Hello! Thank you for registration!</h1>
-            <a href="login" class="btn btn-default btn-lg">Go to login</a>
+            <a href="/login" class="btn btn-default btn-lg">Go to login</a>
           
             <p> </p>
         </div>

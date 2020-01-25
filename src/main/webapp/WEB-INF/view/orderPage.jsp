@@ -78,7 +78,11 @@
         %>
 
         <div id="header">
-            <%                out.print("<h1> Order № " + orderDto.getOrderNum() + " </h1>");
+            <%     
+                if(orderDto.getOrderNum()!=null){
+                   out.print("<h1> Order № " + orderDto.getOrderNum() + " </h1>");  
+                }
+               
             %>                    
 
         </div>
@@ -140,7 +144,7 @@
 
 
 <%
-out.print("<a href=\"/GoodsStoreProject/gostore/"+ dto.getStoreCode()+ "\" id=\"back\" class=\"btn btn-info mr-1\" role=\"button\">Back to groups</a>");
+out.print("<a href=\"/gostore/"+ dto.getStoreCode()+ "\" id=\"back\" class=\"btn btn-info mr-1\" role=\"button\">Back to groups</a>");
 %>
        
 

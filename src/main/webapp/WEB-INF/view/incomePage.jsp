@@ -113,8 +113,8 @@
                                         out.print("<td>" + g.getQuantity() + "</td>");
                                         out.print("<td>" + g.getIncomePrice() + "</td>");
                                         out.print("<td>" + g.getPrice() + "</td>");
-                                        out.print("<td> <a href=\"allcustomer\" class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
-                                        out.print("<td> <a href=\"/GoodsStoreProject/removeGoods/" + (int) request.getAttribute("group") + "/" + g.getCode() + "\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
+                                        out.print("<td> <a href=\"/allcustomer\" class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
+                                        out.print("<td> <a href=\"/removeGoods/" + (int) request.getAttribute("group") + "/" + g.getCode() + "\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
                                         out.print("<tr>");
                                     }
                                 %>
@@ -146,7 +146,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="createIncome" role="form" method="POST" action="/GoodsStoreProject/input">
+                        <form id="createIncome" role="form" method="POST" action="/input">
                             <%
                                 out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                             %>                                    
@@ -177,7 +177,7 @@
             </div>
         </div> 
 
-        <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to groups</a>
+        <a href="/startWork" id="back" class="btn btn-info mr-1" role="button">Back to groups</a>
         <script>
             function createIncome() {
                 document.getElementById("createIncome").submit();

@@ -64,7 +64,7 @@
     </head>
 
     <body class="text-center">
-        <form class="form-signin" method="POST" action="forgotPass">
+        <form class="form-signin" method="POST" action="/forgotPass">
             <img class="mb-4" src="https://cdn.pixabay.com/photo/2019/11/17/17/58/donuts-4633030_960_720.jpg" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Please enter your email</h1>
             <label for="useremail" class="sr-only">Email address</label>

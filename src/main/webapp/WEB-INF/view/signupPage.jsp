@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
 
-        <title>SignUp form</title>
+        <title>Sing Up form</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -20,8 +20,8 @@
 
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                    <form  method="Post" action="registration" modelAtribut = "regForm">
-                        <h2 class="text-center">Sign Up</h2>
+                    <form  method="Post" action="/registration" modelAtribut = "regForm">
+                        <h2 class="text-center">Sing Up</h2>
                         <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="form-group">
@@ -49,7 +49,7 @@
 
                         <div class="row">
                             <div class="col-xs-12 col-md-6"><input type="submit" value="Registration" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
-                            <div class="col-xs-12 col-md-6"><a href="login" class="btn btn-success btn-block btn-lg">Sign In</a></div>
+                            <div class="col-xs-12 col-md-6"><a href="/login" class="btn btn-success btn-block btn-lg">Sign In</a></div>
                         </div>
                     </form>
                 </div>

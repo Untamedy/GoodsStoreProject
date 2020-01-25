@@ -122,7 +122,7 @@
 
         </div>
 
-        <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to groups</a>
+        <a href="/startWork" id="back" class="btn btn-info mr-1" role="button">Back to groups</a>
 
     </body>
 </html>

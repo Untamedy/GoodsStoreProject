@@ -71,7 +71,7 @@
         <div class="jumbotron jumbotron-fluid">
 
             <div id="logout">
-                <a href="/GoodsStoreProject/logout" class="btn btn-info btn-lg">
+                <a href="/logout" class="btn btn-info btn-lg">
                     <span class="glyphicon glyphicon-log-out"></span> Log out</a>
             </div>
 
@@ -113,7 +113,7 @@
                     </div>
                 </div>  
                 <%
-                    out.print("<a href=\"/GoodsStoreProject/customer/allCustomer/" + dto.getOrgCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Customers</a>");
+                    out.print("<a href=\"/customer/allCustomer/" + dto.getOrgCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Customers</a>");
                 %>
 
 
@@ -126,7 +126,7 @@
                         for (GoodsGroupDto g : groups) {
                             out.print("<div class=\"card bg-light\">");
                             out.print("<div class=\"card-body text-center\">");
-                            out.print("<a href=\"/GoodsStoreProject/goodslist/page/" + dto.getOrgCode() + "/" + g.getId() + "/1\" <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i>" + g.getName() + "</a>");
+                            out.print("<a href=\"/goodslist/page/" + dto.getOrgCode() + "/" + g.getId() + "/1\" <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i>" + g.getName() + "</a>");
                             out.print("</div>");
                             out.print("</div>");
 
@@ -151,7 +151,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="addGroupForm" role="form" method="POST" action="/GoodsStoreProject/group/save">
+                        <form id="addGroupForm" role="form" method="POST" action="/group/save">
                             <div class="form-group">
                                 <label for="group">Name:</label>
                                 <input type="text" class="form-control" id="groupName" name="groupName"required="true">
@@ -178,7 +178,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="editGroupForm" role="form" method="Post" action="/GoodsStoreProject/group/editGroup">
+                        <form id="editGroupForm" role="form" method="Post" action="/group/editGroup">
                             <div class="form-group">
                                 <label for="group">Old name:</label>
                                 <select id="inputState" name ="oldName" class="form-control" required="true">
@@ -213,7 +213,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="deleteGroupForm" role="form" method="Post" action="/GoodsStoreProject/group/removedGroup">
+                        <form id="deleteGroupForm" role="form" method="Post" action="/group/removedGroup">
                             <div class="form-group">
                                 <label for="group">Group name:</label>
                                 <select id="inputState" name ="name" class="form-control" required="true">
@@ -247,7 +247,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="addGoodsForm" modelAtribut="goods" role="form" method="POST" action="/GoodsStoreProject/saveGoods">
+                        <form id="addGoodsForm" modelAtribut="goods" role="form" method="POST" action="/saveGoods">
                             <%
                                 out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                             %>
@@ -303,7 +303,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="inputForm" role="form" method="Post" action="/GoodsStoreProject/incomeGoodsReport">
+                        <form id="inputForm" role="form" method="Post" action="/incomeGoodsReport">
                             <%
                                 out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                             %>
@@ -337,7 +337,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="saleForm" role="form" method="Post" action="/GoodsStoreProject/saleGoodsReport">
+                        <form id="saleForm" role="form" method="Post" action="/saleGoodsReport">
                             <%
                                 out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                             %>                            
@@ -370,7 +370,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="finDocForm" role="form" method="Post" action="/GoodsStoreProject/finReport">
+                        <form id="finDocForm" role="form" method="Post" action="/finReport">
                             <%
                                 out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                             %>
@@ -446,7 +446,7 @@
 
         </script>
 
-        <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to start</a>
+        <a href="/startWork" id="back" class="btn btn-info mr-1" role="button">Back to start</a>
 
     </body>
 

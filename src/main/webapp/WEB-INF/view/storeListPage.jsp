@@ -84,7 +84,7 @@
         <div class="jumbotron jumbotron-fluid">
 
             <div id="logout">
-                <a href="/GoodsStoreProject/logout" class="btn btn-info btn-lg">
+                <a href="/logout" class="btn btn-info btn-lg">
                     <span class="glyphicon glyphicon-log-out"></span> Log out</a>
             </div>
 
@@ -107,8 +107,8 @@
             <div id="header">
                 <div class="btn-group">  
                     <%
-                        out.print("<a href=\"gostore/" + dto.getStoreCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Go store</a>");
-                        out.print("<a href=\"customer/allCustomer/" + dto.getOrgCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Go to customer list</a>");
+                        out.print("<a href=\"/gostore/" + dto.getStoreCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Go store</a>");
+                        out.print("<a href=\"/customer/allCustomer/" + dto.getOrgCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Go to customer list</a>");
 
 
                     %>
@@ -124,7 +124,7 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div> 
                         <div class="modal-body">
-                            <form id="finDocForm" role="form" method="Post" action="/GoodsStoreProject/finReport">
+                            <form id="finDocForm" role="form" method="Post" action="finReport">
                                 <%                                     
                                     out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                                 %>

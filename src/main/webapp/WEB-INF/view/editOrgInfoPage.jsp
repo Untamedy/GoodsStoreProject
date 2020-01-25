@@ -24,7 +24,7 @@
 
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                    <form method="Post" action="registration" modelAtribut="regForm">
+                    <form method="Post" action="/registration" modelAtribut="regForm">
                         <h2 class="text-center">Sign Up</h2>
                         <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6">

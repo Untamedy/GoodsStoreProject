@@ -23,7 +23,7 @@
 
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                    <form  method="Post" action="restorePass" >
+                    <form  method="Post" action="/restorePass" >
                         <h2 class="text-center">Restore password</h2>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 ">                               

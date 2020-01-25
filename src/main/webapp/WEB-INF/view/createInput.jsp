@@ -101,7 +101,7 @@
                                         out.print("<tr>");
                                         out.print("<td>" + c.getName() + "</td>");
                                         out.print("<td>" + c.getPhone() + "</td>");
-                                        out.print("<td><a href=\"/GoodsStoreProject/incomeCreateDoc/" + c.getPhone() + "/" + c.getOrgCode() + "\" class=\"btn btn-default\">Select</a></td>");
+                                        out.print("<td><a href=\"/incomeCreateDoc/" + c.getPhone() + "/" + c.getOrgCode() + "\" class=\"btn btn-default\">Select</a></td>");
                                         out.print("<tr>");
                                     }
                                 %>
@@ -129,7 +129,7 @@
 
         
        
-        <a href="/GoodsStoreProject/startWork" id="back" class="btn btn-info mr-1" role="button">Back to start</a>                  
+        <a href="/startWork" id="back" class="btn btn-info mr-1" role="button">Back to start</a>                  
 
                   
     </body>

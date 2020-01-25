@@ -17,7 +17,6 @@
         <!DOCTYPE html>
     <html lang="en">
         <head>
-            <!-- Theme Made By www.w3schools.com - No Copyright -->
             <title>Start page</title>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,7 +53,7 @@
 
         <div class="container-fluid bg-2 text-center">             
             <p><h1>Hello! <security:authentication property="principal.username" /> </h1> </p>
-        <a href="startWork" class="btn btn-default btn-lg">Go work</a>
+        <a href="/startWork" class="btn btn-default btn-lg">Go work</a>
 
         <p> </p>
     </div>
