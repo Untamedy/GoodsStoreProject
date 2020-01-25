@@ -78,8 +78,8 @@ public class UserService {
 
     public Users createUser(RegistrationRequest request) {
         Set<Role> roles = new HashSet<>();
-        roles.add(rolesServise.findRoleByName("user"));
-        roles.add(rolesServise.findRoleByName("admin"));
+        roles.add(rolesServise.findRoleByName("USER"));
+        roles.add(rolesServise.findRoleByName("ADMIN"));
         Users user = repositary.findByEmail(request.getUserEmail());
         if (user == null) {
             user = new Users();

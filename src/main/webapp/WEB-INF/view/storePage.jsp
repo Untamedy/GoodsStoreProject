@@ -126,7 +126,7 @@
                         for (GoodsGroupDto g : groups) {
                             out.print("<div class=\"card bg-light\">");
                             out.print("<div class=\"card-body text-center\">");
-                            out.print("<a href=\"/goodslist/page/" + dto.getOrgCode() + "/" + g.getId() + "/1\" <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i>" + g.getName() + "</a>");
+                            out.print("<a href=\"/goods/goodslist/page/" + dto.getOrgCode() + "/" + g.getId() + "/1\" <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i>" + g.getName() + "</a>");
                             out.print("</div>");
                             out.print("</div>");
 
@@ -247,7 +247,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="addGoodsForm" modelAtribut="goods" role="form" method="POST" action="/saveGoods">
+                        <form id="addGoodsForm" modelAtribut="goods" role="form" method="POST" action="/goods/saveGoods">
                             <%
                                 out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                             %>

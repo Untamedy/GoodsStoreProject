@@ -17,7 +17,7 @@ import lombok.Data;
 @Data
 public class OrderDto {
 
-    private int orderNum;
+    private Integer orderNum;
     private Date orderDate;
     private String orgName;
     private String orgCode;

@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -38,7 +39,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author YBolshakova
  */
 @Controller
-
+@RequestMapping("/goods")
 @SessionAttributes(types = OrderDto.class)
 public class GoodsController {
 
@@ -89,32 +90,32 @@ public class GoodsController {
     @PostMapping("/saveGoods")
     public ModelAndView saveGoods(@ModelAttribute("goods") GoodsDto request,@RequestParam("orgCode") String code) {
         goodsService.saveGoods(request);
-        return new ModelAndView("redirect:/goodslist/page/"+code+"/" + request.getGroupId() + "/1");
+        return new ModelAndView("redirect:/goods/goodslist/page/"+code+"/" + request.getGroupId() + "/1");
     }
 
     @GetMapping("/removeGoods/{orgCode}/{groupId}/{goodsCode}")
     public ModelAndView removeGoods(@PathVariable("goodsCode") String code, @PathVariable("groupId") int id,@PathVariable("orgCode")String orgCode) {
         goodsService.deleteGoods(code);
-        return new ModelAndView("redirect:/goodslist/page/"+orgCode+"/" +  id + "/1");
+        return new ModelAndView("redirect:/goods/goodslist/page/"+orgCode+"/" +  id + "/1");
     }
 
     @PostMapping("/editGoods")
     public ModelAndView editGoods(@ModelAttribute("goods") EditGoodsDto request,@RequestParam("orgCode") String code) {
         goodsService.updateGoods(request);
-        return new ModelAndView("redirect:/goodslist/page/"+code+"/" + request.getGroupId() + "/1");
+        return new ModelAndView("redirect:/goods/goodslist/page/"+code+"/" + request.getGroupId() + "/1");
     }
 
     @PostMapping("/input")
     public ModelAndView addGoodsCount(@ModelAttribute("income") IncomeDocResponseDto incomeDocDto) {
         incomeService.saveIncomeDoc(incomeDocDto);
-        return new ModelAndView("redirect:/goodslist/page/" + incomeDocDto.getOrgCode() + "/" + incomeDocDto.getGroupId() + "/1");
+        return new ModelAndView("redirect:/goods/goodslist/page/" + incomeDocDto.getOrgCode() + "/" + incomeDocDto.getGroupId() + "/1");
     }
 
     @GetMapping("/addToOrder/{orgCode}/{goodsCode}")
     public ModelAndView addGoodsToOrder(OrderDto order, @PathVariable("orgCode") String orgcode, @PathVariable("goodsCode") String code) {
         Goods goods = goodsService.fingByCode(code);
         order.getGoods().add(goodsService.createGoodsResponse(goods));
-        return new ModelAndView("redirect:/goodslist/page/" + orgcode + "/" + goods.getGroup().getId() + "/1");
+        return new ModelAndView("redirect:/goods/goodslist/page/" + orgcode + "/" + goods.getGroup().getId() + "/1");
 
     }
 
@@ -138,7 +139,7 @@ public class GoodsController {
         }
         order.setOrderSum(sum);
         order.setOrderDate(new Date());
-         ModelAndView model = new ModelAndView("orderPage");
+        ModelAndView model = new ModelAndView("orderPage");
         model.addObject("order", order);
         return model;
         

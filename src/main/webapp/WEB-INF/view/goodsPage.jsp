@@ -95,7 +95,7 @@
             <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#editGoods">Edit goods</button> 
             <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#createIncome">Income goods</button>
             
-            <a href="/show" class="btn btn-info mr-1" role="button">Show order</a>
+            <a href="/goods/show" class="btn btn-info mr-1" role="button">Show order</a>
             
             <button type="button" class="btn btn-info mr-1" data-toggle="modal" data-target="#saleGoods">Sale goods</button>             
 
@@ -130,8 +130,8 @@
                                         out.print("<td>" + g.getQuantity() + "</td>");
                                         out.print("<td>" + g.getIncomePrice() + "</td>");
                                         out.print("<td>" + g.getPrice() + "</td>");
-                                        out.print("<td> <a href=\"/addToOrder/" + dto.getOrgCode() + "/" + g.getCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
-                                        out.print("<td> <a href=\"/removeGoods/" + dto.getOrgCode() + "/" + (int) request.getAttribute("group") + "/" + g.getCode() + "\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
+                                        out.print("<td> <a href=\"/goods/addToOrder/" + dto.getOrgCode() + "/" + g.getCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Add to order</a></td>");
+                                        out.print("<td> <a href=\"/goods/removeGoods/" + dto.getOrgCode() + "/" + (int) request.getAttribute("group") + "/" + g.getCode() + "\" class=\"btn btn-info mr-1\" role=\"button\">Delete</a></td>");
                                         out.print("<tr>");
                                     }
                                 %>
@@ -167,7 +167,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="addGoodsForm" modelAtribut="goods" role="form" method="POST" action="/saveGoods">
+                        <form id="addGoodsForm" modelAtribut="goods" role="form" method="POST" action="/goods/saveGoods">
                             <%                                int groupId = (int) request.getAttribute("group");
                                 out.print("<input type=\"hidden\" name=\"groupId\" value=\"" + groupId + "\">");
                                 out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
@@ -217,7 +217,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="editGoodsForm" role="form" method="POST" action="/editGoods">
+                        <form id="editGoodsForm" role="form" method="POST" action="/goods/editGoods">
                             <%
                                 out.print("<input type=\"hidden\" name=\"orgCode\" value=\"" + dto.getOrgCode() + "\">");
                             %>
@@ -262,7 +262,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="createIncomeForm" role="form" modelAttribute="income" method="POST" action="/input">
+                        <form id="createIncomeForm" role="form" modelAttribute="income" method="POST" action="/goods/input">
                             <
                             <div class="form-group">
                                 <%
@@ -317,7 +317,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="saleGoodsForm" role="form" modelAttribute="income" method="POST" action="/sale">
+                        <form id="saleGoodsForm" role="form" modelAttribute="income" method="POST" action="/goods/sale">
 
                             <div class="form-group">
                                 <%
