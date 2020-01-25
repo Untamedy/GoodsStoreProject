@@ -37,7 +37,7 @@ public class CustomerController {
     @GetMapping("/allCustomer/{orgCode}")
     public ModelAndView redirectToAllCuctomerController(@PathVariable("orgCode")String orgCode){
         Organization dto = orgService.getByCode(orgCode);        
-        return new ModelAndView("redirect:/allCustomer/page/"+dto.getCode()+"/1");
+        return new ModelAndView("redirect:allCustomer/page/"+dto.getCode()+"/1");
     }
     
     @GetMapping("/allCustomer/page/{orgCode}/{page}")
