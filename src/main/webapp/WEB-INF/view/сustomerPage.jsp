@@ -109,7 +109,7 @@
                                         out.print("<tr>");
                                         out.print("<td>" + c.getName() + "</td>");
                                         out.print("<td>" + c.getPhone() + "</td>");
-                                        out.print("<td><a href=\"/customer/delete/" + c.getPhone() + "/" + c.getOrgCode() + "\" class=\"btn btn-info\">Delete</a></td>");
+                                        out.print("<td><a href=\"/delete/" + c.getPhone() + "/" + c.getOrgCode() + "\" class=\"btn btn-info\">Delete</a></td>");
                                         out.print("<tr>");
                                     }
                                 %>
@@ -143,7 +143,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="addCustmForm" modelAttribute="customer" role="form" method="POST" action="/customer/save">
+                        <form id="addCustmForm" modelAttribute="customer" role="form" method="POST" action="/save">
                             <div class="form-group">
                                 <label for="customer">Name:</label>
                                 <input type="text" class="form-control" id="customerName" name="name" required>
@@ -171,7 +171,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div> 
                     <div class="modal-body">
-                        <form id="editCustmForm" role="form" method="POST" action="/customer/edit">
+                        <form id="editCustmForm" role="form" method="POST" action="/edit">
                             <div class="form-group">
                                 <label for="goods">Select customer to edit</label>
                                 <select name ="phone" id="inputState" class="form-control">
