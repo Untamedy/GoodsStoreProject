@@ -56,20 +56,20 @@ public class CustomerController {
     @PostMapping("/save")
     public ModelAndView saveCustomer(@ModelAttribute("customer")CustomerDto dto) {        
        Customer c =  customerService.saveCustomer(dto);
-        return new ModelAndView("redirect:/customer/allCustomer/page/"+dto.getOrgCode()+"/1");
+        return new ModelAndView("redirect:allCustomer/page/"+dto.getOrgCode()+"/1");
     }
     
     
     @GetMapping("/delete/{phone}/{orgCode}")
     public ModelAndView deleteCustomer(@PathVariable("phone") String phone, @PathVariable("orgCode")String code){
         customerService.deleteCustomer(phone, code);
-        return new ModelAndView("redirect:/customer/allCustomer/page/"+code+"/1");
+        return new ModelAndView("redirect:allCustomer/page/"+code+"/1");
     }
     
     @PostMapping("/edit")
     public ModelAndView editCustomer(@ModelAttribute("customer")CustomerDto dto){        
         customerService.editCustomer(dto);        
-        return new ModelAndView("redirect:/customer/allCustomer/page/"+dto.getOrgCode()+"/1");        
+        return new ModelAndView("redirect:allCustomer/page/"+dto.getOrgCode()+"/1");        
     }
         
   
