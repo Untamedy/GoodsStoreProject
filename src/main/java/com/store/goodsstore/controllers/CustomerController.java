@@ -34,7 +34,7 @@ public class CustomerController {
     @Autowired
     private OrganizationService orgService;
     
-    @GetMapping("/allCustomer/{orgCode}")
+    @GetMapping("/customer/{orgCode}")
     public ModelAndView redirectToAllCuctomerController(@PathVariable("orgCode")String orgCode){             
         return new ModelAndView("redirect:/allCustomer/page/"+orgCode+"/1");
     }

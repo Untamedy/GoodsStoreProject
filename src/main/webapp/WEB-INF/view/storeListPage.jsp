@@ -108,7 +108,7 @@
                 <div class="btn-group">  
                     <%
                         out.print("<a href=\"/gostore/" + dto.getStoreCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Go store</a>");
-                        out.print("<a href=\"/allCustomer/" + dto.getOrgCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Go to customer list</a>");
+                        out.print("<a href=\"/allCustomer/" + dto.getOrgCode() +"/1" +"\"class=\"btn btn-info mr-1\" role=\"button\">Go to customer list</a>");
 
                     %>
                     <a class="btn btn-info mr-1" role="button" href="#fin"data-toggle="modal" data-target="#fin">Show fin report</a>
