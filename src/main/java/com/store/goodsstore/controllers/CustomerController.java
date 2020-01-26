@@ -54,9 +54,9 @@ public class CustomerController {
 
 
     @PostMapping("/save")
-    public ModelAndView saveCustomer(@ModelAttribute("customer")CustomerDto dto) {        
+    public String saveCustomer(@ModelAttribute("customer")CustomerDto dto) {        
        Customer c =  customerService.saveCustomer(dto);
-        return new ModelAndView("redirect:/allCustomer/page/"+dto.getOrgCode()+"/1");
+        return "redirect:/customer/allCustomer/page/"+dto.getOrgCode()+"/1";
     }
     
     
