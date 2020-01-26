@@ -38,21 +38,7 @@ public class CustomerController {
     public ModelAndView redirectToAllCuctomerController(@PathVariable("orgCode")String orgCode){             
         return new ModelAndView("redirect:/allcustomer/page/"+orgCode+"/1");
     }
-    
-    @GetMapping("customer/{orgCode}/{page}")
-    public ModelAndView getNewCustomers(@PathVariable("orgCode")String code, @PathVariable("page") int page) {
-        ModelAndView model = new ModelAndView("сustomerPage"); 
-        PageRequest pageable = PageRequest.of(page - 1, 10);
-        Page<CustomerDto> customerPage = customerService.getPaginatedCustomer(code, pageable);
-        int totalPage = customerPage.getTotalPages();
-        if (totalPage > 0) {
-            List<Integer> pageNunbers = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
-            model.addObject("pageNumber", pageNunbers);        }       
-        model.addObject("customerList", customerPage.getContent());
-     
-        return model;
-    }
-    
+        
     @GetMapping("/allcustomer/page/{orgCode}/{page}")
     public ModelAndView getCustomers(@PathVariable("orgCode")String code, @PathVariable("page") int page) {
         ModelAndView model = new ModelAndView("сustomerPage"); 
