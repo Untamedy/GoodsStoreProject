@@ -72,8 +72,8 @@
     <body>
         <%
             OrganizationDto dto = (OrganizationDto) session.getAttribute("orgdata");
-            List<CustomerDto> customers = new ArrayList<>();
-            List<Integer> pages = new ArrayList<>();
+            List<CustomerDto> customers = new ArrayList<CustomerDto>();
+            List<Integer> pages = new ArrayList<Integer>();
             if (request.getAttribute("customerList") != null) {
                 customers = (List<CustomerDto>) request.getAttribute("customerList");
             }

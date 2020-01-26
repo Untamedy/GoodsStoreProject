@@ -6,7 +6,6 @@
 package com.store.goodsstore.controllers;
 import com.store.goodsstore.dto.CustomerDto;
 import com.store.goodsstore.entities.Customer;
-import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.services.CustomerService;
 import com.store.goodsstore.services.OrganizationService;
 import java.util.List;
@@ -38,11 +37,13 @@ public class CustomerController {
     public ModelAndView redirectToAllCuctomerController(@PathVariable("orgCode")String orgCode){             
         return new ModelAndView("redirect:/allcustomer/page/"+orgCode+"/1");
     }
+    
+    
         
     @GetMapping("/allcustomer/page/{orgCode}/{page}")
-    public ModelAndView getCustomers(@PathVariable("orgCode")String code, @PathVariable("page") int page) {
+    public ModelAndView getCustomers(@PathVariable("orgCode")String code, @PathVariable("page") String page) {
         ModelAndView model = new ModelAndView("сustomerPage"); 
-        PageRequest pageable = PageRequest.of(page - 1, 10);
+        PageRequest pageable = PageRequest.of(Integer.valueOf(page) - 1, 10);
         Page<CustomerDto> customerPage = customerService.getPaginatedCustomer(code, pageable);
         int totalPage = customerPage.getTotalPages();
         if (totalPage > 0) {
