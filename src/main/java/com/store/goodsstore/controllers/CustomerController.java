@@ -9,6 +9,7 @@ import com.store.goodsstore.entities.Customer;
 import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.services.CustomerService;
 import com.store.goodsstore.services.OrganizationService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -41,6 +42,16 @@ public class CustomerController {
         return new ModelAndView("redirect:/allcustomer/page/"+orgCode+"/1");
     }
     
+    @GetMapping("/get")
+    public ModelAndView getC(){
+        List<Integer> pages = new ArrayList<>();
+        List<Customer> cus = new ArrayList<>();
+        ModelAndView model = new ModelAndView("сustomerPage");
+        model.addObject("pageNumber", pages); 
+        model.addObject("customerList", cus);
+        return model;
+    }
+
     
         
     @GetMapping("/allcustomer/page/{orgCode}/{page}")
