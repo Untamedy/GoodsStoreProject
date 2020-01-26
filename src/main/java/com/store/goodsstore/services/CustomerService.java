@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Lenovo
  */
 @Service
+@SuppressWarnings("unchecked")
 public class CustomerService {
       private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
@@ -95,7 +96,7 @@ public class CustomerService {
         return dto;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Page<CustomerDto> getPaginatedCustomer(String orgcode, Pageable page) {
         Organization org = organizationService.getByCode(orgcode);
         Page<Customer> goods = repository.findAllByOrgId(org.getId(), page);
