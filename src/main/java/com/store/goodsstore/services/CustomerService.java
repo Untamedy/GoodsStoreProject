@@ -96,6 +96,7 @@ public class CustomerService {
     }
 
     @Transactional(readOnly = true)
+    @SuppressWarnings("unchecked")
     public Page<CustomerDto> getPaginatedCustomer(String orgcode, Pageable page) {
         Organization org = organizationService.getByCode(orgcode);
         Page<Customer> goods = repository.findAllByOrgId(org.getId(), page);
