@@ -39,7 +39,7 @@ public class CustomerController {
         return new ModelAndView("redirect:/allcustomer/page/"+orgCode+"/1");
     }
     
-    @GetMapping("/allCustomer/page/{orgCode}/{page}")
+    @GetMapping("/allcustomer/page/{orgCode}/{page}")
     public ModelAndView getCustomers(@PathVariable("orgCode")String code, @PathVariable("page") int page) {
         ModelAndView model = new ModelAndView("сustomerPage"); 
         PageRequest pageable = PageRequest.of(page - 1, 10);
