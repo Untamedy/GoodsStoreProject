@@ -61,15 +61,15 @@ public class CustomerController {
     
     
     @GetMapping("/delete/{phone}/{orgCode}")
-    public ModelAndView deleteCustomer(@PathVariable("phone") String phone, @PathVariable("orgCode")String code){
+    public String deleteCustomer(@PathVariable("phone") String phone, @PathVariable("orgCode")String code){
         customerService.deleteCustomer(phone, code);
-        return new ModelAndView("redirect:/allcustomer/page/"+code+"/1");
+        return "redirect:/customer/allcustomer/page/"+code+"/1";
     }
     
     @PostMapping("/edit")
-    public ModelAndView editCustomer(@ModelAttribute("customer")CustomerDto dto){        
+    public String editCustomer(@ModelAttribute("customer")CustomerDto dto){        
         customerService.editCustomer(dto);        
-        return new ModelAndView("redirect:/allcustomer/page/"+dto.getOrgCode()+"/1");        
+        return "redirect:/customer/allcustomer/page/"+dto.getOrgCode()+"/1";        
     }
         
   
