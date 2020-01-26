@@ -6,6 +6,7 @@
 package com.store.goodsstore.controllers;
 import com.store.goodsstore.dto.CustomerDto;
 import com.store.goodsstore.entities.Customer;
+import com.store.goodsstore.entities.Organization;
 import com.store.goodsstore.services.CustomerService;
 import com.store.goodsstore.services.OrganizationService;
 import java.util.List;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -26,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Lenovo
  */
 @Controller
+@RequestMapping("/customer")
 public class CustomerController {
 
     @Autowired
@@ -41,9 +44,9 @@ public class CustomerController {
     
         
     @GetMapping("/allcustomer/page/{orgCode}/{page}")
-    public ModelAndView getCustomers(@PathVariable("orgCode")String code, @PathVariable("page") String page) {
+    public ModelAndView getCustomers(@PathVariable("orgCode")String code, @PathVariable("page") int page) {
         ModelAndView model = new ModelAndView("сustomerPage"); 
-        PageRequest pageable = PageRequest.of(Integer.valueOf(page) - 1, 10);
+        PageRequest pageable = PageRequest.of(page - 1, 10);
         Page<CustomerDto> customerPage = customerService.getPaginatedCustomer(code, pageable);
         int totalPage = customerPage.getTotalPages();
         if (totalPage > 0) {
@@ -58,20 +61,20 @@ public class CustomerController {
     @PostMapping("/save")
     public ModelAndView saveCustomer(@ModelAttribute("customer")CustomerDto dto) {        
        Customer c =  customerService.saveCustomer(dto);
-        return new ModelAndView("redirect:/allCustomer/page/"+dto.getOrgCode()+"/1");
+        return new ModelAndView("redirect:/customer/allCustomer/page/"+dto.getOrgCode()+"/1");
     }
     
     
     @GetMapping("/delete/{phone}/{orgCode}")
     public ModelAndView deleteCustomer(@PathVariable("phone") String phone, @PathVariable("orgCode")String code){
         customerService.deleteCustomer(phone, code);
-        return new ModelAndView("redirect:/allCustomer/page/"+code+"/1");
+        return new ModelAndView("redirect:/customer/allCustomer/page/"+code+"/1");
     }
     
     @PostMapping("/edit")
     public ModelAndView editCustomer(@ModelAttribute("customer")CustomerDto dto){        
         customerService.editCustomer(dto);        
-        return new ModelAndView("redirect:/allCustomer/page/"+dto.getOrgCode()+"/1");        
+        return new ModelAndView("redirect:/customer/allCustomer/page/"+dto.getOrgCode()+"/1");        
     }
         
   
