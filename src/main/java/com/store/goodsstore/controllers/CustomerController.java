@@ -46,7 +46,7 @@ public class CustomerController {
     public ModelAndView getC(){
         List<Integer> pages = new ArrayList<>();
         List<Customer> cus = new ArrayList<>();
-        ModelAndView model = new ModelAndView("сustomerPage");
+        ModelAndView model = new ModelAndView("customerPage");
         model.addObject("pageNumber", pages); 
         model.addObject("customerList", cus);
         return model;
@@ -56,7 +56,7 @@ public class CustomerController {
         
     @GetMapping("/allcustomer/page/{orgCode}/{page}")
     public ModelAndView getCustomers(@PathVariable("orgCode")String code, @PathVariable("page") int page) {
-        ModelAndView model = new ModelAndView("сustomerPage"); 
+        ModelAndView model = new ModelAndView("customerPage"); 
         PageRequest pageable = PageRequest.of(page - 1, 10);
         Page<CustomerDto> customerPage = customerService.getPaginatedCustomer(code, pageable);
         int totalPage = customerPage.getTotalPages();

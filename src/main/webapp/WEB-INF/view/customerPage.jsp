@@ -105,13 +105,17 @@
                             </thead>
                             <tbody>
 
-                                <%                                    for (CustomerDto c : customers) {
+                                <%   
+                                    if(!customers.isEmpty()){
+                                         for (CustomerDto c : customers) {
                                         out.print("<tr>");
                                         out.print("<td>" + c.getName() + "</td>");
                                         out.print("<td>" + c.getPhone() + "</td>");
                                         out.print("<td><a href=\"/customer/delete/" + c.getPhone() + "/" + c.getOrgCode() + "\" class=\"btn btn-info\">Delete</a></td>");
                                         out.print("<tr>");
                                     }
+                                    }
+                                   
                                 %>
 
                             </tbody>
