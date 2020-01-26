@@ -37,22 +37,6 @@ public class CustomerController {
     @Autowired
     private OrganizationService orgService;
     
-    @GetMapping("/customer/{orgCode}")
-    public ModelAndView redirectToAllCuctomerController(@PathVariable("orgCode")String orgCode){             
-        return new ModelAndView("redirect:/allcustomer/page/"+orgCode+"/1");
-    }
-    
-    @GetMapping("/get")
-    public ModelAndView getC(){
-        List<Integer> pages = new ArrayList<>();
-        List<Customer> cus = new ArrayList<>();
-        ModelAndView model = new ModelAndView("customerPage");
-        model.addObject("pageNumber", pages); 
-        model.addObject("customerList", cus);
-        return model;
-    }
-
-    
         
     @GetMapping("/allcustomer/page/{orgCode}/{page}")
     public ModelAndView getCustomers(@PathVariable("orgCode")String code, @PathVariable("page") int page) {
