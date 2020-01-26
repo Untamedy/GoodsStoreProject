@@ -113,7 +113,7 @@
                     </div>
                 </div>  
                 <%
-                    out.print("<a href=\"/allCustomer/" + dto.getOrgCode() + "\"class=\"btn btn-info mr-1\" role=\"button\">Customers</a>");
+                    out.print("<a href=\"/allCustomer/page/" + dto.getOrgCode() +"/1"+ "\"class=\"btn btn-info mr-1\" role=\"button\">Customers</a>");
                 %>
 
 

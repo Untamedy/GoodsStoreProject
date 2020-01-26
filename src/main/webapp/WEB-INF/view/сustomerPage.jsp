@@ -120,7 +120,8 @@
 
                         <ul class="pagination justify-content-center">
 
-                            <%                                if (!pages.isEmpty()) {
+                            <%                                
+                                if (!pages.isEmpty()) {
                                     for (Integer i : pages) {
                                         out.print("<li class=\"page-item\"><a class=\"page-link\" href=\"" + i + "\">" + i + "</a></li>");
                                     }

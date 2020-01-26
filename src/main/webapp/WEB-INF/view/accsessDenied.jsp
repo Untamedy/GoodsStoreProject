@@ -22,7 +22,7 @@
              <button type="button" name="back" onclick="history.back()">Go back</button>
 
         </div>
-        <button type="button" name="back" onclick="history.back()">Go back</button>
+        
 
     </body>
 
