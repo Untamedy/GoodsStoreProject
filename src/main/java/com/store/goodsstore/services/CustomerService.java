@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Lenovo
  */
 @Service
-@SuppressWarnings("unchecked")
 public class CustomerService {
       private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
