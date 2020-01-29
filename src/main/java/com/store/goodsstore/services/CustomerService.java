@@ -24,7 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class CustomerService {
-      private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
     @Autowired
     private CustomerRepository repository;
@@ -40,23 +41,23 @@ public class CustomerService {
 
     @Transactional
     public Customer saveCustomer(CustomerDto dto) {
-         if (repository.existsByPhoneNum(dto.getPhone())) {
+        if (repository.existsByPhoneNum(dto.getPhone())) {
             throw new RuntimeException("Customer with phone number " + dto.getPhone() + "is already exists");
         }
-        logger.debug("Customer "+ dto.getName() +" saved");
+        logger.debug("Customer " + dto.getName() + " saved");
         Customer cust = createCustomer(dto);
-       return repository.save(cust);
+        return repository.save(cust);
     }
 
     @Transactional
     public boolean deleteCustomer(String phone, String orgCode) {
         Customer customer = repository.findByPhoneNumAndOrgCode(phone, orgCode);
-        if (orderService.getByCustomer(phone,orgCode).isEmpty() && incomeService.getByCustomer(customer).isEmpty()) {
+        if (orderService.getByCustomer(phone, orgCode).isEmpty() && incomeService.getByCustomer(customer).isEmpty()) {
             repository.delete(customer);
-            logger.debug("Customer "+ customer.getName() +" deleted");
+            logger.debug("Customer " + customer.getName() + " deleted");
             return true;
         }
-       throw new RuntimeException("Customer can't be deleted cause he have created orders or income docs");
+        throw new RuntimeException("Customer can't be deleted cause he have created orders or income docs");
     }
 
     @Transactional(readOnly = true)
@@ -75,7 +76,7 @@ public class CustomerService {
         Customer customer = repository.findByPhoneNumAndOrgCode(dto.getPhone(), dto.getOrgCode());
         customer.setName(dto.getName());
         repository.save(customer);
-        logger.debug("Customer "+ customer.getName() +" edited");
+        logger.debug("Customer " + customer.getName() + " edited");
         return cretateDto(customer);
     }
 
@@ -103,11 +104,24 @@ public class CustomerService {
         Page<CustomerDto> customerDto = goods.map(this::cretateDto);
         return customerDto;
     }
-    
-    public List<Customer> getByOrgCode(String code){
+
+    public List<Customer> getByOrgCode(String code) {
         Organization org = organizationService.getByCode(code);
         return repository.findByOrgId(org.getId());
-        
+
+    }
+
+    public Customer createDefoultCustomer(String orgCode) {
+        Organization org = organizationService.getByCode(orgCode);
+        Customer def = repository.findByPhoneNumAndOrgCode(org.getId().toString(), orgCode);
+        if (def == null) {
+            def = new Customer();
+            def.setName(org.getName());
+            def.setOrg(org);
+            def.setPhoneNum(org.getId().toString());
+            return repository.save(def);
+        }
+        return def;
     }
 
 }

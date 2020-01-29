@@ -40,10 +40,11 @@ public class GoodsService {
     private IncomDocService incomeService;
 
     @Transactional
-    public void saveGoods(GoodsDto goods) {
+    public Goods saveGoods(GoodsDto goods) {
         if (!repository.existsByCode(goods.getCode())) {
-            repository.save(createGoods(goods));
+           Goods savedGoods =  repository.save(createGoods(goods));
             logger.debug("Goods " + goods.getCode() + " saved");
+            return savedGoods;
         } else {
             throw new RuntimeException("Goods with code " + goods.getCode() + " is already exists");
         }

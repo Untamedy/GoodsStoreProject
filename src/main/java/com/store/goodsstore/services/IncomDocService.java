@@ -1,5 +1,6 @@
 package com.store.goodsstore.services;
 
+import com.store.goodsstore.dto.GoodsDto;
 import com.store.goodsstore.dto.IncomeDocDto;
 import com.store.goodsstore.dto.IncomeDocResponseDto;
 import com.store.goodsstore.entities.Customer;
@@ -48,6 +49,18 @@ public class IncomDocService {
         goodsCounterService.increaseGoodsQuantity(incomDto);
         logger.debug("IncomeDoc saved");
         repository.save(doc);       
+    }
+    
+    public void saveFirstIncome(Goods goods,String orgCode){
+        int quantity = goods.getCounter().getQuantity();
+        IncomingDoc income = new IncomingDoc();
+        income.setCustomer(customerService.createDefoultCustomer(orgCode));
+        income.setDate(new Date());
+        income.setGoods(goods);
+        income.setOrg(organizationService.getByCode(orgCode));
+        income.setQuantity(quantity);
+        income.setSum(countSum(goods.getPrice().getPrice(), quantity));
+        repository.save(income);
     }
 
     public IncomingDoc createIncomeDoc(IncomeDocResponseDto dto) {

@@ -2,6 +2,7 @@ package com.store.goodsstore.controllers;
 
 import com.store.goodsstore.dto.EditGoodsDto;
 import com.store.goodsstore.dto.GoodsDto;
+import com.store.goodsstore.dto.IncomeDocDto;
 import com.store.goodsstore.dto.IncomeDocResponseDto;
 import com.store.goodsstore.dto.OrderDto;
 import com.store.goodsstore.entities.Customer;
@@ -89,7 +90,10 @@ public class GoodsController {
 
     @PostMapping("/saveGoods")
     public ModelAndView saveGoods(@ModelAttribute("goods") GoodsDto request,@RequestParam("orgCode") String code) {
-        goodsService.saveGoods(request);
+        Goods savedGoods = goodsService.saveGoods(request);
+        if(savedGoods.getCounter().getQuantity()!=0){ 
+            incomeService.saveFirstIncome(savedGoods,code);
+        }        
         return new ModelAndView("redirect:/goods/goodslist/page/"+code+"/" + request.getGroupId() + "/1");
     }
 
